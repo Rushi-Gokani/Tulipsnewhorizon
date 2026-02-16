@@ -840,9 +840,18 @@
             };
           }
         } else if (sliderEl.classList.contains('carousel-none-media')) {
+          const carouselAutoplay = {
+            delay: Number(options.autoplayDelay) > 0 ? Number(options.autoplayDelay) : 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          };
+
           sliderOptions = {
             ...withAutoplayProgress,
-            loop: Number(options.slideCount) > 1,
+            loop: true,
+            rewind: false,
+            autoplay: carouselAutoplay,
+            loopAdditionalSlides: 4,
             breakpoints: {
               750: {
                 slidesPerView: 2.2,
