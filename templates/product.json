@@ -571,6 +571,33 @@
     "testimonials_w7YjxB": {
       "type": "testimonials",
       "blocks": {
+        "testimonial_gQQVVY": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_C6P9G8": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_dJcDBV": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
         "testimonial_jTppPx": {
           "type": "testimonial",
           "settings": {
@@ -591,6 +618,9 @@
         }
       },
       "block_order": [
+        "testimonial_gQQVVY",
+        "testimonial_C6P9G8",
+        "testimonial_dJcDBV",
         "testimonial_jTppPx",
         "testimonial_hDcYMn"
       ],
