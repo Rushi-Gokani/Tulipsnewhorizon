@@ -12,48 +12,6 @@
     "image_slider_yJgiFj": {
       "type": "image-slider",
       "blocks": {
-        "slide_ELtNhH": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-1",
-            "heading": "",
-            "text": "",
-            "button_link_1": "/",
-            "button_label_1": "View more",
-            "button_style_1": "button--filled",
-            "button_link_2": "/",
-            "button_label_2": "Learn more",
-            "button_style_2": "button--outlined",
-            "content_position": "center",
-            "content_alignment": "center",
-            "image": "shopify://shop_images/Soaps_Banner_Web_7_cb7f9bf6-0fff-45e7-a066-9b9299301d07.webp",
-            "link": "",
-            "content_position_mobile": "center",
-            "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/Soaps_Banner_Mobile_c2a82641-ce42-4766-9436-75cf7ee1c5ce.webp"
-          }
-        },
-        "slide_yJ8HnB": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-1",
-            "heading": "",
-            "text": "",
-            "button_link_1": "/",
-            "button_label_1": "View more",
-            "button_style_1": "button--filled",
-            "button_link_2": "/",
-            "button_label_2": "Learn more",
-            "button_style_2": "button--outlined",
-            "content_position": "center",
-            "content_alignment": "center",
-            "image": "shopify://shop_images/Micellar_Water_Banner_Web_6.webp",
-            "link": "",
-            "content_position_mobile": "center",
-            "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/Micellar_Water_Banner_Mobile_dce0bd83-7d4a-48a0-b685-d788217187fa.webp"
-          }
-        },
         "slide_F9xVYA": {
           "type": "slide",
           "settings": {
@@ -98,8 +56,6 @@
         }
       },
       "block_order": [
-        "slide_ELtNhH",
-        "slide_yJ8HnB",
         "slide_F9xVYA",
         "slide_JkewDF"
       ],
@@ -113,195 +69,204 @@
         "slideshow_pagination_style": "style-1"
       }
     },
-    "featured_collection_carousel_k3teGq": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Cotton",
-        "heading_size": "h1",
-        "collection": "cotton",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "featured_collection_carousel_xRzp7B": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Wet Wipes & Dry Tissues",
-        "heading_size": "h1",
-        "collection": "refreshing-wet-wipes",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "featured_collection_carousel_dMDhck": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Baby Range",
-        "heading_size": "h1",
-        "collection": "baby-range",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "featured_collection_carousel_QMdUwV": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Adult Diaper",
-        "heading_size": "h1",
-        "collection": "adult-diaper-pants",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "featured_collection_carousel_MWJUEP": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Wooden Sticks",
-        "heading_size": "h1",
-        "collection": "toothpicks",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "featured_collection_carousel_tVtqtU": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Makeup & Nail Paint Removal",
-        "heading_size": "h1",
-        "collection": "nail-polish-remover-wipes-1",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "featured_collection_carousel_tz4NCz": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "Bundles & Combos",
-        "heading_size": "h1",
-        "collection": "",
-        "products_to_show": 8,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
-      }
-    },
-    "happy_customers_EY4kXP": {
-      "type": "happy-customers",
+    "product_list_fa6P9H": {
+      "type": "product-list",
       "blocks": {
-        "testimonial_HBbJdQ": {
-          "type": "testimonial",
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
           "settings": {
-            "author": "Isha Keskar",
-            "rating": 5,
-            "product_name": "Tulips Cotton Pad",
-            "text": "Tulips Cotton PadUndoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend."
-          }
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_YFtzcL": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_MWeP9V": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_YFtzcL",
+            "product_list_button_MWeP9V"
+          ]
         },
-        "testimonial_DBHWc8": {
-          "type": "testimonial",
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
           "settings": {
-            "author": "Sonali Umare",
-            "rating": 5,
-            "product_name": "",
-            "text": "Wow! Amazing product ,like no one in the market Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!\""
-          }
-        },
-        "testimonial_Tarc8H": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Jyotsassy Arya",
-            "rating": 4,
-            "product_name": "",
-            "text": "Affordable and best Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands."
-          }
-        },
-        "testimonial_mj4Ccc": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Vaidehee",
-            "rating": 5,
-            "product_name": "",
-            "text": "Good product to remove make upTulips has good quality products! I used their cotton pad to wipe off my sister's make up. Cotton pad has different textures on both sides. One sides has soft and other has long ridges. It's easy to use and removes smudge proof and water proof make up easily. Moves softly on skin. Good quality and bought it at cheap price."
-          }
-        },
-        "testimonial_HE4rEQ": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Sneha Singh",
-            "rating": 4,
-            "product_name": "",
-            "text": "The best in the market It comes in a neat zip lock packet which is so convenient. It doesn’t leave fibers on you while you rub your face with it."
-          }
+            "product_card_gap": 4,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_677WP3": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_YXxMTj": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_JQzVV4": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_677WP3",
+            "product_title_YXxMTj",
+            "price_JQzVV4"
+          ]
         }
       },
-      "block_order": [
-        "testimonial_HBbJdQ",
-        "testimonial_DBHWc8",
-        "testimonial_Tarc8H",
-        "testimonial_mj4Ccc",
-        "testimonial_HE4rEQ"
-      ],
-      "name": "Happy Customers",
+      "disabled": true,
+      "name": "Featured collection",
       "settings": {
-        "bg_color": "#ffffff",
-        "show_badge": true,
-        "badge_text": "300,000+ online ratings and reviews",
-        "subheading": "OUR PROMISE OF PURITY, PROVEN BY THE PEOPLE WHO USE OUR PRODUCTS DAILY",
-        "heading": "From Our Happy Customers",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "collection": "all",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     }
   },
   "order": [
     "image_slider_yJgiFj",
-    "featured_collection_carousel_k3teGq",
-    "featured_collection_carousel_xRzp7B",
-    "featured_collection_carousel_dMDhck",
-    "featured_collection_carousel_QMdUwV",
-    "featured_collection_carousel_MWJUEP",
-    "featured_collection_carousel_tVtqtU",
-    "featured_collection_carousel_tz4NCz",
-    "happy_customers_EY4kXP"
+    "product_list_fa6P9H"
   ]
 }
