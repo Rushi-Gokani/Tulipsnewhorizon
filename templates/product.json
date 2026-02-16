@@ -329,6 +329,7 @@
                   "settings": {
                     "heading": "Description",
                     "open_by_default": false,
+                    "hide_if_empty": false,
                     "icon": "none",
                     "width": 20
                   },
@@ -517,6 +518,101 @@
         "padding-block-end": 0
       }
     },
+    "brand_section_KUUPUg": {
+      "type": "brand-section",
+      "blocks": {
+        "item_H6NfgV": {
+          "type": "item",
+          "settings": {
+            "text": "25+ Years of Excellence"
+          }
+        },
+        "item_TVtjih": {
+          "type": "item",
+          "settings": {
+            "text": "Made in India, Trusted Globally"
+          }
+        },
+        "item_EMwJxG": {
+          "type": "item",
+          "settings": {
+            "text": "Dermatologically Tested Products"
+          }
+        },
+        "item_Fj8BVN": {
+          "type": "item",
+          "settings": {
+            "text": "Ethical & Sustainable Practices"
+          }
+        }
+      },
+      "block_order": [
+        "item_H6NfgV",
+        "item_TVtjih",
+        "item_EMwJxG",
+        "item_Fj8BVN"
+      ],
+      "name": "Brand section",
+      "settings": {
+        "section_width": "page-width",
+        "color_scheme": "",
+        "brand_image": "shopify://shop_images/Tulips_Hygiene_is_India_s_leading_brand_in_personal_hygiene_offering_safe_skin-friendly_and_affodab-_le_products_made_with_care_since_1998._From_cot-_ton_buds_to_wet_wipes_every_produ.png",
+        "brand_image_mobile": "shopify://shop_images/Tulips_Hygiene_is_India_s_leading_brand_in_personal_hygiene_offering_safe_skin-friendly_and_affodab-_le_products_made_with_care_since_1998._From_cot-_ton_buds_to_wet_wipes_every_produ_fedfe04e-f529-447b-9192-002ae801880a.png",
+        "title": "Why Choose Tulips Hygiene?",
+        "description": "<p><strong>Trusted by Millions. Rooted in Care.</strong></p><p><strong><br/></strong>Tulips Hygiene is India’s leading brand in personal hygiene, offering safe, skin-friendly, and affordable products made with care since 1998. From cotton buds to wet wipes, every product is crafted with precision in world-class facilities and trusted by families across the globe.</p><p>Our commitment goes beyond hygiene — it's about creating everyday essentials that are clean, dependable, and accessible to all.</p>",
+        "button_1_text": "Learn More About Us",
+        "button_1_link": "shopify://pages/about-us",
+        "button_2_text": "View Our Certifications",
+        "button_2_link": "shopify://pages/our-certificates",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "testimonials_w7YjxB": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_jTppPx": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": ""
+          }
+        },
+        "testimonial_hDcYMn": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_jTppPx",
+        "testimonial_hDcYMn"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "heading": "Testimonials",
+        "heading_size": "h3",
+        "subheading": "",
+        "impact_text": "300,000+ online ratings and reviews",
+        "rating_icon": "star",
+        "layout": "horizontal-w-media",
+        "slider_autoplay": 3,
+        "image_position": "image-start",
+        "image_aspect_ratio": "1/1",
+        "media_show_on": "desktop",
+        "spacing_inner": "2",
+        "section_width": "max-w-page",
+        "color_scheme": "",
+        "spacing_top": "2",
+        "spacing_bottom": "2"
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -661,6 +757,8 @@
   },
   "order": [
     "main",
+    "brand_section_KUUPUg",
+    "testimonials_w7YjxB",
     "product_recommendations_qggXJq"
   ]
 }

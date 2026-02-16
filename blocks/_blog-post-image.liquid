@@ -36,11 +36,19 @@
 </div>
 
 {% stylesheet %}
+  .blog-post-card__image-container {
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+  }
+
   .blog-post-card__image {
     width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center center;
-    height: calc(var(--blog-post-card-img-height) * var(--blog-post-card-scale));
+    display: block;
+    background-color: #f0f0f0; /* Fallback placeholder color */
   }
 
   .blog-post-card__image--small {

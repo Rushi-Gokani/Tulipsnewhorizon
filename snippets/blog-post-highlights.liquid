@@ -1,0 +1,283 @@
+{% comment %}
+  Renders the highlights UI for a featured blog post block.
+  Accepts:
+  - block: The section block object.
+  - article: The article object.
+{% endcomment %}
+
+{%- liquid
+  assign bg_image = block.settings.bg_image
+  if bg_image == blank
+    assign bg_image = article.image
+  endif
+  assign layout = block.settings.layout
+-%}
+
+<div class="blog-post-card blog-post-card--featured" style="--text-align: left">
+  <a href="{{ article.url }}" class="blog-post-highlights__link-wrapper" aria-label="{{ article.title }}">
+    <div class="blog-post-highlights blog-post-highlights--{{ layout }}" style="{% if layout == 'highlights' %}background-color: {{ block.settings.bg_color }};{% endif %}">
+      {%- if bg_image != blank -%}
+        <div class="blog-post-highlights__image-container">
+          {{ bg_image | image_url: width: 800 | image_tag: class: 'blog-post-highlights__bg-image', loading: 'lazy' }}
+          {% if layout == 'highlights' %}
+            <div class="blog-post-highlights__overlay" style="background-color: {{ block.settings.bg_color | color_modify: 'alpha', 0.85 }}"></div>
+          {% else %}
+            {% if block.settings.header_text != blank %}
+              <div class="blog-post-highlights__pill blog-post-highlights__pill--bottom" style="background-color: {{ block.settings.accent_color }}">
+                {{ block.settings.header_text }}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      {%- endif -%}
+
+      {% if layout == 'highlights' %}
+        {% if block.settings.header_text != blank %}
+          <div class="blog-post-highlights__pill" style="background-color: {{ block.settings.accent_color }}">
+            {{ block.settings.header_text }}
+          </div>
+        {% endif %}
+
+        <ul class="blog-post-highlights__list">
+          {% for i in (1..5) %}
+            {% capture icon_id %}benefit_icon_{{ i }}{% endcapture %}
+            {% capture text_id %}benefit_text_{{ i }}{% endcapture %}
+            {% assign icon = block.settings[icon_id] %}
+            {% assign text = block.settings[text_id] %}
+            
+            {% if text != blank %}
+              <li class="blog-post-highlights__item">
+                <div class="blog-post-highlights__icon">
+                  {% if icon != blank %}
+                    {{ icon | image_url: width: 40 | image_tag: loading: 'lazy' }}
+                  {% else %}
+                    <span class="blog-post-highlights__icon-placeholder"></span>
+                  {% endif %}
+                </div>
+                <span class="blog-post-highlights__text">{{ text }}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    {% if layout == 'icons_row' and block.settings.show_icons_row %}
+      <ul class="blog-post-highlights__row">
+        {% for i in (1..5) %}
+          {% capture icon_id %}benefit_icon_{{ i }}{% endcapture %}
+          {% capture text_id %}benefit_text_{{ i }}{% endcapture %}
+          {% assign icon = block.settings[icon_id] %}
+          {% assign text = block.settings[text_id] %}
+          
+          {% if icon != blank or text != blank %}
+            <li class="blog-post-highlights__row-item">
+              <div class="blog-post-highlights__row-icon">
+                {% if icon != blank %}
+                  {{ icon | image_url: width: 30 | image_tag: loading: 'lazy' }}
+                {% endif %}
+              </div>
+              {% if text != blank %}
+                <span class="blog-post-highlights__row-text">{{ text }}</span>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </a>
+
+  <div class="blog-post-card__content">
+    <a href="{{ article.url }}">
+      <h2 class="blog-hero__title" style="font-size: 1.5rem; color: var(--card-title-color); font-weight: 700;">{{ article.title }}</h2>
+    </a>
+
+    <div class="blog-post-details" style="color: var(--card-info-color); font-size: 0.75rem; text-transform: uppercase; font-weight: 500; margin-top: 0.5rem;">
+      <span>{{ article.author }} POSTED ON {{ article.published_at | time_tag: format: 'date' }}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .blog-post-highlights__link-wrapper {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+  }
+
+  .blog-post-highlights {
+    position: relative;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .blog-post-highlights--highlights {
+    padding: 2.5rem;
+  }
+
+  .blog-post-highlights--icons_row {
+    padding: 0;
+  }
+
+  .blog-post-highlights__image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .blog-post-highlights__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .blog-post-highlights__link-wrapper:hover .blog-post-highlights__bg-image {
+    transform: scale(1.05);
+  }
+
+  .blog-post-highlights__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .blog-post-highlights__pill {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    z-index: 2;
+  }
+
+  .blog-post-highlights__pill--bottom {
+    position: absolute;
+    top: auto;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    width: 90%;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    text-transform: uppercase;
+  }
+
+  .blog-post-highlights__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .blog-post-highlights__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .blog-post-highlights__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .blog-post-highlights__icon img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .blog-post-highlights__icon-placeholder {
+    width: 10px;
+    height: 10px;
+    background-color: currentColor;
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+
+  .blog-post-highlights__text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  /* Icons Row Styles */
+  .blog-post-highlights__row {
+    display: flex;
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none; /* Hide scrollbar */
+    justify-content: space-between;
+  }
+
+  .blog-post-highlights__row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .blog-post-highlights__row-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 60px;
+  }
+
+  .blog-post-highlights__row-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-post-highlights__row-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .blog-post-highlights__row-text {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blog-post-highlights--highlights {
+      padding: 1.5rem;
+    }
+    .blog-post-highlights__list {
+      gap: 1rem;
+    }
+  }
+</style>
