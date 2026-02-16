@@ -170,12 +170,12 @@
 
     #shopify-section-{{ section.id }} .testimonial__body {
       min-height: 19.4rem;
-      background: rgb(var(--color-background));
+      background: #ffffff;
       border-radius: var(--card-corner-radius);
       height: 100%;
       overflow: auto;
       padding: calc(var(--block-padding) * 1) calc(var(--block-padding) * 1.5);
-      border: 1px solid rgba(var(--color-foreground), 0.08);
+      border: 1px solid #e6e6e6;
       box-shadow: none;
       position: relative;
       transition: none;
@@ -552,7 +552,7 @@
             data-swiper-options='{
               "slidesPerView": 1.15,
               "rewind": true,
-              "followFinger": false,
+              "followFinger": true,
               "spaceBetweenMobile": {{ slideshow_spacing_mobile }},
               "spaceBetweenDesktop": {{ slideshow_spacing_desktop }},
               "autoplayDelay": {{ slideshow_autoplay | times: 1000 | round: 0 }},
@@ -566,7 +566,7 @@
               {%- for block in section.blocks -%}
                 <div class="{% if section.blocks.size > 1 %}swiper-slide {% endif %}card-slider__slide testimonials__block" {{ block.shopify_attributes }}>
                   <div class="testimonial__box">
-                    <div class="testimonial__body color-{{ block.settings.color_scheme }}">
+                    <div class="testimonial__body">
                       <div class="testimonial__content">
                         {%- if block.settings.author != blank -%}
                           <cite class="testimonial__author">{{ block.settings.author }}</cite>
@@ -719,13 +719,15 @@
 
         const baseOptions = {
           slidesPerView: options.slidesPerView || 1.15,
-          rewind: !!options.rewind,
+          rewind: options.loop ? false : !!options.rewind,
           followFinger: !!options.followFinger,
+          allowTouchMove: true,
           loop: options.loop && Number(options.slideCount) > 1,
           spaceBetween: options.spaceBetweenMobile || 16,
           pagination: getPagination(options.pagination, sliderEl),
           navigation,
-          autoplay
+          autoplay,
+          speed: 650
         };
 
         const withAutoplayProgress = {
@@ -796,6 +798,7 @@
         } else if (sliderEl.classList.contains('carousel-none-media')) {
           sliderOptions = {
             ...withAutoplayProgress,
+            loop: Number(options.slideCount) > 1,
             breakpoints: {
               750: {
                 slidesPerView: 2.2,
