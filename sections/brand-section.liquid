@@ -239,8 +239,36 @@
       grid-template-columns: 1fr;
     }
 
+    .brand-section__content-wrap {
+      padding-inline: clamp(0.875rem, 4vw, 1.25rem);
+    }
+
     .brand-section__content {
-      padding-inline: 0;
+      max-width: 100%;
+      padding: clamp(1.25rem, 6vw, 2rem) 0;
+      gap: 1rem;
+    }
+
+    .brand-section__title {
+      font-size: clamp(2rem, 8vw, 2.25rem);
+      line-height: 1.1;
+    }
+
+    .brand-section__description,
+    .brand-section__list {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .brand-section__buttons {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.625rem;
+    }
+
+    .brand-section__buttons :is(.button, .button-secondary) {
+      width: 100%;
+      justify-content: center;
     }
   }
 {% endstylesheet %}
