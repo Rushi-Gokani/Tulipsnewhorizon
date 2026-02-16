@@ -32,6 +32,7 @@
       padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
       --media-aspect-ratio: {{ section.settings.image_aspect_ratio }};
       --block-padding: calc(var(--spacing-unit-size) * {{ section.settings.spacing_inner }});
+      background-color: #f7f7f7;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials .section__heading {
@@ -123,17 +124,26 @@
     }
 
     #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button {
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 4rem;
+      height: 4rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: var(--button-action-border-radius, 0.6rem);
+      border-radius: 50%;
+      border: 1px solid #d0d0d0;
+      background: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button:hover {
+      background: #f0f0f0;
+      border-color: #999;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials .swiper-buttons .icon {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.4rem;
+      height: 1.4rem;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials__footer .swiper-pagination-progressbar {
@@ -218,6 +228,14 @@
       flex-direction: column;
       align-items: flex-start;
       row-gap: 0.8rem;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__title {
+      font-weight: 700;
+      font-size: var(--font-size-static-md);
+      line-height: 1.35;
+      margin: 0;
+      color: rgb(var(--color-foreground));
     }
 
     #shopify-section-{{ section.id }} .testimonial__body::-webkit-scrollbar {
@@ -470,7 +488,12 @@
         width: auto;
       }
 
-      #shopify-section-{{ section.id }} .testimonial__body {
+      #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .testimonial__body {
+        padding: 2.4rem 2.2rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media .testimonial__body,
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .testimonial__body {
         padding: calc(var(--block-padding) * 1.5);
       }
 
@@ -612,6 +635,10 @@
                               {% endif %}
                             {% endfor %}
                           </div>
+                        {%- endif -%}
+
+                        {%- if block.settings.title != blank -%}
+                          <p class="testimonial__title">{{ block.settings.title }}</p>
                         {%- endif -%}
 
                         {%- if block.settings.quote != blank -%}
@@ -1077,10 +1104,16 @@
           "default": "Jane Doe"
         },
         {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "Great product!"
+        },
+        {
           "type": "richtext",
           "id": "quote",
-          "label": "Quote",
-          "default": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>"
+          "label": "Review body",
+          "default": "<p>\"I absolutely love the quality of my Leo Bikini Bottoms.\"</p>"
         },
         {
           "type": "range",
