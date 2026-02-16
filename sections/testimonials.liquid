@@ -176,26 +176,9 @@
       overflow: auto;
       padding: calc(var(--block-padding) * 1) calc(var(--block-padding) * 1.5);
       border: 1px solid rgba(var(--color-foreground), 0.08);
-      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+      box-shadow: none;
       position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    #shopify-section-{{ section.id }} .testimonial__body::before {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
-      inset-block-start: 0;
-      height: 0.35rem;
-      border-radius: var(--card-corner-radius) var(--card-corner-radius) 0 0;
-      background: linear-gradient(90deg, #f16829 0%, #f6b145 100%);
-      opacity: 0.9;
-    }
-
-    #shopify-section-{{ section.id }} .testimonials__block:hover .testimonial__body {
-      transform: translateY(-4px);
-      border-color: rgba(var(--color-foreground), 0.18);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+      transition: none;
     }
 
     #shopify-section-{{ section.id }} .card-slider.card-slider--testimonials.vertical-w-media .card-slider__slide {
