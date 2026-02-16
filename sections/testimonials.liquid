@@ -766,20 +766,20 @@
 
 {% schema %}
 {
-  "name": "t:sections.testimonials.name",
+  "name": "Testimonials",
   "tag": "section",
   "class": "section-testimonials",
   "settings": [
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "t:sections.global.element.heading.label",
+      "label": "Heading",
       "default": "Testimonials"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "t:sections.global.element.heading_size.label",
+      "label": "Heading size",
       "options": [
         { "value": "h6", "label": "XS" },
         { "value": "h5", "label": "S" },
@@ -792,7 +792,7 @@
     {
       "type": "inline_richtext",
       "id": "subheading",
-      "label": "t:sections.global.element.subheading.label"
+      "label": "Subheading"
     },
     {
       "type": "text",
@@ -803,35 +803,35 @@
     {
       "type": "select",
       "id": "rating_icon",
-      "label": "t:sections.testimonials.settings.rating_icon.label",
+      "label": "Rating icon",
       "options": [
-        { "value": "none", "label": "t:sections.testimonials.settings.rating_icon.options.options__0.label" },
-        { "value": "star", "label": "t:sections.testimonials.settings.rating_icon.options.options__1.label" },
-        { "value": "circle", "label": "t:sections.testimonials.settings.rating_icon.options.options__2.label" }
+        { "value": "none", "label": "None" },
+        { "value": "star", "label": "Star" },
+        { "value": "circle", "label": "Circle" }
       ],
       "default": "star"
     },
     {
       "type": "header",
-      "content": "t:sections.global.header.general.content"
+      "content": "General"
     },
     {
       "type": "select",
       "id": "layout",
-      "label": "t:sections.testimonials.settings.layout.label",
-      "info": "t:sections.testimonials.settings.layout.info",
+      "label": "Layout",
+      "info": "Choose how testimonials should be displayed",
       "options": [
-        { "value": "horizontal-w-media", "label": "t:sections.testimonials.settings.layout.options.single.label" },
-        { "value": "vertical-w-media", "label": "t:sections.testimonials.settings.layout.options.multi.label" },
-        { "value": "carousel-none-media", "label": "t:sections.testimonials.settings.layout.options.carousel.label" }
+        { "value": "horizontal-w-media", "label": "Single" },
+        { "value": "vertical-w-media", "label": "Multi" },
+        { "value": "carousel-none-media", "label": "Carousel" }
       ],
       "default": "horizontal-w-media"
     },
     {
       "type": "range",
       "id": "slider_autoplay",
-      "label": "t:sections.global.slideshow.autoplay_interval.label",
-      "info": "t:sections.global.slideshow.autoplay_interval.info",
+      "label": "Autoplay interval",
+      "info": "Set to 0 to disable autoplay",
       "min": 0,
       "max": 10,
       "step": 0.5,
@@ -840,29 +840,29 @@
     },
     {
       "type": "header",
-      "content": "t:sections.global.header.media.content"
+      "content": "Media"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "t:sections.global.element.image.label"
+      "label": "Image"
     },
     {
       "type": "select",
       "id": "image_position",
-      "label": "t:sections.global.element.image.position.label",
+      "label": "Image position",
       "options": [
-        { "value": "image-start", "label": "t:sections.global.element.image.position.options.start.label" },
-        { "value": "image-end", "label": "t:sections.global.element.image.position.options.end.label" }
+        { "value": "image-start", "label": "Start" },
+        { "value": "image-end", "label": "End" }
       ],
       "default": "image-start"
     },
     {
       "type": "select",
       "id": "image_aspect_ratio",
-      "label": "t:sections.global.aspect_ratio.for__image.label",
+      "label": "Image aspect ratio",
       "options": [
-        { "value": "auto", "label": "t:sections.global.aspect_ratio.options.auto.label" },
+        { "value": "auto", "label": "Auto" },
         { "value": "1/1", "label": "1:1" },
         { "value": "4/3", "label": "4:3" },
         { "value": "3/4", "label": "3:4" },
@@ -873,25 +873,25 @@
     {
       "type": "select",
       "id": "media_show_on",
-      "label": "t:sections.global.settings.show_on.label",
+      "label": "Show media on",
       "options": [
-        { "value": "desktop", "label": "t:sections.global.settings.show_on.options.desktop.label" },
-        { "value": "mobile", "label": "t:sections.global.settings.show_on.options.mobile.label" },
-        { "value": "both", "label": "t:sections.global.settings.show_on.options.both.label" }
+        { "value": "desktop", "label": "Desktop" },
+        { "value": "mobile", "label": "Mobile" },
+        { "value": "both", "label": "Both" }
       ],
       "default": "desktop"
     },
     {
       "type": "header",
-      "content": "t:sections.global.header.settings.for__blocks.content",
-      "info": "t:sections.global.header.settings.for__blocks.info"
+      "content": "Block settings",
+      "info": "These settings control each testimonial card"
     },
     {
       "type": "select",
       "id": "spacing_inner",
-      "label": "t:sections.global.spacing.inner.label",
+      "label": "Inner spacing",
       "options": [
-        { "value": "0", "label": "t:sections.global.spacing.options.none.label" },
+        { "value": "0", "label": "None" },
         { "value": "1", "label": "S" },
         { "value": "2", "label": "M" },
         { "value": "4", "label": "L" },
@@ -901,30 +901,30 @@
     },
     {
       "type": "header",
-      "content": "t:sections.global.header.settings.content",
-      "info": "t:sections.global.header.settings.info"
+      "content": "Section settings",
+      "info": "Adjust spacing and width for this section"
     },
     {
       "type": "select",
       "id": "section_width",
       "options": [
-        { "value": "max-w-page", "label": "t:sections.global.settings.section_width.options__1.label" },
-        { "value": "max-w-fluid", "label": "t:sections.global.settings.section_width.options__2.label" },
-        { "value": "max-w-full", "label": "t:sections.global.settings.section_width.options__3.label" }
+        { "value": "max-w-page", "label": "Page width" },
+        { "value": "max-w-fluid", "label": "Fluid" },
+        { "value": "max-w-full", "label": "Full width" }
       ],
       "default": "max-w-page",
-      "label": "t:sections.global.settings.section_width.label"
+      "label": "Section width"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "default": "scheme-1",
-      "label": "t:sections.global.color_scheme.label"
+      "label": "Color scheme"
     },
     {
       "type": "select",
       "id": "spacing_top",
-      "label": "t:sections.global.settings.spacing.settings.spacing_top.label",
+      "label": "Top spacing",
       "options": [
         { "value": "0", "label": "No" },
         { "value": "1", "label": "S" },
@@ -937,7 +937,7 @@
     {
       "type": "select",
       "id": "spacing_bottom",
-      "label": "t:sections.global.settings.spacing.settings.spacing_bottom.label",
+      "label": "Bottom spacing",
       "options": [
         { "value": "0", "label": "No" },
         { "value": "1", "label": "S" },
@@ -951,22 +951,22 @@
   "blocks": [
     {
       "type": "testimonial",
-      "name": "t:sections.testimonials.blocks.testimonial.name",
+      "name": "Testimonial",
       "settings": [
         {
           "type": "header",
-          "content": "t:sections.global.header.text.content"
+          "content": "Text"
         },
         {
           "type": "text",
           "id": "author",
-          "label": "t:sections.testimonials.blocks.testimonial.settings.author.label",
+          "label": "Author",
           "default": "Jane Doe"
         },
         {
           "type": "richtext",
           "id": "quote",
-          "label": "t:sections.testimonials.blocks.testimonial.settings.quote.label",
+          "label": "Quote",
           "default": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>"
         },
         {
@@ -975,26 +975,26 @@
           "min": 0,
           "max": 5,
           "step": 1,
-          "label": "t:sections.testimonials.blocks.testimonial.settings.rating_score.label",
+          "label": "Rating",
           "default": 5
         },
         {
           "type": "header",
-          "content": "t:sections.global.header.settings.content",
-          "info": "t:sections.global.header.settings.info"
+          "content": "Card settings",
+          "info": "Customize the appearance of each testimonial card"
         },
         {
           "type": "color_scheme",
           "id": "color_scheme",
           "default": "scheme-1",
-          "label": "t:sections.global.color_scheme.label"
+          "label": "Color scheme"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "t:sections.testimonials.name",
+      "name": "Testimonials",
       "blocks": [
         { "type": "testimonial" },
         { "type": "testimonial" }
