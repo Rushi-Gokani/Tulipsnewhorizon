@@ -17,6 +17,16 @@
       width: calc(100% - 16.666%);
     }
 
+    #shopify-section-{{ section.id }} .card-slider__wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider__slide {
+      flex: 0 0 auto;
+    }
+
     #shopify-section-{{ section.id }} .section-testimonials__root {
       padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }});
       padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
