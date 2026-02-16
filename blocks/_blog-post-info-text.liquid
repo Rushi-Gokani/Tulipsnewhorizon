@@ -23,16 +23,16 @@
     "
     style="{% render 'spacing-style', settings: block_settings %}"
   >
-    {%- if block_settings.show_date -%}
-      <span>{{- display_date | time_tag: format: 'date' -}}</span>
+    {%- if block_settings.show_author -%}
+      <span class="blog-post-details__author">{{ display_author }}</span>
     {%- endif -%}
 
     {%- if block_settings.show_date and block_settings.show_author -%}
-      <span>{{ 'content.blog_details_separator' | t }}</span>
+      <span class="blog-post-details__separator">POSTED ON</span>
     {%- endif -%}
 
-    {%- if block_settings.show_author -%}
-      <span>{{ display_author }}</span>
+    {%- if block_settings.show_date -%}
+      <span class="blog-post-details__date">{{- display_date | time_tag: format: 'date' -}}</span>
     {%- endif -%}
   </div>
 {% endif %}
@@ -40,11 +40,13 @@
 {% stylesheet %}
   .blog-post-details {
     display: flex;
-    gap: var(--gap-sm);
-    font-size: var(--font-paragraph-size);
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
-    white-space: nowrap;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--card-info-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     flex-wrap: wrap;
+    font-weight: 500;
   }
 
   .blog-post-details > span {
@@ -115,9 +117,24 @@
       "info": "t:info.edit_presets_in_theme_settings"
     },
     {
-      "type": "text_alignment",
+      "type": "select",
       "id": "alignment",
       "label": "t:settings.alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ],
+      "default": "left",
       "visible_if": "{{ block.settings.show_alignment != false }}"
     },
     {

@@ -8,6 +8,21 @@
 
 <blog-posts-list section-id="{{ section.id }}">
   <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+  {%- if section.settings.show_hero -%}
+    <div class="blog-hero" style="--hero-bg-color: {{ section.settings.hero_bg_color }}; --hero-text-color: {{ section.settings.hero_text_color }}; --hero-min-height: {{ section.settings.hero_height }}px;">
+      {%- if section.settings.hero_image != blank -%}
+        {{ section.settings.hero_image | image_url: width: 2000 | image_tag: class: 'blog-hero__image', loading: 'lazy' }}
+      {%- endif -%}
+      <div class="blog-hero__content page-width">
+        <h1 class="blog-hero__title">
+          <span class="blog-hero__title-main">{{ section.settings.hero_text_1 }}</span>
+          <span class="blog-hero__title-italic">{{ section.settings.hero_text_2 }}</span>
+        </h1>
+      </div>
+    </div>
+  {%- endif -%}
+
   <div
     class="
       section
@@ -21,88 +36,55 @@
   >
     {% content_for 'blocks' %}
 
+    {% style %}
+      .blog-posts {
+        --card-title-color: #000000 !important;
+        --card-info-color: #000000 !important;
+        --card-border-radius: {{ section.settings.card_border_radius }}px;
+      }
+      
+      .blog-post-card__content a,
+      .blog-post-card__content h1,
+      .blog-post-card__content h2,
+      .blog-post-card__content h3,
+      .blog-post-details,
+      .blog-post-details__author,
+      .blog-post-details__date,
+      .blog-post-details__separator {
+        color: #000000 !important;
+      }
+    {% endstyle %}
+
     <div
       ref="grid"
       class="blog-posts-container"
     >
-      {% liquid
-        assign items_on_page = blog.articles.size
-      %}
       {% for article in blog.articles %}
         {% liquid
-          # Defaults for compact layout
           assign col_span = 2
-          assign scale = 0.6
+          assign scale = 1
           assign is_horizontal = false
-
-          case items_on_page
-            when 1
-              # Single post: full width hero
-              assign col_span = 6
-              assign scale = 1
-              assign is_horizontal = true
-            when 2
-              # Two posts: both standard side by side
-              assign col_span = 3
-              assign scale = 0.8
-            when 3
-              # Three posts: hero + 2 standard
-              if forloop.index == 1
-                assign col_span = 6
-                assign scale = 1
-                assign is_horizontal = true
-              else
-                assign col_span = 3
-                assign scale = 0.8
-              endif
-            when 4
-              # Four posts: all standard in 2x2 grid
-              assign col_span = 3
-              assign scale = 0.8
-            when 5
-              # Five posts: hero + 4 standard
-              if forloop.index == 1
-                assign col_span = 6
-                assign scale = 1
-                assign is_horizontal = true
-              else
-                assign col_span = 3
-                assign scale = 0.8
-              endif
-            else
-              # 6+ posts: hero, 2 standard, rest compact
-              if forloop.index == 1
-                assign col_span = 6
-                assign scale = 1
-                assign is_horizontal = true
-              elsif forloop.index <= 3
-                assign col_span = 3
-                assign scale = 0.8
-              else
-                assign col_span = 2
-                assign scale = 0.6
-              endif
-          endcase
         %}
-        {% style %}
-          [data-blog-index="{{ section.id }}-{{ forloop.index }}"] {
-            --col-span: {{ col_span }};
-            --blog-post-card-scale: {{ scale }};
-          }
-
-          @media screen and (max-width: 749px) {
-            [data-blog-index="{{ section.id }}-{{ forloop.index }}"] {
-              --col-span: 6;
-              --blog-post-card-scale: 0.5;
-            }
-          }
-        {% endstyle %}
         <div
           class="blog-post-item{% if is_horizontal %} blog-post-item--horizontal{% endif %}"
           data-testid="blog-post-item"
           data-blog-index="{{ section.id }}-{{ forloop.index }}"
+          style="--col-span: {{ col_span }}; --blog-post-card-scale: {{ scale }};"
         >
-          {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
+          {% liquid
+            assign featured_block = null
+            for block in section.blocks
+              if block.type == 'featured_post' and block.settings.article == article.handle
+                assign featured_block = block
+                break
+              endif
+            endfor
+          %}
+          {% if featured_block != null %}
+            {% render 'blog-post-highlights', block: featured_block, article: article %}
+          {% else %}
+            {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
+          {% endif %}
         </div>
       {% endfor %}
     </div>
@@ -117,7 +99,66 @@
     --page-content-width: var(--narrow-page-width);
     --page-width: calc(var(--page-content-width) + (var(--page-margin) * 2));
     --columns-gap: 36px;
-    --rows-gap: 36px;
+    --rows-gap: 48px;
+  }
+
+  .blog-hero {
+    position: relative;
+    background-color: var(--hero-bg-color);
+    min-height: var(--hero-min-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--hero-text-color);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .blog-hero__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.8; /* Slight opacity to blend with background color */
+  }
+
+  .blog-hero__content {
+    position: relative;
+    z-index: 2;
+    padding: 4rem 2rem;
+  }
+
+  .blog-hero__title {
+    margin: 0;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    line-height: 1.1;
+    color: inherit;
+    font-weight: 700;
+  }
+
+  .blog-hero__title-main {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-hero__title-italic {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.1em;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blog-hero {
+      min-height: 250px;
+    }
+    .blog-hero__content {
+      padding: 3rem 1.5rem;
+    }
   }
 
   .blog-posts-container {
@@ -142,11 +183,6 @@
    * When there's no image, the blog post item has a border.
    */
   .blog-post-item {
-    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
-    padding: 0 1rem 1rem;
-  }
-
-  .blog-post-item:has(.blog-post-card__image-container) {
     border: none;
     padding: 0;
   }
@@ -157,34 +193,143 @@
   "name": "t:names.blog_posts",
   "blocks": [
     {
-      "type": "@theme"
-    },
-    {
-      "type": "@app"
-    },
-    {
-      "type": "text"
-    },
-    {
-      "type": "icon"
-    },
-    {
-      "type": "image"
-    },
-    {
-      "type": "button"
-    },
-    {
-      "type": "video"
-    },
-    {
-      "type": "group"
-    },
-    {
-      "type": "spacer"
-    },
-    {
-      "type": "_divider"
+      "type": "featured_post",
+      "name": "Featured Blog Post Override",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article to Override"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Card Layout",
+          "options": [
+            {
+              "value": "highlights",
+              "label": "Highlights List (Left)"
+            },
+            {
+              "value": "icons_row",
+              "label": "Icons Row (Below Image)"
+            }
+          ],
+          "default": "highlights"
+        },
+        {
+          "type": "header",
+          "content": "Content Settings"
+        },
+        {
+          "type": "text",
+          "id": "header_text",
+          "label": "Header/Pill Text",
+          "default": "COTTON PRODUCT"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Custom Background Image"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background/Card Color",
+          "default": "#f3ede0"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent/Pill Color",
+          "default": "#56a15a"
+        },
+        {
+          "type": "header",
+          "content": "Row Icons (Optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icons_row",
+          "label": "Show Small Icons Row",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Benefit 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "benefit_icon_1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "text",
+          "id": "benefit_text_1",
+          "label": "Text 1",
+          "default": "100% COTTON PRODUCTS"
+        },
+        {
+          "type": "header",
+          "content": "Benefit 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "benefit_icon_2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "text",
+          "id": "benefit_text_2",
+          "label": "Text 2",
+          "default": "UNTOUCHED BY HANDS"
+        },
+        {
+          "type": "header",
+          "content": "Benefit 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "benefit_icon_3",
+          "label": "Icon 3"
+        },
+        {
+          "type": "text",
+          "id": "benefit_text_3",
+          "label": "Text 3",
+          "default": "GMP CERTIFIED PLANT"
+        },
+        {
+          "type": "header",
+          "content": "Benefit 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "benefit_icon_4",
+          "label": "Icon 4"
+        },
+        {
+          "type": "text",
+          "id": "benefit_text_4",
+          "label": "Text 4",
+          "default": "MICROBIOLOGICALLY TESTED"
+        },
+        {
+          "type": "header",
+          "content": "Benefit 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "benefit_icon_5",
+          "label": "Icon 5"
+        },
+        {
+          "type": "text",
+          "id": "benefit_text_5",
+          "label": "Text 5",
+          "default": "DERMATOLOGICALLY TESTED"
+        }
+      ]
     }
   ],
   "disabled_on": {
@@ -220,7 +365,83 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Blog Hero Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show Blog Hero",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "color",
+      "id": "hero_bg_color",
+      "label": "Hero Background Color",
+      "default": "#FF6B3B"
+    },
+    {
+      "type": "color",
+      "id": "hero_text_color",
+      "label": "Hero Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "hero_text_1",
+      "label": "Main Heading Text",
+      "default": "Never miss a beat with our latest"
+    },
+    {
+      "type": "text",
+      "id": "hero_text_2",
+      "label": "Sub Heading Text (Italic)",
+      "default": "news"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Hero Min Height",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Blog Card Design"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "card_info_color",
+      "label": "Card Info Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Image Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8
     }
   ]
 }
 {% endschema %}
+```

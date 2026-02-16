@@ -35,60 +35,32 @@
     flex-direction: column;
     text-align: var(--text-align);
     column-gap: var(--columns-gap);
-  }
-
-  .blog-post-item--horizontal:has(.blog-post-card__image-container) .blog-post-card {
-    & > *:first-child {
-      flex-basis: 70%;
-    }
-
-    & > *:last-child {
-      flex-basis: 30%;
-    }
+    height: 100%;
   }
 
   .blog-post-card__content {
-    padding-block-start: 0.4rem;
+    padding-block-start: 1rem;
     display: flex;
     flex-direction: column;
-  }
-
-  .blog-post-item .blog-post-card__image-container,
-  .blog-post-item .blog-post-card__content {
-    width: 100%;
-  }
-
-  /**
-   * Horizontal layout (image left, content right)
-   * Applied to hero posts based on total article count
-   * Only applies the split layout when an image is actually present
-   */
-  .blog-post-item--horizontal .blog-post-card {
-    flex-direction: row;
-
-    @media screen and (max-width: 749px) {
-      flex-direction: column;
-    }
+    justify-content: flex-start;
   }
 
   .blog-post-card__content a {
     display: block;
     text-wrap: pretty;
     text-decoration: none;
-    padding-block-start: 0.75rem;
+    padding-block-start: 0;
+    margin-bottom: 0.5rem;
+    color: var(--card-title-color);
   }
 
-  .blog-post-card__content a:hover,
-  .blog-post-card__content a:hover [style*='--color: var(--color-primary)'] {
-    color: var(--color-primary-hover);
+  .blog-post-card__content a:hover {
+    opacity: 0.8;
   }
 
-  .blog-post-card__content a:hover [style*='--color: var(--color-foreground-heading)'] {
-    color: rgb(var(--color-foreground-heading-rgb) / var(--opacity-subdued-text));
-  }
-
-  .blog-post-card__content a:hover [style*='--color: var(--color-foreground)'] {
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  .blog-post-item .blog-post-card__image-container,
+  .blog-post-item .blog-post-card__content {
+    width: 100%;
   }
 {% endstylesheet %}
 
@@ -97,9 +69,23 @@
   "name": "t:names.blog_post",
   "settings": [
     {
-      "type": "text_alignment",
+      "type": "select",
       "id": "alignment",
       "label": "t:settings.alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ],
       "default": "left"
     }
   ]
