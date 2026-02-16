@@ -1,5 +1,22 @@
 {%- if section.blocks.size > 0 -%}
   {%- style -%}
+    #shopify-section-{{ section.id }} .card-slider {
+      display: block;
+      overflow: visible;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider__buttons {
+      position: static;
+      margin-block-start: 3.2rem;
+      transform: none;
+      justify-content: flex-end;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider .card-slider__slide {
+      width: calc(100% - 16.666%);
+    }
+
     #shopify-section-{{ section.id }} .section-testimonials__root {
       padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }});
       padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
@@ -9,6 +26,8 @@
 
     #shopify-section-{{ section.id }} .section-testimonials .section__heading {
       margin-block-end: 4.8rem;
+      text-align: center;
+      font-weight: 500;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media,
@@ -32,6 +51,10 @@
       padding: 6.4rem 0;
     }
 
+    #shopify-section-{{ section.id }} .section-testimonials.no-image .testimonials__content {
+      width: 100%;
+    }
+
     #shopify-section-{{ section.id }} .container.max-w-full .testimonials__content {
       padding-inline: 1.6rem;
     }
@@ -42,6 +65,11 @@
       gap: 1rem;
       margin-block-end: 1.6rem;
       font-size: var(--font-size-static-sm);
+      padding: 1.2rem 2.4rem;
+      border-radius: 999px;
+      background: #f6e8de;
+      color: #f16829;
+      font-weight: 600;
     }
 
     #shopify-section-{{ section.id }} .impact-line .star {
@@ -272,6 +300,15 @@
     }
 
     @media screen and (min-width: 575px) {
+      #shopify-section-{{ section.id }} .card-slider .card-slider__slide {
+        width: calc(100% - 33.333%);
+      }
+
+      #shopify-section-{{ section.id }} .card-slider.card-slider--testimonials .card-slider__slide {
+        width: 100%;
+        height: auto;
+      }
+
       #shopify-section-{{ section.id }} .testimonials__quote {
         font-size: var(--font-size-static-xl);
       }
@@ -284,6 +321,18 @@
     }
 
     @media screen and (min-width: 750px) {
+      #shopify-section-{{ section.id }} .card-slider {
+        overflow: hidden;
+      }
+
+      #shopify-section-{{ section.id }} .card-slider .card-slider__slide {
+        width: calc(100% / 3 - 0.2rem);
+      }
+
+      #shopify-section-{{ section.id }} .card-slider--testimonials .card-slider__buttons {
+        column-gap: 2.4rem;
+      }
+
       #shopify-section-{{ section.id }} .section-testimonials .position--image-start {
         flex-direction: row;
       }
@@ -309,6 +358,10 @@
     }
 
     @media screen and (min-width: 990px) {
+      #shopify-section-{{ section.id }} .card-slider--testimonials .card-slider__buttons {
+        column-gap: 4.8rem;
+      }
+
       #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .testimonials__content {
         padding: 1.2rem 3.6rem;
       }
@@ -328,6 +381,10 @@
         max-width: 43.7rem;
         width: 100%;
         margin: 0 auto;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials.no-image .testimonials__content-in {
+        max-width: 100%;
       }
 
       #shopify-section-{{ section.id }} .testimonials__media {
@@ -390,6 +447,12 @@
         margin-block-end: 2.4rem;
       }
     }
+
+    @media screen and (min-width: 1100px) {
+      #shopify-section-{{ section.id }} .card-slider--testimonials .card-slider__buttons {
+        column-gap: 18.1%;
+      }
+    }
   {%- endstyle -%}
 
   {%- liquid
@@ -420,19 +483,20 @@
     elsif section.settings.media_show_on == 'desktop'
       assign media_classes = 'small-down-hide'
     endif
+
+    assign has_media = false
+    if section.settings.image != blank and section.settings.layout != 'carousel-none-media'
+      assign has_media = true
+    endif
   -%}
 
   <div class="color-{{ section.settings.color_scheme }} gradient section-testimonials__root">
-    <div class="section-testimonials container {{ section.settings.section_width }} js-animation-fade-in section-testimonials--{{ section.settings.layout }} position--{{ section.settings.image_position }} overflow-hidden" data-testimonials-root>
-      <div class="testimonials__media media {{ media_classes }}">
-        {%- liquid
-          if section.settings.image != blank
-            render 'image', image: section.settings.image
-          else
-            echo 'image' | placeholder_svg_tag: 'placeholder-svg'
-          endif
-        -%}
-      </div>
+    <div class="section-testimonials container {{ section.settings.section_width }} js-animation-fade-in section-testimonials--{{ section.settings.layout }} position--{{ section.settings.image_position }} {% unless has_media %}no-image{% endunless %} overflow-hidden" data-testimonials-root>
+      {%- if has_media -%}
+        <div class="testimonials__media media {{ media_classes }}">
+          {%- render 'image', image: section.settings.image -%}
+        </div>
+      {%- endif -%}
 
       <div class="testimonials__content">
         <div class="testimonials__content-in">
@@ -774,7 +838,7 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Testimonials"
+      "default": "From Our Happy Customers"
     },
     {
       "type": "select",
@@ -825,7 +889,7 @@
         { "value": "vertical-w-media", "label": "Multi" },
         { "value": "carousel-none-media", "label": "Carousel" }
       ],
-      "default": "horizontal-w-media"
+      "default": "carousel-none-media"
     },
     {
       "type": "range",
