@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.image-slider__placeholder {
+  display: none;
+}
+
 .image-slider-banner .media {
   border-radius: 0;
 }
@@ -257,29 +261,29 @@
 
   .image-slider__swiper-buttons .swiper-button {
     pointer-events: auto;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     width: 4rem;
     height: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     border: none;
-    color: rgb(0, 0, 0) !important; /* Force black color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   }
 
-  .image-slider__swiper-buttons .swiper-button .icon {
-    width: 2rem;
-    height: 2rem;
-    fill: currentColor; /* Ensure it takes the color from parent */
-    color: rgb(0, 0, 0) !important;
+  .image-slider__swiper-buttons .swiper-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: #000;
+    stroke-width: 2.5;
   }
 
   .image-slider__swiper-buttons .swiper-button:hover {
-    background: transparent;
-    transform: scale(1.1);
-    color: rgb(0, 0, 0) !important; 
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
   .image-slider__swiper-buttons:not(.image-slider__swiper-buttons--sides) {
