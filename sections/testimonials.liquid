@@ -136,8 +136,8 @@
       border: none;
       background: transparent;
       cursor: pointer;
-      color: rgb(var(--color-foreground));
-      opacity: 0.7;
+      color: #000000;
+      opacity: 0.8;
       transition: opacity 0.2s ease;
     }
 
@@ -146,8 +146,17 @@
     }
 
     #shopify-section-{{ section.id }} .section-testimonials .swiper-buttons .icon {
-      width: 1.4rem;
-      height: 1.4rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      color: #000000;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .swiper-pagination-progressbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .autoplay-progress {
+      display: none;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials__footer .swiper-pagination-progressbar {
