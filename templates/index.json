@@ -12,6 +12,25 @@
     "image_slider_yJgiFj": {
       "type": "image-slider",
       "blocks": {
+        "slide_ELtNhH": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "heading": "<p>Slide Heading</p>",
+            "text": "<p>Slide description text</p>",
+            "button_link_1": "/",
+            "button_label_1": "View more",
+            "button_style_1": "button--filled",
+            "button_link_2": "/",
+            "button_label_2": "Learn more",
+            "button_style_2": "button--outlined",
+            "content_position": "center",
+            "content_alignment": "center",
+            "link": "",
+            "content_position_mobile": "center",
+            "content_alignment_mobile": "center"
+          }
+        },
         "slide_yJ8HnB": {
           "type": "slide",
           "settings": {
@@ -77,6 +96,7 @@
         }
       },
       "block_order": [
+        "slide_ELtNhH",
         "slide_yJ8HnB",
         "slide_F9xVYA",
         "slide_JkewDF"
@@ -297,6 +317,15 @@
             "text": "Undoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend."
           }
         },
+        "testimonial_DBHWc8": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Author Name",
+            "rating": 5,
+            "product_name": "Product Name",
+            "text": "Review text goes here."
+          }
+        },
         "testimonial_Tarc8H": {
           "type": "testimonial",
           "settings": {
@@ -363,6 +392,7 @@
       },
       "block_order": [
         "testimonial_HBbJdQ",
+        "testimonial_DBHWc8",
         "testimonial_Tarc8H",
         "testimonial_mj4Ccc",
         "testimonial_HE4rEQ",

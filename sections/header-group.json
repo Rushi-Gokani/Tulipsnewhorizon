@@ -17,26 +17,30 @@
         "marquee_text_1": {
           "type": "marquee_slide",
           "settings": {
-            "content": "INDIA'S MOST LOVED HYGIENE BRAND SINCE 1999"
+            "content": "INDIA'S MOST LOVED HYGIENE BRAND SINCE 1999",
+            "icon": "none"
           }
         },
         "marquee_text_2": {
           "type": "marquee_slide",
           "settings": {
-            "content": "ABOVE ₹399"
+            "content": "ABOVE ₹399",
+            "icon": "none"
           }
         },
         "marquee_text_3": {
           "type": "marquee_slide",
           "settings": {
-            "content": "FREE DELIVERY ON ORDERS ABOVE ₹399"
+            "content": "FREE DELIVERY ON ORDERS ABOVE ₹399",
+            "icon": "none"
           }
         },
         "static_link": {
           "type": "link",
           "settings": {
             "link_label": "NEW PRODUCTS",
-            "link": "/collections/new"
+            "link": "/collections/new",
+            "icon": "star"
           }
         }
       },
@@ -46,7 +50,10 @@
         "marquee_text_3",
         "static_link"
       ],
-      "settings": {}
+      "settings": {
+        "color_bg": "#a3ca6d",
+        "color_text": "#ffffff"
+      }
     },
     "header_announcements_9jGBFp": {
       "type": "header-announcements",
@@ -98,7 +105,7 @@
           "type": "_header-menu",
           "static": true,
           "settings": {
-            "menu": "temporary",
+            "menu": "main-menu",
             "color_scheme": "",
             "type_font_primary_size": "0.875rem",
             "menu_font_style": "inverse",
