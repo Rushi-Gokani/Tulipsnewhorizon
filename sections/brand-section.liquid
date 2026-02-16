@@ -1,7 +1,6 @@
 {% liquid
   assign has_desktop_image = false
   assign has_mobile_image = false
-  assign mid_index = section.blocks.size | plus: 1 | divided_by: 2
 
   if section.settings.brand_image != blank
     assign has_desktop_image = true
@@ -68,7 +67,7 @@
       {% if section.blocks.size > 0 %}
         <div class="brand-section__list-columns" role="list">
           <ul class="brand-section__list" role="list">
-            {% for block in section.blocks limit: mid_index %}
+            {% for block in section.blocks %}
               <li class="brand-section__list-item" {{ block.shopify_attributes }}>
                 {% if block.settings.icon_image %}
                   <span class="brand-section__icon-image">
@@ -87,29 +86,6 @@
               </li>
             {% endfor %}
           </ul>
-
-          {% if section.blocks.size > mid_index %}
-            <ul class="brand-section__list" role="list">
-              {% for block in section.blocks offset: mid_index %}
-                <li class="brand-section__list-item" {{ block.shopify_attributes }}>
-                  {% if block.settings.icon_image %}
-                    <span class="brand-section__icon-image">
-                      {{
-                        block.settings.icon_image
-                        | image_url: width: 80
-                        | image_tag:
-                          widths: '40, 80',
-                          sizes: '40px',
-                          loading: 'lazy',
-                          alt: block.settings.icon_image.alt | default: block.settings.text
-                      }}
-                    </span>
-                  {% endif %}
-                  <span>{{ block.settings.text }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
         </div>
       {% endif %}
 
@@ -231,6 +207,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .brand-section__buttons :is(.button, .button-secondary),
+  .brand-section__buttons :is(.button, .button-secondary):hover {
+    background-color: #fa6e36;
+    border-color: #fa6e36;
+    color: #fff;
   }
 
   @media screen and (max-width: 749px) {
