@@ -1,0 +1,145 @@
+{% comment %}
+  This block is used to specify an article to be highlighted in the blog grid.
+  It is used as a "data block" in the Blog section.
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Featured Post",
+  "settings": [
+    {
+      "type": "article",
+      "id": "article",
+      "label": "Article to Override"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Card Layout",
+      "options": [
+        {
+          "value": "highlights",
+          "label": "Highlights List (Left)"
+        },
+        {
+          "value": "icons_row",
+          "label": "Icons Row (Below Image)"
+        }
+      ],
+      "default": "highlights"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "header_text",
+      "label": "Header/Pill Text",
+      "default": "COTTON PRODUCT"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Custom Background Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background/Card Color",
+      "default": "#f3ede0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent/Pill Color",
+      "default": "#56a15a"
+    },
+    {
+      "type": "header",
+      "content": "Row Icons (Optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icons_row",
+      "label": "Show Small Icons Row",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Benefit 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_1",
+      "label": "Text 1",
+      "default": "100% COTTON PRODUCTS"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_2",
+      "label": "Text 2",
+      "default": "UNTOUCHED BY HANDS"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_3",
+      "label": "Text 3",
+      "default": "GMP CERTIFIED PLANT"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_4",
+      "label": "Text 4",
+      "default": "MICROBIOLOGICALLY TESTED"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_5",
+      "label": "Text 5",
+      "default": "DERMATOLOGICALLY TESTED"
+    }
+  ]
+}
+{% endschema %}

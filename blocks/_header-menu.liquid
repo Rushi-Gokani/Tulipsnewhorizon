@@ -137,17 +137,26 @@
                     class="mega-menu__grid"
                     data-menu-grid-id="{{ list_id }}"
                   >
-                    {% render 'mega-menu-list',
-                      parent_link: link,
-                      id: list_id,
-                      section: section,
-                      grid_columns_count: 6,
-                      grid_columns_count_tablet: 4,
-                      grid_columns_count_collection_images: 8,
-                      menu_content_type: menu_content_type,
-                      content_aspect_ratio: ratio,
-                      image_border_radius: image_border_radius
-                    %}
+                    {% if block_settings.menu_style == 'side_navigation' %}
+                       {% render 'mega-menu-side-nav',
+                        parent_link: link,
+                        id: list_id,
+                        section: section,
+                        block: block
+                      %}
+                    {% else %}
+                      {% render 'mega-menu-list',
+                        parent_link: link,
+                        id: list_id,
+                        section: section,
+                        grid_columns_count: 6,
+                        grid_columns_count_tablet: 4,
+                        grid_columns_count_collection_images: 8,
+                        menu_content_type: menu_content_type,
+                        content_aspect_ratio: ratio,
+                        image_border_radius: image_border_radius
+                      %}
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -761,6 +770,14 @@
 {
   "name": "t:names.menu",
   "tag": null,
+  "blocks": [
+    {
+      "type": "mega_menu_image"
+    },
+    {
+      "type": "mega_menu_sub_icon"
+    }
+  ],
   "settings": [
     {
       "type": "link_list",
@@ -891,6 +908,10 @@
         {
           "value": "featured_collections",
           "label": "t:options.featured_collections"
+        },
+        {
+          "value": "side_navigation",
+          "label": "Side Navigation"
         }
       ],
       "default": "collection_images"
