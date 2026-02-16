@@ -284,10 +284,108 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "happy_customers_EY4kXP": {
+      "type": "happy-customers",
+      "blocks": {
+        "testimonial_HBbJdQ": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Isha Keskar",
+            "rating": 5,
+            "product_name": "Tulips Cotton Pad",
+            "text": "Undoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend."
+          }
+        },
+        "testimonial_Tarc8H": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sonali Umare",
+            "rating": 4,
+            "product_name": "Wow! Amazing product, like no one in the market",
+            "text": "Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!"
+          }
+        },
+        "testimonial_mj4Ccc": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jyotsassy Arya",
+            "rating": 5,
+            "product_name": "Affordable and best",
+            "text": "Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands."
+          }
+        },
+        "testimonial_HE4rEQ": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Vaidehee",
+            "rating": 4,
+            "product_name": "Good product",
+            "text": "Tulips has really good products. I've used their ear buds and my sister's makeup remover pads. It's different texture on both the sides has soft and other has ridges. It's really good and smudge proof. Removes makeup easily. Nice quality and quantity."
+          }
+        },
+        "testimonial_AekPgU": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Priya Sharma",
+            "rating": 5,
+            "product_name": "Soft and Gentle",
+            "text": "These cotton pads are incredibly soft on the skin. I use them daily for toner application and they never irritate my skin. excellent quality!"
+          }
+        },
+        "testimonial_ckcxLG": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Rahul Verma",
+            "rating": 5,
+            "product_name": "Great Value",
+            "text": "Value for money product. The thickness is perfect and they don't fall apart while using. Definitely buying again."
+          }
+        },
+        "testimonial_6xypHx": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Anjali Mehta",
+            "rating": 4,
+            "product_name": "Eco-friendly choice",
+            "text": "Love that these are biodegradable. Good for the skin and good for the planet. Highly efficient in removing makeup."
+          }
+        },
+        "testimonial_ezjgrR": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Snea Gupta",
+            "rating": 5,
+            "product_name": "Must have!",
+            "text": "A staple in my skincare routine. The texture is smooth and they are very absorbent. Best cotton pads available online."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_HBbJdQ",
+        "testimonial_Tarc8H",
+        "testimonial_mj4Ccc",
+        "testimonial_HE4rEQ",
+        "testimonial_AekPgU",
+        "testimonial_ckcxLG",
+        "testimonial_6xypHx",
+        "testimonial_ezjgrR"
+      ],
+      "name": "Happy Customers",
+      "settings": {
+        "bg_color": "#FFFFFF",
+        "show_badge": true,
+        "badge_text": "300,000+ online ratings and reviews",
+        "subheading": "OUR PROMISE OF PURITY, PROVEN BY THE PEOPLE WHO USE OUR PRODUCTS DAILY",
+        "heading": "From Our Happy Customers",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "image_slider_yJgiFj",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "happy_customers_EY4kXP"
   ]
 }
