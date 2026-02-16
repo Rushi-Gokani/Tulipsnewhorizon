@@ -11,12 +11,20 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "wave_transition_KLdbUU": {
+      "type": "wave-transition",
+      "name": "Wave Transition",
+      "settings": {
+        "wave_image": "shopify://shop_images/wave_800x800_15481d6c-1a98-4358-a159-3ce32b60fda6.svg",
+        "wave_link": ""
+      }
+    },
     "custom_footer_WeUwWP": {
       "type": "custom-footer",
       "name": "Custom Footer",
       "settings": {
-        "background_color": "#8DB858",
-        "text_color": "#FFFFFF",
+        "background_color": "#8db858",
+        "text_color": "#ffffff",
         "show_logo": true,
         "show_social_icons": true,
         "contact_heading": "Customer Care Details",
@@ -232,6 +240,7 @@
     }
   },
   "order": [
+    "wave_transition_KLdbUU",
     "custom_footer_WeUwWP",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"
