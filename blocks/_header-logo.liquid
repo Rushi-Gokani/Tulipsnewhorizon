@@ -90,6 +90,9 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    position: relative;
+    z-index: 10;
+    transform: translateY(50%); /* 50% vertical overlap */
 
     /* Make sure the logo visually hugs the left edge of the column when it is the first item in the left column */
     margin-inline: calc(-1 * var(--padding-inline-start));
@@ -108,6 +111,7 @@
 
     @media screen and (max-width: 749px) {
       padding: 0;
+      transform: translateY(30%); /* Slightly less overlap on mobile for better fit */
     }
 
     @media screen and (min-width: 750px) {
@@ -119,14 +123,22 @@
     }
   }
 
+  /* Ensure the containers don't clip the overlapping logo */
+  .header__column:has(.header-logo),
+  .header__columns:has(.header-logo),
+  .header__row:has(.header-logo) {
+    overflow: visible !important;
+  }
+
   .header-logo__image {
     object-fit: contain;
     height: var(--header-logo-image-height-mobile);
     width: var(--header-logo-image-width-mobile);
+    transition: transform var(--animation-speed) var(--animation-easing);
 
     @media screen and (min-width: 750px) {
-      height: var(--header-logo-image-height);
-      width: var(--header-logo-image-width);
+      height: calc(var(--header-logo-image-height) * 1.5); /* Increase size for overlap effect */
+      width: auto;
     }
   }
 
