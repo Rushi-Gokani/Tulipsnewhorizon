@@ -78,8 +78,6 @@
     data-testid="blog-posts"
     style="{% render 'spacing-style', settings: section.settings %}"
   >
-    {% content_for 'blocks' %}
-
     {% style %}
       .blog-posts {
         --card-title-color: #000000 !important;
@@ -118,31 +116,41 @@
           data-testid="blog-post-item"
           data-blog-index="{{ section.id }}-{{ forloop.index }}"
         >
-<<<<<<< HEAD
           {% liquid
             assign featured_block = null
-          for block in section.blocks
-            if block.type == 'featured-post' and block.settings.article == article.handle
-              assign featured_block = block
-              break
-            endif
-          endfor
-        %}
-        {% if featured_block != null %}
-          {% render 'blog-post-highlights', block: featured_block, article: article %}
-        {% else %}
-          {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
-        {% endif %}
-      </div>
-    {% endfor %}
-=======
-          {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
+            for block in section.blocks
+              if block.type == 'featured-post' and block.settings.article == article.handle
+                assign featured_block = block
+                break
+              endif
+            endfor
+          %}
+          {% if featured_block != null %}
+            {% render 'blog-post-highlights', block: featured_block, article: article %}
+          {% else %}
+            <div class="blog-post-card">
+              <a href="{{ article.url }}" class="blog-post-card__link">
+                {% if article.image %}
+                  <div class="blog-post-card__image-wrapper">
+                    {{ article.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'blog-post-card__image' }}
+                  </div>
+                {% endif %}
+                <div class="blog-post-card__content">
+                  <h3 class="blog-post-card__title">{{ article.title }}</h3>
+                  <div class="blog-post-details">
+                    <span class="blog-post-details__date">{{ article.published_at | date: "%B %d, %Y" }}</span>
+                  </div>
+                  {% if article.excerpt %}
+                    <p class="blog-post-card__excerpt">{{ article.excerpt | truncate: 150 }}</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          {% endif %}
         </div>
       {% endfor %}
     </div>
->>>>>>> f61b3ab0b21f54f76fe26792a9109cf04ccfd542
   </div>
-</div>
 </blog-posts-list>
 
 {% stylesheet %}
@@ -177,7 +185,7 @@
   height: 100%;
   object-fit: cover;
   z-index: 1;
-  opacity: 0.8; /* Slight opacity to blend with background color */
+  opacity: 0.8;
 }
 
 .blog-hero__content {
@@ -224,189 +232,92 @@
   row-gap: var(--rows-gap);
 }
 
-/**
- * Blog post item grid positioning and scaling.
- * Layout is calculated in Liquid based on total article count.
- * Mobile overrides are applied per-item in inline styles for proper specificity.
- */
 .blog-post-item {
   grid-column: span var(--col-span);
-}
-
-<<<<<<< HEAD
-/**
- * When there's no image, the blog post item has a border.
- */
-.blog-post-item {
   border: none;
   padding: 0;
 }
-=======
-  .blog-hero__title-italic {
-    display: block;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 1.1em;
-  }
 
-  @media screen and (max-width: 749px) {
-    .blog-hero {
-      min-height: 250px;
-    }
-    .blog-hero__content {
-      padding: 3rem 1.5rem;
-    }
-  }
+/* Blog post card styles */
+.blog-post-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-  .blog-posts-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    width: 100%;
-    column-gap: var(--columns-gap);
-    row-gap: var(--rows-gap);
-  }
+.blog-post-card__link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-  .blog-post-item {
-    border: none;
-    padding: 0;
-  }
+.blog-post-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--card-border-radius);
+  aspect-ratio: 4/3;
+}
 
-  /* Responsive: 2 columns on tablet */
-  @media screen and (max-width: 999px) {
-    .blog-posts-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
+.blog-post-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
 
-  /* Responsive: 1 column on mobile */
-  @media screen and (max-width: 749px) {
-    .blog-posts-container {
-      grid-template-columns: 1fr;
-    }
-  }
->>>>>>> f61b3ab0b21f54f76fe26792a9109cf04ccfd542
+.blog-post-card__link:hover .blog-post-card__image {
+  transform: scale(1.05);
+}
+
+.blog-post-card__content {
+  padding: 1.5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--card-heading-color);
+  line-height: 1.3;
+}
+
+.blog-post-details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: var(--card-info-color);
+}
+
+.blog-post-card__excerpt {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--card-info-color);
+  margin: 0;
+}
 {% endstylesheet %}
 
 {% schema %}
 {
-<<<<<<< HEAD
-"name": "t:names.blog_posts",
-"disabled_on": {
-  "groups": ["header"]
-},
-"settings": [
-  {
-    "type": "color_scheme",
-    "id": "color_scheme",
-    "label": "t:settings.color_scheme",
-    "default": "scheme-1"
-  },
-  {
-    "type": "header",
-    "content": "t:content.padding"
-  },
-  {
-    "type": "range",
-    "id": "padding-block-start",
-    "label": "t:settings.top",
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "unit": "px",
-    "default": 0
-  },
-  {
-    "type": "range",
-    "id": "padding-block-end",
-    "label": "t:settings.bottom",
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "unit": "px",
-    "default": 0
-  },
-  {
-    "type": "header",
-    "content": "Blog Hero Settings"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_hero",
-    "label": "Show Blog Hero",
-    "default": true
-  },
-  {
-    "type": "image_picker",
-    "id": "hero_image",
-    "label": "Hero Image"
-  },
-  {
-    "type": "color",
-    "id": "hero_bg_color",
-    "label": "Hero Background Color",
-    "default": "#FF6B3B"
-  },
-  {
-    "type": "color",
-    "id": "hero_text_color",
-    "label": "Hero Text Color",
-    "default": "#FFFFFF"
-  },
-  {
-    "type": "text",
-    "id": "hero_text_1",
-    "label": "Main Heading Text",
-    "default": "Never miss a beat with our latest"
-  },
-  {
-    "type": "text",
-    "id": "hero_text_2",
-    "label": "Sub Heading Text (Italic)",
-    "default": "news"
-  },
-  {
-    "type": "range",
-    "id": "hero_height",
-    "label": "Hero Min Height",
-    "min": 200,
-    "max": 600,
-    "step": 10,
-    "unit": "px",
-    "default": 400
-  },
-  {
-    "type": "header",
-    "content": "Blog Card Design"
-  },
-  {
-    "type": "color",
-    "id": "card_title_color",
-    "label": "Card Title Color",
-    "default": "#222222"
-  },
-  {
-    "type": "color",
-    "id": "card_info_color",
-    "label": "Card Info Text Color",
-    "default": "#666666"
-  },
-  {
-    "type": "range",
-    "id": "card_border_radius",
-    "label": "Card Image Border Radius",
-    "min": 0,
-    "max": 50,
-    "step": 1,
-    "unit": "px",
-    "default": 8
-  }
-]
-=======
   "name": "t:names.blog_posts",
   "blocks": [
-    { "type": "@theme" },
-    { "type": "@app" }
+    {
+      "type": "featured-post",
+      "name": "Featured Post",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article"
+        }
+      ]
+    }
   ],
   "disabled_on": {
     "groups": ["header"]
@@ -524,6 +435,5 @@
       "default": 8
     }
   ]
->>>>>>> f61b3ab0b21f54f76fe26792a9109cf04ccfd542
 }
 {% endschema %}
