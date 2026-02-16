@@ -154,11 +154,6 @@
           {{ image_slider_slides }}
         </div>
 
-        {%- if section.settings.show_slideshow_pagination -%}
-          <div
-            class="swiper-pagination image-slider__swiper-pagination{% if section.settings.slideshow_pagination_style == 'style-2' %} image-slider__swiper-pagination-horizontal{% endif %}"
-          ></div>
-        {%- endif -%}
 
         {%- if section.settings.show_slideshow_navigation -%}
           <div class="swiper-buttons image-slider__swiper-buttons no-js-hidden {{ section.settings.slideshow_navigation_position }} color-{{ section.settings.color_scheme_arrows }}">

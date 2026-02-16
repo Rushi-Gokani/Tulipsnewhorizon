@@ -111,7 +111,7 @@
 
     @media screen and (max-width: 749px) {
       padding: 0;
-      transform: translateY(30%); /* Slightly less overlap on mobile for better fit */
+      transform: none; /* Vertically center on mobile - no overlap */
     }
 
     @media screen and (min-width: 750px) {
@@ -132,8 +132,8 @@
 
   .header-logo__image {
     object-fit: contain;
-    height: var(--header-logo-image-height-mobile);
-    width: var(--header-logo-image-width-mobile);
+    height: calc(var(--header-logo-image-height-mobile) * 1.3); /* Bigger logo on mobile */
+    width: auto;
     transition: transform var(--animation-speed) var(--animation-easing);
 
     @media screen and (min-width: 750px) {

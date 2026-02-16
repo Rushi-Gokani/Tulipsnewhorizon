@@ -131,9 +131,6 @@
   border-color: rgba(255, 255, 255, 0.15);
 }
 
-.image-slider__swiper-pagination .swiper-pagination-bullet-active .square-origin {
-  animation: square-progress var(--slideshow-pagination-progress-time);
-}
 
 .image-slider__swiper-pagination-horizontal {
   display: flex;
@@ -177,7 +174,8 @@
   margin-inline-start: 1.6rem !important;
 }
 
-.image-slider__swiper-pagination-horizontal .square-progress {
+.image-slider__swiper-pagination-horizontal .square-progress,
+.square-origin {
   display: none;
 }
 
@@ -190,16 +188,6 @@
   transform: rotate(-90deg);
 }
 
-.square-origin {
-  border-radius: 0.5rem !important;
-  fill: transparent;
-  stroke: rgb(255, 255, 255);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-dasharray: 155px;
-  stroke-dashoffset: 155px;
-}
-
 .circle-origin {
   fill: transparent;
   stroke: rgb(255, 255, 255);
@@ -207,20 +195,6 @@
   stroke-linecap: round;
   stroke-dasharray: 56.5487px;
   stroke-dashoffset: 56.5487px;
-}
-
-@keyframes square-progress {
-  0% {
-    stroke-dashoffset: 155px;
-  }
-
-  90% {
-    stroke-dashoffset: 0;
-  }
-
-  100% {
-    stroke-dashoffset: -155px;
-  }
 }
 
 @keyframes circle-progress {
@@ -261,7 +235,7 @@
 
   .image-slider__swiper-buttons .swiper-button {
     pointer-events: auto;
-    background: rgba(255, 255, 255, 0.9);
+    background: transparent;
     border-radius: 50%;
     width: 4rem;
     height: 4rem;
@@ -270,20 +244,23 @@
     justify-content: center;
     transition: all 0.3s ease;
     border: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   }
 
   .image-slider__swiper-buttons .swiper-button svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     stroke: #000;
-    stroke-width: 2.5;
+    stroke-width: 2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
   }
 
   .image-slider__swiper-buttons .swiper-button:hover {
-    background: rgba(255, 255, 255, 1);
+    background: transparent;
     transform: scale(1.15);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .image-slider__swiper-buttons .swiper-button:hover svg {
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
   }
 
   .image-slider__swiper-buttons:not(.image-slider__swiper-buttons--sides) {

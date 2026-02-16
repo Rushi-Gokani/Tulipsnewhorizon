@@ -1,0 +1,128 @@
+{% comment %}
+  Wave Transition Section
+  Place this section above the footer for a smooth decorative transition
+{% endcomment %}
+
+{% if section.settings.wave_image != blank %}
+  <div class="wave-container">
+    {%- if section.settings.wave_link != blank -%}
+      <a href="{{ section.settings.wave_link }}" class="wave-link">
+    {%- endif -%}
+      <img
+        src="{{ section.settings.wave_image | image_url: width: 2048 }}"
+        alt="{{ section.settings.wave_image.alt | default: 'Wave Decorative' }}"
+        class="wave-image"
+        loading="lazy"
+        width="{{ section.settings.wave_image.width }}"
+        height="{{ section.settings.wave_image.height }}"
+      >
+    {%- if section.settings.wave_link != blank -%}
+      </a>
+    {%- endif -%}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .wave-container {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    margin-bottom: 0;
+    bottom: -15px;
+    z-index: 10;
+  }
+
+  .wave-image {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .wave-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  /* Extra Large Screens: 1400px+ */
+  @media (min-width: 1400px) {
+    .wave-image {
+      top: -70px;
+    }
+    .wave-container {
+      bottom: -4px;
+    }
+  }
+
+  /* Large Screens: 1200px–1399px */
+  @media (max-width: 1399px) and (min-width: 1200px) {
+    .wave-image {
+      top: -65px;
+    }
+  }
+
+  /* Medium Screens: 1025px–1199px */
+  @media (max-width: 1199px) and (min-width: 1025px) {
+    .wave-image {
+      top: -50px;
+    }
+  }
+
+  /* Small Screens: 769px–1024px */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .wave-image {
+      top: -40px;
+    }
+    .wave-container {
+      bottom: -2px;
+    }
+  }
+
+  /* Extra Small Screens: <=768px */
+  @media (max-width: 768px) {
+    .wave-image {
+      top: -25px;
+    }
+    .wave-container {
+      bottom: 2px;
+    }
+  }
+
+  @media (max-width: 555px) {
+    .wave-image {
+      top: -16px;
+    }
+    .wave-container {
+      bottom: -2px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Wave Transition",
+  "tag": "div",
+  "class": "wave-transition-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "wave_image",
+      "label": "Wave Image"
+    },
+    {
+      "type": "url",
+      "id": "wave_link",
+      "label": "Optional Link",
+      "info": "Make the wave image clickable"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave Transition",
+      "category": "Decorative"
+    }
+  ]
+}
+{% endschema %}
