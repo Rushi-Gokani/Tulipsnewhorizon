@@ -1,0 +1,169 @@
+.happy-customers-section {
+  text-align: center;
+  overflow: hidden;
+}
+
+.happy-customers-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFF6E5;
+  border-radius: 100px;
+  padding: 12px 32px;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.happy-customers-badge span {
+  font-weight: 700;
+  color: #D97706;
+  font-size: 1.8rem;
+}
+
+.happy-customers-badge svg {
+  width: 20px;
+  height: 20px;
+  fill: #F59E0B;
+}
+
+.happy-customers-subheading {
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.happy-customers-heading {
+  font-size: 4.2rem;
+  color: #333;
+  margin-bottom: 6rem;
+  font-weight: 300;
+  font-family: var(--font-heading-family);
+  letter-spacing: -0.02em;
+}
+
+.happy-customers-slider {
+  padding-bottom: 50px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.happy-customer-card {
+  text-align: left;
+  background: transparent;
+  padding: 24px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.happy-customer-card:hover {
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.customer-name {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  color: #000;
+}
+
+.customer-rating {
+  margin-bottom: 1.2rem;
+  color: #000;
+  display: flex;
+  gap: 2px;
+}
+
+.customer-rating svg {
+  width: 14px;
+  height: 14px;
+  fill: #000;
+}
+
+.product-name {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #000;
+  display: block;
+}
+
+.customer-review {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.happy-customers-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  align-items: center;
+}
+
+  .autoplay-progress {
+    width: 200px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .autoplay-progress svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .progress-line {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 100;
+    transform-origin: center;
+  }
+
+.happy-customers-controls .swiper-button-next, 
+.happy-customers-controls .swiper-button-prev {
+  position: static;
+  margin: 0;
+  color: #000;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent; /* Prepare for hover state if needed */
+}
+
+.happy-customers-controls .swiper-button-next:after, 
+.happy-customers-controls .swiper-button-prev:after {
+  content: none;
+}
+
+.happy-customers-controls .swiper-button-next svg,
+.happy-customers-controls .swiper-button-prev svg {
+  width: 40px;
+  height: 40px;
+  stroke: #111;
+  stroke-width: 1.2;
+}
+
+.happy-customers-controls .swiper-button-next:hover,
+.happy-customers-controls .swiper-button-prev:hover {
+  transform: scale(1.05);
+  background: rgba(0,0,0,0.03);
+}

@@ -6,17 +6,18 @@
 
 .product-card {
   position: relative;
-  background: #ffffff;
+  background: transparent;
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 /* Hover Effect - Card lift and shadow */
+/* Hover Effect - Card lift and shadow REMOVED */
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transform: none;
+  box-shadow: none;
 }
 
 .product-card__link {

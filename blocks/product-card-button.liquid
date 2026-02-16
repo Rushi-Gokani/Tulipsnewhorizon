@@ -1,0 +1,95 @@
+{% comment %}
+  Product Card Button
+  - "Add to Cart" for available products
+  - "Notify Me" for sold out products
+  - Custom hover styles
+{% endcomment %}
+
+{% liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign sold_out = false
+  unless variant.available
+    assign sold_out = true
+  endunless
+%}
+
+<div class="product-card-button-container" {{ block.shopify_attributes }}>
+  {% if sold_out %}
+    <button
+      type="button"
+      class="product-card-btn product-card-btn--sold-out"
+      disabled
+    >
+      NOTIFY ME
+    </button>
+  {% else %}
+    <form method="post" action="/cart/add" class="product-card-btn-form">
+      <input type="hidden" name="id" value="{{ variant.id }}">
+      <button
+        type="submit"
+        class="product-card-btn product-card-btn--add-to-cart"
+      >
+        ADD TO CART
+      </button>
+    </form>
+  {% endif %}
+</div>
+
+<style>
+  .product-card-button-container {
+    padding-top: 10px;
+    width: 100%;
+  }
+  
+  .product-card-btn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px; /* Rounded corners as per image */
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: block;
+    line-height: 1.5;
+  }
+
+  /* Sold Out - Red/Orange Theme */
+  .product-card-btn--sold-out {
+    background-color: #D95D39; /* Orange-Red from image/request */
+    color: #ffffff;
+    border-color: #D95D39;
+    cursor: not-allowed;
+    opacity: 1; /* Make sure it looks solid */
+  }
+
+  /* Add to Cart - Same Theme */
+  .product-card-btn--add-to-cart {
+    background-color: #D95D39;
+    color: #ffffff;
+    border-color: #D95D39;
+  }
+
+  /* Hover Effects */
+  .product-card-btn--sold-out:hover,
+  .product-card-btn--add-to-cart:hover {
+    background-color: #ffffff;
+    color: #D95D39;
+    border-color: #D95D39;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Card Button",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Card Button"
+    }
+  ]
+}
+{% endschema %}
