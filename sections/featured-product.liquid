@@ -48,13 +48,20 @@
 </div>
 
 {% stylesheet %}
+  :root {
+    --clamp-featured-heading: clamp(1.25rem, 1.5vw + 0.8rem, 2rem);
+    --clamp-featured-price: clamp(1rem, 1vw + 0.8rem, 1.5rem);
+  }
+
   .featured-product-section .section-content-wrapper {
     grid-template-columns: 1fr;
     display: grid;
     overflow: hidden;
+    padding: clamp(1rem, 3vw, 3rem);
 
     @media screen and (min-width: 750px) {
       grid-template-columns: 1fr 1fr;
+      padding: clamp(2rem, 4vw, 4rem);
     }
   }
 
@@ -69,18 +76,66 @@
   }
 
   .featured-product-section .product-grid__card {
-    --padding-block: 20px;
-    --padding-inline: 20px;
+    --padding-block: clamp(12px, 2vw, 40px);
+    --padding-inline: clamp(12px, 2vw, 40px);
+  }
 
-    @media screen and (min-width: 750px) {
-      --padding-block: 40px;
-      --padding-inline: 40px;
+  /* Fluid typography for featured product section */
+  .featured-product-section .product-title {
+    font-size: var(--clamp-featured-heading);
+  }
+
+  .featured-product-section .price,
+  .featured-product-section .price__regular {
+    font-size: var(--clamp-featured-price);
+  }
+
+  .featured-product-section .product-card__content {
+    padding: clamp(1rem, 2vw, 2.5rem);
+  }
+
+  @media screen and (min-width: 750px) {
+    .featured-product-section .product-card__content {
+      padding: clamp(1.5rem, 3vw, 3rem);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-product-section .product-card__content {
+      padding: 1rem;
+    }
+
+    .featured-product-section .product-grid__card {
+      --padding-block: 12px;
+      --padding-inline: 12px;
     }
   }
 
   @media screen and (max-width: 749px) {
     .featured-product-section .media-block {
       order: -1;
+    }
+
+    .featured-product-section .product-title {
+      font-size: 1.25rem;
+    }
+
+    .featured-product-section .price,
+    .featured-product-section .price__regular {
+      font-size: 1rem;
+    }
+
+    .featured-product-section .product-card__content {
+      padding: 1rem;
+    }
+
+    .featured-product-section .section-content-wrapper {
+      padding: 1rem;
+    }
+
+    .featured-product-section .product-grid__card {
+      --padding-block: 12px;
+      --padding-inline: 12px;
     }
   }
 
