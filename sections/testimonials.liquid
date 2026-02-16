@@ -127,21 +127,22 @@
     }
 
     #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button {
-      width: 4rem;
-      height: 4rem;
+      width: 3.6rem;
+      height: 3.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      border: 1px solid #d0d0d0;
-      background: #ffffff;
+      border-radius: 0;
+      border: none;
+      background: transparent;
       cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
+      color: rgb(var(--color-foreground));
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
     }
 
     #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button:hover {
-      background: #f0f0f0;
-      border-color: #999;
+      opacity: 1;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials .swiper-buttons .icon {
