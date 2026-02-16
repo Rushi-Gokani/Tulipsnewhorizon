@@ -16,8 +16,8 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-1",
-            "heading": "<p>Slide Heading</p>",
-            "text": "<p>Slide description text</p>",
+            "heading": "",
+            "text": "",
             "button_link_1": "/",
             "button_label_1": "View more",
             "button_style_1": "button--filled",
@@ -26,9 +26,11 @@
             "button_style_2": "button--outlined",
             "content_position": "center",
             "content_alignment": "center",
+            "image": "shopify://shop_images/Soaps_Banner_Web_7_cb7f9bf6-0fff-45e7-a066-9b9299301d07.webp",
             "link": "",
             "content_position_mobile": "center",
-            "content_alignment_mobile": "center"
+            "content_alignment_mobile": "center",
+            "image_mobile": "shopify://shop_images/Soaps_Banner_Mobile_c2a82641-ce42-4766-9436-75cf7ee1c5ce.webp"
           }
         },
         "slide_yJ8HnB": {
