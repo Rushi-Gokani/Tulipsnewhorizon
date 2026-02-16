@@ -316,79 +316,43 @@
             "author": "Isha Keskar",
             "rating": 5,
             "product_name": "Tulips Cotton Pad",
-            "text": "Undoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend."
+            "text": "Tulips Cotton PadUndoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend."
           }
         },
         "testimonial_DBHWc8": {
           "type": "testimonial",
           "settings": {
-            "author": "Author Name",
+            "author": "Sonali Umare",
             "rating": 5,
-            "product_name": "Product Name",
-            "text": "Review text goes here."
+            "product_name": "",
+            "text": "Wow! Amazing product ,like no one in the market Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!\""
           }
         },
         "testimonial_Tarc8H": {
           "type": "testimonial",
           "settings": {
-            "author": "Sonali Umare",
+            "author": "Jyotsassy Arya",
             "rating": 4,
-            "product_name": "Wow! Amazing product, like no one in the market",
-            "text": "Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!"
+            "product_name": "",
+            "text": "Affordable and best Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands."
           }
         },
         "testimonial_mj4Ccc": {
           "type": "testimonial",
           "settings": {
-            "author": "Jyotsassy Arya",
+            "author": "Vaidehee",
             "rating": 5,
-            "product_name": "Affordable and best",
-            "text": "Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands."
+            "product_name": "",
+            "text": "Good product to remove make upTulips has good quality products! I used their cotton pad to wipe off my sister's make up. Cotton pad has different textures on both sides. One sides has soft and other has long ridges. It's easy to use and removes smudge proof and water proof make up easily. Moves softly on skin. Good quality and bought it at cheap price."
           }
         },
         "testimonial_HE4rEQ": {
           "type": "testimonial",
           "settings": {
-            "author": "Vaidehee",
+            "author": "Sneha Singh",
             "rating": 4,
-            "product_name": "Good product",
-            "text": "Tulips has really good products. I've used their ear buds and my sister's makeup remover pads. It's different texture on both the sides has soft and other has ridges. It's really good and smudge proof. Removes makeup easily. Nice quality and quantity."
-          }
-        },
-        "testimonial_AekPgU": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Priya Sharma",
-            "rating": 5,
-            "product_name": "Soft and Gentle",
-            "text": "These cotton pads are incredibly soft on the skin. I use them daily for toner application and they never irritate my skin. excellent quality!"
-          }
-        },
-        "testimonial_ckcxLG": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Rahul Verma",
-            "rating": 5,
-            "product_name": "Great Value",
-            "text": "Value for money product. The thickness is perfect and they don't fall apart while using. Definitely buying again."
-          }
-        },
-        "testimonial_6xypHx": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Anjali Mehta",
-            "rating": 4,
-            "product_name": "Eco-friendly choice",
-            "text": "Love that these are biodegradable. Good for the skin and good for the planet. Highly efficient in removing makeup."
-          }
-        },
-        "testimonial_ezjgrR": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Snea Gupta",
-            "rating": 5,
-            "product_name": "Must have!",
-            "text": "A staple in my skincare routine. The texture is smooth and they are very absorbent. Best cotton pads available online."
+            "product_name": "",
+            "text": "The best in the market It comes in a neat zip lock packet which is so convenient. It doesn’t leave fibers on you while you rub your face with it."
           }
         }
       },
@@ -397,11 +361,7 @@
         "testimonial_DBHWc8",
         "testimonial_Tarc8H",
         "testimonial_mj4Ccc",
-        "testimonial_HE4rEQ",
-        "testimonial_AekPgU",
-        "testimonial_ckcxLG",
-        "testimonial_6xypHx",
-        "testimonial_ezjgrR"
+        "testimonial_HE4rEQ"
       ],
       "name": "Happy Customers",
       "settings": {
