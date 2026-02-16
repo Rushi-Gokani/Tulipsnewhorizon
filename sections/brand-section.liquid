@@ -1,0 +1,392 @@
+{% liquid
+  assign has_desktop_image = section.settings.brand_image != blank
+  assign has_mobile_image = section.settings.brand_image_mobile != blank
+  assign mid_index = section.blocks.size | plus: 1 | divided_by: 2
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style brand-section"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="brand-section__backgrounds" aria-hidden="true">
+    {% if has_desktop_image %}
+      {{
+        section.settings.brand_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'brand-section__background brand-section__background--desktop',
+          widths: '768, 1024, 1366, 1600, 1920, 2400',
+          sizes: '100vw',
+          loading: 'lazy',
+          fetchpriority: 'low',
+          alt: ''
+      }}
+    {% endif %}
+
+    {% if has_mobile_image %}
+      {{
+        section.settings.brand_image_mobile
+        | image_url: width: 1400
+        | image_tag:
+          class: 'brand-section__background brand-section__background--mobile',
+          widths: '375, 550, 750, 1080, 1400',
+          sizes: '100vw',
+          loading: 'lazy',
+          fetchpriority: 'low',
+          alt: ''
+      }}
+    {% endif %}
+
+    {% unless has_desktop_image or has_mobile_image %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'brand-section__background brand-section__background--placeholder' }}
+    {% endunless %}
+  </div>
+
+  <div class="brand-section__overlay"></div>
+
+  <div class="brand-section__content-wrap">
+    <div class="brand-section__content">
+      {% if section.settings.title != blank %}
+        <h2 class="brand-section__title h3">{{ section.settings.title | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="brand-section__description rte">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="brand-section__list-columns" role="list">
+          <ul class="brand-section__list" role="list">
+            {% for block in section.blocks limit: mid_index %}
+              <li class="brand-section__list-item" {{ block.shopify_attributes }}>
+                {% if block.settings.icon_image %}
+                  <span class="brand-section__icon-image">
+                    {{
+                      block.settings.icon_image
+                      | image_url: width: 80
+                      | image_tag:
+                        widths: '40, 80',
+                        sizes: '40px',
+                        loading: 'lazy',
+                        alt: block.settings.icon_image.alt | default: block.settings.text
+                    }}
+                  </span>
+                {% endif %}
+                <span>{{ block.settings.text }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+
+          {% if section.blocks.size > mid_index %}
+            <ul class="brand-section__list" role="list">
+              {% for block in section.blocks offset: mid_index %}
+                <li class="brand-section__list-item" {{ block.shopify_attributes }}>
+                  {% if block.settings.icon_image %}
+                    <span class="brand-section__icon-image">
+                      {{
+                        block.settings.icon_image
+                        | image_url: width: 80
+                        | image_tag:
+                          widths: '40, 80',
+                          sizes: '40px',
+                          loading: 'lazy',
+                          alt: block.settings.icon_image.alt | default: block.settings.text
+                      }}
+                    </span>
+                  {% endif %}
+                  <span>{{ block.settings.text }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_1_text != blank or section.settings.button_2_text != blank %}
+        <div class="brand-section__buttons">
+          {% if section.settings.button_1_text != blank and section.settings.button_1_link != blank %}
+            <a href="{{ section.settings.button_1_link }}" class="button">
+              {{ section.settings.button_1_text | escape }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button_2_text != blank and section.settings.button_2_link != blank %}
+            <a href="{{ section.settings.button_2_link }}" class="button-secondary">
+              {{ section.settings.button_2_text | escape }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .brand-section {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .brand-section__backgrounds,
+  .brand-section__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .brand-section__background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .brand-section__background--mobile {
+    display: none;
+  }
+
+  .brand-section__overlay {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--color-background-rgb) / 0.92) 0%,
+      rgb(var(--color-background-rgb) / 0.82) 52%,
+      rgb(var(--color-background-rgb) / 0.24) 100%
+    );
+    z-index: 1;
+  }
+
+  .brand-section__content-wrap {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .brand-section__content {
+    max-width: min(760px, 100%);
+    padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem);
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .brand-section__title {
+    margin: 0;
+  }
+
+  .brand-section__description :first-child {
+    margin-top: 0;
+  }
+
+  .brand-section__description :last-child {
+    margin-bottom: 0;
+  }
+
+  .brand-section__list-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem clamp(1rem, 3vw, 2rem);
+  }
+
+  .brand-section__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  .brand-section__list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    line-height: 1.45;
+  }
+
+  .brand-section__icon-image {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: 0 0 2.25rem;
+  }
+
+  .brand-section__icon-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .brand-section__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-section__background--desktop {
+      display: none;
+    }
+
+    .brand-section__background--mobile {
+      display: block;
+    }
+
+    .brand-section__overlay {
+      background: linear-gradient(
+        180deg,
+        rgb(var(--color-background-rgb) / 0.88) 10%,
+        rgb(var(--color-background-rgb) / 0.95) 100%
+      );
+    }
+
+    .brand-section__list-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .brand-section__content {
+      padding-inline: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand section",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page"
+        },
+        {
+          "value": "full-width",
+          "label": "Full"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_image",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_image_mobile",
+      "label": "Mobile background image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Why Choose Tulips Hygiene?"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>TULIPS is India’s leading and fastest-growing brand for cotton and wood-based personal hygiene products.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Primary button label",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Secondary button label",
+      "default": "Contact us"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "List item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Today TULIPS products are sold pan-India with a wide network of distributors."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand section",
+      "category": "Custom Sections",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
