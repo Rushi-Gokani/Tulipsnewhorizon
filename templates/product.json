@@ -571,11 +571,42 @@
     "testimonials_w7YjxB": {
       "type": "testimonials",
       "blocks": {
+        "testimonial_gQQVVY": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Isha Keskar",
+            "title": "",
+            "quote": "<p><strong>Tulips Cotton Pad</strong></p><p>Undoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend.</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_C6P9G8": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sonali Umare",
+            "title": "",
+            "quote": "<p><strong>Wow! Amazing product ,like no one in the market</strong></p><p>Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!\"</p>",
+            "rating_score": 4,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_dJcDBV": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jyotsassy Arya",
+            "title": "",
+            "quote": "<p><strong>Affordable and best </strong></p><p>Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands.</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
         "testimonial_jTppPx": {
           "type": "testimonial",
           "settings": {
-            "author": "Jane Doe",
-            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "author": "Vaidehee",
+            "title": "",
+            "quote": "<p><strong>Good product to remove make up</strong></p><p>Tulips has good quality products! I used their cotton pad to wipe off my sister's make up. Cotton pad has different textures on both sides. One sides has soft and other has long ridges. It's easy to use and removes smudge proof and water proof make up easily. Moves softly on skin. Good quality and bought it at cheap price.</p>",
             "rating_score": 5,
             "color_scheme": ""
           }
@@ -583,26 +614,30 @@
         "testimonial_hDcYMn": {
           "type": "testimonial",
           "settings": {
-            "author": "Jane Doe",
-            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "author": "Sneha Singh",
+            "title": "",
+            "quote": "<p><strong>The best in the market</strong></p><p>It comes in a neat zip lock packet which is so convenient. It doesn’t leave fibers on you while you rub your face with it.</p>",
             "rating_score": 5,
             "color_scheme": ""
           }
         }
       },
       "block_order": [
+        "testimonial_gQQVVY",
+        "testimonial_C6P9G8",
+        "testimonial_dJcDBV",
         "testimonial_jTppPx",
         "testimonial_hDcYMn"
       ],
       "name": "Testimonials",
       "settings": {
-        "heading": "Testimonials",
+        "heading": "From Our Happy Customers",
         "heading_size": "h3",
-        "subheading": "",
+        "subheading": "Our promise of purity, proven by the people who use Our Products daily",
         "impact_text": "300,000+ online ratings and reviews",
         "rating_icon": "star",
-        "layout": "horizontal-w-media",
-        "slider_autoplay": 3,
+        "layout": "carousel-none-media",
+        "slider_autoplay": 1.5,
         "image_position": "image-start",
         "image_aspect_ratio": "1/1",
         "media_show_on": "desktop",

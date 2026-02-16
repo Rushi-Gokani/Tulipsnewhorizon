@@ -92,8 +92,9 @@
       <h2 class="blog-hero__title" style="font-size: 1.5rem; color: var(--card-title-color); font-weight: 700;">{{ article.title }}</h2>
     </a>
 
-    <div class="blog-post-details" style="color: var(--card-info-color); font-size: 0.75rem; text-transform: uppercase; font-weight: 500; margin-top: 0.5rem;">
-      <span>{{ article.author }} POSTED ON {{ article.published_at | time_tag: format: 'date' }}</span>
+    <div class="blog-post-details" style="color: var(--card-info-color); font-size: 0.75rem; font-weight: 100; margin-top: 0.5rem; justify-content: center; text-align: center;">
+      <span class="blog-post-details__text">Posted by Tulips Hygiene posted on</span>
+      <span class="blog-post-details__date">{{ article.published_at | time_tag: format: 'date' }}</span>
     </div>
   </div>
 </div>

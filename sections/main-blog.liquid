@@ -1,4 +1,48 @@
-
+{%- comment -%} Blog + BlogPosting JSON-LD Schema {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": {{ blog.title | json }},
+  "url": "{{ shop.url }}{{ blog.url }}",
+  "description": {{ blog.title | json }},
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": "{{ shop.url }}"
+    {%- if shop.brand.logo -%}
+    ,"logo": {
+      "@type": "ImageObject",
+      "url": "{{ shop.brand.logo | image_url: width: 600 }}"
+    }
+    {%- endif -%}
+  },
+  "blogPost": [
+    {%- for article in blog.articles -%}
+    {
+      "@type": "BlogPosting",
+      "headline": {{ article.title | json }},
+      "url": "{{ shop.url }}{{ article.url }}",
+      "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+      "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+      "author": {
+        "@type": "Person",
+        "name": {{ article.author | json }}
+      },
+      "description": {{ article.excerpt_or_content | strip_html | truncate: 200 | json }}
+      {%- if article.image -%}
+      ,"image": {
+        "@type": "ImageObject",
+        "url": "{{ article.image | image_url: width: 1200 }}",
+        "width": {{ article.image.width }},
+        "height": {{ article.image.height }}
+      }
+      {%- endif -%}
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
 
 <script
   src="{{ 'blog-posts-list.js' | asset_url }}"
@@ -41,17 +85,26 @@
         --card-title-color: #000000 !important;
         --card-info-color: #000000 !important;
         --card-border-radius: {{ section.settings.card_border_radius }}px;
+        --card-heading-color: #000000;
       }
-      
+
       .blog-post-card__content a,
       .blog-post-card__content h1,
       .blog-post-card__content h2,
       .blog-post-card__content h3,
+      .blog-post-card__content h4,
+      .blog-post-card__content h5,
+      .blog-post-card__content h6,
+      .blog-post-card__content .text-block,
+      .blog-post-card__content .text-block a,
       .blog-post-details,
       .blog-post-details__author,
       .blog-post-details__date,
-      .blog-post-details__separator {
+      .blog-post-details__separator,
+      .blog-post-details__text {
         color: #000000 !important;
+        font-weight: 100 !important;
+        text-align: center !important;
       }
     {% endstyle %}
 
@@ -60,17 +113,12 @@
       class="blog-posts-container"
     >
       {% for article in blog.articles %}
-        {% liquid
-          assign col_span = 2
-          assign scale = 1
-          assign is_horizontal = false
-        %}
         <div
-          class="blog-post-item{% if is_horizontal %} blog-post-item--horizontal{% endif %}"
+          class="blog-post-item"
           data-testid="blog-post-item"
           data-blog-index="{{ section.id }}-{{ forloop.index }}"
-          style="--col-span: {{ col_span }}; --blog-post-card-scale: {{ scale }};"
         >
+<<<<<<< HEAD
           {% liquid
             assign featured_block = null
           for block in section.blocks
@@ -87,6 +135,12 @@
         {% endif %}
       </div>
     {% endfor %}
+=======
+          {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
+        </div>
+      {% endfor %}
+    </div>
+>>>>>>> f61b3ab0b21f54f76fe26792a9109cf04ccfd542
   </div>
 </div>
 </blog-posts-list>
@@ -179,6 +233,7 @@
   grid-column: span var(--col-span);
 }
 
+<<<<<<< HEAD
 /**
  * When there's no image, the blog post item has a border.
  */
@@ -186,10 +241,56 @@
   border: none;
   padding: 0;
 }
+=======
+  .blog-hero__title-italic {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.1em;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blog-hero {
+      min-height: 250px;
+    }
+    .blog-hero__content {
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  .blog-posts-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+    column-gap: var(--columns-gap);
+    row-gap: var(--rows-gap);
+  }
+
+  .blog-post-item {
+    border: none;
+    padding: 0;
+  }
+
+  /* Responsive: 2 columns on tablet */
+  @media screen and (max-width: 999px) {
+    .blog-posts-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Responsive: 1 column on mobile */
+  @media screen and (max-width: 749px) {
+    .blog-posts-container {
+      grid-template-columns: 1fr;
+    }
+  }
+>>>>>>> f61b3ab0b21f54f76fe26792a9109cf04ccfd542
 {% endstylesheet %}
 
 {% schema %}
 {
+<<<<<<< HEAD
 "name": "t:names.blog_posts",
 "disabled_on": {
   "groups": ["header"]
@@ -301,6 +402,128 @@
     "default": 8
   }
 ]
+=======
+  "name": "t:names.blog_posts",
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Blog Hero Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show Blog Hero",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "color",
+      "id": "hero_bg_color",
+      "label": "Hero Background Color",
+      "default": "#FF6B3B"
+    },
+    {
+      "type": "color",
+      "id": "hero_text_color",
+      "label": "Hero Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "hero_text_1",
+      "label": "Main Heading Text",
+      "default": "Never miss a beat with our latest"
+    },
+    {
+      "type": "text",
+      "id": "hero_text_2",
+      "label": "Sub Heading Text (Italic)",
+      "default": "news"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Hero Min Height",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Blog Card Design"
+    },
+    {
+      "type": "color",
+      "id": "card_heading_color",
+      "label": "Card Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "card_info_color",
+      "label": "Card Info Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Image Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ]
+>>>>>>> f61b3ab0b21f54f76fe26792a9109cf04ccfd542
 }
 {% endschema %}
-```

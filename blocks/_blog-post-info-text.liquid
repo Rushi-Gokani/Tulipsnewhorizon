@@ -10,7 +10,7 @@
 
 {% assign block_settings = block.settings %}
 {% assign alignment = alignment | default: block_settings.alignment %}
-{% assign display_author = author | default: article.author %}
+{% assign display_author = author | default: "Tulips Hygiene" %}
 {% assign display_date = date | default: article.published_at %}
 
 {%- if block_settings.show_date or block_settings.show_author -%}
@@ -23,14 +23,7 @@
     "
     style="{% render 'spacing-style', settings: block_settings %}"
   >
-    {%- if block_settings.show_author -%}
-      <span class="blog-post-details__author">{{ display_author }}</span>
-    {%- endif -%}
-
-    {%- if block_settings.show_date and block_settings.show_author -%}
-      <span class="blog-post-details__separator">POSTED ON</span>
-    {%- endif -%}
-
+    <span class="blog-post-details__text">Posted by Tulips Hygiene posted on</span>
     {%- if block_settings.show_date -%}
       <span class="blog-post-details__date">{{- display_date | time_tag: format: 'date' -}}</span>
     {%- endif -%}
@@ -43,10 +36,18 @@
     gap: 0.5rem;
     font-size: 0.75rem;
     color: var(--card-info-color);
-    text-transform: uppercase;
     letter-spacing: 0.05em;
     flex-wrap: wrap;
-    font-weight: 500;
+    font-weight: 100 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .blog-post-details__author,
+  .blog-post-details__date,
+  .blog-post-details__separator,
+  .blog-post-details__text {
+    font-weight: 100 !important;
   }
 
   .blog-post-details > span {
@@ -134,7 +135,7 @@
           "label": "t:options.right"
         }
       ],
-      "default": "left",
+      "default": "center",
       "visible_if": "{{ block.settings.show_alignment != false }}"
     },
     {
