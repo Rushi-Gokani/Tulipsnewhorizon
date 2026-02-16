@@ -637,16 +637,21 @@
         },
         "accordion": {
           "type": "accordion",
-          "settings": {},
+          "settings": {
+            "icon": "plus"
+          },
           "blocks": {
             "accordion-row-1": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "t:text_defaults.materials"
+                "heading": "Description"
               },
               "blocks": {
                 "text": {
-                  "type": "text"
+                  "type": "text",
+                  "settings": {
+                    "text": "{{ closest.product.description }}"
+                  }
                 }
               },
               "block_order": ["text"]
@@ -654,11 +659,14 @@
             "accordion-row-2": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "t:text_defaults.care_instructions"
+                "heading": "Ingredients"
               },
               "blocks": {
                 "text": {
-                  "type": "text"
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>{% if closest.product.metafields.custom.ingredients != blank %}{{ closest.product.metafields.custom.ingredients | metafield_tag }}{% endif %}</p>"
+                  }
                 }
               },
               "block_order": ["text"]
@@ -666,17 +674,65 @@
             "accordion-row-3": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "t:text_defaults.fit"
+                "heading": "How To Use"
               },
               "blocks": {
                 "text": {
-                  "type": "text"
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>{% if closest.product.metafields.custom.how_to_use != blank %}{{ closest.product.metafields.custom.how_to_use | metafield_tag }}{% endif %}</p>"
+                  }
+                }
+              },
+              "block_order": ["text"]
+            },
+            "accordion-row-4": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Specifications"
+              },
+              "blocks": {
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>{% if closest.product.metafields.custom.specifications != blank %}{{ closest.product.metafields.custom.specifications | metafield_tag }}{% endif %}</p>"
+                  }
+                }
+              },
+              "block_order": ["text"]
+            },
+            "accordion-row-5": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Additional Details"
+              },
+              "blocks": {
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>{% if closest.product.metafields.custom.additional_details != blank %}{{ closest.product.metafields.custom.additional_details | metafield_tag }}{% endif %}</p>"
+                  }
+                }
+              },
+              "block_order": ["text"]
+            },
+            "accordion-row-6": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Manufacturer Details"
+              },
+              "blocks": {
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>{% if closest.product.metafields.custom.manufacturer_details != blank %}{{ closest.product.metafields.custom.manufacturer_details.value | newline_to_br }}{% endif %}</p>"
+                  }
                 }
               },
               "block_order": ["text"]
             }
           },
-          "block_order": ["accordion-row-1", "accordion-row-2", "accordion-row-3"]
+          "block_order": ["accordion-row-1", "accordion-row-2", "accordion-row-3", "accordion-row-4", "accordion-row-5", "accordion-row-6"]
         },
         "complementary_products": {
           "type": "product-recommendations",
