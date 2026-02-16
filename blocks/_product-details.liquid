@@ -665,7 +665,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "{{ closest.product.metafields.custom.ingredients | metafield_tag }}"
+                    "text": "{% if closest.product.metafields.custom.ingredients != blank %}{{ closest.product.metafields.custom.ingredients | metafield_tag }}{% endif %}"
                   }
                 }
               },
@@ -680,7 +680,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "{{ closest.product.metafields.custom.how_to_use | metafield_tag }}"
+                    "text": "{% if closest.product.metafields.custom.how_to_use != blank %}{{ closest.product.metafields.custom.how_to_use | metafield_tag }}{% endif %}"
                   }
                 }
               },
@@ -695,7 +695,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "{{ closest.product.metafields.custom.specifications | metafield_tag }}"
+                    "text": "{% if closest.product.metafields.custom.specifications != blank %}{{ closest.product.metafields.custom.specifications | metafield_tag }}{% endif %}"
                   }
                 }
               },
@@ -710,7 +710,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "{{ closest.product.metafields.custom.additional_details | metafield_tag }}"
+                    "text": "{% if closest.product.metafields.custom.additional_details != blank %}{{ closest.product.metafields.custom.additional_details | metafield_tag }}{% endif %}"
                   }
                 }
               },
@@ -725,7 +725,7 @@
                 "text": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>{{ closest.product.metafields.custom.manufacturer_details | newline_to_br }}</p>"
+                    "text": "{% if closest.product.metafields.custom.manufacturer_details != blank %}<p>{{ closest.product.metafields.custom.manufacturer_details.value | newline_to_br }}</p>{% endif %}"
                   }
                 }
               },
