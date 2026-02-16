@@ -8,6 +8,19 @@
 
 {% render 'text', width: '100%', block: block, fallback_text: text %}
 
+{% stylesheet %}
+  .text-block,
+  .text-block a,
+  .text-block h1,
+  .text-block h2,
+  .text-block h3,
+  .text-block h4,
+  .text-block h5,
+  .text-block h6 {
+    color: #000 !important;
+  }
+{% endstylesheet %}
+
 {% # theme-check-disable %}
 {% schema %}
 {

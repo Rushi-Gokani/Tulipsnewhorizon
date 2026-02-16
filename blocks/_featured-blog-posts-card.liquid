@@ -48,16 +48,7 @@
   %}
 {% endcapture %}
 
-{% capture description %}
-  {% content_for 'block',
-    id: 'blog-post-description',
-    type: '_blog-post-description',
-    article: article,
-    show_read_more: false,
-    should_truncate: truncate_description,
-    onboarding_text: display_description
-  %}
-{% endcapture %}
+
 
 <div
   class="
@@ -94,9 +85,8 @@
     {% endif %}
 
     <div class="featured-blog-posts-card__content layout-panel-flex--column">
-      <h4>{{ title }}</h4>
+      <h4 class="featured-blog-posts-card__title">{{ title }}</h4>
       {{ details }}
-      {{ description }}
     </div>
   </div>
 </div>
@@ -144,8 +134,18 @@
     --flex-wrap: wrap;
   }
 
-  .featured-blog-posts-card__content h4 {
+  .featured-blog-posts-card__link ~ .featured-blog-posts-card__inner .featured-blog-posts-card__title,
+  .featured-blog-posts-card__link ~ .featured-blog-posts-card__inner h4,
+  .featured-blog-posts-card__link ~ .featured-blog-posts-card__inner h4 a,
+  .featured-blog-posts-card__content h4,
+  .featured-blog-posts-card__content h4 a,
+  .featured-blog-posts-card__title,
+  .featured-blog-posts-card .heading {
     margin: 0;
+    color: #000 !important;
+    --color-primary: #000 !important;
+    --color-foreground: #000 !important;
+    --color-foreground-heading: #000 !important;
   }
 {% endstylesheet %}
 
