@@ -1,7 +1,15 @@
 {% liquid
-  assign has_desktop_image = section.settings.brand_image != blank
-  assign has_mobile_image = section.settings.brand_image_mobile != blank
+  assign has_desktop_image = false
+  assign has_mobile_image = false
   assign mid_index = section.blocks.size | plus: 1 | divided_by: 2
+
+  if section.settings.brand_image != blank
+    assign has_desktop_image = true
+  endif
+
+  if section.settings.brand_image_mobile != blank
+    assign has_mobile_image = true
+  endif
 %}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
@@ -333,7 +341,7 @@
       "id": "padding-block-start",
       "label": "Top",
       "min": 0,
-      "max": 120,
+      "max": 100,
       "step": 1,
       "unit": "px",
       "default": 40
@@ -343,7 +351,7 @@
       "id": "padding-block-end",
       "label": "Bottom",
       "min": 0,
-      "max": 120,
+      "max": 100,
       "step": 1,
       "unit": "px",
       "default": 40
