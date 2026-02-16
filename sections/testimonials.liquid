@@ -1,0 +1,1005 @@
+{%- if section.blocks.size > 0 -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .section-testimonials__root {
+      padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }});
+      padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
+      --media-aspect-ratio: {{ section.settings.image_aspect_ratio }};
+      --block-padding: calc(var(--spacing-unit-size) * {{ section.settings.spacing_inner }});
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .section__heading {
+      margin-block-end: 4.8rem;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media,
+    #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media {
+      display: flex;
+      align-items: center;
+      gap: calc(var(--section-spacing-unit-size) * 1);
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .position--image-start {
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .position--image-end {
+      flex-direction: column-reverse;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media .testimonials__content,
+    #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .testimonials__content {
+      width: 100%;
+      padding: 6.4rem 0;
+    }
+
+    #shopify-section-{{ section.id }} .container.max-w-full .testimonials__content {
+      padding-inline: 1.6rem;
+    }
+
+    #shopify-section-{{ section.id }} .impact-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-block-end: 1.6rem;
+      font-size: var(--font-size-static-sm);
+    }
+
+    #shopify-section-{{ section.id }} .impact-line .star {
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials__subheading {
+      display: block;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      font-size: var(--font-size-static-sm);
+      margin-block-end: 2.8rem;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials__footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-block-start: 3.6rem;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials__footer .section-testimonials__footer--arrow-button {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .swiper-buttons {
+      margin-block-start: 0;
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider__buttons-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--button-action-border-radius, 0.6rem);
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .swiper-buttons .icon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials__footer .swiper-pagination-progressbar {
+      position: unset;
+      margin-block-start: 3.6rem;
+      width: 10rem;
+      height: 0.2rem;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials__footer .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+      background: rgb(var(--color-progress-bar));
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__rating-circle {
+      display: inline-block;
+      border-radius: 100%;
+      width: 0.8rem;
+      height: 0.8rem;
+      background: rgb(var(--color-rating-stars));
+      opacity: 0.2;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__rating-circle.circle-filled {
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .testimonials__media {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .section-testimonials__footer {
+      justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__body {
+      min-height: 19.4rem;
+      background: rgb(var(--color-background));
+      border-radius: var(--card-corner-radius);
+      height: 100%;
+      overflow: auto;
+      padding: calc(var(--block-padding) * 1) calc(var(--block-padding) * 1.5);
+    }
+
+    #shopify-section-{{ section.id }} .card-slider.card-slider--testimonials.vertical-w-media .card-slider__slide {
+      min-height: 19.4rem;
+    }
+
+    #shopify-section-{{ section.id }} .card-slider .card-slider__slide:only-child {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .testimonials__block {
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .testimonials__block blockquote {
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+      border: none;
+    }
+
+    #shopify-section-{{ section.id }} .testimonials__block blockquote p {
+      margin-block: 1.6rem 0;
+      letter-spacing: 0.02em;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__author {
+      font-size: var(--font-size-static-h7);
+      font-style: normal;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__body::-webkit-scrollbar {
+      width: 0.2rem;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__body::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 8em;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__body::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 8rem;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__body::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__rating {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-block-start: 0.4rem;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__box {
+      height: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__rating-filled svg {
+      fill: rgb(var(--color-rating-stars));
+      stroke: rgb(var(--color-rating-stars));
+    }
+
+    #shopify-section-{{ section.id }} .autoplay-progress {
+      position: absolute;
+      inset-inline: auto;
+      inset-block-end: 1.6rem;
+      z-index: 10;
+      width: 4.8rem;
+      height: 4.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      color: var(--swiper-theme-color);
+    }
+
+    #shopify-section-{{ section.id }} .autoplay-progress--line {
+      width: 10rem;
+      height: 1rem;
+    }
+
+    #shopify-section-{{ section.id }} .autoplay-progress svg {
+      --progress: 0;
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      stroke-width: 4px;
+      stroke: var(--swiper-theme-color);
+      fill: none;
+      stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+      stroke-dasharray: 125.6;
+      transform: rotate(-90deg);
+    }
+
+    #shopify-section-{{ section.id }} .autoplay-progress--line svg {
+      transform: rotate(0deg);
+    }
+
+    #shopify-section-{{ section.id }} .autoplay-progress--line line {
+      stroke-dashoffset: calc(100px * (1 - var(--progress)));
+      stroke-dasharray: 100;
+      transform-origin: 0 50%;
+      transform: scaleX(var(--progress));
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .autoplay-progress {
+      position: relative;
+      inset-block-end: 0;
+      --swiper-theme-color: rgb(var(--color-foreground));
+      height: 0.4rem;
+      background-color: rgba(var(--color-foreground), 0.1);
+    }
+
+    #shopify-section-{{ section.id }} .section-testimonials .autoplay-progress span {
+      display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .card-slider__buttons-inner {
+        gap: 0.8rem;
+      }
+
+      #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    @media screen and (min-width: 575px) {
+      #shopify-section-{{ section.id }} .testimonials__quote {
+        font-size: var(--font-size-static-xl);
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      #shopify-section-{{ section.id }} .section-testimonials .vertical-w-media .swiper-pagination {
+        display: none;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      #shopify-section-{{ section.id }} .section-testimonials .position--image-start {
+        flex-direction: row;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials .position--image-end {
+        flex-direction: row-reverse;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .autoplay-progress {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .testimonials__quote {
+        font-size: var(--font-size-static-xxl);
+        line-height: var(--line-height-static-sm);
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media:has(.testimonials__media.large-up-hide) .testimonials__content,
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media:has(.testimonials__media.large-up-hide) .testimonials__content {
+        width: 100%;
+        padding-inline: 0;
+      }
+    }
+
+    @media screen and (min-width: 990px) {
+      #shopify-section-{{ section.id }} .section-testimonials--carousel-none-media .testimonials__content {
+        padding: 1.2rem 3.6rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media .testimonials__content,
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .testimonials__content {
+        width: 50%;
+        padding: 6.4rem 0;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials .max-w-full .testimonials__content {
+        padding-inline: 0;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media .testimonials__content-in,
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .testimonials__content-in {
+        max-width: 43.7rem;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      #shopify-section-{{ section.id }} .testimonials__media {
+        display: inline;
+        width: 50%;
+        aspect-ratio: var(--media-aspect-ratio);
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__footer {
+        justify-content: space-between;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__footer .section-testimonials__footer--arrow-button {
+        display: block;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .swiper-wrapper {
+        max-height: 75rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .section-testimonials__footer {
+        margin-block-start: 4.8rem;
+        justify-content: center;
+        gap: 1.6rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .swiper-pagination {
+        position: initial;
+        --swiper-pagination-color: transparent;
+        --swiper-pagination-bullet-height: 0.1rem;
+        --swiper-pagination-bullet-horizontal-gap: 0.8rem;
+        --swiper-pagination-bullet-width: 2.4rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .swiper-pagination .swiper-pagination-bullet {
+        font-size: var(--font-size-static-md);
+        --swiper-pagination-bullet-inactive-color: transparent;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .swiper-pagination-bullet::after {
+        content: '';
+        display: block;
+        width: 2.4rem;
+        height: 0.1rem;
+        position: absolute;
+        inset-block-end: -0.08rem;
+        background-color: rgba(var(--color-foreground), 1);
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials--vertical-w-media .swiper-pagination-horizontal {
+        width: auto;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__body {
+        padding: calc(var(--block-padding) * 1.5);
+      }
+
+      #shopify-section-{{ section.id }} .testimonials__quote {
+        font-size: var(--font-size-static-h4);
+        margin-block-end: 2.4rem;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- liquid
+    assign rating_icon = section.settings.rating_icon
+
+    assign slideshow_spacing_desktop = settings.spacing_desktop | times: 10 | round: 0
+    assign slideshow_spacing_mobile = settings.spacing_mobile | times: 10 | round: 0
+
+    assign slideshow_autoplay = section.settings.slider_autoplay
+
+    if section.settings.layout == 'horizontal-w-media'
+      assign slideshow_loop = true
+      assign slideshow_pagination = 'progressbar'
+    elsif section.settings.layout == 'vertical-w-media'
+      assign slideshow_loop = false
+      assign slideshow_pagination = 'render_bullet'
+    elsif section.settings.layout == 'carousel-none-media'
+      assign slideshow_loop = true
+      assign slideshow_pagination = 'progressbar'
+    endif
+
+    if section.blocks.size == 1
+      assign slideshow_loop = false
+    endif
+
+    if section.settings.media_show_on == 'mobile'
+      assign media_classes = 'large-up-hide'
+    elsif section.settings.media_show_on == 'desktop'
+      assign media_classes = 'small-down-hide'
+    endif
+  -%}
+
+  <div class="color-{{ section.settings.color_scheme }} gradient section-testimonials__root">
+    <div class="section-testimonials container {{ section.settings.section_width }} js-animation-fade-in section-testimonials--{{ section.settings.layout }} position--{{ section.settings.image_position }} overflow-hidden" data-testimonials-root>
+      <div class="testimonials__media media {{ media_classes }}">
+        {%- liquid
+          if section.settings.image != blank
+            render 'image', image: section.settings.image
+          else
+            echo 'image' | placeholder_svg_tag: 'placeholder-svg'
+          endif
+        -%}
+      </div>
+
+      <div class="testimonials__content">
+        <div class="testimonials__content-in">
+          {%- if section.settings.impact_text != blank or section.settings.subheading != blank or section.settings.heading != blank -%}
+            <div class="text-center">
+              {%- if section.settings.impact_text != blank -%}
+                <div class="impact-line">
+                  <span class="star" aria-hidden="true">⭐</span>
+                  <span>{{ section.settings.impact_text }}</span>
+                  <span class="star" aria-hidden="true">⭐</span>
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.subheading != blank -%}
+                <span class="section-testimonials__subheading">{{ section.settings.subheading }}</span>
+              {%- endif -%}
+
+              {%- if section.settings.heading != blank -%}
+                <h2 class="section__heading {{ section.settings.heading_size }}">
+                  {{ section.settings.heading }}
+                </h2>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <div
+            class="swiper card-slider card-slider--testimonials js-testimonials {{ section.settings.layout }}"
+            data-testimonials-slider
+            data-swiper-options='{
+              "slidesPerView": 1.15,
+              "rewind": true,
+              "followFinger": false,
+              "spaceBetweenMobile": {{ slideshow_spacing_mobile }},
+              "spaceBetweenDesktop": {{ slideshow_spacing_desktop }},
+              "autoplayDelay": {{ slideshow_autoplay | times: 1000 | round: 0 }},
+              "loop": {{ slideshow_loop }},
+              "pagination": "{{ slideshow_pagination }}",
+              "slideCount": {{ section.blocks.size }},
+              "sectionId": "{{ section.id }}"
+            }'
+          >
+            <div class="swiper-wrapper card-slider__wrapper">
+              {%- for block in section.blocks -%}
+                <div class="{% if section.blocks.size > 1 %}swiper-slide {% endif %}card-slider__slide testimonials__block" {{ block.shopify_attributes }}>
+                  <div class="testimonial__box">
+                    <div class="testimonial__body color-{{ block.settings.color_scheme }}">
+                      <div class="testimonial__content">
+                        {%- if block.settings.author != blank -%}
+                          <cite class="testimonial__author">{{ block.settings.author }}</cite>
+                        {%- endif -%}
+
+                        {%- assign rating_score = block.settings.rating_score -%}
+                        {%- if rating_score > 0 -%}
+                          <div class="testimonial__rating">
+                            {% for i in (1..5) %}
+                              {% if i <= rating_score %}
+                                <div class="testimonial__rating-filled">
+                                  {%- if rating_icon == 'star' -%}
+                                    {% render 'icon', icon_name: 'theme-star-filled', class: 'icon' %}
+                                  {%- else -%}
+                                    <span class="testimonial__rating-circle circle-filled"></span>
+                                  {%- endif -%}
+                                </div>
+                              {% else %}
+                                <div class="testimonial__rating-outlined">
+                                  {%- if rating_icon == 'star' -%}
+                                    {% render 'icon', icon_name: 'theme-star', class: 'icon' %}
+                                  {%- else -%}
+                                    <span class="testimonial__rating-circle"></span>
+                                  {%- endif -%}
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        {%- endif -%}
+
+                        {%- if block.settings.quote != blank -%}
+                          <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            <div class="section-testimonials__footer">
+              <div class="swiper-pagination"></div>
+
+              {%- if section.settings.layout == 'vertical-w-media' and section.blocks.size > 3 -%}
+                <button
+                  class="swiper-button text-current swiper-button--next swiper-button--next-{{ section.id }} section-testimonials__footer--arrow-button"
+                  aria-label="{{ 'theme.actions.next' | t }}"
+                >
+                  {%- render 'icon', icon_name: 'theme-arrow', class: 'icon' -%}
+                </button>
+              {%- endif -%}
+
+              <div class="swiper-buttons card-slider__buttons no-js-hidden">
+                <div class="card-slider__buttons-inner">
+                  <button
+                    class="swiper-button text-current swiper-button--prev swiper-button--prev-{{ section.id }}"
+                    aria-label="{{ 'theme.actions.previous' | t }}"
+                  >
+                    {%- render 'icon', icon_name: 'theme-chevron', class: 'icon' -%}
+                  </button>
+                  <button
+                    class="swiper-button text-current swiper-button--next swiper-button--next-{{ section.id }}"
+                    aria-label="{{ 'theme.actions.next' | t }}"
+                  >
+                    {%- render 'icon', icon_name: 'theme-chevron', class: 'icon' -%}
+                  </button>
+                </div>
+              </div>
+
+              <div class="autoplay-progress autoplay-progress--{{ section.id }} autoplay-progress--line">
+                <svg viewBox="0 0 100 2" width="10rem" height="1rem">
+                  <line x1="0" y1="2" x2="100" y2="2"></line>
+                </svg>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const sectionId = {{ section.id | json }};
+      const sectionRoot = document.getElementById(`shopify-section-${sectionId}`);
+      if (!sectionRoot) return;
+
+      const mobileWidth = 750;
+
+      const parseOptions = (sliderEl) => {
+        try {
+          return JSON.parse(sliderEl.getAttribute('data-swiper-options') || '{}');
+        } catch (_) {
+          return {};
+        }
+      };
+
+      const getPagination = (paginationType, sliderEl) => {
+        const el = sliderEl.querySelector('.swiper-pagination');
+        if (!el) return false;
+
+        if (paginationType === 'render_bullet') {
+          return {
+            el,
+            clickable: true,
+            renderBullet(i, className) {
+              return `<button class="${className}"><span>${i + 1}</span></button>`;
+            }
+          };
+        }
+
+        if (paginationType === 'progressbar') {
+          return {
+            el,
+            type: 'progressbar'
+          };
+        }
+
+        if (paginationType === 'bullets') {
+          return {
+            el,
+            clickable: true
+          };
+        }
+
+        return false;
+      };
+
+      const initSlider = (sliderEl) => {
+        if (typeof Swiper === 'undefined') return;
+
+        const options = parseOptions(sliderEl);
+        const progressCircle = sectionRoot.querySelector(`.autoplay-progress--${options.sectionId} svg`);
+        const progressContent = sectionRoot.querySelector(`.autoplay-progress--${options.sectionId} span`);
+
+        const autoplayEnabled = Number(options.autoplayDelay) > 0;
+
+        const autoplay = autoplayEnabled
+          ? {
+              delay: Number(options.autoplayDelay),
+              disableOnInteraction: false
+            }
+          : false;
+
+        const navigation = {
+          prevEl: sectionRoot.querySelector(`.swiper-button--prev-${options.sectionId}`),
+          nextEl: sectionRoot.querySelector(`.swiper-button--next-${options.sectionId}`)
+        };
+
+        const baseOptions = {
+          slidesPerView: options.slidesPerView || 1.15,
+          rewind: !!options.rewind,
+          followFinger: !!options.followFinger,
+          loop: options.loop && Number(options.slideCount) > 1,
+          spaceBetween: options.spaceBetweenMobile || 16,
+          pagination: getPagination(options.pagination, sliderEl),
+          navigation,
+          autoplay
+        };
+
+        const withAutoplayProgress = {
+          ...baseOptions,
+          on: {
+            autoplayTimeLeft(_swiper, time, progress) {
+              if (progressCircle) {
+                progressCircle.style.setProperty('--progress', 1 - progress);
+              }
+              if (progressContent) {
+                progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+              }
+            }
+          }
+        };
+
+        let sliderOptions = {
+          ...baseOptions,
+          breakpoints: {
+            480: {
+              slidesPerView: 'auto',
+              spaceBetween: options.spaceBetweenMobile || 2
+            },
+            750: {
+              slidesPerView: options.slidesPerViewDesktop || 3,
+              spaceBetween: options.spaceBetweenDesktop || 16
+            }
+          }
+        };
+
+        if (sliderEl.classList.contains('horizontal-w-media')) {
+          sliderOptions = {
+            ...withAutoplayProgress,
+            breakpoints: {
+              750: {
+                slidesPerView: 2.2,
+                spaceBetween: options.spaceBetweenDesktop || 16
+              },
+              990: {
+                slidesPerView: 1
+              }
+            }
+          };
+        } else if (sliderEl.classList.contains('vertical-w-media')) {
+          if (window.innerWidth > mobileWidth) {
+            sliderOptions = {
+              ...baseOptions,
+              pagination: getPagination('render_bullet', sliderEl),
+              breakpoints: {
+                750: {
+                  slidesPerView: 2.2,
+                  spaceBetween: options.spaceBetweenDesktop || 16,
+                  pagination: getPagination('render_bullet', sliderEl)
+                },
+                990: {
+                  slidesPerView: 1,
+                  grid: {
+                    rows: 3
+                  }
+                }
+              }
+            };
+          } else {
+            sliderOptions = {
+              ...withAutoplayProgress
+            };
+          }
+        } else if (sliderEl.classList.contains('carousel-none-media')) {
+          sliderOptions = {
+            ...withAutoplayProgress,
+            breakpoints: {
+              750: {
+                slidesPerView: 2.2,
+                spaceBetween: options.spaceBetweenDesktop || 16
+              },
+              990: {
+                slidesPerView: 3.2
+              }
+            }
+          };
+        }
+
+        if (sliderEl.swiper) {
+          sliderEl.swiper.destroy(true, true);
+        }
+
+        sliderEl.swiper = new Swiper(sliderEl, sliderOptions);
+      };
+
+      const initSection = () => {
+        const sliders = sectionRoot.querySelectorAll('[data-testimonials-slider]');
+        sliders.forEach((sliderEl) => initSlider(sliderEl));
+      };
+
+      if (typeof Swiper !== 'undefined') {
+        initSection();
+      } else {
+        window.addEventListener('load', initSection, { once: true });
+      }
+
+      const resizeHandler = () => {
+        const sliders = sectionRoot.querySelectorAll('[data-testimonials-slider]');
+        sliders.forEach((sliderEl) => {
+          if (sliderEl.classList.contains('js-testimonials')) {
+            initSlider(sliderEl);
+          }
+        });
+      };
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeHandler, 180);
+      });
+
+      if (window.Shopify && Shopify.designMode) {
+        window.addEventListener('shopify:section:load', (event) => {
+          if (event.target && event.target.id === `shopify-section-${sectionId}`) {
+            initSection();
+          }
+        });
+      }
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section-testimonials",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h6", "label": "XS" },
+        { "value": "h5", "label": "S" },
+        { "value": "h4", "label": "M" },
+        { "value": "h3", "label": "L" },
+        { "value": "h2", "label": "XL" }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "impact_text",
+      "label": "Impact line text",
+      "default": "300,000+ online ratings and reviews"
+    },
+    {
+      "type": "select",
+      "id": "rating_icon",
+      "label": "Rating icon",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "star", "label": "Star" },
+        { "value": "circle", "label": "Circle" }
+      ],
+      "default": "star"
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "info": "Choose how testimonials should be displayed",
+      "options": [
+        { "value": "horizontal-w-media", "label": "Single" },
+        { "value": "vertical-w-media", "label": "Multi" },
+        { "value": "carousel-none-media", "label": "Carousel" }
+      ],
+      "default": "horizontal-w-media"
+    },
+    {
+      "type": "range",
+      "id": "slider_autoplay",
+      "label": "Autoplay interval",
+      "info": "Set to 0 to disable autoplay",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "sec",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "image-start", "label": "Start" },
+        { "value": "image-end", "label": "End" }
+      ],
+      "default": "image-start"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "auto", "label": "Auto" },
+        { "value": "1/1", "label": "1:1" },
+        { "value": "4/3", "label": "4:3" },
+        { "value": "3/4", "label": "3:4" },
+        { "value": "9/16", "label": "9:16" }
+      ],
+      "default": "1/1"
+    },
+    {
+      "type": "select",
+      "id": "media_show_on",
+      "label": "Show media on",
+      "options": [
+        { "value": "desktop", "label": "Desktop" },
+        { "value": "mobile", "label": "Mobile" },
+        { "value": "both", "label": "Both" }
+      ],
+      "default": "desktop"
+    },
+    {
+      "type": "header",
+      "content": "Block settings",
+      "info": "These settings control each testimonial card"
+    },
+    {
+      "type": "select",
+      "id": "spacing_inner",
+      "label": "Inner spacing",
+      "options": [
+        { "value": "0", "label": "None" },
+        { "value": "1", "label": "S" },
+        { "value": "2", "label": "M" },
+        { "value": "4", "label": "L" },
+        { "value": "6", "label": "XL" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Section settings",
+      "info": "Adjust spacing and width for this section"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "options": [
+        { "value": "max-w-page", "label": "Page width" },
+        { "value": "max-w-fluid", "label": "Fluid" },
+        { "value": "max-w-full", "label": "Full width" }
+      ],
+      "default": "max-w-page",
+      "label": "Section width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "spacing_top",
+      "label": "Top spacing",
+      "options": [
+        { "value": "0", "label": "No" },
+        { "value": "1", "label": "S" },
+        { "value": "2", "label": "M" },
+        { "value": "4", "label": "L" },
+        { "value": "6", "label": "XL" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "spacing_bottom",
+      "label": "Bottom spacing",
+      "options": [
+        { "value": "0", "label": "No" },
+        { "value": "1", "label": "S" },
+        { "value": "2", "label": "M" },
+        { "value": "4", "label": "L" },
+        { "value": "6", "label": "XL" }
+      ],
+      "default": "2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Jane Doe"
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>"
+        },
+        {
+          "type": "range",
+          "id": "rating_score",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "header",
+          "content": "Card settings",
+          "info": "Customize the appearance of each testimonial card"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "default": "scheme-1",
+          "label": "Color scheme"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}
