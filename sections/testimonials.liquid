@@ -488,10 +488,15 @@
     if section.settings.image != blank and section.settings.layout != 'carousel-none-media'
       assign has_media = true
     endif
+
+    assign layout_mode = section.settings.layout
+    if has_media == false and section.settings.layout == 'horizontal-w-media'
+      assign layout_mode = 'carousel-none-media'
+    endif
   -%}
 
   <div class="color-{{ section.settings.color_scheme }} gradient section-testimonials__root">
-    <div class="section-testimonials container {{ section.settings.section_width }} js-animation-fade-in section-testimonials--{{ section.settings.layout }} position--{{ section.settings.image_position }} {% unless has_media %}no-image{% endunless %} overflow-hidden" data-testimonials-root>
+    <div class="section-testimonials container {{ section.settings.section_width }} js-animation-fade-in section-testimonials--{{ layout_mode }} position--{{ section.settings.image_position }} {% unless has_media %}no-image{% endunless %} overflow-hidden" data-testimonials-root>
       {%- if has_media -%}
         <div class="testimonials__media media {{ media_classes }}">
           {%- render 'image', image: section.settings.image -%}
@@ -523,7 +528,7 @@
           {%- endif -%}
 
           <div
-            class="swiper card-slider card-slider--testimonials js-testimonials {{ section.settings.layout }}"
+            class="swiper card-slider card-slider--testimonials js-testimonials {{ layout_mode }}"
             data-testimonials-slider
             data-swiper-options='{
               "slidesPerView": 1.15,
@@ -586,7 +591,7 @@
             <div class="section-testimonials__footer">
               <div class="swiper-pagination"></div>
 
-              {%- if section.settings.layout == 'vertical-w-media' and section.blocks.size > 3 -%}
+              {%- if layout_mode == 'vertical-w-media' and section.blocks.size > 3 -%}
                 <button
                   class="swiper-button text-current swiper-button--next swiper-button--next-{{ section.id }} section-testimonials__footer--arrow-button"
                   aria-label="{{ 'theme.actions.next' | t }}"
