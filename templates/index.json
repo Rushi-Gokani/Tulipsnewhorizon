@@ -129,6 +129,22 @@
         "bg_color": "#FFFFFF"
       }
     },
+    "featured_collection_carousel_xRzp7B": {
+      "type": "featured-collection-carousel",
+      "name": "Featured Collection Slide",
+      "settings": {
+        "title": "Wet Wipes & Dry Tissues",
+        "heading_size": "h1",
+        "collection": "refreshing-wet-wipes",
+        "products_to_show": 8,
+        "desktop_columns": 4,
+        "autoplay_speed": 3,
+        "show_arrows": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#FFFFFF"
+      }
+    },
     "happy_customers_EY4kXP": {
       "type": "happy-customers",
       "blocks": {
@@ -200,6 +216,7 @@
   "order": [
     "image_slider_yJgiFj",
     "featured_collection_carousel_k3teGq",
+    "featured_collection_carousel_xRzp7B",
     "happy_customers_EY4kXP"
   ]
 }
