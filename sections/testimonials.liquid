@@ -83,22 +83,67 @@
       padding-inline: 1.6rem;
     }
 
+    @keyframes impactShimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes starPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     #shopify-section-{{ section.id }} .impact-line {
       display: inline-flex;
       align-items: center;
+<<<<<<< HEAD
       gap: 0.3rem;
       margin-block-end: 0.8rem;
       font-size: var(--clamp-testimonial-impact);
       padding: 0.5rem 1rem;
+=======
+      gap: 0.8rem;
+      margin-block-end: 1.6rem;
+      font-size: var(--font-size-static-sm);
+      padding: 1rem 2.4rem;
+>>>>>>> e811a9c0f2d92e24f5334b1729a3168f01f5ebd2
       border-radius: 999px;
-      background: #f6e8de;
-      color: #f16829;
-      font-weight: 600;
+      background: linear-gradient(135deg, #fff4ed 0%, #ffe0cc 50%, #fff4ed 100%);
+      background-size: 200% 100%;
+      color: #d4541e;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 2px 12px rgba(241, 104, 41, 0.15);
+      border: 1px solid rgba(241, 104, 41, 0.15);
+      animation: fadeSlideUp 0.6s ease-out both, impactShimmer 4s ease-in-out infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    #shopify-section-{{ section.id }} .impact-line:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(241, 104, 41, 0.25);
     }
 
     #shopify-section-{{ section.id }} .impact-line .star {
       font-size: 0.5rem;
       line-height: 1;
+      font-size: 1.2em;
+      animation: starPulse 2s ease-in-out infinite;
+    }
+
+    #shopify-section-{{ section.id }} .impact-line .star:last-child {
+      animation-delay: 1s;
+    }
+
+    #shopify-section-{{ section.id }} .impact-line .impact-number {
+      font-weight: 800;
+      color: #c43e0c;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials__subheading {
@@ -715,9 +760,15 @@
             <div class="text-center">
               {%- if section.settings.impact_text != blank -%}
                 <div class="impact-line">
+<<<<<<< HEAD
                   <span class="star" aria-hidden="true">&starf;</span>
                   <span>{{ section.settings.impact_text }}</span>
                   <span class="star" aria-hidden="true">&starf;</span>
+=======
+                  <span class="star" aria-hidden="true">⭐</span>
+                  <span class="impact-text">{{ section.settings.impact_text }}</span>
+                  <span class="star" aria-hidden="true">⭐</span>
+>>>>>>> e811a9c0f2d92e24f5334b1729a3168f01f5ebd2
                 </div>
               {%- endif -%}
 
@@ -816,13 +867,17 @@
                     class="swiper-button text-current swiper-button--prev swiper-button--prev-{{ section.id }}"
                     aria-label="{{ 'theme.actions.previous' | t }}"
                   >
-                    {%- render 'icon', icon_name: 'theme-chevron', class: 'icon' -%}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                   <button
                     class="swiper-button text-current swiper-button--next swiper-button--next-{{ section.id }}"
                     aria-label="{{ 'theme.actions.next' | t }}"
                   >
-                    {%- render 'icon', icon_name: 'theme-chevron', class: 'icon' -%}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               </div>

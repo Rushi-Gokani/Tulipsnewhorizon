@@ -568,86 +568,6 @@
         "padding-block-end": 40
       }
     },
-    "testimonials_w7YjxB": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial_gQQVVY": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Isha Keskar",
-            "title": "",
-            "quote": "<p><strong>Tulips Cotton Pad</strong></p><p>Undoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend.</p>",
-            "rating_score": 5,
-            "color_scheme": "scheme-1"
-          }
-        },
-        "testimonial_C6P9G8": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Sonali Umare",
-            "title": "",
-            "quote": "<p><strong>Wow! Amazing product ,like no one in the market</strong></p><p>Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!\"</p>",
-            "rating_score": 4,
-            "color_scheme": "scheme-1"
-          }
-        },
-        "testimonial_dJcDBV": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Jyotsassy Arya",
-            "title": "",
-            "quote": "<p><strong>Affordable and best </strong></p><p>Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands.</p>",
-            "rating_score": 5,
-            "color_scheme": "scheme-1"
-          }
-        },
-        "testimonial_jTppPx": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Vaidehee",
-            "title": "",
-            "quote": "<p><strong>Good product to remove make up</strong></p><p>Tulips has good quality products! I used their cotton pad to wipe off my sister's make up. Cotton pad has different textures on both sides. One sides has soft and other has long ridges. It's easy to use and removes smudge proof and water proof make up easily. Moves softly on skin. Good quality and bought it at cheap price.</p>",
-            "rating_score": 5,
-            "color_scheme": ""
-          }
-        },
-        "testimonial_hDcYMn": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Sneha Singh",
-            "title": "",
-            "quote": "<p><strong>The best in the market</strong></p><p>It comes in a neat zip lock packet which is so convenient. It doesn’t leave fibers on you while you rub your face with it.</p>",
-            "rating_score": 5,
-            "color_scheme": ""
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_gQQVVY",
-        "testimonial_C6P9G8",
-        "testimonial_dJcDBV",
-        "testimonial_jTppPx",
-        "testimonial_hDcYMn"
-      ],
-      "name": "Testimonials",
-      "settings": {
-        "heading": "From Our Happy Customers",
-        "heading_size": "h3",
-        "subheading": "Our promise of purity, proven by the people who use Our Products daily",
-        "impact_text": "300,000+ online ratings and reviews",
-        "rating_icon": "star",
-        "layout": "carousel-none-media",
-        "slider_autoplay": 1.5,
-        "image_position": "image-start",
-        "image_aspect_ratio": "1/1",
-        "media_show_on": "desktop",
-        "spacing_inner": "2",
-        "section_width": "max-w-page",
-        "color_scheme": "",
-        "spacing_top": "2",
-        "spacing_bottom": "2"
-      }
-    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -788,12 +708,287 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "product_list_YN38c8": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_pY96Bh": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_MbgkEJ": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_pY96Bh",
+            "product_list_button_MbgkEJ"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_zLajaq": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_tyxGgP": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_bzntK4": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_zLajaq",
+            "product_title_tyxGgP",
+            "price_bzntK4"
+          ]
+        }
+      },
+      "name": "t:names.products_carousel",
+      "settings": {
+        "collection": "best-sellers",
+        "layout_type": "carousel",
+        "carousel_on_mobile": false,
+        "max_products": 6,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "circle",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "testimonials_w7YjxB": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_gQQVVY": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Isha Keskar",
+            "title": "",
+            "quote": "<p><strong>Tulips Cotton Pad</strong></p><p>Undoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend.</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_C6P9G8": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sonali Umare",
+            "title": "",
+            "quote": "<p><strong>Wow! Amazing product ,like no one in the market</strong></p><p>Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!\"</p>",
+            "rating_score": 4,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_dJcDBV": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jyotsassy Arya",
+            "title": "",
+            "quote": "<p><strong>Affordable and best </strong></p><p>Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands.</p>",
+            "rating_score": 5,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "testimonial_jTppPx": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Vaidehee",
+            "title": "",
+            "quote": "<p><strong>Good product to remove make up</strong></p><p>Tulips has good quality products! I used their cotton pad to wipe off my sister's make up. Cotton pad has different textures on both sides. One sides has soft and other has long ridges. It's easy to use and removes smudge proof and water proof make up easily. Moves softly on skin. Good quality and bought it at cheap price.</p>",
+            "rating_score": 5,
+            "color_scheme": ""
+          }
+        },
+        "testimonial_hDcYMn": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sneha Singh",
+            "title": "",
+            "quote": "<p><strong>The best in the market</strong></p><p>It comes in a neat zip lock packet which is so convenient. It doesn’t leave fibers on you while you rub your face with it.</p>",
+            "rating_score": 5,
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_gQQVVY",
+        "testimonial_C6P9G8",
+        "testimonial_dJcDBV",
+        "testimonial_jTppPx",
+        "testimonial_hDcYMn"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "heading": "From Our Happy Customers",
+        "heading_size": "h3",
+        "subheading": "Our promise of purity, proven by the people who use Our Products daily",
+        "impact_text": "300,000+ online ratings and reviews",
+        "rating_icon": "star",
+        "layout": "carousel-none-media",
+        "slider_autoplay": 1.5,
+        "image_position": "image-start",
+        "image_aspect_ratio": "1/1",
+        "media_show_on": "desktop",
+        "spacing_inner": "2",
+        "section_width": "max-w-page",
+        "color_scheme": "",
+        "spacing_top": "2",
+        "spacing_bottom": "2"
+      }
     }
   },
   "order": [
     "main",
     "brand_section_KUUPUg",
-    "testimonials_w7YjxB",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "product_list_YN38c8",
+    "testimonials_w7YjxB"
   ]
 }
