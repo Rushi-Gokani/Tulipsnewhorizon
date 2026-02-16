@@ -70,7 +70,7 @@
               </a>
             {%- endif -%}
           {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            <div class="image-slider__placeholder"></div>
           {%- endif -%}
         </div>
 
@@ -168,10 +168,14 @@
             >
               <svg
                 class="icon icon-previous"
+                viewBox="0 0 24 24"
                 fill="none"
-                viewBox="0 0 18 19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               >
-                {%- render 'icon', icon: 'previous' -%}
+                <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
             <button
@@ -180,10 +184,14 @@
             >
               <svg
                 class="icon icon-next"
+                viewBox="0 0 24 24"
                 fill="none"
-                viewBox="0 0 18 19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               >
-                {%- render 'icon', icon: 'next' -%}
+                <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
           </div>
