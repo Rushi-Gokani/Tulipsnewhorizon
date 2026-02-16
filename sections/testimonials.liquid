@@ -3,6 +3,15 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   {%- style -%}
+    :root {
+      --clamp-testimonial-heading: clamp(1.2rem, 1.5vw + 0.8rem, 2.5rem);
+      --clamp-testimonial-subheading: clamp(0.55rem, 0.2vw + 0.5rem, 0.875rem);
+      --clamp-testimonial-author: clamp(0.7rem, 0.4vw + 0.6rem, 1.125rem);
+      --clamp-testimonial-title: clamp(0.7rem, 0.4vw + 0.6rem, 1.125rem);
+      --clamp-testimonial-quote: clamp(0.75rem, 0.8vw + 0.6rem, 1.25rem);
+      --clamp-testimonial-impact: clamp(0.55rem, 0.3vw + 0.45rem, 0.875rem);
+    }
+
     #shopify-section-{{ section.id }} .card-slider {
       display: block;
       overflow: visible;
@@ -39,9 +48,10 @@
     }
 
     #shopify-section-{{ section.id }} .section-testimonials .section__heading {
-      margin-block-end: 4.8rem;
+      margin-block-end: clamp(1rem, 2.5vw, 4.8rem);
       text-align: center;
       font-weight: 500;
+      font-size: var(--clamp-testimonial-heading);
     }
 
     #shopify-section-{{ section.id }} .section-testimonials--horizontal-w-media,
@@ -76,10 +86,10 @@
     #shopify-section-{{ section.id }} .impact-line {
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
-      margin-block-end: 1.6rem;
-      font-size: var(--font-size-static-sm);
-      padding: 1.2rem 2.4rem;
+      gap: 0.3rem;
+      margin-block-end: 0.8rem;
+      font-size: var(--clamp-testimonial-impact);
+      padding: 0.5rem 1rem;
       border-radius: 999px;
       background: #f6e8de;
       color: #f16829;
@@ -87,6 +97,7 @@
     }
 
     #shopify-section-{{ section.id }} .impact-line .star {
+      font-size: 0.5rem;
       line-height: 1;
     }
 
@@ -94,9 +105,9 @@
       display: block;
       text-align: center;
       text-transform: uppercase;
-      letter-spacing: 0.2rem;
-      font-size: var(--font-size-static-sm);
-      margin-block-end: 2.8rem;
+      letter-spacing: 0.1rem;
+      font-size: var(--clamp-testimonial-subheading);
+      margin-block-end: 1.2rem;
     }
 
     #shopify-section-{{ section.id }} .section-testimonials__footer {
@@ -192,12 +203,12 @@
     }
 
     #shopify-section-{{ section.id }} .testimonial__body {
-      min-height: 24rem;
+      min-height: 14rem;
       background: #ffffff;
-      border-radius: 0.8rem;
+      border-radius: 0.5rem;
       height: 100%;
       overflow: hidden;
-      padding: 2.4rem 2.2rem;
+      padding: clamp(0.8rem, 1.5vw, 1.8rem) clamp(0.7rem, 1.5vw, 1.5rem);
       border: 1px solid #efefef;
       box-shadow: none;
       position: relative;
@@ -205,7 +216,7 @@
     }
 
     #shopify-section-{{ section.id }} .card-slider.card-slider--testimonials.vertical-w-media .card-slider__slide {
-      min-height: 19.4rem;
+      min-height: 16rem;
     }
 
     #shopify-section-{{ section.id }} .card-slider .card-slider__slide:only-child {
@@ -229,23 +240,23 @@
     }
 
     #shopify-section-{{ section.id }} .testimonial__author {
-      font-size: var(--font-size-static-md);
+      font-size: var(--clamp-testimonial-author);
       font-weight: 500;
       font-style: normal;
       line-height: 1.3;
-      margin-block-end: 0.4rem;
+      margin-block-end: 0.3rem;
     }
 
     #shopify-section-{{ section.id }} .testimonial__content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      row-gap: 0.8rem;
+      row-gap: clamp(0.4rem, 1vw, 0.8rem);
     }
 
     #shopify-section-{{ section.id }} .testimonial__title {
       font-weight: 700;
-      font-size: var(--font-size-static-md);
+      font-size: var(--clamp-testimonial-title);
       line-height: 1.35;
       margin: 0;
       color: rgb(var(--color-foreground));
@@ -272,8 +283,13 @@
     #shopify-section-{{ section.id }} .testimonial__rating {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: clamp(0.15rem, 0.4vw, 0.3rem);
       margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .testimonial__rating .icon {
+      width: clamp(0.6rem, 1vw, 1rem);
+      height: clamp(0.6rem, 1vw, 1rem);
     }
 
     #shopify-section-{{ section.id }} .testimonial__box {
@@ -286,8 +302,8 @@
     }
 
     #shopify-section-{{ section.id }} .testimonial__quote {
-      font-size: var(--font-size-static-md);
-      line-height: 1.55;
+      font-size: var(--clamp-testimonial-quote);
+      line-height: 1.5;
       color: rgba(var(--color-foreground), 0.92);
       margin: 0;
     }
@@ -352,12 +368,36 @@
 
     @media screen and (max-width: 768px) {
       #shopify-section-{{ section.id }} .card-slider__buttons-inner {
-        gap: 0.8rem;
+        gap: 0.6rem;
       }
 
       #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button {
         width: 2rem;
         height: 2rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__body {
+        min-height: 12rem;
+        padding: 0.9rem 0.8rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__content {
+        row-gap: 0.5rem;
+      }
+
+      #shopify-section-{{ section.id }} .impact-line {
+        padding: 0.5rem 0.9rem;
+        gap: 0.3rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__rating-circle {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__footer {
+        margin-block-start: 1.5rem;
+        gap: 0.8rem;
       }
     }
 
@@ -380,6 +420,100 @@
     @media screen and (max-width: 749px) {
       #shopify-section-{{ section.id }} .section-testimonials .vertical-w-media .swiper-pagination {
         display: none;
+      }
+
+      #shopify-section-{{ section.id }} .card-slider .card-slider__slide {
+        width: calc(100% - 5%);
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__body {
+        min-height: 10rem;
+        padding: 0.7rem 0.6rem;
+        border-radius: 0.4rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__author {
+        font-size: 0.7rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__title {
+        font-size: 0.7rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__quote {
+        font-size: 0.75rem;
+        line-height: 1.35;
+      }
+
+      #shopify-section-{{ section.id }} .impact-line {
+        font-size: 0.5rem;
+        padding: 0.35rem 0.7rem;
+        gap: 0.15rem;
+      }
+
+      #shopify-section-{{ section.id }} .impact-line .star {
+        font-size: 0.35rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__subheading {
+        font-size: 0.45rem;
+        letter-spacing: 0.06rem;
+        margin-block-end: 0.6rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials .section__heading {
+        font-size: 1rem;
+        margin-block-end: 1rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__rating .icon {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__rating-circle {
+        width: 0.35rem;
+        height: 0.35rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__footer {
+        margin-block-start: 1rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__content {
+        row-gap: 0.35rem;
+      }
+    }
+
+    @media screen and (max-width: 374px) {
+      #shopify-section-{{ section.id }} .testimonial__body {
+        min-height: 9rem;
+        padding: 0.6rem 0.5rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__author {
+        font-size: 0.65rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__title {
+        font-size: 0.65rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__quote {
+        font-size: 0.7rem;
+      }
+
+      #shopify-section-{{ section.id }} .impact-line {
+        font-size: 0.45rem;
+        padding: 0.3rem 0.6rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__subheading {
+        font-size: 0.4rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials .section__heading {
+        font-size: 0.9rem;
       }
     }
 
@@ -581,9 +715,9 @@
             <div class="text-center">
               {%- if section.settings.impact_text != blank -%}
                 <div class="impact-line">
-                  <span class="star" aria-hidden="true">⭐</span>
+                  <span class="star" aria-hidden="true">&starf;</span>
                   <span>{{ section.settings.impact_text }}</span>
-                  <span class="star" aria-hidden="true">⭐</span>
+                  <span class="star" aria-hidden="true">&starf;</span>
                 </div>
               {%- endif -%}
 
