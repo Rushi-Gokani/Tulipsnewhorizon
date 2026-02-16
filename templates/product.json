@@ -156,6 +156,14 @@
                   },
                   "blocks": {}
                 },
+                "discount_badge_nY7QxP": {
+                  "type": "custom-liquid",
+                  "name": "Discount badge",
+                  "settings": {
+                    "custom_liquid": "{% assign selected_variant = closest.product.selected_or_first_available_variant %}{% if selected_variant.compare_at_price > selected_variant.price %}<p style='display:inline-block;margin:6px 0 0;padding:4px 10px;border-radius:999px;background:#eaf7ee;color:#177a3f;font-size:12px;font-weight:600;'>{{ selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round }}% OFF</p>{% endif %}"
+                  },
+                  "blocks": {}
+                },
                 "sku_KKde8d": {
                   "type": "sku",
                   "name": "t:names.product_sku",
@@ -180,6 +188,7 @@
               "block_order": [
                 "text_xrnftG",
                 "price_tVjtKg",
+                "discount_badge_nY7QxP",
                 "sku_KKde8d"
               ]
             },
