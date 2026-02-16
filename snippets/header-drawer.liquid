@@ -35,6 +35,12 @@
   if section.index == blank
     assign eager_loading = true
   endif
+
+  assign pill_labels = block_settings.pill_labels | split: ','
+  assign pill_styles = ''
+  if block_settings.pill_labels != blank
+    assign pill_styles = '--pill-bg-color: ' | append: block_settings.pill_bg_color | append: '; --pill-text-color: ' | append: block_settings.pill_text_color | append: ';'
+  endif
 %}
 
 <script
@@ -125,7 +131,17 @@
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
                       >
-                        <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
+                        {% liquid
+                          assign is_pill = false
+                          for label in pill_labels
+                            assign clean_label = label | strip
+                            if clean_label == link.title
+                              assign is_pill = true
+                              break
+                            endif
+                          endfor
+                        %}
+                        <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | escape }}</span>
                         <span class="svg-wrapper icon-plus">
                           {{- 'icon-plus.svg' | inline_asset_content -}}
                         </span>
@@ -166,7 +182,17 @@
                                   sizes: 'auto, 400px'
                                 %}
                               {% endif %}
-                              <span class="menu-drawer__menu-item-text wrap-text">{{ childlink.title | escape }}</span>
+                               {% liquid
+                                 assign is_pill = false
+                                 for label in pill_labels
+                                   assign clean_label = label | strip
+                                   if clean_label == childlink.title
+                                     assign is_pill = true
+                                     break
+                                   endif
+                                 endfor
+                               %}
+                               <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ childlink.title | escape }}</span>
                             </a>
                           </li>
                         {%- endfor -%}
@@ -185,7 +211,17 @@
                       aria-current="page"
                     {% endif %}
                   >
-                    <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
+                    {% liquid
+                      assign is_pill = false
+                      for label in pill_labels
+                        assign clean_label = label | strip
+                        if clean_label == link.title
+                          assign is_pill = true
+                          break
+                        endif
+                      endfor
+                    %}
+                    <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | escape }}</span>
                   </a>
                   {% liquid
                     assign render_link_image = false
@@ -219,7 +255,17 @@
                               sizes: 'auto, 400px'
                             %}
                           {% endif %}
-                          <span class="menu-drawer__menu-item-text wrap-text">{{ childlink.title | escape }}</span>
+                          {% liquid
+                            assign is_pill = false
+                            for label in pill_labels
+                              assign clean_label = label | strip
+                              if clean_label == childlink.title
+                                assign is_pill = true
+                                break
+                              endif
+                            endfor
+                          %}
+                          <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ childlink.title | escape }}</span>
                         </a>
                       </li>
                     {%- endfor -%}
@@ -287,7 +333,17 @@
                             <span class="svg-wrapper icon-caret icon-caret--backward">
                               {{- 'icon-caret.svg' | inline_asset_content -}}
                             </span>
-                            <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
+                            {% liquid
+                          assign is_pill = false
+                          for label in pill_labels
+                            assign clean_label = label | strip
+                            if clean_label == link.title
+                              assign is_pill = true
+                              break
+                            endif
+                          endfor
+                        %}
+                        <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | escape }}</span>
                           </button>
                           <button
                             class="button button-unstyled close-button menu-drawer__close-button"
@@ -347,7 +403,17 @@
                                       sizes: 'auto, 400px'
                                     %}
                                   {% endif %}
-                                  <span class="menu-drawer__menu-item-text wrap-text">
+                                  {% liquid
+                                    assign is_pill = false
+                                    for label in pill_labels
+                                      assign clean_label = label | strip
+                                      if clean_label == childlink.title
+                                        assign is_pill = true
+                                        break
+                                      endif
+                                    endfor
+                                  %}
+                                  <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
                                     {{- childlink.title | escape -}}
                                   </span>
                                 </a>
@@ -371,7 +437,17 @@
                                         id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
                                         class="menu-drawer__menu-item menu-drawer__menu-item--parent focus-inset"
                                       >
-                                        <span class="menu-drawer__menu-item-text wrap-text">
+                                        {% liquid
+                                          assign is_pill = false
+                                          for label in pill_labels
+                                            assign clean_label = label | strip
+                                            if clean_label == childlink.title
+                                              assign is_pill = true
+                                              break
+                                            endif
+                                          endfor
+                                        %}
+                                        <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
                                           {{- childlink.title | escape -}}
                                         </span>
                                         <span class="svg-wrapper icon-plus">
@@ -414,9 +490,17 @@
                                                   sizes: 'auto, 400px'
                                                 %}
                                               {% endif %}
-                                              <span class="menu-drawer__menu-item-text wrap-text">
-                                                {{- grandchildlink.title | escape -}}
-                                              </span>
+                                             {% liquid
+                                               assign is_pill = false
+                                               for label in pill_labels
+                                                 assign clean_label = label | strip
+                                                 if clean_label == grandchildlink.title
+                                                   assign is_pill = true
+                                                   break
+                                                 endif
+                                               endfor
+                                             %}
+                                             <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ grandchildlink.title | escape }}</span>
                                             </a>
                                           </li>
                                         {%- endfor -%}
@@ -432,7 +516,17 @@
                                     href="{{ childlink.url }}"
                                     class="menu-drawer__menu-item menu-drawer__menu-item--parent focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                   >
-                                    <span class="menu-drawer__menu-item-text wrap-text">
+                                    {% liquid
+                                      assign is_pill = false
+                                      for label in pill_labels
+                                        assign clean_label = label | strip
+                                        if clean_label == childlink.title
+                                          assign is_pill = true
+                                          break
+                                        endif
+                                      endfor
+                                    %}
+                                    <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
                                       {{- childlink.title | escape -}}
                                     </span>
                                   </a>
@@ -472,7 +566,17 @@
                                               sizes: 'auto, 400px'
                                             %}
                                           {% endif %}
-                                          <span class="menu-drawer__menu-item-text wrap-text">
+                                          {% liquid
+                                            assign is_pill = false
+                                            for label in pill_labels
+                                              assign clean_label = label | strip
+                                              if clean_label == grandchildlink.title
+                                                assign is_pill = true
+                                                break
+                                              endif
+                                            endfor
+                                          %}
+                                          <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
                                             {{- grandchildlink.title | escape -}}
                                           </span>
                                         </a>
@@ -550,7 +654,17 @@
                       aria-current="page"
                     {% endif %}
                   >
-                    <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
+                    {% liquid
+                      assign is_pill = false
+                      for label in pill_labels
+                        assign clean_label = label | strip
+                        if clean_label == link.title
+                          assign is_pill = true
+                          break
+                        endif
+                      endfor
+                    %}
+                    <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | escape }}</span>
                   </a>
                 {%- endif -%}
               </li>
@@ -856,17 +970,29 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100dvh;
-    backdrop-filter: brightness(0.75);
-    z-index: var(--layer-heightened);
+    height: 100vh;
+    background-color: rgba(var(--color-foreground-rgb), 0.5);
+    z-index: -1;
     opacity: 0;
-    transition: opacity var(--drawer-animation-speed) ease;
-
-    .menu-open & {
-      opacity: 1;
-    }
+    visibility: hidden;
+    transition: opacity var(--animation-speed) var(--animation-easing),
+      visibility var(--animation-speed) var(--animation-easing);
   }
 
+  /* Pill background for specific menu items */
+  .menu-pill {
+    background-color: var(--pill-bg-color, #388e3c);
+    color: var(--pill-text-color, #ffffff) !important;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    display: inline-block;
+    line-height: normal;
+    margin-inline: 4px;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
   .menu-drawer,
   details[open] > .menu-drawer__submenu {
     transition: transform var(--drawer-animation-speed) ease, visibility var(--drawer-animation-speed) ease,

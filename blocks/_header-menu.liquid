@@ -18,7 +18,7 @@
       data-hydration-key="header-drawer-mobile"
       {{ block.shopify_attributes }}
     >
-      {% render 'header-drawer', linklist: block_settings.menu, data_header_drawer_type: 'mobile-drawer' %}
+      {% render 'header-drawer', linklist: block_settings.menu, data_header_drawer_type: 'mobile-drawer', block: block %}
     </div>
 
   {% when 'navigation_bar' %}
@@ -43,7 +43,20 @@
                     aria-current="page"
                   {% endif %}
                 >
-                  {{- link.title -}}
+                  {% liquid
+                    assign is_pill = false
+                    assign pill_labels = block_settings.pill_labels | split: ','
+                    for label in pill_labels
+                      assign clean_label = label | strip
+                      if clean_label == link.title
+                        assign is_pill = true
+                        break
+                      endif
+                    endfor
+                  %}
+                  <span class="{% if is_pill %}menu-pill{% endif %}" {% if is_pill %}style="--pill-bg-color: {{ block_settings.pill_bg_color }}; --pill-text-color: {{ block_settings.pill_text_color }};"{% endif %}>
+                    {{- link.title -}}
+                  </span>
                 </a>
               </li>
             {% endfor %}
@@ -98,7 +111,18 @@
             {%- endif -%}
             ref="menuitem"
           >
-            <span class="menu-list__link-title">{{- link.title -}}</span>
+            {% liquid
+              assign is_pill = false
+              assign pill_labels = block_settings.pill_labels | split: ','
+              for label in pill_labels
+                assign clean_label = label | strip
+                if clean_label == link.title
+                  assign is_pill = true
+                  break
+                endif
+              endfor
+            %}
+            <span class="menu-list__link-title{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="--pill-bg-color: {{ block_settings.pill_bg_color }}; --pill-text-color: {{ block_settings.pill_text_color }};"{% endif %}>{{- link.title -}}</span>
           </a>
           {%- if link.links != blank -%}
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
@@ -305,6 +329,24 @@
 
   .menu-list__link-title {
     padding-inline: calc(var(--gap-xl) / 2);
+    position: relative;
+  }
+
+  .menu-list__link-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: calc(var(--gap-xl) / 2);
+    right: calc(var(--gap-xl) / 2);
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transition: transform var(--animation-speed) var(--animation-easing);
+    transform-origin: center;
+  }
+
+  .menu-list__link:hover .menu-list__link-title::after {
+    transform: scaleX(1);
   }
   [slot='overflow'] .menu-list__link-title {
     padding-inline: 0;
@@ -692,6 +734,27 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+
+  /* Pill background for specific menu items */
+  .menu-pill {
+    background-color: var(--pill-bg-color, #388e3c);
+    color: var(--pill-text-color, #ffffff) !important;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    display: inline-block;
+    line-height: normal;
+    margin-inline: 4px;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    &::after {
+      bottom: 8px;
+      left: 20px;
+      right: 20px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -919,6 +982,29 @@
       "id": "drawer_dividers",
       "label": "t:settings.dividers",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Pill Background"
+    },
+    {
+      "type": "text",
+      "id": "pill_labels",
+      "label": "Pill labels",
+      "info": "Comma-separated list of menu item titles to show with a pill background (e.g. New Arrivals, B1G1 T&C)",
+      "default": "New Arrivals, B1G1 T&C"
+    },
+    {
+      "type": "color",
+      "id": "pill_bg_color",
+      "label": "Pill background color",
+      "default": "#388e3c"
+    },
+    {
+      "type": "color",
+      "id": "pill_text_color",
+      "label": "Pill text color",
+      "default": "#ffffff"
     }
   ]
 }
