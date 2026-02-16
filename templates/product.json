@@ -568,6 +568,51 @@
         "padding-block-end": 40
       }
     },
+    "testimonials_w7YjxB": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_jTppPx": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": ""
+          }
+        },
+        "testimonial_hDcYMn": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Jane Doe",
+            "quote": "<p>“I absolutely love the quality of my Leo Bikini Bottoms.”</p>",
+            "rating_score": 5,
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_jTppPx",
+        "testimonial_hDcYMn"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "heading": "Testimonials",
+        "heading_size": "h3",
+        "subheading": "",
+        "impact_text": "300,000+ online ratings and reviews",
+        "rating_icon": "star",
+        "layout": "horizontal-w-media",
+        "slider_autoplay": 3,
+        "image_position": "image-start",
+        "image_aspect_ratio": "1/1",
+        "media_show_on": "desktop",
+        "spacing_inner": "2",
+        "section_width": "max-w-page",
+        "color_scheme": "",
+        "spacing_top": "2",
+        "spacing_bottom": "2"
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -713,6 +758,7 @@
   "order": [
     "main",
     "brand_section_KUUPUg",
+    "testimonials_w7YjxB",
     "product_recommendations_qggXJq"
   ]
 }
