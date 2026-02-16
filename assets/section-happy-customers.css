@@ -28,7 +28,7 @@
 }
 
 .happy-customers-subheading {
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.2rem);
   letter-spacing: 0.2rem;
   text-transform: uppercase;
   color: #666;
@@ -37,13 +37,14 @@
 }
 
 .happy-customers-heading {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
   color: #333;
   margin-bottom: 6rem;
   font-weight: 300;
   font-family: var(--font-heading-family);
   letter-spacing: -0.02em;
 }
+
 
 .happy-customers-slider {
   padding-bottom: 50px;
