@@ -366,7 +366,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.ingredients.value }}</p>",
+                        "text": "{{ closest.product.metafields.custom.ingredients | metafield_tag }}",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
@@ -405,7 +405,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.how_to_use.value }}</p>",
+                        "text": "{{ closest.product.metafields.custom.how_to_use | metafield_tag }}",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
@@ -444,7 +444,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.specifications.value }}</p>",
+                        "text": "{{ closest.product.metafields.custom.specifications | metafield_tag }}",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
@@ -483,7 +483,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.additional_details.value }}</p>",
+                        "text": "{{ closest.product.metafields.custom.additional_details | metafield_tag }}",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
@@ -522,7 +522,7 @@
                     "text": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.manufacturer_details.value }}</p>",
+                        "text": "{{ closest.product.metafields.custom.manufacturer_details | metafield_tag }}",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
