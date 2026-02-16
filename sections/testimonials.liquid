@@ -388,14 +388,86 @@
       display: none;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 749px) {
+      #shopify-section-{{ section.id }} .section-testimonials__root {
+        padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top | times: 0.6 | round: 1 }});
+        padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom | times: 0.6 | round: 1 }});
+      }
+
+      #shopify-section-{{ section.id }} .impact-line {
+        font-size: 1.1rem;
+        padding: 0.7rem 1.4rem;
+        gap: 0.5rem;
+      }
+
+      #shopify-section-{{ section.id }} .impact-line .star {
+        font-size: 1em;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials .section__heading {
+        margin-block-end: 2.4rem;
+        font-size: 2rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__subheading {
+        letter-spacing: 0.08rem;
+        font-size: 1.1rem;
+        margin-block-end: 1.6rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__body {
+        min-height: auto;
+        padding: 1.6rem 1.4rem;
+        border-radius: 0.6rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__author {
+        font-size: 1.3rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__title {
+        font-size: 1.3rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__quote {
+        font-size: 1.2rem;
+        line-height: 1.5;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__rating {
+        gap: 0.3rem;
+      }
+
+      #shopify-section-{{ section.id }} .testimonial__content {
+        row-gap: 0.5rem;
+      }
+
+      #shopify-section-{{ section.id }} .section-testimonials__footer {
+        margin-block-start: 2rem;
+        gap: 1rem;
+      }
+
       #shopify-section-{{ section.id }} .card-slider__buttons-inner {
-        gap: 0.8rem;
+        gap: 0.6rem;
+        margin-top: 0.4rem;
       }
 
       #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button {
-        width: 2rem;
-        height: 2rem;
+        width: 3rem;
+        height: 3rem;
+      }
+
+      #shopify-section-{{ section.id }} .card-slider__buttons-inner .swiper-button svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      #shopify-section-{{ section.id }} .container.max-w-full .testimonials__content {
+        padding-inline: 1rem;
+      }
+
+      #shopify-section-{{ section.id }} .card-slider .card-slider__slide {
+        width: 80%;
       }
     }
 
