@@ -1,6 +1,19 @@
 
 {% assign block_settings = block.settings %}
 
+{% capture row_content %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+{% assign row_content_text = row_content | strip_html | strip %}
+
+{% assign hide_row = false %}
+{% if block_settings.hide_if_empty and row_content_text == blank %}
+  {% assign hide_row = true %}
+{% endif %}
+
+{% unless hide_row %}
+
 <accordion-custom
   {% if block_settings.open_by_default %}
     open-by-default-on-desktop
@@ -32,10 +45,11 @@
     </summary>
 
     <div class="details-content">
-      {% content_for 'blocks' %}
+      {{ row_content }}
     </div>
   </details>
 </accordion-custom>
+{% endunless %}
 
 {% stylesheet %}
   .details__icon {
@@ -67,6 +81,12 @@
       "type": "checkbox",
       "id": "open_by_default",
       "label": "t:settings.open_row_by_default",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_if_empty",
+      "label": "Hide row when content is empty",
       "default": false
     },
     {
