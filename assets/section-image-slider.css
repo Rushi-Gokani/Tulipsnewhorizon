@@ -1,0 +1,311 @@
+.image-slider-banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-slider-banner .media {
+  border-radius: 0;
+}
+
+.image-slider__swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.image-slider__swiper-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.image-slider__swiper-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.image-slider__inner {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+}
+
+.image-slider__media {
+  width: 100%;
+  height: 100%;
+}
+
+.image-slider__content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 3.6rem calc(var(--page-gutter) * 1.5);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.image-slider__content a {
+  pointer-events: auto;
+}
+
+.image-slider__heading {
+  color: rgb(var(--color-heading-text));
+  margin-block-end: 1.6rem;
+}
+
+.image-slider__heading p {
+  margin-block: 0;
+}
+
+.image-slider__button {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.image-slider__entry {
+  margin-block-end: 2.4rem;
+}
+
+.image-slider__entry p {
+  margin-block-start: 0;
+}
+
+.image-slider__swiper {
+  flex: 1;
+}
+
+.image-slider__swiper-buttons {
+  display: none;
+  background: transparent;
+}
+
+.image-slider__swiper-buttons .swiper-button {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.image-slider__swiper-buttons .swiper-button--prev {
+  margin-inline-end: 1.6rem;
+}
+
+.image-slider__swiper-pagination .swiper-pagination-bullet {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  margin: 0 10px;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  border: 0.2rem solid rgba(255, 255, 255, 0);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.image-slider__swiper-pagination .swiper-pagination-bullet span {
+  color: rgb(var(--color-white-rgb));
+  font-size: var(--font-size-static-sm);
+  font-weight: var(--font-body-weight);
+  font-family: var(--font-body-family);
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  letter-spacing: 0.2rem;
+}
+
+.image-slider__swiper-pagination .swiper-pagination-bullet-active {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.image-slider__swiper-pagination .swiper-pagination-bullet-active .square-origin {
+  animation: square-progress var(--slideshow-pagination-progress-time);
+}
+
+.image-slider__swiper-pagination-horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.image-slider__swiper-pagination-horizontal .swiper-pagination-bullet-active .circle-origin {
+  animation: circle-progress var(--slideshow-pagination-progress-time);
+}
+
+.image-slider__swiper-pagination-horizontal .progress {
+  display: block;
+  position: absolute;
+  inset-inline-start: -3.4rem;
+}
+
+.image-slider__swiper-pagination-horizontal::before {
+  content: '';
+  width: 1.8rem;
+  height: 1.8rem;
+  inset-block-start: 50%;
+  inset-inline-start: -1.6rem;
+  transform: translate(0, -50%);
+  position: absolute;
+  border: 0.1rem solid rgba(var(--color-white-rgb), 0.2);
+  border-radius: 100%;
+}
+
+.image-slider__swiper-pagination-horizontal::after {
+  content: '';
+  width: 0.3rem;
+  height: 0.3rem;
+  inset-block-start: 0;
+  inset-inline-start: -0.84rem;
+  position: absolute;
+  background: #fff;
+  border-radius: 100%;
+}
+
+.image-slider__swiper-pagination-horizontal .swiper-pagination-bullet {
+  margin-inline-start: 1.6rem !important;
+}
+
+.image-slider__swiper-pagination-horizontal .square-progress {
+  display: none;
+}
+
+.image-slider__swiper-pagination-horizontal .swiper-pagination-bullet span {
+  opacity: 1;
+  visibility: visible;
+}
+
+.progress {
+  transform: rotate(-90deg);
+}
+
+.square-origin {
+  border-radius: 0.5rem !important;
+  fill: transparent;
+  stroke: rgb(255, 255, 255);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 155px;
+  stroke-dashoffset: 155px;
+}
+
+.circle-origin {
+  fill: transparent;
+  stroke: rgb(255, 255, 255);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 56.5487px;
+  stroke-dashoffset: 56.5487px;
+}
+
+@keyframes square-progress {
+  0% {
+    stroke-dashoffset: 155px;
+  }
+
+  90% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -155px;
+  }
+}
+
+@keyframes circle-progress {
+  0% {
+    stroke-dashoffset: 56.5487px;
+  }
+
+  90% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -56.5487px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .image-slider__inner {
+    text-align: center;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .image-slider__swiper-buttons {
+    display: flex;
+    padding: 0 var(--page-gutter);
+    justify-content: space-between !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: 2;
+    pointer-events: none;
+    left: 0;
+  }
+
+  .image-slider__swiper-buttons .swiper-button {
+    pointer-events: auto;
+    background: transparent;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    border: none;
+    color: rgb(0, 0, 0) !important; /* Force black color */
+  }
+
+  .image-slider__swiper-buttons .swiper-button .icon {
+    width: 2rem;
+    height: 2rem;
+    fill: currentColor; /* Ensure it takes the color from parent */
+    color: rgb(0, 0, 0) !important;
+  }
+
+  .image-slider__swiper-buttons .swiper-button:hover {
+    background: transparent;
+    transform: scale(1.1);
+    color: rgb(0, 0, 0) !important; 
+  }
+
+  .image-slider__swiper-buttons:not(.image-slider__swiper-buttons--sides) {
+    inset-block-start: 50%;
+    inset-block-end: auto;
+    transform: translateY(-50%);
+    align-items: center;
+  }
+
+  .image-slider__swiper-buttons--start {
+    justify-content: space-between !important;
+  }
+
+  .image-slider__swiper-buttons--center {
+    justify-content: space-between !important;
+  }
+
+  .image-slider__swiper-buttons--end {
+    justify-content: space-between !important;
+  }
+
+  .image-slider__inner {
+    --inner-vertical-padding: 9.6rem;
+  }
+
+  .image-slider__inner.justify-center {
+    --inner-vertical-padding: 13rem;
+  }
+}

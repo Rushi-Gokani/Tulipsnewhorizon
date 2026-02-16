@@ -1,0 +1,88 @@
+.announcement-bar {
+  z-index: 10;
+  position: relative;
+  background-color: #A3CA6D; /* Matching the green from the screenshot */
+  color: #ffffff;
+  padding: 15px 0;
+}
+
+.announcement-bar__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  max-width: 100%;
+  padding: 0 2rem;
+}
+
+/* Marquee styles */
+.announcement_bar__marquee {
+  flex: 1; /* Takes up remaining space */
+  overflow: hidden;
+  position: relative;
+  min-width: 0; /* Prevents flex item from overflowing */
+  margin-right: 2rem; /* Spacing between marquee and static link */
+}
+
+.marquee {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 2rem;
+}
+
+.marquee__content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  min-width: 100%;
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: 1.0rem;
+  text-transform: uppercase;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.enable-animation .marquee__content {
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee__item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-right: 2rem; /* Add spacing between items */
+}
+
+/* Static Link Styles */
+.announcement-bar__static-link {
+  flex: 0 0 auto; /* Do not grow or shrink */
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+  font-size: 1.0rem;
+  text-transform: uppercase;
+  z-index: 2; /* Ensure it stays on top */
+  background-color: #A3CA6D; /* Same background to mask scrolling text if needed, though flex handles separation */
+}
+
+.announcement-bar__static-link svg {
+  margin-right: 0.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: currentColor;
+}
