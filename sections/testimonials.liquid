@@ -6,9 +6,9 @@
     :root {
       --clamp-testimonial-heading: clamp(1.2rem, 1.5vw + 0.8rem, 2.5rem);
       --clamp-testimonial-subheading: clamp(0.55rem, 0.2vw + 0.5rem, 0.875rem);
-      --clamp-testimonial-author: clamp(0.7rem, 0.4vw + 0.6rem, 1.125rem);
-      --clamp-testimonial-title: clamp(0.7rem, 0.4vw + 0.6rem, 1.125rem);
-      --clamp-testimonial-quote: clamp(0.75rem, 0.8vw + 0.6rem, 1.25rem);
+      --clamp-testimonial-author: clamp(0.813rem, 0.4vw + 0.7rem, 1rem);
+      --clamp-testimonial-title: clamp(0.813rem, 0.4vw + 0.7rem, 1rem);
+      --clamp-testimonial-quote: clamp(0.75rem, 0.3vw + 0.65rem, 0.875rem);
       --clamp-testimonial-impact: clamp(0.55rem, 0.3vw + 0.45rem, 0.875rem);
     }
 
@@ -438,15 +438,15 @@
       }
 
       #shopify-section-{{ section.id }} .testimonial__author {
-        font-size: 1.3rem;
+        font-size: 14px;
       }
 
       #shopify-section-{{ section.id }} .testimonial__title {
-        font-size: 1.3rem;
+        font-size: 14px;
       }
 
       #shopify-section-{{ section.id }} .testimonial__quote {
-        font-size: 1.2rem;
+        font-size: 13px;
         line-height: 1.5;
       }
 
@@ -542,87 +542,22 @@
       }
 
       #shopify-section-{{ section.id }} .testimonial__author {
-        font-size: 0.7rem;
+        font-size: 13px;
       }
 
       #shopify-section-{{ section.id }} .testimonial__title {
-        font-size: 0.7rem;
+        font-size: 13px;
       }
 
       #shopify-section-{{ section.id }} .testimonial__quote {
-        font-size: 0.75rem;
-        line-height: 1.35;
+        font-size: 12px;
+        line-height: 1.4;
       }
 
-      #shopify-section-{{ section.id }} .impact-line {
-        font-size: 0.5rem;
-        padding: 0.35rem 0.7rem;
-        gap: 0.15rem;
-      }
-
-      #shopify-section-{{ section.id }} .impact-line .star {
-        font-size: 0.35rem;
-      }
-
-      #shopify-section-{{ section.id }} .section-testimonials__subheading {
-        font-size: 0.45rem;
-        letter-spacing: 0.06rem;
-        margin-block-end: 0.6rem;
-      }
-
-      #shopify-section-{{ section.id }} .section-testimonials .section__heading {
-        font-size: 1rem;
-        margin-block-end: 1rem;
-      }
-
-      #shopify-section-{{ section.id }} .testimonial__rating .icon {
-        width: 0.5rem;
-        height: 0.5rem;
-      }
-
-      #shopify-section-{{ section.id }} .testimonial__rating-circle {
-        width: 0.35rem;
-        height: 0.35rem;
-      }
-
-      #shopify-section-{{ section.id }} .section-testimonials__footer {
-        margin-block-start: 1rem;
-      }
-
-      #shopify-section-{{ section.id }} .testimonial__content {
-        row-gap: 0.35rem;
-      }
-    }
-
-    @media screen and (max-width: 374px) {
-      #shopify-section-{{ section.id }} .testimonial__body {
-        min-height: 9rem;
-        padding: 0.6rem 0.5rem;
-      }
-
-      #shopify-section-{{ section.id }} .testimonial__author {
-        font-size: 0.65rem;
-      }
-
-      #shopify-section-{{ section.id }} .testimonial__title {
-        font-size: 0.65rem;
-      }
-
-      #shopify-section-{{ section.id }} .testimonial__quote {
-        font-size: 0.7rem;
-      }
-
-      #shopify-section-{{ section.id }} .impact-line {
-        font-size: 0.45rem;
-        padding: 0.3rem 0.6rem;
-      }
-
-      #shopify-section-{{ section.id }} .section-testimonials__subheading {
-        font-size: 0.4rem;
-      }
-
-      #shopify-section-{{ section.id }} .section-testimonials .section__heading {
-        font-size: 0.9rem;
+      #shopify-section-{{ section.id }} .testimonial__rating .icon,
+      #shopify-section-{{ section.id }} .testimonial__rating svg {
+        width: 14px;
+        height: 14px;
       }
     }
 
@@ -875,7 +810,7 @@
                               {% if i <= rating_score %}
                                 <div class="testimonial__rating-filled">
                                   {%- if rating_icon == 'star' -%}
-                                    {% render 'icon', icon_name: 'theme-star-filled', class: 'icon' %}
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                                   {%- else -%}
                                     <span class="testimonial__rating-circle circle-filled"></span>
                                   {%- endif -%}
@@ -883,7 +818,7 @@
                               {% else %}
                                 <div class="testimonial__rating-outlined">
                                   {%- if rating_icon == 'star' -%}
-                                    {% render 'icon', icon_name: 'theme-star', class: 'icon' %}
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                                   {%- else -%}
                                     <span class="testimonial__rating-circle"></span>
                                   {%- endif -%}

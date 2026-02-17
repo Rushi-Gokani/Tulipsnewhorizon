@@ -982,6 +982,17 @@
         "spacing_top": "2",
         "spacing_bottom": "2"
       }
+    },
+    "custom_liquid_BJ7pgF": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"height:100px;\"></div>",
+        "color_scheme": "scheme-2",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -989,6 +1000,7 @@
     "brand_section_KUUPUg",
     "product_recommendations_qggXJq",
     "product_list_YN38c8",
-    "testimonials_w7YjxB"
+    "testimonials_w7YjxB",
+    "custom_liquid_BJ7pgF"
   ]
 }
