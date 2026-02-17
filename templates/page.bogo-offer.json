@@ -127,6 +127,7 @@
         "text_9iiNzc": {
           "type": "text",
           "name": "t:names.text",
+          "disabled": true,
           "settings": {
             "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
             "width": "fit-content",
@@ -153,6 +154,7 @@
         "button_BXzGXx": {
           "type": "button",
           "name": "t:names.button",
+          "disabled": true,
           "settings": {
             "label": "Shop now",
             "link": "shopify://collections/all",
