@@ -4,6 +4,24 @@
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
+{% comment %} Convert regular YouTube URL to embed URL {% endcomment %}
+{% assign yt_url = block.settings.video_url | strip %}
+{% assign yt_embed_url = '' %}
+{% if yt_url != blank %}
+  {% if yt_url contains 'youtube.com/embed/' %}
+    {% assign yt_embed_url = yt_url %}
+  {% elsif yt_url contains 'youtu.be/' %}
+    {% assign yt_video_id = yt_url | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first %}
+    {% assign yt_embed_url = 'https://www.youtube.com/embed/' | append: yt_video_id %}
+  {% elsif yt_url contains 'youtube.com/watch' %}
+    {% assign yt_video_id = yt_url | split: 'v=' | last | split: '&' | first %}
+    {% assign yt_embed_url = 'https://www.youtube.com/embed/' | append: yt_video_id %}
+  {% elsif yt_url contains 'youtube.com/shorts/' %}
+    {% assign yt_video_id = yt_url | split: 'shorts/' | last | split: '?' | first | split: '&' | first %}
+    {% assign yt_embed_url = 'https://www.youtube.com/embed/' | append: yt_video_id %}
+  {% endif %}
+{% endif %}
+
 {% style %}
   .ai-youtube-video-{{ ai_gen_id }} {
     display: block;
@@ -59,10 +77,10 @@
   {{ block.shopify_attributes }}
 >
   <div class="ai-youtube-video-wrapper-{{ ai_gen_id }}">
-    {% if block.settings.video_url != blank %}
+    {% if yt_embed_url != blank %}
       <iframe
         class="ai-youtube-video-iframe-{{ ai_gen_id }}"
-        src="{{ block.settings.video_url }}"
+        src="{{ yt_embed_url }}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
         loading="lazy"
@@ -109,10 +127,10 @@
   "tag": null,
   "settings": [
     {
-      "type": "text",
+      "type": "url",
       "id": "video_url",
-      "label": "YouTube embed URL",
-      "info": "Use the embed URL format: https://www.youtube.com/embed/VIDEO_ID"
+      "label": "YouTube video link",
+      "info": "Paste a YouTube link, e.g. https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID"
     },
     {
       "type": "range",
