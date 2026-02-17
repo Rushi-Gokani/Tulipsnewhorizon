@@ -440,14 +440,7 @@
                                         break
                                       endif
                                     endfor
-
-                                    assign menu_icon = childlink.object.metafields.custom.menu_icon
                                   %}
-                                  {%- if menu_icon != blank -%}
-                                    <span class="menu_icon">
-                                      {{ menu_icon | image_url: width: 40 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy' }}
-                                    </span>
-                                  {%- endif -%}
                                   <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
                                     {{- childlink.title | strip_html -}}
                                   </span>
@@ -661,14 +654,7 @@
                           break
                         endif
                       endfor
-
-                      assign menu_icon = link.object.metafields.custom.menu_icon
                     %}
-                    {%- if menu_icon != blank -%}
-                      <span class="menu_icon">
-                        {{ menu_icon | image_url: width: 40 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy' }}
-                      </span>
-                    {%- endif -%}
                     <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | strip_html }}</span>
                   </a>
                 {%- endif -%}
