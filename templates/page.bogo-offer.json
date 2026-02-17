@@ -86,6 +86,7 @@
             "enable_media_overlay_desktop": true,
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
+            "image_mobile": "shopify://shop_images/tulips-adult-diapers-m_eacedb30-acb8-479e-906e-cd15b6ccb511.webp",
             "video_external_mobile": "",
             "show_controls_on_video_mobile": false,
             "enable_media_overlay_mobile": true
