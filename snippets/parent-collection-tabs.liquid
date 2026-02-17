@@ -81,11 +81,43 @@
     }
 
     .pc-tabs__product {
-      text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
       gap: var(--padding-3xs, 0.25rem);
+    }
+
+    .pc-tabs__product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .pc-tabs__buy-now {
+      margin-top: var(--padding-xs, 0.5rem);
+    }
+
+    .pc-tabs__buy-now-btn {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: 1px solid #A3CA6D;
+      border-radius: 999px;
+      background-color: #A3CA6D;
+      color: #fff;
+      font-family: var(--font-body--family, inherit);
+      font-size: var(--font-size--body-sm, 0.875rem);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+    }
+
+    .pc-tabs__buy-now-btn:hover {
+      background-color: #8fb95a;
+    }
+
+    .pc-tabs__buy-now-btn[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .pc-tabs__product-media {
@@ -173,32 +205,46 @@
           {% if sub_col.products.size > 0 %}
             <div class="pc-tabs__grid">
               {% for product in sub_col.products limit: 12 %}
-                <a href="{{ product.url }}" class="pc-tabs__product">
-                  <div class="pc-tabs__product-media">
-                    {% if product.featured_image != blank %}
-                      {{
-                        product.featured_image
-                        | image_url: width: 600
-                        | image_tag:
-                          loading: 'lazy',
-                          class: 'pc-tabs__product-img',
-                          widths: '300, 400, 600',
-                          sizes: '(max-width: 749px) 50vw, 25vw'
-                      }}
-                    {% else %}
-                      {{ 'product-1' | placeholder_svg_tag: 'pc-tabs__product-img' }}
-                    {% endif %}
-                  </div>
-                  <div class="pc-tabs__product-info">
-                    <p class="pc-tabs__product-title">{{ product.title }}</p>
-                    <p class="pc-tabs__product-price">
-                      {% if product.compare_at_price > product.price %}
-                        <span class="pc-tabs__product-price--compare">{{ product.compare_at_price | money }}</span>
+                <div class="pc-tabs__product">
+                  <a href="{{ product.url }}" class="pc-tabs__product-link">
+                    <div class="pc-tabs__product-media">
+                      {% if product.featured_image != blank %}
+                        {{
+                          product.featured_image
+                          | image_url: width: 600
+                          | image_tag:
+                            loading: 'lazy',
+                            class: 'pc-tabs__product-img',
+                            widths: '300, 400, 600',
+                            sizes: '(max-width: 749px) 50vw, 25vw'
+                        }}
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'pc-tabs__product-img' }}
                       {% endif %}
-                      {{ product.price | money }}
-                    </p>
-                  </div>
-                </a>
+                    </div>
+                    <div class="pc-tabs__product-info">
+                      <p class="pc-tabs__product-title">{{ product.title }}</p>
+                      <p class="pc-tabs__product-price">
+                        {% if product.compare_at_price > product.price %}
+                          <span class="pc-tabs__product-price--compare">{{ product.compare_at_price | money }}</span>
+                        {% endif %}
+                        {{ product.price | money }}
+                      </p>
+                    </div>
+                  </a>
+                  <form method="post" action="/cart/add" class="pc-tabs__buy-now">
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button
+                      type="submit"
+                      name="add"
+                      class="pc-tabs__buy-now-btn"
+                      {% unless product.available %}disabled{% endunless %}
+                    >
+                      {% if product.available %}Add to Cart{% else %}Sold Out{% endif %}
+                    </button>
+                  </form>
+                </div>
               {% endfor %}
             </div>
           {% else %}
