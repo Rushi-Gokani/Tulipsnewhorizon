@@ -164,10 +164,8 @@
       "name": "t:sections.custom-liquid.name",
       "settings": {
         "custom_liquid": "{% style %}\n  @media screen and (min-width: 750px) {\n    #shopify-section-{{ section.id }} {\n      margin-top: 5px;\n    \n    }\n  }\n{% endstyle %}",
-        "section_width": "max-w-page",
         "color_scheme": "",
-        "spacing_top": "2",
-        "spacing_bottom": "2"
+        "section_width": "max-w-page"
       }
     },
     "1759730676d6a1d74d": {
@@ -209,10 +207,8 @@
       "name": "t:sections.custom-liquid.name",
       "settings": {
         "custom_liquid": "{% style %}\n  @media screen and (min-width: 750px) {\n    #shopify-section-{{ section.id }} {\n      margin-top: 30px;\n    \n    }\n  }\n{% endstyle %}",
-        "section_width": "max-w-page",
         "color_scheme": "",
-        "spacing_top": "2",
-        "spacing_bottom": "2"
+        "section_width": "max-w-page"
       }
     },
     "hero_banner_HRLgTV": {

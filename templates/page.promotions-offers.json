@@ -13,15 +13,7 @@
       "type": "main-page",
       "disabled": true,
       "settings": {
-        "breadcrumbs": false,
-        "show_page_title": true,
-        "page_title_alignment": "text-center",
-        "info_title": "",
-        "info_content": "",
-        "section_width": "max-w-page",
-        "color_scheme": "scheme-c0a43f71-877e-4cef-807e-4f3399b91217",
-        "spacing_top": "2",
-        "spacing_bottom": "2"
+        "color_scheme": "scheme-c0a43f71-877e-4cef-807e-4f3399b91217"
       }
     },
     "page_banner_Ga8LaX": {
@@ -116,10 +108,8 @@
       "name": "t:sections.custom-liquid.name",
       "settings": {
         "custom_liquid": "<div class=\"custom-heading-wrapper\"> <h2 class=\"custom-heading-title\">Hygiene Essentials at Lower Prices</h2></div>",
-        "section_width": "max-w-page",
         "color_scheme": "",
-        "spacing_top": "2",
-        "spacing_bottom": "0"
+        "section_width": "max-w-page"
       }
     },
     "featured_products_pkBFF4": {
@@ -205,10 +195,8 @@
       "name": "t:sections.custom-liquid.name",
       "settings": {
         "custom_liquid": "<div></div>",
-        "section_width": "max-w-page",
         "color_scheme": "",
-        "spacing_top": "2",
-        "spacing_bottom": "2"
+        "section_width": "max-w-page"
       }
     }
   },
