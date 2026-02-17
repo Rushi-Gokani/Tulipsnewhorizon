@@ -418,42 +418,74 @@
                                   </span>
                                 </a>
                               {%- else -%}
-                                {% liquid
-                                  assign accordion_state = ''
-                                  if first_accordion_open == false and block_settings.drawer_accordion and block_settings.drawer_accordion_expand_first
-                                    assign first_accordion_open = true
-                                    assign accordion_state = 'open-by-default-on-mobile'
-                                  endif
-                                %}
-                                {% if block_settings.drawer_accordion %}
-                                  {%- comment -%}
-                                    Accordion for links with children, in menus with 3 levels of links
-                                  {%- endcomment -%}
-                                  <accordion-custom {{ accordion_state }}>
-                                    <details
-                                      id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}"
-                                    >
-                                      <summary
-                                        id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                        class="menu-drawer__menu-item menu-drawer__menu-item--parent focus-inset"
-                                      >
-                                        {% liquid
-                                          assign is_pill = false
-                                          for label in pill_labels
-                                            assign clean_label = label | strip
-                                            if clean_label == childlink.title
-                                              assign is_pill = true
-                                              break
-                                            endif
-                                          endfor
-                                        %}
-                                        <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
-                                          {{- childlink.title | strip_html -}}
-                                        </span>
-                                        <span class="svg-wrapper icon-plus">
-                                          {{- 'icon-plus.svg' | inline_asset_content -}}
-                                        </span>
-                                      </summary>
+                                {%- comment -%}
+                                  Sliding submenu panel for child links with grandchildren (Level 2 → Level 3)
+                                {%- endcomment -%}
+                                <details
+                                  id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}"
+                                  class="menu-drawer__menu-container{% if block_settings.drawer_dividers %} menu-drawer__menu-container--divider{% endif %}"
+                                >
+                                  <summary
+                                    id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                    class="menu-drawer__menu-item menu-drawer__menu-item--parent focus-inset{% if childlink.child_active %} menu-drawer__menu-item--active{% endif %}"
+                                    on:click="header-drawer/open/submenu"
+                                  >
+                                    {% liquid
+                                      assign is_pill = false
+                                      for label in pill_labels
+                                        assign clean_label = label | strip
+                                        if clean_label == childlink.title
+                                          assign is_pill = true
+                                          break
+                                        endif
+                                      endfor
+                                    %}
+                                    <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
+                                      {{- childlink.title | strip_html -}}
+                                    </span>
+                                    <span class="svg-wrapper icon-caret icon-caret--forward">
+                                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                                    </span>
+                                  </summary>
+                                  <div
+                                    id="link-{{ link.handle }}-{{ childlink.handle | strip_html }}"
+                                    class="menu-drawer__submenu menu-drawer__submenu--nested has-submenu"
+                                    tabindex="-1"
+                                  >
+                                    <div class="menu-drawer__inner-submenu">
+                                      <div class="menu-drawer__nav-buttons">
+                                        <button
+                                          class="button menu-drawer__back-button focus-inset"
+                                          aria-expanded="true"
+                                          on:click="header-drawer/back"
+                                          aria-label="{{ 'actions.back' | t }}"
+                                        >
+                                          <span class="svg-wrapper icon-caret icon-caret--backward">
+                                            {{- 'icon-caret.svg' | inline_asset_content -}}
+                                          </span>
+                                          {% liquid
+                                            assign is_pill = false
+                                            for label in pill_labels
+                                              assign clean_label = label | strip
+                                              if clean_label == childlink.title
+                                                assign is_pill = true
+                                                break
+                                              endif
+                                            endfor
+                                          %}
+                                          <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ childlink.title | strip_html }}</span>
+                                        </button>
+                                        <button
+                                          class="button button-unstyled close-button menu-drawer__close-button"
+                                          type="button"
+                                          aria-label="{{ 'actions.close' | t }}"
+                                          on:click="header-drawer/close"
+                                        >
+                                          <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
+                                            {{- 'icon-close.svg' | inline_asset_content -}}
+                                          </span>
+                                        </button>
+                                      </div>
                                       {% liquid
                                         assign render_link_image = false
                                         if block_settings.menu_style == 'collection_images'
@@ -466,7 +498,7 @@
                                         endif
                                       %}
                                       <ul
-                                        class="menu-drawer__menu menu-drawer__menu--grandchildlist details-content{% if render_link_image %} menu-drawer__menu--grid{% endif %}"
+                                        class="menu-drawer__menu menu-drawer__menu--grandchildlist{% if render_link_image %} menu-drawer__menu--grid{% endif %}"
                                         role="list"
                                         tabindex="-1"
                                       >
@@ -490,100 +522,24 @@
                                                   sizes: 'auto, 400px'
                                                 %}
                                               {% endif %}
-                                             {% liquid
-                                               assign is_pill = false
-                                               for label in pill_labels
-                                                 assign clean_label = label | strip
-                                                 if clean_label == grandchildlink.title
-                                                   assign is_pill = true
-                                                   break
-                                                 endif
-                                               endfor
-                                             %}
-                                             <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ grandchildlink.title | strip_html }}</span>
+                                              {% liquid
+                                                assign is_pill = false
+                                                for label in pill_labels
+                                                  assign clean_label = label | strip
+                                                  if clean_label == grandchildlink.title
+                                                    assign is_pill = true
+                                                    break
+                                                  endif
+                                                endfor
+                                              %}
+                                              <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ grandchildlink.title | strip_html }}</span>
                                             </a>
                                           </li>
                                         {%- endfor -%}
                                       </ul>
-                                    </details>
-                                  </accordion-custom>
-                                {% else %}
-                                  {%- comment -%}
-                                    Flat menus for links with children, in menus with 3 levels of links
-                                  {%- endcomment -%}
-                                  <a
-                                    id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                    href="{{ childlink.url }}"
-                                    class="menu-drawer__menu-item menu-drawer__menu-item--parent focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                  >
-                                    {% liquid
-                                      assign is_pill = false
-                                      for label in pill_labels
-                                        assign clean_label = label | strip
-                                        if clean_label == childlink.title
-                                          assign is_pill = true
-                                          break
-                                        endif
-                                      endfor
-                                    %}
-                                    <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
-                                      {{- childlink.title | strip_html -}}
-                                    </span>
-                                  </a>
-                                  {% liquid
-                                    assign render_link_image = false
-                                    if block_settings.menu_style == 'collection_images'
-                                      assign catalog_links = childlink.links | where: 'type', 'catalog_link'
-                                      assign collection_list_links = childlink.links | where: 'type', 'collections_link'
-                                      assign collection_links = childlink.links | where: 'type', 'collection_link'
-                                      if catalog_links.size > 0 or collection_list_links.size > 0 or collection_links.size > 0
-                                        assign render_link_image = true
-                                      endif
-                                    endif
-                                  %}
-                                  <ul
-                                    class="menu-drawer__menu menu-drawer__menu--grandchildlist details-content{% if render_link_image %} menu-drawer__menu--grid{% endif %}"
-                                    role="list"
-                                    tabindex="-1"
-                                  >
-                                    {%- for grandchildlink in childlink.links -%}
-                                      <li
-                                        class="menu-drawer__list-item"
-                                        style="--menu-drawer-animation-index: {{ forloop.index }};"
-                                      >
-                                        <a
-                                          id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                          href="{{ grandchildlink.url }}"
-                                          class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                          {% if grandchildlink.current %}
-                                            aria-current="page"
-                                          {% endif %}
-                                        >
-                                          {% if render_link_image %}
-                                            {% render 'link-featured-image',
-                                              link: grandchildlink,
-                                              class: 'menu-drawer__link-image',
-                                              sizes: 'auto, 400px'
-                                            %}
-                                          {% endif %}
-                                          {% liquid
-                                            assign is_pill = false
-                                            for label in pill_labels
-                                              assign clean_label = label | strip
-                                              if clean_label == grandchildlink.title
-                                                assign is_pill = true
-                                                break
-                                              endif
-                                            endfor
-                                          %}
-                                          <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
-                                            {{- grandchildlink.title | strip_html -}}
-                                          </span>
-                                        </a>
-                                      </li>
-                                    {%- endfor -%}
-                                  </ul>
-                                {%- endif -%}
+                                    </div>
+                                  </div>
+                                </details>
                               {%- endif -%}
                             </li>
                           {%- endfor -%}
@@ -1330,6 +1286,17 @@
     overflow-y: auto;
     opacity: 0;
   }
+
+  /* Nested submenu (Level 3) needs higher z-index to sit above Level 2 panel */
+  .menu-drawer__submenu--nested {
+    z-index: calc(var(--layer-flat) + 1);
+  }
+
+  /* When nested submenu is open, prevent parent submenu from scrolling */
+  .menu-drawer__submenu:has(> .menu-drawer__menu-container > details.menu-open) {
+    overflow: initial;
+  }
+
 
   .menu-drawer__back-button > .svg-wrapper {
     margin-right: var(--padding-md);
