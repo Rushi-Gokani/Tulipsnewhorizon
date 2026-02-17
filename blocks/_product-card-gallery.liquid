@@ -8,7 +8,7 @@
       <span class="collection-metafield-badge">{{ collection.metafields.custom.badges }}</span>
     {% endif %}
     <div
-      class="product-badges product-badges--top-left"
+      class="product-badges {% if collection and collection.metafields.custom.badges != blank %}product-badges--top-right{% else %}product-badges--top-left{% endif %}"
       style="
         --badge-border-radius: 4px;
         --badge-font-family: var(--font-body-family); 
