@@ -524,7 +524,11 @@
         "ai_gen_block_6ca7f99_nDTkzE": {
           "type": "ai_gen_block_6ca7f99",
           "settings": {
-            "marquee_text": "Free shipping on orders over ₹500",
+            "marquee_text_1": "Untouched By Hands",
+            "marquee_text_2": "Sustainable Source",
+            "marquee_text_3": "Pure & Softest",
+            "marquee_text_4": "",
+            "marquee_text_5": "",
             "repeat_count": 10,
             "show_icon": true,
             "icon_type": "star",
@@ -532,12 +536,12 @@
             "icon_color": "#ffffff",
             "text_size": 16,
             "text_weight": "500",
-            "text_color": "#000000",
+            "text_color": "#fafafa",
             "item_spacing": 60,
             "icon_text_spacing": 12,
             "padding_vertical": 20,
             "background_color": "#a3ca6d",
-            "animation_speed": 30,
+            "animation_speed": 40,
             "pause_on_hover": true
           },
           "blocks": {}
