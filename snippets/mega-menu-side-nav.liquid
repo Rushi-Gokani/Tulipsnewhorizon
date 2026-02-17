@@ -54,8 +54,8 @@
                         {% assign menu_icon = child_link.object.metafields.custom.menu_icon %}
 
                         {% if menu_icon %}
-                        <span class="mega-menu-side-nav__bullet-icon" style="width: 12px; height: 12px; min-width: 12px; display: block;">
-                          {{ menu_icon | image_url: width: 30 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy', style: 'width: 100%; height: 100%; object-fit: contain;' }}
+                        <span class="mega-menu-side-nav__bullet-icon menu_icon" style="width: 20px; height: 20px; min-width: 20px; display: inline-flex;">
+                          {{ menu_icon | image_url: width: 40 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy', style: 'width: 100%; height: 100%; object-fit: contain;' }}
                         </span>
                         {% endif %}
                         <span class="mega-menu-side-nav__sub-title">{{ child_link.title }}</span>
@@ -97,6 +97,13 @@
 </div>
 
 {% style %}
+.menu_icon {    
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 8px !important;
+  display: inline-flex !important;
+  flex-shrink: 0 !important;
+}
   /* RESTORED CSS DIRECTLY TO SNIPPET TO BYPASS CACHE ISSUES */
   .mega-menu-side-nav {
     --sidebar-width: 220px;
@@ -225,6 +232,7 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
+    justify-content: flex-start !important;
     gap: 8px !important;
     text-decoration: none;
     color: #000;
@@ -234,15 +242,14 @@
 
   /* CRITICAL: Force small icon size */
   .mega-menu-side-nav__bullet-icon {
-    display: block !important; /* Ensure block model applies */
-    width: 12px !important;    /* Fixed width */
-    height: 12px !important;   /* Fixed height */
-    min-width: 12px !important;
-    max-width: 12px !important;
+    display: inline-flex !important; /* Changed from block to flex for better alignment */
+    width: 20px !important;    /* Fixed width */
+    height: 20px !important;   /* Fixed height */
+    min-width: 20px !important;
+    max-width: 20px !important;
     flex-shrink: 0 !important;
-    overflow: hidden !important; /* Cut off if image is huge */
-    margin-right: 8px !important;
-    display: inline-flex !important;
+    overflow: visible !important;
+    margin-right: 0 !important; /* Margin handled by gap or class */
     align-items: center !important;
     justify-content: center !important;
   }
