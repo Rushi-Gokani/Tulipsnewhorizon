@@ -1,0 +1,266 @@
+{% comment %}
+  Parent Collection Tabs
+  Renders tabbed sub-collections from collection metafields (custom.first through custom.sixth).
+  Each metafield should be a collection_reference type.
+  Used in the collection.parent.json template via custom-liquid section.
+{% endcomment %}
+
+{% liquid
+  assign metafield_keys = 'first,second,third,fourth,fifth,sixth' | split: ','
+  assign tab_count = 0
+%}
+
+{% comment %} Count valid sub-collections {% endcomment %}
+{% for key in metafield_keys %}
+  {% assign meta_col = collection.metafields.custom[key].value %}
+  {% if meta_col != blank and meta_col.title != blank %}
+    {% assign tab_count = tab_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if tab_count > 0 %}
+  <style>
+    .pc-tabs {
+      width: 100%;
+    }
+
+    .pc-tabs__header {
+      text-align: center;
+      margin-bottom: var(--padding-2xl, 2rem);
+    }
+
+    .pc-tabs__title {
+      font-family: "TheSeasonsLT", sans-serif;
+      margin-block: 0 var(--padding-xs, 0.5rem);
+    }
+
+    .pc-tabs__subtitle {
+      font-style: italic;
+      opacity: 0.8;
+      margin-block: 0;
+    }
+
+    .pc-tabs__nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--padding-sm, 0.75rem);
+      margin-bottom: var(--padding-2xl, 2rem);
+    }
+
+    .pc-tabs__btn {
+      padding: var(--padding-xs, 0.625rem) var(--padding-xl, 1.5rem);
+      border: 1px solid var(--color-foreground, currentColor);
+      background: transparent;
+      color: var(--color-foreground, inherit);
+      cursor: pointer;
+      font-family: var(--font-body--family, inherit);
+      font-size: var(--font-size--body-sm, 0.875rem);
+      letter-spacing: 0.05em;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .pc-tabs__btn:hover,
+    .pc-tabs__btn.active {
+      background-color: var(--color-foreground, #000);
+      color: var(--color-background, #fff);
+    }
+
+    .pc-tabs__panel {
+      display: none;
+    }
+
+    .pc-tabs__panel.active {
+      display: block;
+      animation: pcTabFadeIn 0.3s ease forwards;
+    }
+
+    @keyframes pcTabFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .pc-tabs__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--padding-lg, 1.5rem);
+      margin-bottom: 5%;
+    }
+
+    @media screen and (max-width: 749px) {
+      .pc-tabs__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--padding-sm, 1rem);
+      }
+    }
+
+    .pc-tabs__product {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: var(--padding-3xs, 0.25rem);
+    }
+
+    .pc-tabs__product-media {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--card-corner-radius, 0);
+    }
+
+    .pc-tabs__product-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pc-tabs__product-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--padding-3xs, 0.25rem);
+      padding-top: var(--padding-xs, 0.25rem);
+    }
+
+    .pc-tabs__product-title {
+      font-family: var(--font-body--family, inherit);
+      font-size: var(--font-size--body, 1rem);
+      line-height: 1.3;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .pc-tabs__product-price {
+      font-family: var(--font-body--family, inherit);
+      font-size: var(--font-size--body, 1rem);
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .pc-tabs__product-price--compare {
+      text-decoration: line-through;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    .pc-tabs__empty {
+      text-align: center;
+      padding: var(--padding-2xl, 2rem);
+      opacity: 0.6;
+    }
+  </style>
+
+  <div class="pc-tabs" id="pc-tabs-{{ section.id }}">
+    <div class="pc-tabs__header">
+      <h2 class="pc-tabs__title h3">{{ collection.title }} Collection</h2>
+      <p class="pc-tabs__subtitle">"Explore our premium collection of soft & pure products for everyday use"</p>
+    </div>
+
+    <div class="pc-tabs__nav">
+      {% assign tab_index = 0 %}
+      {% for key in metafield_keys %}
+        {% assign sub_col = collection.metafields.custom[key].value %}
+        {% if sub_col != blank and sub_col.title != blank %}
+          <button
+            class="pc-tabs__btn{% if tab_index == 0 %} active{% endif %}"
+            data-pc-tab="{{ tab_index }}"
+            type="button"
+            aria-controls="pc-panel-{{ section.id }}-{{ tab_index }}"
+            aria-selected="{% if tab_index == 0 %}true{% else %}false{% endif %}"
+            role="tab"
+          >
+            {{ sub_col.title }}
+          </button>
+          {% assign tab_index = tab_index | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% assign tab_index = 0 %}
+    {% for key in metafield_keys %}
+      {% assign sub_col = collection.metafields.custom[key].value %}
+      {% if sub_col != blank and sub_col.title != blank %}
+        <div
+          class="pc-tabs__panel{% if tab_index == 0 %} active{% endif %}"
+          id="pc-panel-{{ section.id }}-{{ tab_index }}"
+          data-pc-panel="{{ tab_index }}"
+          role="tabpanel"
+        >
+          {% if sub_col.products.size > 0 %}
+            <div class="pc-tabs__grid">
+              {% for product in sub_col.products limit: 12 %}
+                <a href="{{ product.url }}" class="pc-tabs__product">
+                  <div class="pc-tabs__product-media">
+                    {% if product.featured_image != blank %}
+                      {{
+                        product.featured_image
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          class: 'pc-tabs__product-img',
+                          widths: '300, 400, 600',
+                          sizes: '(max-width: 749px) 50vw, 25vw'
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'pc-tabs__product-img' }}
+                    {% endif %}
+                  </div>
+                  <div class="pc-tabs__product-info">
+                    <p class="pc-tabs__product-title">{{ product.title }}</p>
+                    <p class="pc-tabs__product-price">
+                      {% if product.compare_at_price > product.price %}
+                        <span class="pc-tabs__product-price--compare">{{ product.compare_at_price | money }}</span>
+                      {% endif %}
+                      {{ product.price | money }}
+                    </p>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="pc-tabs__empty">No products found in this collection.</p>
+          {% endif %}
+        </div>
+        {% assign tab_index = tab_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <script>
+    (function() {
+      var container = document.getElementById('pc-tabs-{{ section.id }}');
+      if (!container) return;
+
+      var buttons = container.querySelectorAll('[data-pc-tab]');
+      var panels = container.querySelectorAll('[data-pc-panel]');
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var idx = this.getAttribute('data-pc-tab');
+
+          buttons.forEach(function(b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function(p) {
+            p.classList.remove('active');
+          });
+
+          this.classList.add('active');
+          this.setAttribute('aria-selected', 'true');
+          var target = container.querySelector('[data-pc-panel="' + idx + '"]');
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
+  </script>
+{% else %}
+  {% comment %} No sub-collections found in metafields, show fallback {% endcomment %}
+  <div style="text-align: center; padding: var(--padding-2xl, 2rem) 0;">
+    <h2 class="h3" style="font-family: 'TheSeasonsLT', sans-serif;">{{ collection.title }} Collection</h2>
+    <p style="font-style: italic; opacity: 0.8;">"Explore our premium collection of soft & pure products for everyday use"</p>
+  </div>
+{% endif %}
