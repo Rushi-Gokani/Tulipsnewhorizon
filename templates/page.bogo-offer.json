@@ -103,9 +103,9 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<p><strong>To avail the Buy 1 Get 1 offer, make sure to add quantity 2 of the same product to your cart.</strong></p>",
-            "width": "fit-content",
+            "width": "100%",
             "max_width": "normal",
-            "alignment": "left",
+            "alignment": "center",
             "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
