@@ -84,40 +84,13 @@
       display: flex;
       flex-direction: column;
       gap: var(--padding-3xs, 0.25rem);
+      position: relative;
     }
 
     .pc-tabs__product-link {
       text-decoration: none;
       color: inherit;
       display: block;
-    }
-
-    .pc-tabs__buy-now {
-      margin-top: var(--padding-xs, 0.5rem);
-    }
-
-    .pc-tabs__buy-now-btn {
-      width: 100%;
-      padding: 0.5rem 1rem;
-      border: 1px solid #A3CA6D;
-      border-radius: 999px;
-      background-color: #A3CA6D;
-      color: #fff;
-      font-family: var(--font-body--family, inherit);
-      font-size: var(--font-size--body-sm, 0.875rem);
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      cursor: pointer;
-      transition: background-color 0.3s ease, opacity 0.3s ease;
-    }
-
-    .pc-tabs__buy-now-btn:hover {
-      background-color: #8fb95a;
-    }
-
-    .pc-tabs__buy-now-btn[disabled] {
-      opacity: 0.5;
-      cursor: not-allowed;
     }
 
     .pc-tabs__product-media {
@@ -128,7 +101,7 @@
 
     .pc-tabs__product-img {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: var(--pc-img-ratio, 1 / 1);
       object-fit: cover;
       display: block;
     }
@@ -142,7 +115,7 @@
 
     .pc-tabs__product-title {
       font-family: var(--font-body--family, inherit);
-      font-size: var(--font-size--body, 1rem);
+      font-size: 1rem;
       line-height: 1.3;
       margin: 0;
       display: -webkit-box;
@@ -151,14 +124,13 @@
       overflow: hidden;
     }
 
-    .pc-tabs__product-price {
+    .pc-tabs__product .price {
       font-family: var(--font-body--family, inherit);
-      font-size: var(--font-size--body, 1rem);
+      font-size: 1rem;
       font-weight: 600;
-      margin: 0;
     }
 
-    .pc-tabs__product-price--compare {
+    .pc-tabs__product .compare-at-price {
       text-decoration: line-through;
       opacity: 0.6;
       font-weight: 400;
@@ -205,7 +177,10 @@
           {% if sub_col.products.size > 0 %}
             <div class="pc-tabs__grid">
               {% for product in sub_col.products limit: 12 %}
-                <div class="pc-tabs__product">
+                {% liquid
+                  assign img_ratio = product.featured_image.aspect_ratio | default: 1
+                %}
+                <div class="pc-tabs__product" style="--pc-img-ratio: {{ img_ratio }};">
                   <a href="{{ product.url }}" class="pc-tabs__product-link">
                     <div class="pc-tabs__product-media">
                       {% if product.featured_image != blank %}
@@ -224,26 +199,10 @@
                     </div>
                     <div class="pc-tabs__product-info">
                       <p class="pc-tabs__product-title">{{ product.title }}</p>
-                      <p class="pc-tabs__product-price">
-                        {% if product.compare_at_price > product.price %}
-                          <span class="pc-tabs__product-price--compare">{{ product.compare_at_price | money }}</span>
-                        {% endif %}
-                        {{ product.price | money }}
-                      </p>
+                      {% render 'price', product_resource: product, show_sale_price_first: true %}
                     </div>
                   </a>
-                  <form method="post" action="/cart/add" class="pc-tabs__buy-now">
-                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <button
-                      type="submit"
-                      name="add"
-                      class="pc-tabs__buy-now-btn"
-                      {% unless product.available %}disabled{% endunless %}
-                    >
-                      {% if product.available %}Add to Cart{% else %}Sold Out{% endif %}
-                    </button>
-                  </form>
+                  {% render 'product-card-button', product: product %}
                 </div>
               {% endfor %}
             </div>
