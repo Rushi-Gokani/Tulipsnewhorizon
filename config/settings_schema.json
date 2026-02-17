@@ -1361,14 +1361,24 @@
     "name": "t:names.page_layout",
     "settings": [
       {
-        "type": "range",
+        "type": "select",
         "id": "page_width",
-        "min": 960,
-        "max": 1920,
-        "step": 120,
-        "default": 1440,
-        "unit": "px",
-        "label": "t:settings.page_width"
+        "label": "t:settings.page_width",
+        "options": [
+          {
+            "value": "narrow",
+            "label": "t:options.narrow"
+          },
+          {
+            "value": "normal",
+            "label": "t:options.normal"
+          },
+          {
+            "value": "wide",
+            "label": "t:options.wide"
+          }
+        ],
+        "default": "narrow"
       }
     ]
   },
@@ -2124,7 +2134,7 @@
         "id": "card_corner_radius",
         "min": 0,
         "max": 16,
-        "step": 0.2,
+        "step": 1,
         "unit": "px",
         "label": "t:settings.card_corner_radius",
         "default": 0

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "page_banner_6yAtaC": {
@@ -32,25 +41,20 @@
     },
     "banner_below_img_E9Cpmm": {
       "type": "banner-below-img",
-      "settings": {
-        "wave_image": "shopify://shop_images/Group_7381_2.png"
-      }
+      "settings": {}
     },
     "tulips_section_1_eqpKQk": {
       "type": "tulips-section-1",
       "custom_css": [
-        "@media (max-width: 768px) {.tulips-grid {display: grid; gap: 15px; grid-template-columns: 1fr; justify-items: center; padding: 10px 0; } .text-container {margin-top: -3%;}}"
+        "@media (max-width: 768px) {.tulips-grid {display: grid; gap: 15px; grid-template-columns: 1fr; justify-items: center; padding: 10px 0; } .text-container {margin-top: -3%; }}"
       ],
       "settings": {
         "title": "Innovating Hygiene Since 1999",
         "description": "Tulips, under Suparshva Swabs (I), is a pioneer in personal hygiene products across South Asia. Since 1999, we've championed quality, accessibility, and innovation in cotton-based hygiene solutions.",
-        "icon_1": "shopify://shop_images/Group_1.png",
         "label_1": "Innovation & Quality",
         "para1_1": "<p>100% in-house production with state-of-the-art facilities.<br/>International certifications & global benchmarks.<br/></p>",
-        "icon_2": "shopify://shop_images/Frame_3.png",
         "label_2": "Sustainable Manufacturin",
         "para1_2": "<p>Solar-powered plants & backward integration of raw materials.<br/>One of the lowest-cost, high-quality manufacturers globally.</p>",
-        "icon_3": "shopify://shop_images/Vector_8.png",
         "label_3": "Global Reach",
         "para1_3": "<p>Exported to over 15 countries across major hygiene brands.<br/>Recognized for product quality and consistency worldwide.</p>",
         "para2_3": ""
@@ -215,7 +219,6 @@
       ],
       "disabled": true,
       "settings": {
-        "brand_image": "shopify://shop_images/Image_Place_Holder_1.png",
         "title": "About Brand Tulips Hygiene",
         "description": "<p>TULIPS is India’s leading & fastest growing brand for Cotton & Wood based personal hygiene products. It had single handedly, created a mass market segment of Cotton-based products like Cotton swabs, Cotton balls & Cotton pads in India, by its VALUE FOR MONEY approach & making the product available at all formats of retail, in last 10 years.<br/><br/></p>",
         "button_1_text": "Learn More",
@@ -233,13 +236,10 @@
       "settings": {
         "section_heading": "Our Core Values",
         "section_subtext": "We seek a world where our products are made with care and delivered to everyone for a healthy, hygienic experience. While progressing towards attaining economic growth as an organization, we keep a check on our social responsibility.",
-        "precision_medicine_icon": "shopify://shop_images/Group_2.png",
         "precision_medicine_title": "Care",
         "precision_medicine_desc": "We aim to deliver best of products to our customers making sure that they are harmless for the customer and the touch delivers an experience they would want to stick to. Our quality checks make sure that our brand lives up to all expectations.",
-        "early_detection_icon": "shopify://shop_images/Layer_1_1.png",
         "early_detection_title": "Consistency",
         "early_detection_desc": "We believe in carrying out development that is sustainable and creates a lasting impact on our customers as well as our partners in measurable ways. With our rock solid values and supporting team, we aim to hold ourselves to high ethical standards and respect the laws of our country.",
-        "immunotherapy_icon": "shopify://shop_images/Vector_9.png",
         "immunotherapy_title": "Contribution",
         "immunotherapy_desc": "Not measuring our success just by our monetary gains, we make sure that our corporate social responsibility is an important part of our decisions as well as our actions. Our values are an important part of our action plan which are reflected in our guiding principles."
       }
