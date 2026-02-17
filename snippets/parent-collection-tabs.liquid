@@ -24,22 +24,6 @@
       width: 100%;
     }
 
-    .pc-tabs__header {
-      text-align: center;
-      margin-bottom: var(--padding-2xl, 2rem);
-    }
-
-    .pc-tabs__title {
-      font-family: "TheSeasonsLT", sans-serif;
-      margin-block: 0 var(--padding-xs, 0.5rem);
-    }
-
-    .pc-tabs__subtitle {
-      font-style: italic;
-      opacity: 0.8;
-      margin-block: 0;
-    }
-
     .pc-tabs__nav {
       display: flex;
       flex-wrap: wrap;
@@ -156,11 +140,6 @@
   </style>
 
   <div class="pc-tabs" id="pc-tabs-{{ section.id }}">
-    <div class="pc-tabs__header">
-      <h2 class="pc-tabs__title h3">{{ collection.title }} Collection</h2>
-      <p class="pc-tabs__subtitle">"Explore our premium collection of soft & pure products for everyday use"</p>
-    </div>
-
     <div class="pc-tabs__nav">
       {% assign tab_index = 0 %}
       {% for key in metafield_keys %}
@@ -260,9 +239,5 @@
     })();
   </script>
 {% else %}
-  {% comment %} No sub-collections found in metafields, show fallback {% endcomment %}
-  <div style="text-align: center; padding: var(--padding-2xl, 2rem) 0;">
-    <h2 class="h3" style="font-family: 'TheSeasonsLT', sans-serif;">{{ collection.title }} Collection</h2>
-    <p style="font-style: italic; opacity: 0.8;">"Explore our premium collection of soft & pure products for everyday use"</p>
-  </div>
+  {% comment %} No sub-collections found in metafields {% endcomment %}
 {% endif %}
