@@ -8,9 +8,7 @@
 /* TT Neoris Regular (Bold) */
 @font-face {
   font-family: 'TT Neoris';
-  src: url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TT_Neoris_Trial_Regular.woff2?v=1771329892') format('woff2'),
-       url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TT_Neoris_Trial_Regular.woff?v=1771329892') format('woff'),
-       url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TT_Neoris_Trial_Regular.ttf?v=1771329893') format('truetype');
+  src: url('https://cdn.shopify.com/s/files/1/0679/3822/2261/files/TT_Neoris_Trial_Bold.woff2?v=1751957790') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -19,13 +17,12 @@
 /* TT Neoris Light */
 @font-face {
   font-family: 'TT Neoris light';
-  src: url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TT_Neoris_Trial_Regular.woff2?v=1771329892') format('woff2'),
-       url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TT_Neoris_Trial_Regular.woff?v=1771329892') format('woff'),
-       url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TT_Neoris_Trial_Regular.ttf?v=1771329893') format('truetype');
+  src: url('https://cdn.shopify.com/s/files/1/0679/3822/2261/files/TT_Neoris_Trial_ExtraLight.woff2?v=1751967327') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
+
 
 /* Livvic SemiBold */
 @font-face {
@@ -75,56 +72,11 @@
   --font-seasons-bold: "TheSeasonsBold", sans-serif;
 }
 
-/* ========================================
-   GLOBAL FONT APPLICATION (matching tulipsnew)
-   ======================================== */
 
-/* Body font */
-body {
-  font-family: 'Open Sans', sans-serif !important;
-}
-
-
-/* All headings font */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  font-family: 'TT Neoris light' !important;
-}
-
-/* Italic heading styling */
-h1 em,
-h2 em,
-h3 em,
-h4 em,
-h5 em,
-h6 em,
-.h1 em,
-.h2 em,
-.h3 em,
-.h4 em,
-.h5 em,
-.h6 em {
-  font-family: 'TT Neoris light' !important;
-}
-
-/* h2 specific override */
-h2 {
-  font-family: 'TT Neoris light' !important;
-}
-
-* {
+ * {
   box-sizing: border-box;
 }
+
 
 body {
   color: var(--color-foreground);
@@ -5068,3 +5020,48 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+/* ========================================
+   GLOBAL FONT APPLICATION (moved to end for priority)
+   ======================================== */
+
+body {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'TT Neoris light' !important;
+}
+
+/* Italic heading styling */
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em,
+h6 em,
+.h1 em,
+.h2 em,
+.h3 em,
+.h4 em,
+.h5 em,
+.h6 em {
+  font-family: 'TT Neoris light' !important;
+}
+
+/* h2 specific override */
+h2 {
+  font-family: 'TT Neoris light' !important;
+}
+
