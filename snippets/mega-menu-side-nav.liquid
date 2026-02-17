@@ -8,12 +8,22 @@
 
 <div class="mega-menu-side-nav" id="{{ id }}" data-mega-menu-side-nav>
   <div class="mega-menu-side-nav__container">
+    {% liquid
+      assign first_active_handle = nil
+      for link in parent_link.links
+        if link.links != blank
+          assign first_active_handle = link.handle
+          break
+        endif
+      endfor
+    %}
+
     <!-- Left Sidebar - Main Categories -->
     <div class="mega-menu-side-nav__sidebar">
       <ul class="mega-menu-side-nav__list list-unstyled">
         {% for link in parent_link.links %}
           <li class="mega-menu-side-nav__item" data-handle="{{ link.handle }}">
-            <a href="{{ link.url }}" class="mega-menu-side-nav__link {% if forloop.first %}is-active{% endif %}" data-category-link>
+            <a href="{{ link.url }}" class="mega-menu-side-nav__link {% if link.handle == first_active_handle %}is-active{% endif %}" data-category-link>
               <span>{{ link.title }}</span>
               {% if link.links != blank %}
                 <span class="mega-menu-side-nav__arrow">
@@ -31,65 +41,70 @@
     <!-- Right Content Area - Subcategories & Featured Image -->
     <div class="mega-menu-side-nav__content-wrapper">
       {% for link in parent_link.links %}
-        <div class="mega-menu-side-nav__content {% if forloop.first %}is-active{% endif %}" data-category-content="{{ link.handle }}">
-          <div class="mega-menu-side-nav__grid">
-            <!-- Subcategories List with Bullet Icons -->
-            <div class="mega-menu-side-nav__sub-items">
-              <ul class="mega-menu-side-nav__sub-list list-unstyled">
-                {% for child_link in link.links %}
-                  <li class="mega-menu-side-nav__sub-item">
-                    <a href="{{ child_link.url }}" class="mega-menu-side-nav__sub-link">
-                      <!-- Get icon from menu_icon metafield -->
-                      {% assign menu_icon = child_link.object.metafields.custom.menu_icon %}
+        {% if link.links != blank %}
+          <div class="mega-menu-side-nav__content {% if link.handle == first_active_handle %}is-active{% endif %}" data-category-content="{{ link.handle }}">
+            <div class="mega-menu-side-nav__grid">
+              <!-- Subcategories List with Bullet Icons -->
+              <div class="mega-menu-side-nav__sub-items">
+                <ul class="mega-menu-side-nav__sub-list list-unstyled">
+                  {% for child_link in link.links %}
+                    <li class="mega-menu-side-nav__sub-item">
+                      <a href="{{ child_link.url }}" class="mega-menu-side-nav__sub-link">
+                        <!-- Get icon from menu_icon metafield -->
+                        {% assign menu_icon = child_link.object.metafields.custom.menu_icon %}
 
-                      {% if menu_icon %}
-                        <span class="mega-menu-side-nav__bullet-icon">
-                          {{ menu_icon | image_url: width: 12, height: 12 | image_tag: loading: 'lazy', widths: '12' }}
+                        {% if menu_icon %}
+                        <span class="mega-menu-side-nav__bullet-icon" style="width: 12px; height: 12px; min-width: 12px; display: block;">
+                          {{ menu_icon | image_url: width: 30 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy', style: 'width: 100%; height: 100%; object-fit: contain;' }}
                         </span>
-                      {% endif %}
-                      <span class="mega-menu-side-nav__sub-title">{{ child_link.title }}</span>
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
+                        {% endif %}
+                        <span class="mega-menu-side-nav__sub-title">{{ child_link.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
 
-            <!-- Featured Product Image -->
-            <div class="mega-menu-side-nav__featured">
-              {% liquid
-                assign featured_image = nil
-                for sub_block in block.blocks
-                  if sub_block.type == 'mega_menu_image'
-                    if sub_block.settings.title == link.title
-                      assign featured_image = sub_block.settings.image
-                      break
+              <!-- Featured Product Image -->
+              <div class="mega-menu-side-nav__featured">
+                {% liquid
+                  assign featured_image = nil
+                  for sub_block in block.blocks
+                    if sub_block.type == 'mega_menu_image'
+                      if sub_block.settings.title == link.title
+                        assign featured_image = sub_block.settings.image
+                        break
+                      endif
                     endif
-                  endif
-                endfor
+                  endfor
 
-                if featured_image == nil and link.type == 'collection_link'
-                  assign featured_image = link.object.featured_image
-                endif
-              %}
-              {% if featured_image %}
-                <div class="mega-menu-side-nav__featured-image">
-                  {{ featured_image | image_url: width: 500 | image_tag: loading: 'lazy' }}
-                </div>
-              {% endif %}
+                  if featured_image == nil and link.type == 'collection_link'
+                    assign featured_image = link.object.featured_image
+                  endif
+                %}
+                {% if featured_image %}
+                  <div class="mega-menu-side-nav__featured-image">
+                    {{ featured_image | image_url: width: 500 | image_tag: loading: 'lazy' }}
+                  </div>
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 </div>
 
 {% style %}
+  /* RESTORED CSS DIRECTLY TO SNIPPET TO BYPASS CACHE ISSUES */
   .mega-menu-side-nav {
-    --sidebar-width: 250px;
+    --sidebar-width: 220px;
+    --subitems-width: 180px;
+    --featured-width: 200px; /* Reduced slightly to ensure fit */
     background-color: #fff;
-    width: 100%;
-    max-width: 950px;
+    width: 680px !important;
+    max-width: 680px !important;
     margin: 0 auto;
     color: #000;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
@@ -127,7 +142,7 @@
   }
 
   .mega-menu-side-nav__link {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
     align-items: center;
     padding: 14px 20px;
@@ -138,6 +153,7 @@
     font-size: 15px;
     line-height: 1.2;
     background: #fff;
+    position: relative;
   }
 
   .mega-menu-side-nav__link:hover {
@@ -162,12 +178,14 @@
     flex: 1;
     padding: 0;
     background-color: #fff;
+    /* Removed padding here, handled inside content */
   }
 
   .mega-menu-side-nav__content {
     display: none;
     width: 100%;
     padding: 20px 24px;
+    box-sizing: border-box; /* Critical for padding calculation */
   }
 
   .mega-menu-side-nav__content.is-active {
@@ -179,18 +197,20 @@
     width: 100%;
     gap: 0;
     align-items: flex-start;
+    justify-content: space-between; /* Ensure spacing */
   }
 
   .mega-menu-side-nav__sub-items {
-    flex: 0 0 380px;
-    max-width: 380px;
-    padding-right: 20px;
+    flex: 0 0 var(--subitems-width); /* Fixed width */
+    max-width: var(--subitems-width);
+    padding-right: 10px;
+    box-sizing: border-box;
   }
 
   .mega-menu-side-nav__sub-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -200,35 +220,45 @@
     margin: 0;
   }
 
-  /* Icon and title INLINE horizontally */
+  /* CRITICAL: Force row layout for icon and text */
   .mega-menu-side-nav__sub-link {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 10px !important;
+    gap: 8px !important;
     text-decoration: none;
     color: #000;
     padding: 4px 0;
+    width: 100%;
   }
 
-  /* Small bullet icon */
+  /* CRITICAL: Force small icon size */
   .mega-menu-side-nav__bullet-icon {
-    flex-shrink: 0;
-    width: 10px !important;
-    min-width: 10px !important;
-    height: 10px !important;
-    display: flex !important;
+    display: block !important; /* Ensure block model applies */
+    width: 12px !important;    /* Fixed width */
+    height: 12px !important;   /* Fixed height */
+    min-width: 12px !important;
+    max-width: 12px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important; /* Cut off if image is huge */
+    margin-right: 8px !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
-  .mega-menu-side-nav__bullet-icon img {
-    width: 10px !important;
-    height: 10px !important;
-    max-width: 10px !important;
-    max-height: 10px !important;
+  /* Force image to fit container */
+  .mega-menu-side-nav__bullet-icon img,
+  img.mega-menu-icon-img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     object-fit: contain !important;
     display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
   }
 
   .mega-menu-side-nav__sub-title {
@@ -236,62 +266,66 @@
     font-weight: 400;
     line-height: 1.3;
     color: #000;
+    white-space: normal; /* Allow wrapping */
   }
 
   .mega-menu-side-nav__featured {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* Align right */
     align-items: center;
-    padding-left: 24px;
+    padding-left: 10px;
+    min-width: 0; /* Allow shrinking if absolutely necessary */
   }
 
   .mega-menu-side-nav__featured-image {
     width: 100%;
-    max-width: 200px;
+    max-width: 210px; /* Increased size as requested */
   }
 
   .mega-menu-side-nav__featured-image img {
     width: 100%;
     height: auto;
     display: block;
+    object-fit: contain;
   }
 
-  /* Center the mega menu */
-  .menu-list__submenu {
+  /* Parent style overrides ensuring 600px constraint */
+  .menu-list__list-item > .menu-list__submenu:has(.mega-menu-side-nav) {
+    width: 680px !important;
+    max-width: 680px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: auto !important;
+    padding-inline: 0 !important;
+    background-color: transparent !important;
     border: none !important;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12) !important;
-    border-radius: 8px !important;
+    box-shadow: none !important; /* Clean slate */
   }
 
-  .menu-list__submenu-inner {
+  .menu-list__submenu:has(.mega-menu-side-nav) .menu-list__submenu-inner {
     padding: 0 !important;
+    width: 680px !important;
+    max-width: 680px !important;
   }
 
-  .mega-menu.section {
+  .menu-list__submenu:has(.mega-menu-side-nav) .mega-menu.section {
     padding: 0 !important;
     margin: 0 !important;
-    display: flex;
-    justify-content: center;
+    width: 680px !important;
+    max-width: 680px !important;
+    display: block !important;
   }
 
-  .mega-menu__grid {
+  .menu-list__submenu:has(.mega-menu-side-nav) .mega-menu__grid {
     padding: 0 !important;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    width: 680px !important;
+    max-width: 680px !important;
+    display: block !important;
   }
 
   @media screen and (max-width: 1200px) {
     .mega-menu-side-nav__featured {
       display: none;
-    }
-    .mega-menu-side-nav__sub-items {
-      flex: 1;
-      max-width: 100%;
     }
   }
 {% endstyle %}

@@ -1,5 +1,5 @@
 .announcement-bar {
-  z-index: 10;
+  z-index: 3;
   position: relative;
   background-color: #A3CA6D; /* Matching the green from the screenshot */
   color: #ffffff;

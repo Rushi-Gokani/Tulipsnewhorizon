@@ -53,13 +53,19 @@
     class="header-logo__image-container header-logo__image-container--original"
     data-testid="header-logo"
   >
-    {% render 'image',
-      image: settings.logo,
-      class: 'header-logo__image',
-      height: settings.logo_height,
-      text_fallback: shop.name,
-      style: logo_style
-    %}
+    {% if settings.logo != blank %}
+      <img
+        src="{{ settings.logo | image_url: width: 600 }}"
+        class="header-logo__image"
+        alt="{{ shop.name }}"
+        loading="eager"
+        width="{{ settings.logo.width }}"
+        height="{{ settings.logo.height }}"
+        style="{{ logo_style }}"
+      >
+    {% else %}
+      {{ shop.name }}
+    {% endif %}
   </span>
 
   {% if use_inverse_logo %}
@@ -67,13 +73,19 @@
       class="header-logo__image-container header-logo__image-container--inverse"
       data-testid="header-logo-inverse"
     >
-      {% render 'image',
-        image: inverse_logo,
-        class: 'header-logo__image',
-        height: settings.logo_height,
-        text_fallback: shop.name,
-        style: inverse_logo_style
-      %}
+      {% if inverse_logo != blank %}
+        <img
+          src="{{ inverse_logo | image_url: width: 600 }}"
+          class="header-logo__image"
+          alt="{{ shop.name }}"
+          loading="eager"
+          width="{{ inverse_logo.width }}"
+          height="{{ inverse_logo.height }}"
+          style="{{ inverse_logo_style }}"
+        >
+      {% else %}
+        {{ shop.name }}
+      {% endif %}
     </span>
   {% endif %}
 </a>

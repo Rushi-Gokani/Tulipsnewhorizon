@@ -414,7 +414,6 @@
     position: absolute;
     top: calc(100% - 1px + var(--border-bottom-width));
     left: 0;
-    width: 100%;
     height: var(--submenu-height);
     background-color: var(--color-background);
     box-shadow: var(--shadow-popover);
@@ -763,6 +762,33 @@
       left: 20px;
       right: 20px;
     }
+  }
+  /* ===== Mega Menu Side Nav: Fixed 600px Width ===== */
+  .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu:has(.mega-menu-side-nav) {
+    width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-inline: 0;
+    background-color: transparent;
+  }
+
+  .menu-list__submenu:has(.mega-menu-side-nav) .menu-list__submenu-inner {
+    padding: 0;
+    width: 600px;
+    max-width: 600px;
+  }
+
+  .menu-list__submenu:has(.mega-menu-side-nav) .mega-menu.section {
+    padding: 0;
+    margin: 0;
+    width: 600px;
+    max-width: 600px;
+  }
+
+  .menu-list__submenu:has(.mega-menu-side-nav) .mega-menu__grid {
+    padding: 0;
+    width: 600px;
+    max-width: 600px;
   }
 {% endstylesheet %}
 

@@ -4,12 +4,12 @@
    ============================================ */
 
 .mega-menu-side-nav {
-  --sidebar-width: 250px;
-  --subitems-width: 380px;
-  --featured-width: 220px;
+  --sidebar-width: 180px;
+  --subitems-width: 160px;
+  --featured-width: 200px;
   background-color: #fff;
-  width: 100%;
-  max-width: 950px;
+  width: 600px !important;
+  max-width: 600px !important;
   margin: 0 auto;
   color: #000;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
@@ -143,7 +143,7 @@
 
 /* CRITICAL: Icon + Title inline layout */
 .mega-menu-side-nav__sub-link {
-  display: inline-flex !important;
+  display: flex !important;
   align-items: center !important;
   gap: 8px !important;
   text-decoration: none;
@@ -157,10 +157,11 @@
 }
 
 /* CRITICAL: Small bullet-sized icon */
-.mega-menu-side-nav__sub-icon {
-  width: 10px !important;
-  height: 10px !important;
-  min-width: 10px !important;
+.mega-menu-side-nav__sub-icon,
+.mega-menu-side-nav__bullet-icon {
+  width: 8px !important;
+  height: 8px !important;
+  min-width: 8px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -169,11 +170,12 @@
   overflow: hidden;
 }
 
-.mega-menu-side-nav__sub-icon img.sub-icon-image {
+.mega-menu-side-nav__sub-icon img.sub-icon-image,
+.mega-menu-side-nav__bullet-icon img {
   width: 100% !important;
   height: 100% !important;
-  max-width: 10px !important;
-  max-height: 10px !important;
+  max-width: 8px !important;
+  max-height: 8px !important;
   object-fit: contain !important;
   display: block !important;
 }
@@ -195,13 +197,13 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-left: 24px;
+  padding-left: 10px;
   min-width: var(--featured-width);
 }
 
 .mega-menu-side-nav__featured-image {
   width: 100%;
-  max-width: 200px;
+  max-width: 220px;
 }
 
 .mega-menu-side-nav__featured-image img {
@@ -237,45 +239,46 @@
    SUBMENU OVERRIDES - Centered & Narrower
    ============================================ */
 
-.menu-list__submenu {
+/* Submenu container override */
+.menu-list__list-item > .menu-list__submenu:has(.mega-menu-side-nav) {
+  width: 600px !important;
+  max-width: 600px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: auto !important;
-  max-width: calc(100vw - 40px) !important;
+  padding-inline: 0 !important;
   border: none !important;
   box-shadow: 0 8px 30px rgba(0,0,0,0.12) !important;
   border-radius: 8px !important;
-  overflow: hidden !important;
+  overflow: visible !important;
+  background-color: transparent !important;
 }
 
-.menu-list__submenu-inner {
+.menu-list__submenu:has(.mega-menu-side-nav) .menu-list__submenu-inner {
   padding: 0 !important;
+  width: 600px !important;
+  max-width: 600px !important;
 }
 
-.mega-menu.section {
+.menu-list__submenu:has(.mega-menu-side-nav) .mega-menu.section {
+  display: flex !important;
+  width: 600px !important;
+  max-width: 600px !important;
   padding: 0 !important;
   margin: 0 !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  display: flex;
-  justify-content: center;
+  grid-template-columns: none !important;
 }
 
-.mega-menu__grid {
+.menu-list__submenu:has(.mega-menu-side-nav) .mega-menu__grid {
+  display: flex !important;
+  width: 600px !important;
+  max-width: 600px !important;
   padding: 0 !important;
-  width: 100% !important;
-  display: flex;
-  justify-content: center;
 }
 
-header-menu .menu-list__submenu {
-  max-width: 100%;
+header-menu .menu-list__submenu:has(.mega-menu-side-nav) {
+  max-width: 600px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-}
-
-.mega-menu-side-nav .menu-list__submenu {
-  background: transparent !important;
 }
 
 /* ============================================
@@ -284,17 +287,17 @@ header-menu .menu-list__submenu {
 
 @media screen and (min-width: 1400px) {
   .mega-menu-side-nav {
-    max-width: 1050px;
-    --sidebar-width: 270px;
-    --subitems-width: 420px;
+    max-width: 600px;
+    --sidebar-width: 220px;
+    --subitems-width: 250px;
   }
 }
 
 @media screen and (max-width: 1200px) {
   .mega-menu-side-nav {
-    max-width: 850px;
+    max-width: 600px;
     --sidebar-width: 220px;
-    --subitems-width: 340px;
+    --subitems-width: 250px;
   }
 
   .mega-menu-side-nav__featured {
