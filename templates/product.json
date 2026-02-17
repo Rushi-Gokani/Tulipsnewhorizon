@@ -987,8 +987,8 @@
       "type": "custom-liquid",
       "name": "t:names.custom_liquid",
       "settings": {
-        "custom_liquid": "<div style=\"height:30px;\"></div>",
-        "color_scheme": "",
+        "custom_liquid": "<div style=\"height:100px;\"></div>",
+        "color_scheme": "scheme-2",
         "section_width": "page-width",
         "padding-block-start": 0,
         "padding-block-end": 0
