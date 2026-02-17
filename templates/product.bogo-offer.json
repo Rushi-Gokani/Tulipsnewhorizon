@@ -218,6 +218,14 @@
               },
               "blocks": {}
             },
+            "custom_liquid_QUF7FU": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<div style=\"\n  background:#fff4e5;\n  border:2px dashed #ff9800;\n  padding:14px;\n  border-radius:8px;\n  text-align:center;\n  margin-bottom:15px;\n\">\n  <p style=\"\n    font-weight:700;\n    font-size:16px;\n    margin:0;\n  \">\n    🎉 Buy 1, Get 1 FREE!\n  </p>\n\n  <p style=\"\n    font-size:14px;\n    margin:6px 0 0;\n  \">\n    👉 Add 2 Quantity to Cart → Get 1 FREE\n  </p>\n</div>"
+              },
+              "blocks": {}
+            },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
@@ -498,6 +506,7 @@
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
+            "custom_liquid_QUF7FU",
             "buy_buttons_eYQEYi",
             "text_nfPAwE",
             "text_fLtheh",
