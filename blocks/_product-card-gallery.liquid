@@ -4,8 +4,11 @@
 
 {% capture children %}
   {% unless product == blank %}
+    {% if collection and collection.metafields.custom.badges != blank %}
+      <span class="collection-metafield-badge">{{ collection.metafields.custom.badges }}</span>
+    {% endif %}
     <div
-      class="product-badges product-badges--top-left"
+      class="product-badges {% if collection and collection.metafields.custom.badges != blank %}product-badges--top-right{% else %}product-badges--top-left{% endif %}"
       style="
         --badge-border-radius: 4px;
         --badge-font-family: var(--font-body-family); 
@@ -59,6 +62,25 @@
 </div>
 
 {% stylesheet %}
+  .collection-metafield-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #d32f2f;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    z-index: var(--layer-flat, 2);
+    letter-spacing: 0.3px;
+    text-transform: none;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
   .product-badges {
     --badge-inset: max(var(--padding-xs), calc((var(--border-radius) + var(--padding-xs)) * (1 - cos(45deg))));
 

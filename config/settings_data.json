@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "logo": "shopify://shop_images/Tullips_logo.webp",
@@ -190,8 +199,8 @@
       "scheme-4": {
         "settings": {
           "background": "#a3ca6d",
-          "foreground_heading": "#000000",
-          "foreground": "#000000cf",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffff",
           "primary": "#000000cf",
           "primary_hover": "#000000",
           "border": "#a3ca6d",
