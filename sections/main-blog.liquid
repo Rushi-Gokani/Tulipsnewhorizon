@@ -158,7 +158,7 @@
  * Blog posts page layout
  */
 .blog-posts {
-  --page-content-width: var(--narrow-page-width);
+  --page-content-width: 1400px;
   --page-width: calc(var(--page-content-width) + (var(--page-margin) * 2));
   --columns-gap: 36px;
   --rows-gap: 48px;
@@ -225,15 +225,21 @@
 
 .blog-posts-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   width: 100%;
   column-gap: var(--columns-gap);
   row-gap: var(--rows-gap);
 }
 
+@media screen and (max-width: 768px) {
+  .blog-posts-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 .blog-post-item {
-  grid-column: span var(--col-span);
+  grid-column: auto;
   border: none;
   padding: 0;
 }
