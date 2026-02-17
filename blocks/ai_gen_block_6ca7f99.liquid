@@ -77,73 +77,87 @@
 <marquee-scroller-{{ ai_gen_id }} class="ai-marquee-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-marquee-wrapper-{{ ai_gen_id }}">
     <div class="ai-marquee-content-{{ ai_gen_id }}">
-      {% for i in (1..20) %}
-        {% if i <= block.settings.repeat_count %}
-          <div class="ai-marquee-item-{{ ai_gen_id }}">
-            {% if block.settings.show_icon %}
-              <span class="ai-marquee-icon-{{ ai_gen_id }}">
-                {% if block.settings.icon_type == 'star' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'heart' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'check' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'circle' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'diamond' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2l10 10-10 10L2 12 12 2z"/>
-                  </svg>
-                {% endif %}
-              </span>
-            {% endif %}
-            <span>{{ block.settings.marquee_text }}</span>
-          </div>
-        {% endif %}
-      {% endfor %}
+      {% assign marquee_texts = '' %}
+      {% if block.settings.marquee_text_1 != blank %}{% assign marquee_texts = marquee_texts | append: block.settings.marquee_text_1 | append: '||' %}{% endif %}
+      {% if block.settings.marquee_text_2 != blank %}{% assign marquee_texts = marquee_texts | append: block.settings.marquee_text_2 | append: '||' %}{% endif %}
+      {% if block.settings.marquee_text_3 != blank %}{% assign marquee_texts = marquee_texts | append: block.settings.marquee_text_3 | append: '||' %}{% endif %}
+      {% if block.settings.marquee_text_4 != blank %}{% assign marquee_texts = marquee_texts | append: block.settings.marquee_text_4 | append: '||' %}{% endif %}
+      {% if block.settings.marquee_text_5 != blank %}{% assign marquee_texts = marquee_texts | append: block.settings.marquee_text_5 | append: '||' %}{% endif %}
+      {% assign marquee_texts_arr = marquee_texts | split: '||' %}
+      {% assign texts_count = marquee_texts_arr.size %}
+      {% if texts_count > 0 %}
+        {% for i in (1..20) %}
+          {% if i <= block.settings.repeat_count %}
+            {% assign text_index = i | minus: 1 | modulo: texts_count %}
+            <div class="ai-marquee-item-{{ ai_gen_id }}">
+              {% if block.settings.show_icon %}
+                <span class="ai-marquee-icon-{{ ai_gen_id }}">
+                  {% if block.settings.icon_type == 'star' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'heart' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'check' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'circle' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'diamond' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 2l10 10-10 10L2 12 12 2z"/>
+                    </svg>
+                  {% endif %}
+                </span>
+              {% endif %}
+              <span>{{ marquee_texts_arr[text_index] }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </div>
 
     <div class="ai-marquee-content-{{ ai_gen_id }}" aria-hidden="true">
-      {% for i in (1..20) %}
-        {% if i <= block.settings.repeat_count %}
-          <div class="ai-marquee-item-{{ ai_gen_id }}">
-            {% if block.settings.show_icon %}
-              <span class="ai-marquee-icon-{{ ai_gen_id }}">
-                {% if block.settings.icon_type == 'star' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'heart' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'check' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'circle' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                  </svg>
-                {% elsif block.settings.icon_type == 'diamond' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2l10 10-10 10L2 12 12 2z"/>
-                  </svg>
-                {% endif %}
-              </span>
-            {% endif %}
-            <span>{{ block.settings.marquee_text }}</span>
-          </div>
-        {% endif %}
-      {% endfor %}
+      {% if texts_count > 0 %}
+        {% for i in (1..20) %}
+          {% if i <= block.settings.repeat_count %}
+            {% assign text_index = i | minus: 1 | modulo: texts_count %}
+            <div class="ai-marquee-item-{{ ai_gen_id }}">
+              {% if block.settings.show_icon %}
+                <span class="ai-marquee-icon-{{ ai_gen_id }}">
+                  {% if block.settings.icon_type == 'star' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'heart' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'check' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'circle' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                  {% elsif block.settings.icon_type == 'diamond' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 2l10 10-10 10L2 12 12 2z"/>
+                    </svg>
+                  {% endif %}
+                </span>
+              {% endif %}
+              <span>{{ marquee_texts_arr[text_index] }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </marquee-scroller-{{ ai_gen_id }}>
@@ -184,9 +198,33 @@
     },
     {
       "type": "text",
-      "id": "marquee_text",
-      "label": "Marquee text",
+      "id": "marquee_text_1",
+      "label": "Marquee text 1",
       "default": "Free shipping on orders over ₹500"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_2",
+      "label": "Marquee text 2",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_3",
+      "label": "Marquee text 3",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_4",
+      "label": "Marquee text 4",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_5",
+      "label": "Marquee text 5",
+      "default": ""
     },
     {
       "type": "range",
