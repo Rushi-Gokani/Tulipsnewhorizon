@@ -149,6 +149,15 @@
                               break
                             endif
                           endfor
+
+                          assign is_pill = false
+                          for label in pill_labels
+                            assign clean_label = label | strip
+                            if clean_label == link.title
+                              assign is_pill = true
+                              break
+                            endif
+                          endfor
                         %}
                         <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | strip_html }}</span>
                         <span class="svg-wrapper icon-plus">
@@ -431,7 +440,14 @@
                                         break
                                       endif
                                     endfor
+
+                                    assign menu_icon = childlink.object.metafields.custom.menu_icon
                                   %}
+                                  {%- if menu_icon != blank -%}
+                                    <span class="menu_icon">
+                                      {{ menu_icon | image_url: width: 40 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy' }}
+                                    </span>
+                                  {%- endif -%}
                                   <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>
                                     {{- childlink.title | strip_html -}}
                                   </span>
@@ -645,7 +661,14 @@
                           break
                         endif
                       endfor
+
+                      assign menu_icon = link.object.metafields.custom.menu_icon
                     %}
+                    {%- if menu_icon != blank -%}
+                      <span class="menu_icon">
+                        {{ menu_icon | image_url: width: 40 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy' }}
+                      </span>
+                    {%- endif -%}
                     <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | strip_html }}</span>
                   </a>
                 {%- endif -%}
