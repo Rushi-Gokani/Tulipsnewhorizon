@@ -106,7 +106,7 @@
         "custom_liquid": "{% render 'parent-collection-tabs' %}",
         "color_scheme": "scheme-1",
         "section_width": "page-width",
-        "padding-block-start": 0,
+        "padding-block-start": 48,
         "padding-block-end": 48
       }
     },
