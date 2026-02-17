@@ -292,6 +292,27 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "featured_blog_T7YGqW": {
+      "type": "featured-blog",
+      "name": "Featured Blog Cards",
+      "settings": {
+        "blog": "news",
+        "heading": "Blogs",
+        "show_navigation": true,
+        "show_view_all": true,
+        "view_all_text": "VISIT BLOG",
+        "posts_limit": 3,
+        "show_image": true,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_meta": true,
+        "show_author": true,
+        "show_date": true,
+        "show_button": true,
+        "button_text": "READ MORE",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
@@ -303,6 +324,7 @@
     "featured_collection_carousel_MWJUEP",
     "featured_collection_carousel_tVtqtU",
     "featured_collection_carousel_tz4NCz",
-    "happy_customers_EY4kXP"
+    "happy_customers_EY4kXP",
+    "featured_blog_T7YGqW"
   ]
 }
