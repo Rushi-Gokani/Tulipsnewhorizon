@@ -527,6 +527,66 @@
         "padding-block-end": 0
       }
     },
+    "blocks_9rzGGp": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_6ca7f99_deVmf8": {
+          "type": "ai_gen_block_6ca7f99",
+          "settings": {
+            "marquee_text_1": "Untouched By Hands",
+            "marquee_text_2": "Sustainable Source",
+            "marquee_text_3": "Pure & Softest",
+            "marquee_text_4": "",
+            "marquee_text_5": "",
+            "repeat_count": 10,
+            "show_icon": true,
+            "icon_type": "star",
+            "icon_size": 20,
+            "icon_color": "#ffffff",
+            "text_size": 16,
+            "text_weight": "500",
+            "text_color": "#fafafa",
+            "item_spacing": 60,
+            "icon_text_spacing": 12,
+            "padding_vertical": 20,
+            "background_color": "#a3ca6d",
+            "animation_speed": 40,
+            "pause_on_hover": true
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_6ca7f99_deVmf8"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "full-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-4",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "brand_section_KUUPUg": {
       "type": "brand-section",
       "blocks": {
@@ -1006,6 +1066,7 @@
   },
   "order": [
     "main",
+    "blocks_9rzGGp",
     "brand_section_KUUPUg",
     "product_recommendations_qggXJq",
     "product_list_YN38c8",
