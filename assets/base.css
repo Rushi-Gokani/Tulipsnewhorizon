@@ -2,6 +2,9 @@
    CUSTOM FONTS - @font-face declarations
    ======================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 /* TT Neoris Regular (Bold) */
 @font-face {
   font-family: 'TT Neoris';
@@ -70,6 +73,53 @@
   --font-livvic-regular: "Livvic Regular", sans-serif;
   --font-seasons-lt: "TheSeasonsLT", sans-serif;
   --font-seasons-bold: "TheSeasonsBold", sans-serif;
+}
+
+/* ========================================
+   GLOBAL FONT APPLICATION (matching tulipsnew)
+   ======================================== */
+
+/* Body font */
+body {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+
+/* All headings font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'TT Neoris light' !important;
+}
+
+/* Italic heading styling */
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em,
+h6 em,
+.h1 em,
+.h2 em,
+.h3 em,
+.h4 em,
+.h5 em,
+.h6 em {
+  font-family: 'TT Neoris light' !important;
+}
+
+/* h2 specific override */
+h2 {
+  font-family: 'TT Neoris light' !important;
 }
 
 * {
