@@ -70,7 +70,6 @@
         "text_title",
         "text_desc"
       ],
-      "disabled": true,
       "name": "Collection heading",
       "settings": {
         "content_direction": "column",
@@ -98,6 +97,14 @@
         "gradient_direction": "to top",
         "padding-block-start": 48,
         "padding-block-end": 24
+      }
+    },
+    "wave_transition_NyyHn6": {
+      "type": "wave-transition",
+      "name": "Wave Transition",
+      "settings": {
+        "wave_image": "shopify://shop_images/wave_800x800_15481d6c-1a98-4358-a159-3ce32b60fda6.svg",
+        "wave_link": ""
       }
     },
     "subcollections": {
@@ -254,6 +261,7 @@
   },
   "order": [
     "heading",
+    "wave_transition_NyyHn6",
     "subcollections",
     "main",
     "spacer"
