@@ -140,6 +140,15 @@
                               break
                             endif
                           endfor
+
+                          assign is_pill = false
+                          for label in pill_labels
+                            assign clean_label = label | strip
+                            if clean_label == link.title
+                              assign is_pill = true
+                              break
+                            endif
+                          endfor
                         %}
                         <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ link.title | strip_html }}</span>
                         <span class="svg-wrapper icon-plus">
@@ -282,6 +291,16 @@
                       aria-current="page"
                     {% endif %}
                   >
+                    {% liquid
+                      assign is_pill = false
+                      for label in pill_labels
+                        assign clean_label = label | strip
+                        if clean_label == link.title
+                          assign is_pill = true
+                          break
+                        endif
+                      endfor
+                    %}
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | strip_html }}</span>
                   </a>
                 {% endif %}
@@ -531,7 +550,14 @@
                                                     break
                                                   endif
                                                 endfor
+
+                                                assign menu_icon = grandchildlink.object.metafields.custom.menu_icon
                                               %}
+                                              {%- if menu_icon != blank -%}
+                                                <span class="menu_icon">
+                                                  {{ menu_icon | image_url: width: 40 | image_tag: class: 'mega-menu-icon-img', loading: 'lazy' }}
+                                                </span>
+                                              {%- endif -%}
                                               <span class="menu-drawer__menu-item-text wrap-text{% if is_pill %} menu-pill{% endif %}" {% if is_pill %}style="{{ pill_styles }}"{% endif %}>{{ grandchildlink.title | strip_html }}</span>
                                             </a>
                                           </li>
@@ -822,6 +848,84 @@
 </header-drawer>
 
 {% stylesheet %}
+  /* Unified spacing for all menu items and buttons in the drawer */
+  .menu_icon {
+    display: inline-flex !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    max-width: 18px !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mega-menu-icon-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .menu-drawer__menu-item,
+  .menu-drawer__back-button {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important; /* Spacing between icon and text */
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: var(--drawer-padding, var(--padding-xl)) !important;
+    padding-right: var(--drawer-padding, var(--padding-xl)) !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Specific override for back button to remove duplicate padding or margins */
+  .menu-drawer__nav-buttons .menu-drawer__back-button {
+    margin: 0 !important;
+  }
+  
+  .menu-drawer__back-button > .svg-wrapper {
+    margin: 0 !important; /* Use gap instead */
+  }
+
+  /* List item container should not add extra space */
+  .menu-drawer__list-item {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: auto !important;
+    display: block !important;
+  }
+
+  /* Standardizing line height for better vertical centeredness */
+  .menu-drawer__menu-item-text {
+    line-height: normal !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove any block margins from containers */
+  .menu-drawer__menu,
+  .menu-drawer__menu--childlist,
+  .menu-drawer__menu--grandchildlist,
+  .menu-drawer__menu.has-submenu {
+    margin-block-end: 0 !important;
+    margin-block-start: 0 !important;
+    padding-block-start: 0 !important;
+    padding-block-end: 0 !important;
+  }
+
+  /* Caret alignment */
+  .menu-drawer__menu-item .svg-wrapper.icon-caret {
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-left: auto !important;
+  }
+
   .header__icon--menu {
     position: initial;
   }
