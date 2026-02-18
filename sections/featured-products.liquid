@@ -141,7 +141,7 @@
       assign collection_handle = ''
       if collection_setting != blank
         if collection_setting.handle
-          assign collection_handle = collection_setting.handle
+          assign collection_handle = collection_setting.handle | default: collection_setting
         else
           assign collection_handle = collection_setting
         endif
@@ -154,10 +154,10 @@
       endif
 
       assign block_products = blank
-      if selected_collection
-        assign block_products = selected_collection.products
-      elsif block.settings.products != blank
+      if block.settings.products != blank
         assign block_products = block.settings.products
+      elsif selected_collection
+        assign block_products = selected_collection.products
       elsif block.settings.vendor != blank and block.settings.collection_of_products != blank
         assign vendor_collection_handle = block.settings.collection_of_products | handleize
         if vendor_collection_handle != blank and collections[vendor_collection_handle]
@@ -207,7 +207,7 @@
                   assign collection_handle = ''
                   if collection_setting != blank
                     if collection_setting.handle
-                      assign collection_handle = collection_setting.handle
+                      assign collection_handle = collection_setting.handle | default: collection_setting
                     else
                       assign collection_handle = collection_setting
                     endif
@@ -252,11 +252,7 @@
                 assign selected_collection = blank
                 assign collection_handle = ''
                 if collection_setting != blank
-                  if collection_setting.handle
-                    assign collection_handle = collection_setting.handle
-                  else
-                    assign collection_handle = collection_setting
-                  endif
+                  assign collection_handle = collection_setting.handle | default: collection_setting
                 endif
 
                 if collection_handle != blank and collections[collection_handle]
@@ -266,10 +262,10 @@
                 endif
 
                 assign block_products = blank
-                if selected_collection
-                  assign block_products = selected_collection.products
-                elsif block.settings.products != blank
+                if block.settings.products != blank
                   assign block_products = block.settings.products
+                elsif selected_collection
+                  assign block_products = selected_collection.products
                 elsif block.settings.vendor != blank and block.settings.collection_of_products != blank
                   assign vendor_collection_handle = block.settings.collection_of_products | handleize
                   if vendor_collection_handle != blank and collections[vendor_collection_handle]
