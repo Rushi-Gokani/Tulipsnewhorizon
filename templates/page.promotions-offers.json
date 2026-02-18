@@ -71,6 +71,110 @@
         "bg_color": "#ffffff"
       }
     },
+    "featured_collection_carousel_cXq9i3": {
+      "type": "featured-collection-carousel",
+      "blocks": {
+        "product_EGM6Xn": {
+          "type": "product",
+          "settings": {
+            "product": "colour-cotton-balls-50-pcs-in-a-ziplock-bag"
+          }
+        },
+        "product_gGjUYQ": {
+          "type": "product",
+          "settings": {
+            "product": "absorbent-cotton-roll-100-gm-in-a-ziplock-bag-1"
+          }
+        },
+        "product_hBrwrx": {
+          "type": "product",
+          "settings": {
+            "product": "baby-wet-wipes-grapefruit-72-wipes-with-lid"
+          }
+        },
+        "product_UqBVLw": {
+          "type": "product",
+          "settings": {
+            "product": "coloured-eco-friendly-cotton-ear-buds-swabs-100-sticks-in-a-jar"
+          }
+        },
+        "product_xryhyi": {
+          "type": "product",
+          "settings": {
+            "product": "cotton-balls-white-120-s"
+          }
+        },
+        "product_mQmKFT": {
+          "type": "product",
+          "settings": {
+            "product": "handmade-bathing-bar-lemon-honey"
+          }
+        },
+        "product_L8wwxN": {
+          "type": "product",
+          "settings": {
+            "product": "handmade-bathing-bar-chandan-kesar"
+          }
+        },
+        "product_dtqjBW": {
+          "type": "product",
+          "settings": {
+            "product": "handmade-bathing-bar-aloe-fresh"
+          }
+        },
+        "product_jyDkEU": {
+          "type": "product",
+          "settings": {
+            "product": "handmade-bathing-bar-soap-pack-of-3-125-x-3-375g"
+          }
+        },
+        "product_nmKRRq": {
+          "type": "product",
+          "settings": {
+            "product": "facial-tissue-paper-2-ply-200-pulls-color-variant"
+          }
+        },
+        "product_fWq8VD": {
+          "type": "product",
+          "settings": {
+            "product": "eco-friendly-cotton-buds-swabs-300-sticks-in-a-jar"
+          }
+        },
+        "product_KnjpGh": {
+          "type": "product",
+          "settings": {
+            "product": "eco-friendly-cotton-buds-swabs-200-sticks-in-a-jar"
+          }
+        }
+      },
+      "block_order": [
+        "product_EGM6Xn",
+        "product_gGjUYQ",
+        "product_hBrwrx",
+        "product_UqBVLw",
+        "product_xryhyi",
+        "product_mQmKFT",
+        "product_L8wwxN",
+        "product_dtqjBW",
+        "product_jyDkEU",
+        "product_nmKRRq",
+        "product_fWq8VD",
+        "product_KnjpGh"
+      ],
+      "name": "Featured Collection Slide",
+      "settings": {
+        "title": " Perfect Pairs for Everyday Hygiene",
+        "heading_size": "h1",
+        "collection": "",
+        "products_to_show": 8,
+        "desktop_columns": 4,
+        "autoplay_speed": 3,
+        "show_arrows": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#ffffff"
+      }
+    },
     "featured_products_ijtjyr": {
       "type": "featured-products",
       "blocks": {
@@ -231,6 +335,7 @@
     "page_banner_Ga8LaX",
     "banner_below_img_kDtwNM",
     "featured_collection_carousel_GFKfhq",
+    "featured_collection_carousel_cXq9i3",
     "featured_products_ijtjyr",
     "custom_liquid_x9yeqU",
     "featured_products_pkBFF4",
