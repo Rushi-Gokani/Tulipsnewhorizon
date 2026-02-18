@@ -1,9 +1,10 @@
 .announcement-bar {
   z-index: 3;
   position: relative;
-  background-color: #A3CA6D; /* Matching the green from the screenshot */
+  background-color: #A3CA6D;
+  /* Matching the green from the screenshot */
   color: #ffffff;
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 .announcement-bar__wrapper {
@@ -17,11 +18,14 @@
 
 /* Marquee styles */
 .announcement_bar__marquee {
-  flex: 1; /* Takes up remaining space */
+  flex: 1;
+  /* Takes up remaining space */
   overflow: hidden;
   position: relative;
-  min-width: 0; /* Prevents flex item from overflowing */
-  margin-right: 2rem; /* Spacing between marquee and static link */
+  min-width: 0;
+  /* Prevents flex item from overflowing */
+  margin-right: 2rem;
+  /* Spacing between marquee and static link */
 }
 
 .marquee {
@@ -39,13 +43,14 @@
   gap: 2rem;
   min-width: 100%;
   font-family: var(--font-heading-family);
-  font-weight: 700;
-  font-size: 1.0rem;
+  font-weight: 600;
+  font-size: 10px;
   text-transform: uppercase;
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .enable-animation .marquee__content {
   animation: marquee 20s linear infinite;
 }
@@ -54,6 +59,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-100%);
   }
@@ -63,26 +69,65 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
-  padding-right: 2rem; /* Add spacing between items */
+  padding-right: 2rem;
+  /* Add spacing between items */
 }
 
 /* Static Link Styles */
 .announcement-bar__static-link {
-  flex: 0 0 auto; /* Do not grow or shrink */
+  flex: 0 0 auto;
+  /* Do not grow or shrink */
   display: flex;
   align-items: center;
   text-decoration: none;
   color: inherit;
-  font-weight: 700;
-  font-size: 1.0rem;
+  font-weight: 600;
+  font-size: 10px;
   text-transform: uppercase;
-  z-index: 2; /* Ensure it stays on top */
-  background-color: #A3CA6D; /* Same background to mask scrolling text if needed, though flex handles separation */
+  z-index: 2;
+  /* Ensure it stays on top */
+  background-color: #A3CA6D;
+  /* Same background to mask scrolling text if needed, though flex handles separation */
 }
 
 .announcement-bar__static-link svg {
   margin-right: 0.5rem;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.2rem;
+  height: 1.2rem;
   fill: currentColor;
+}
+
+@media screen and (max-width: 749px) {
+  .announcement-bar {
+    padding: 8px 0;
+  }
+
+  /* Faster marquee/slider on mobile */
+  .enable-animation .marquee__content {
+    animation-duration: 8s;
+  }
+
+  /* Mobile: hide the "New Products" button/link in the announcement bar */
+  .announcement-bar__static-link {
+    display: none;
+  }
+
+  .marquee__content,
+  .announcement-bar__static-link {
+    font-size: 10px;
+    /* Consistent 10px on mobile too */
+  }
+
+  .announcement-bar__wrapper {
+    padding: 0 1.5rem;
+  }
+
+  .marquee__item {
+    padding-right: 1.5rem;
+  }
+
+  .announcement-bar__static-link svg {
+    width: 1rem;
+    height: 1rem;
+  }
 }

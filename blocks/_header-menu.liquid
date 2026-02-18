@@ -326,6 +326,11 @@
     height: 100%;
     margin-block: 0;
 
+    /* Reduce mobile top-level menu item font size */
+    @media screen and (max-width: 749px) {
+      font-size: calc(var(--menu-top-level-font-size) - 2px);
+    }
+
     &:hover,
     &:focus {
       color: var(--menu-top-level-font-color);
@@ -339,6 +344,13 @@
   .menu-list__link-title {
     padding-inline: calc(var(--gap-xl) / 2);
     position: relative;
+  }
+
+  /* Mobile: reduce the horizontal space each menu item takes */
+  @media screen and (max-width: 749px) {
+    .menu-list__link-title {
+      padding-inline: max(0px, calc(var(--gap-xl) / 2 - 10px));
+    }
   }
 
   .menu-list__link-title::after {
