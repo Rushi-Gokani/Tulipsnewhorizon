@@ -140,11 +140,7 @@
       assign selected_collection = blank
       assign collection_handle = ''
       if collection_setting != blank
-        if collection_setting.handle
-          assign collection_handle = collection_setting.handle | default: collection_setting
-        else
-          assign collection_handle = collection_setting
-        endif
+        assign collection_handle = collection_setting.handle | default: collection_setting
       endif
 
       if collection_handle != blank and collections[collection_handle]
@@ -154,8 +150,10 @@
       endif
 
       assign block_products = blank
+      assign block_products_source = 'dynamic'
       if block.settings.products != blank
         assign block_products = block.settings.products
+        assign block_products_source = 'manual'
       elsif selected_collection
         assign block_products = selected_collection.products
       elsif block.settings.vendor != blank and block.settings.collection_of_products != blank
@@ -165,11 +163,38 @@
         endif
       endif
 
-      if block_products and block.settings.show_unavailable_products != true
-        assign block_products = block_products | where: 'available'
+      assign apply_discount_filter = false
+      if section.settings.product_filter == 'discounted' and block_products_source != 'manual'
+        assign apply_discount_filter = true
       endif
 
-      if first_active_block == '' and block_products and block_products.size > 0
+      assign block_has_products = false
+      if block_products != blank
+        for product_item in block_products
+          if block_products_source == 'manual'
+            assign product_obj = all_products[product_item]
+          else
+            assign product_obj = product_item
+          endif
+
+          if product_obj == blank
+            continue
+          endif
+
+          if block.settings.show_unavailable_products != true and product_obj.available != true
+            continue
+          endif
+
+          if apply_discount_filter and product_obj.compare_at_price_max <= product_obj.price
+            continue
+          endif
+
+          assign block_has_products = true
+          break
+        endfor
+      endif
+
+      if first_active_block == '' and block_has_products
         assign first_active_block = block.id
       endif
     %}
@@ -262,8 +287,10 @@
                 endif
 
                 assign block_products = blank
+                assign block_products_source = 'dynamic'
                 if block.settings.products != blank
                   assign block_products = block.settings.products
+                  assign block_products_source = 'manual'
                 elsif selected_collection
                   assign block_products = selected_collection.products
                 elsif block.settings.vendor != blank and block.settings.collection_of_products != blank
@@ -273,12 +300,8 @@
                   endif
                 endif
 
-                if block_products and block.settings.show_unavailable_products != true
-                  assign block_products = block_products | where: 'available'
-                endif
-
                 assign apply_discount_filter = false
-                if section.settings.product_filter == 'discounted' and block.settings.products == blank
+                if section.settings.product_filter == 'discounted' and block_products_source != 'manual'
                   assign apply_discount_filter = true
                 endif
               %}
@@ -293,16 +316,33 @@
                 {% if block_products and block_products.size > 0 %}
                   <div class="fp-tabs-{{ section.id }}__grid">
                     {%- assign shown_products = 0 -%}
-                    {%- for product in block_products -%}
-                      {%- if shown_products < section.settings.max_products -%}
-                        {%- if apply_discount_filter and product.compare_at_price_max <= product.price -%}
-                          {% continue %}
-                        {%- endif -%}
-                        <div class="fp-tabs-{{ section.id }}__item">
-                          {% render 'card-product', product_ref: product, section_id: section.id %}
-                        </div>
-                        {%- assign shown_products = shown_products | plus: 1 -%}
+                    {%- for product_item in block_products -%}
+                      {%- if shown_products >= section.settings.max_products -%}
+                        {%- break -%}
                       {%- endif -%}
+
+                      {% if block_products_source == 'manual' %}
+                        {% assign product = all_products[product_item] %}
+                      {% else %}
+                        {% assign product = product_item %}
+                      {% endif %}
+
+                      {% if product == blank %}
+                        {% continue %}
+                      {% endif %}
+
+                      {% if block.settings.show_unavailable_products != true and product.available != true %}
+                        {% continue %}
+                      {% endif %}
+
+                      {% if apply_discount_filter and product.compare_at_price_max <= product.price %}
+                        {% continue %}
+                      {% endif %}
+
+                      <div class="fp-tabs-{{ section.id }}__item">
+                        {% render 'card-product', product_ref: product, section_id: section.id %}
+                      </div>
+                      {%- assign shown_products = shown_products | plus: 1 -%}
                     {%- endfor -%}
 
                     {% if shown_products == 0 %}
