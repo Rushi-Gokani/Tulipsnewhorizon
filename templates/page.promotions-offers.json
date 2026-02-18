@@ -89,6 +89,7 @@
       "block_order": [
         "collection_RLc39G"
       ],
+      "disabled": true,
       "name": "t:sections.featured-products.name",
       "settings": {
         "layout": "layout-2",
@@ -142,25 +143,17 @@
             "collection": "",
             "products": [
               "absorbent-cotton-roll-100-gm-in-a-ziplock-bag-1",
-              "absorbent-cotton-roll-100-gm-in-a-ziplock-bag",
               "absorbent-cotton-roll-50-g-in-a-ziplock-bag",
-              "absorbent-cotton-roll",
-              "aloe-vera-cleansing-milk",
-              "aloe-vera-cleansing-milk-100-ml",
-              "baby-wet-wipes-lid-pack-grapefruit-extract",
               "baby-wet-wipes-grapefruit-72-wipes-with-lid",
               "baby-wet-wipes-peach-fruit-72-wipes-with-lid",
               "colour-cotton-balls-50-pcs-in-a-ziplock-bag",
               "coloured-eco-friendly-cotton-ear-buds-swabs-100-sticks-in-a-jar",
-              "be28ea4f-d9e9-7a17-2b91-8a166d423fc7",
               "cotton-balls-white-120-s",
-              "cotton-pad-50-pcs-in-a-ziplock-bag",
               "cotton-pads-100-pcs-in-a-ziplock-bag",
               "handmade-bathing-bar-lemon-honey",
               "handmade-bathing-bar-chandan-kesar",
               "handmade-bathing-bar-aloe-fresh",
               "handmade-bathing-bar-soap-pack-of-3-125-x-3-375g",
-              "gemstone-soap",
               "facial-tissue-paper-2-ply-200-pulls-color-variant",
               "eco-friendly-cotton-buds-swabs-300-sticks-in-a-jar",
               "eco-friendly-cotton-buds-swabs-200-sticks-in-a-jar",
@@ -168,7 +161,6 @@
               "eco-friendly-cotton-buds-swabs-100-sticks-in-a-jar-1",
               "eco-friendly-cotton-buds-swabs-100-sticks-in-a-box",
               "eco-friendly-cotton-buds-swabs-200-sticks-in-a-box",
-              "dual-colour-soap-combo",
               "creme-soft-pocket-tissue-paper-3-ply-10-pulls",
               "cotton-pads-50-s"
             ],
