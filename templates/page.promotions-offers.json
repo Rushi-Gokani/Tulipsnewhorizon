@@ -74,22 +74,34 @@
     "featured_collection_carousel_cXq9i3": {
       "type": "featured-collection-carousel",
       "blocks": {
-        "product_EGM6Xn": {
-          "type": "product",
-          "settings": {
-            "product": "colour-cotton-balls-50-pcs-in-a-ziplock-bag"
-          }
-        },
         "product_gGjUYQ": {
           "type": "product",
           "settings": {
             "product": "absorbent-cotton-roll-100-gm-in-a-ziplock-bag-1"
           }
         },
+        "product_9UzHt9": {
+          "type": "product",
+          "settings": {
+            "product": "absorbent-cotton-roll-50-g-in-a-ziplock-bag"
+          }
+        },
+        "product_EGM6Xn": {
+          "type": "product",
+          "settings": {
+            "product": "colour-cotton-balls-50-pcs-in-a-ziplock-bag"
+          }
+        },
         "product_hBrwrx": {
           "type": "product",
           "settings": {
             "product": "baby-wet-wipes-grapefruit-72-wipes-with-lid"
+          }
+        },
+        "product_mXWxky": {
+          "type": "product",
+          "settings": {
+            "product": "baby-wet-wipes-peach-fruit-72-wipes-with-lid"
           }
         },
         "product_UqBVLw": {
@@ -102,6 +114,18 @@
           "type": "product",
           "settings": {
             "product": "cotton-balls-white-120-s"
+          }
+        },
+        "product_jJVPJV": {
+          "type": "product",
+          "settings": {
+            "product": "cotton-balls-white-120-s"
+          }
+        },
+        "product_PKxRq6": {
+          "type": "product",
+          "settings": {
+            "product": "cotton-pads-100-pcs-in-a-ziplock-bag"
           }
         },
         "product_mQmKFT": {
@@ -145,21 +169,53 @@
           "settings": {
             "product": "eco-friendly-cotton-buds-swabs-200-sticks-in-a-jar"
           }
+        },
+        "product_eeh3wX": {
+          "type": "product",
+          "settings": {
+            "product": "eco-friendly-cotton-buds-swabs-100-sticks-in-a-jar"
+          }
+        },
+        "product_ypUVXD": {
+          "type": "product",
+          "settings": {
+            "product": "eco-friendly-cotton-buds-swabs-100-sticks-in-a-box"
+          }
+        },
+        "product_QiDzdd": {
+          "type": "product",
+          "settings": {
+            "product": "eco-friendly-cotton-buds-swabs-100-sticks-in-a-box"
+          }
+        },
+        "product_KWfkzD": {
+          "type": "product",
+          "settings": {
+            "product": "eco-friendly-cotton-buds-swabs-200-sticks-in-a-box"
+          }
         }
       },
       "block_order": [
-        "product_EGM6Xn",
         "product_gGjUYQ",
+        "product_9UzHt9",
+        "product_EGM6Xn",
         "product_hBrwrx",
+        "product_mXWxky",
         "product_UqBVLw",
         "product_xryhyi",
+        "product_jJVPJV",
+        "product_PKxRq6",
         "product_mQmKFT",
         "product_L8wwxN",
         "product_dtqjBW",
         "product_jyDkEU",
         "product_nmKRRq",
         "product_fWq8VD",
-        "product_KnjpGh"
+        "product_KnjpGh",
+        "product_eeh3wX",
+        "product_ypUVXD",
+        "product_QiDzdd",
+        "product_KWfkzD"
       ],
       "name": "Featured Collection Slide",
       "settings": {
