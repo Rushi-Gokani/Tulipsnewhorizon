@@ -204,7 +204,7 @@
             "accordion_row_phRkaY": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "What is the return policy?",
+                "heading": "What are Adult Diapers?",
                 "open_by_default": false,
                 "hide_if_empty": false,
                 "icon": "none",
@@ -214,7 +214,7 @@
                 "text_4DCnMq": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn't the case, let us know and we'll do our best to work with you to make it right.</p>",
+                    "text": "<p>Adult Diaper is an absorbent hygiene product designed to manage urinary or bowel incontinence in adults. Adult diapers are designed for both men and women who are not able to control urine movement due to any medical or age-related issue.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -244,7 +244,7 @@
             "accordion_row_WQp76U": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are any purchases final sale?",
+                "heading": "What is Urinary Incontinence (UI)?",
                 "open_by_default": false,
                 "hide_if_empty": false,
                 "icon": "none",
@@ -254,7 +254,7 @@
                 "text_TjbcWP": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>We are unable to accept returns on certain items. These will be carefully marked before purchase.</p>",
+                    "text": "<p>Incontinence is the loss of control over the bladder or bowel that makes the person need to urinate frequently, have sudden urges or leak accidentally.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -285,7 +285,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "When will I get my order?",
+                "heading": "What are various causes of Urinary Incontinence?",
                 "open_by_default": false,
                 "hide_if_empty": false,
                 "icon": "none",
@@ -296,7 +296,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
+                    "text": "<p><strong>Common causes include:</strong></p><ul><li>Ageing</li><li>Diabetes</li><li>Neurological disorders</li><li>Post-surgery recovery</li></ul><p>Due to age or any medical condition, urine leakages can happen in elders even upon coughing, laughing or sneezing. Sudden intense urge to urinate or bladder not emptying fully can also be reasons for urinary incontinence.</p><p><strong>Women</strong> face urinary incontinence problems more than men due to:</p><ul><li>Pregnancy & childbirth</li><li>Menopause</li><li>Higher risk of urinary tract infections</li><li>Weaker pelvic floor muscles</li></ul><p><strong>Men</strong> may experience incontinence due to:</p><ul><li>Prostate enlargement which weakens bladder control</li></ul>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -327,7 +327,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Where are your products manufactured?",
+                "heading": "What material is used in the adult diaper?",
                 "open_by_default": false,
                 "hide_if_empty": false,
                 "icon": "none",
@@ -338,7 +338,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                    "text": "<p>They are made from:</p><ul><li>Soft, breathable non-woven fabric inner layers</li><li>PE barrier films to prevent leakage</li><li>Super Absorbent Polymer (SAP) that instantly converts liquid into gel within minutes</li></ul><p>This gives the wearer a dry feel even when the diaper is used.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -369,7 +369,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How much does shipping cost?",
+                "heading": "What are the types of adult diapers available?",
                 "open_by_default": false,
                 "hide_if_empty": false,
                 "icon": "none",
@@ -380,7 +380,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Shipping is calculated based on your location and the items in your order. You will always know the shipping price before you purchase.</p>",
+                    "text": "<p>Adult diapers are mainly available in two types:</p><p><strong>AD Pants (Pull-Up Style)</strong> – Can be pulled up like normal underwear.</p><p><strong>AD Tape Style Diapers</strong> – Come with side tapes and are mostly used for bedridden patients. Usually worn with the help of caregivers.</p><p>Each type caters to different mobility and care requirements.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -406,6 +406,174 @@
               "block_order": [
                 "text_VV4m8n"
               ]
+            },
+            "accordion_row_aBc123": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "What is the Difference between Tape and Pant style Diaper?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_XyZ456": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p><strong>Tape Style:</strong> Primarily used for bedridden patients.</p><p><strong>Pant Style:</strong> Used for active, mobile users with weak bladder control who can wear the diaper themselves.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_XyZ456"
+              ]
+            },
+            "accordion_row_DeF789": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "How do I choose the right size?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_GhI012": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Choosing the correct size is very important for leak protection and comfort.</p><ul><li>Measure your waist size.</li><li>Refer to the size chart provided on the pack.</li><li>A snug fit works best.</li><li>Ensure the diaper hugs the thighs properly.</li><li>If slightly loose on thighs, choose a smaller size.</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_GhI012"
+              ]
+            },
+            "accordion_row_JkL345": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Do TULIPS adult diapers control odour?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_MnO678": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Yes. "Odour Lock" molecules present in Super Absorbent Polymer (SAP) help neutralize unpleasant urine smell and keep you feeling fresh and confident. TULIPS adult diaper pants are designed to neutralize odour-causing bacteria and provide extended freshness.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_MnO678"
+              ]
+            },
+            "accordion_row_PqR901": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Are TULIPS adult diapers disposable or reusable?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_StU234": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>These are single-use diapers. The user can urinate multiple times depending on absorbency capacity.</p><p><strong>After use:</strong></p><ul><li>Wrap the diaper properly.</li><li>Dispose of it in a dry waste bin.</li><li>Do not flush adult diapers in the toilet.</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_StU234"
+              ]
             }
           },
           "block_order": [
@@ -413,7 +581,11 @@
             "accordion_row_WQp76U",
             "accordion_row_tB7mPC",
             "accordion_row_Uw93CP",
-            "accordion_row_yCRV33"
+            "accordion_row_yCRV33",
+            "accordion_row_aBc123",
+            "accordion_row_DeF789",
+            "accordion_row_JkL345",
+            "accordion_row_PqR901"
           ]
         }
       },
