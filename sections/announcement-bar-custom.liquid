@@ -65,8 +65,9 @@
             wrapper.appendChild(cloneList);
             
             // 3. Set Animation Speed
+            // 3. Set Animation Speed
             // Reduced speed drastically as requested
-            const speed = 20; 
+            const speed = 8; 
             const duration = contentWidth / speed;
             
             // Apply animation directly
@@ -75,12 +76,10 @@
         }
 
         // Run on load to ensure widths are correct
-        window.addEventListener('load', initMarquee);
-        // Also run on DOMContentLoaded just in case load is too late or already fired
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initMarquee);
-        } else {
+        if (document.readyState === 'complete') {
             initMarquee();
+        } else {
+            window.addEventListener('load', initMarquee);
         }
       </script>
     {%- endif -%}
