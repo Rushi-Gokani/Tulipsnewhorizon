@@ -1465,6 +1465,384 @@
               "block_order": [
                 "text_StU234"
               ]
+            },
+            "accordion_row_VwX567": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Having worn underwear all my life, One cannot even think of wearing something different. Then how do I think of wearing an Adult Diaper?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_YzZ890": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Adult Diaper Pants are designed in the shape of an underwear, to give a feel to the user that they are wearing something like a normal underwear only. It is worn like any other regular underwear.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_YzZ890"
+              ]
+            },
+            "accordion_row_AbC1234": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "What if Adult Diaper leaks in public. Wouldn't that be so embarrassing?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_DeF5678": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>TULIPS Adult Diaper pants have a 1000 ml absorption power. Based on this absorption capacity, it has a tentative absorption protection of up-to 10 hours. This high absorption capacity with its other supporting features gives a super confidence that the diaper would not leak when one is out in travel/ public place.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_DeF5678"
+              ]
+            },
+            "accordion_row_GhI9012": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Adult Diapers are so bulky. Such bulk might show under my trousers?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_JkL3456": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>The adult diapers being very close to normal underwear design, do not show beneath the trousers, ladies' suits, sarees or even pair of jeans.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_JkL3456"
+              ]
+            },
+            "accordion_row_MnO7890": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Adult Diapers might cause some rashes if I wear them longer. Is that true? How does TULIPS Adult diaper pants help reduce rashes?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_PqR1234": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Yes, long & continuous usage of diapers can cause rashes or skin irritation.</p><p>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin friendly. But this aloe-vera coating is not a guarantee against rashes or skin irritation.</p><p><strong>For best results:</strong> TULIPS recommends that user should change regularly. Keep skin clean and dry. And when wearing diapers on daily basis, it is important to air the groin area on regular basis.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_PqR1234"
+              ]
+            },
+            "accordion_row_StU5678": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "We all pee in one spot only. Wouldn't that cause urine to leak from that spot (as all urine will be collected there)?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_VwX9012": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>TULIPS Adult diaper pants come with an embedded ADL (Acquisition Deposition Layer) which immediately distributes urine to other parts of the diaper core, ensuring that the diaper does not leak & neither does it sag from one point.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_VwX9012"
+              ]
+            },
+            "accordion_row_YzA3456": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "I tried a diaper. The fit was loose & it leaked. What should I do?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_BcD7890": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Leakages in Diaper mostly happen due to diaper not fitting well. It is important that the diaper should cup your thighs very well. If someone has very weak thighs, smaller waist size should be tried to ensure that the diaper side guards are snugly fit on your thighs.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_BcD7890"
+              ]
+            },
+            "accordion_row_EfG1234": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Are TULIPS Adult Diaper available on Pan India basis?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_HiJ5678": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Yes, TULIPS Adult Diapers are available for Pan-India delivery through our website and major e-commerce platforms like Amazon, Flipkart & Blinkit.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_HiJ5678"
+              ]
+            },
+            "accordion_row_KlM9012": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Are Monthly subscriptions available for regular use of TULIPS Adult Diapers?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_NoP3456": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Indeed, monthly subscription plans are available for you on Amazon or our website that you can use to ensure a steady supply and cost savings.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_NoP3456"
+              ]
+            },
+            "accordion_row_QrS7890": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Are TULIPS Adult Diaper pants suitable for Leak protection during Night?",
+                "open_by_default": false,
+                "hide_if_empty": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_TuV1234": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Yes, TULIPS diaper pants are designed with high-absorbency cores and side leak guards specifically to ensure uninterrupted, dry sleep all night long. But in case a patient has frequent high quantity leaks often, then TULIPS OVERNIGHT Adult Diaper Pants is recommended, which gives more than 12 hours of absorption protection.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_TuV1234"
+              ]
             }
           },
           "block_order": [
@@ -1476,7 +1854,16 @@
             "accordion_row_aBc123",
             "accordion_row_DeF789",
             "accordion_row_JkL345",
-            "accordion_row_PqR901"
+            "accordion_row_PqR901",
+            "accordion_row_VwX567",
+            "accordion_row_AbC1234",
+            "accordion_row_GhI9012",
+            "accordion_row_MnO7890",
+            "accordion_row_StU5678",
+            "accordion_row_YzA3456",
+            "accordion_row_EfG1234",
+            "accordion_row_KlM9012",
+            "accordion_row_QrS7890"
           ]
         }
       },
