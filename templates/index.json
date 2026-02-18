@@ -27,7 +27,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/Soaps_Banner_Web_7_cb7f9bf6-0fff-45e7-a066-9b9299301d07.webp",
-            "link": "",
+            "link": "shopify://collections/handmade-soaps-1",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/Soaps_Banner_Mobile_c2a82641-ce42-4766-9436-75cf7ee1c5ce.webp"
@@ -69,7 +69,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/Baby_Wipes_Banner_Web_6.webp",
-            "link": "",
+            "link": "shopify://collections/baby-we-wipes",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/Baby_Wipes_Banner_Mobile_0cb6410d-fd28-4d5b-997a-d1bb4d0987dd.webp"
