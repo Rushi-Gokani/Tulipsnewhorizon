@@ -1105,9 +1105,9 @@
                 "text_4DCnMq": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Adult Diaper is an absorbent hygiene product designed to manage urinary or bowel incontinence in adults. Adult diapers are designed for both men and women who are not able to control urine movement due to any medical or age-related issue.</p>",
+                    "text": "<p>Adult Diaper is an absorbent hygiene product designed to manage urinary or bowel incontinence in adults. </p><p>Adult diapers are designed for both men and women who are not able to control urine movement due to any medical or age-related issue.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1145,9 +1145,9 @@
                 "text_TjbcWP": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Incontinence is the loss of control over the bladder or bowel that makes the person need to urinate frequently, have sudden urges or leak accidentally.</p>",
+                    "text": "<p>Urinary Incontinence is the loss of control over the bladder or bowel that makes the person need to urinate frequently, have sudden urges or leak accidentally.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1187,9 +1187,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Common causes include:</strong></p><ul><li>Ageing</li><li>Diabetes</li><li>Neurological disorders</li><li>Post-surgery recovery</li></ul><p>Due to age or any medical condition, urine leakages can happen in elders even upon coughing, laughing or sneezing. Sudden intense urge to urinate or bladder not emptying fully can also be reasons for urinary incontinence.</p><p><strong>Women</strong> face urinary incontinence problems more than men due to:</p><ul><li>Pregnancy & childbirth</li><li>Menopause</li><li>Higher risk of urinary tract infections</li><li>Weaker pelvic floor muscles</li></ul><p><strong>Men</strong> may experience incontinence due to:</p><ul><li>Prostate enlargement which weakens bladder control</li></ul>",
+                    "text": "<p>Common causes include: Ageing, Diabetes, Neurological disorders, post-surgery recovery.  Due to age or any medical condition, urine leakages can happen in elders even upon coughing, laughing or sneezing. Sudden intense urge to urinate or bladder not emptying fully can also be reasons for UI.</p><p><br/>Women face Urinary Incontinence problems more than men due to various gender related issues like pregnancy & childbirth, Menopause, being more prone to urinary tract infections & weaker pelvic floor muscles.</p><p><br/>Men also have gender specific issues like prostate enlargement which weaken bladder control.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1229,9 +1229,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>They are made from:</p><ul><li>Soft, breathable non-woven fabric inner layers</li><li>PE barrier films to prevent leakage</li><li>Super Absorbent Polymer (SAP) that instantly converts liquid into gel within minutes</li></ul><p>This gives the wearer a dry feel even when the diaper is used.</p>",
+                    "text": "<p>They are made from soft, breathable non-woven fabric inner layers, PE barrier films to prevent leakage and Super Absorbent Polymer (SAP) that instantly converts liquid into gel within minutes, thereby giving the person a dry feel even when a diaper is used.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1271,9 +1271,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Adult diapers are mainly available in two types:</p><p><strong>AD Pants (Pull-Up Style)</strong> – Can be pulled up like normal underwear.</p><p><strong>AD Tape Style Diapers</strong> – Come with side tapes and are mostly used for bedridden patients. Usually worn with the help of caregivers.</p><p>Each type caters to different mobility and care requirements.</p>",
+                    "text": "<p>Adult diapers are mainly available in two types: Pants style Adult Diaper (Pull-Up) & Adult Diaper Tape Style Diapers. Each type of adult diapers caters to different mobility and bed-ridden care requirements. </p><p>Pull Up pants, as suggested by the name, can simply be pulled up the legs like wearing any normal underwear.  </p><p>But Tape Style Diapers come with side tapes. </p><p>These are mostly used for bed-ridden patients & are mostly made to wea, by the care-givers</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1313,9 +1313,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Tape Style:</strong> Primarily used for bedridden patients.</p><p><strong>Pant Style:</strong> Used for active, mobile users with weak bladder control who can wear the diaper themselves.</p>",
+                    "text": "<p>Tape style is primarily used for bedridden patients, while Pant style is more used for active, mobile users affected by a weak urine bladder.</p><p> But mostly these are the patients who can pull up a diaper easily, by themselves</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1355,9 +1355,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Choosing the correct size is very important for leak protection and comfort.</p><ul><li>Measure your waist size.</li><li>Refer to the size chart provided on the pack.</li><li>A snug fit works best.</li><li>Ensure the diaper hugs the thighs properly.</li><li>If slightly loose on thighs, choose a smaller size.</li></ul>",
+                    "text": "<p>Choosing the correct size is the most important aspect from leak protection & comfort perspective.</p><p> Measure your waist size and refer to the size chart provided on the pack. </p><p>A snug fit works best. It is important to ensure that the diaper is hugging the thighs well. </p><p><br/>If the diaper is slightly loose on the thighs, then a smaller size should be used. <br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1397,9 +1397,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Yes. \"Odour Lock\" molecules present in Super Absorbent Polymer (SAP) help neutralize unpleasant urine smell and keep you feeling fresh and confident. TULIPS adult diaper pants are designed to neutralize odour-causing bacteria and provide extended freshness.</p>",
+                    "text": "<p>Yes. ‘Odour Lock’ molecules present in Super Absorbent Polymer (SAP) helps neutralize unpleasant urine smell and keeps you feeling fresh and confident. </p><p>TULIPS adult diaper pants are designed to neutralize odour-causing bacteria giving extended freshness to the wearer. </p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1439,9 +1439,9 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>These are single-use diapers. The user can urinate multiple times depending on absorbency capacity.</p><p><strong>After use:</strong></p><ul><li>Wrap the diaper properly.</li><li>Dispose of it in a dry waste bin.</li><li>Do not flush adult diapers in the toilet.</li></ul>",
+                    "text": "<p>These are single use diapers in which the user can urinate number of times depending on its absorbency capacity. </p><p>Once it is taken off, the used diaper should be wrapped and disposed-off, in a dry waste bin.</p><p> Do not flush adult diapers in the toilet.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1480,9 +1480,9 @@
                 "text_LpM8z4": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Adult Diaper Pants are designed in the shape of an underwear, to give a feel to the user that they are wearing something like a normal underwear only. It is worn like any other regular underwear. </p>",
+                    "text": "<p>AdultDiaper Pants are designed in the shape of an underwear, to give a feel to the userthat they are wearing something like a normal underwear only.</p><p> It is worn likeany other regular underwear. </p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1521,9 +1521,9 @@
                 "text_CNzrr6": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>TULIPS Adult Diaper pants have a 1000 ml absorption power. Based on this absorption capacity, it has a tentative absorption protection of up-to 10 hours. This high absorption capacity with its other supporting features gives a super confidence that the diaper would not leak when one is out in travel/ public place. </p>",
+                    "text": "<p>TULIPS Adult Diaper pants have a 1000 ml absorption power. </p><p>Based on this absorption capacity, it has a tentative absorption protection of up-to 10 hours.</p><p> This high absorption capacity with its other supporting features gives a super confidence that the diaper would not leak when one is out in travel/ public place. </p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1562,9 +1562,9 @@
                 "text_44UbDR": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Yes, TULIPS diaper pants are designed with high-absorbency cores and side leak guards specifically to ensure uninterrupted, dry sleep all night long. But in case a patient has frequent high quantity leaks often, then TULIPS OVERNIGHT Adult Diaper Pants is recommended, which gives more than 12 hours of absorption protection.</p>",
+                    "text": "<p>Yes, TULIPS diaper pants are designed with high-absorbency cores and side leak guards specifically to ensure uninterrupted, dry sleep all night long.</p><p> But in case a patient has frequent high quantity leaks often, then TULIPS OVERNIGHT Adult Diaper Pants is recommended, which gives more than 12 hours of absorption protection.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1605,7 +1605,7 @@
                   "settings": {
                     "text": "<p>The adult diapers being very close to normal underwear design, do not show beneath the trousers, ladies’ suits, sarees or even pair of jeans.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1644,9 +1644,9 @@
                 "text_ChRiRk": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Yes, long & continuous usage of diapers can cause rashes or skin irritation. <br/>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin friendly. But this aloe-vera coating is not a guarantee against rashes or skin irritation. <br/>For best results: TULIPS recommends that user should change regularly. Keep skin clean and dry. And when wearing diapers on daily basis, it is important to air the groin area on regular basis.<br/></p>",
+                    "text": "<p>Yes, long & continuous usage of diapers can cause rashes or skin irritation.</p><p> <br/>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin friendly. </p><p>But this aloe-vera coating is not a guarantee against rashes or skin irritation. </p><p><br/>For best results: TULIPS recommends that user should change regularly. </p><p>Keep skin clean and dry. </p><p>And when wearing diapers on daily basis, it is important to air the groin area on regular basis.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1685,9 +1685,9 @@
                 "text_bMAYR7": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>TULIPS Adult diaper pants come with an embedded ADL (Acquisition Deposition Layer) which immediately distributes urine to other parts of the diaper core, ensuring that the diaper does not leak & neither does it sag from one point. </p>",
+                    "text": "<p>A- TULIPS Adult diaper pants come with an embedded ADL (Acquisition Deposition Layer) which immediately distributes urine to other parts of the diaper core, ensuring that the diaper does not leak & neither does it sag from one point. </p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1726,9 +1726,9 @@
                 "text_htzaEU": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>A Leakages in Diaper mostly happen due to diaper not fitting well. It is important that the diaper should cup your thighs very well. If someone has very weak thighs, smaller waist size should be tried to ensure that the diaper side guards are snugly fit on your thighs.<br/></p>",
+                    "text": "<p>A Leakages in Diaper mostly happen due to diaper not fitting well. </p><p>It is important that the diaper should cup your thighs very well. </p><p>If someone has very weak thighs, smaller waist size should be tried to ensure that the diaper side guards are snugly fit on your thighs.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1769,7 +1769,7 @@
                   "settings": {
                     "text": "<p>Yes, TULIPS Adult Diapers are available for Pan-India delivery through our website and major e-commerce platforms like Amazon, Flipkart & Blinkit.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1810,7 +1810,7 @@
                   "settings": {
                     "text": "<p>Indeed, monthly subscription plans are available for you on Amazon or our website that you can use to ensure a steady supply and cost savings.<br/></p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
