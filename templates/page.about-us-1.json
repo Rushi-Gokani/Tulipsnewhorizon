@@ -172,7 +172,7 @@
           "settings": {
             "youtube_url": "https://youtu.be/N7_kwiZR1BA",
             "aspect_ratio": "56.25",
-            "max_width": 800,
+            "max_width": 1200,
             "show_controls": true,
             "autoplay": true,
             "mute": false,
