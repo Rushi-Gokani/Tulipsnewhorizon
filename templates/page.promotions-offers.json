@@ -13,7 +13,11 @@
       "type": "main-page",
       "disabled": true,
       "settings": {
-        "color_scheme": "scheme-c0a43f71-877e-4cef-807e-4f3399b91217"
+        "content_direction": "column",
+        "gap": 12,
+        "color_scheme": "scheme-c0a43f71-877e-4cef-807e-4f3399b91217",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "page_banner_Ga8LaX": {
@@ -49,8 +53,22 @@
     },
     "banner_below_img_kDtwNM": {
       "type": "banner-below-img",
+      "settings": {}
+    },
+    "featured_collection_carousel_GFKfhq": {
+      "type": "featured-collection-carousel",
+      "name": "Featured Collection Slide",
       "settings": {
-        "wave_image": "shopify://shop_images/Group_7381_9689a597-ce59-494d-8a4d-1615b0011373.svg"
+        "title": " Perfect Pairs for Everyday Hygiene",
+        "heading_size": "h1",
+        "collection": "combos-and-multipacks",
+        "products_to_show": 8,
+        "desktop_columns": 4,
+        "autoplay_speed": 3,
+        "show_arrows": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#ffffff"
       }
     },
     "featured_products_ijtjyr": {
@@ -109,7 +127,9 @@
       "settings": {
         "custom_liquid": "<div class=\"custom-heading-wrapper\"> <h2 class=\"custom-heading-title\">Hygiene Essentials at Lower Prices</h2></div>",
         "color_scheme": "",
-        "section_width": "max-w-page"
+        "section_width": "max-w-page",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "featured_products_pkBFF4": {
@@ -196,7 +216,9 @@
       "settings": {
         "custom_liquid": "<div></div>",
         "color_scheme": "",
-        "section_width": "max-w-page"
+        "section_width": "max-w-page",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     }
   },
@@ -204,6 +226,7 @@
     "main",
     "page_banner_Ga8LaX",
     "banner_below_img_kDtwNM",
+    "featured_collection_carousel_GFKfhq",
     "featured_products_ijtjyr",
     "custom_liquid_x9yeqU",
     "featured_products_pkBFF4",
