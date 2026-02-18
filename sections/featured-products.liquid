@@ -4,50 +4,81 @@
     padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
   }
 
-  /* Hide bottom navigation arrows */
-  .swiper-buttons--center-{{ section.id }} {
-    display: none !important;
+  .fp-tabs-{{ section.id }} {
+    width: 100%;
   }
 
-  /* ✅ Background around navigation arrows (without changing layout) */
-  #shopify-section-{{ section.id }} .swiper-buttons .swiper-button {
-    position: relative;
-    z-index: 1;
-  }
-  #shopify-section-{{ section.id }} .swiper-buttons .swiper-button::before {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: #a4c86e ;
-    backdrop-filter: blur(2px) saturate(120%);
-    border: 1px solid rgba(255,255,255,0.35);
-    pointer-events: none;
-    z-index: -1;
-    transition: background 0.2s ease;
-  }
-  #shopify-section-{{ section.id }} .swiper-buttons .swiper-button:hover::before {
-    background: rgba(255, 253, 253, 0.7);
+  .fp-tabs-{{ section.id }}__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-block-end: 2rem;
   }
 
-  /* Fixed width for Buy Now button */
-  #shopify-section-{{ section.id }} .shopify-payment-button__button {
-    display: none !important;
-    width: 152.45px !important;
-    flex: 0 0 152.45px !important;
-    display: inline-block;
-    text-align: center;
-    
+  .fp-tabs-{{ section.id }}__btn {
+    padding: 0.6rem 1.6rem;
+    border: 1px solid #a3ca6d;
+    border-radius: 999px;
+    background: transparent;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
-  @media screen and (max-width: 750px) {
-    #shopify-section-{{ section.id }} .shopify-payment-button__button {
-      display: none !important;
-      width: 148.45px !important;
+  .fp-tabs-{{ section.id }}__btn:hover,
+  .fp-tabs-{{ section.id }}__btn.active {
+    background-color: #a3ca6d;
+    border-color: #a3ca6d;
+    color: #ffffff;
+  }
+
+  .fp-tabs-{{ section.id }}__panel {
+    display: none;
+  }
+
+  .fp-tabs-{{ section.id }}__panel.active {
+    display: block;
+    animation: fpTabFadeIn-{{ section.id }} 0.3s ease forwards;
+  }
+
+  @keyframes fpTabFadeIn-{{ section.id }} {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 
-  /* Custom Button Colors for Section {{ section.id }} */
+  .fp-tabs-{{ section.id }}__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .fp-tabs-{{ section.id }}__item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .fp-tabs-{{ section.id }}__empty {
+    text-align: center;
+    padding: 2rem;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  @media screen and (max-width: 749px) {
+    .fp-tabs-{{ section.id }}__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+
   {% if section.settings.button_color_scheme == 'custom' %}
     #shopify-section-{{ section.id }} .collection-buttons-custom .custom_styled_button {
       color: {{ section.settings.custom_add_to_cart_text }} !important;
@@ -76,8 +107,6 @@
   {% endif %}
 {%- endstyle -%}
 
-{%- assign arrow_type = settings.arrow_type -%}
-
 {%- liquid
   if section.blocks.size > 0
     assign products_array = true
@@ -89,11 +118,7 @@
   {{- 'collection-button-schemes.css' | asset_url | stylesheet_tag -}}
 {%- endif -%}
 {%- if products_array != null -%}
-  {{- 'component-card-product-slider.css' | asset_url | stylesheet_tag -}}
   {%- render 'css', css: 'component-card-product.css' -%}
-
-  <script src="{{- 'card-product-slider.js' | asset_url -}}" defer="defer"></script>
-  <script src="{{- 'tab-manager.js' | asset_url -}}" defer="defer"></script>
 
   {%- assign section_button = blank -%}
   {%- if section.settings.button_label != blank -%}
@@ -108,9 +133,49 @@
     {%- endcapture -%}
   {%- endif -%}
 
+  {%- assign first_active_block = '' -%}
+  {%- for block in section.blocks -%}
+    {% liquid
+      assign collection_setting = block.settings.collection
+      assign selected_collection = blank
+      if collection_setting != blank
+        assign collection_handle = collection_setting.handle | default: collection_setting
+        if collection_handle != blank
+          assign selected_collection = collections[collection_handle]
+        endif
+        if selected_collection == blank and collection_setting.products
+          assign selected_collection = collection_setting
+        endif
+      endif
+
+      assign block_products = blank
+      if selected_collection
+        assign block_products = selected_collection.products
+      elsif block.settings.products != blank
+        assign block_products = block.settings.products
+      elsif block.settings.vendor != blank and block.settings.collection_of_products != blank
+        assign vendor_collection_handle = block.settings.collection_of_products | handleize
+        if vendor_collection_handle != blank and collections[vendor_collection_handle]
+          assign block_products = collections[vendor_collection_handle].all_products | where: 'vendor', block.settings.vendor
+        endif
+      endif
+
+      if block_products and block.settings.show_unavailable_products != true
+        assign block_products = block_products | where: 'available'
+      endif
+
+      if first_active_block == '' and block_products and block_products.size > 0
+        assign first_active_block = block.id
+      endif
+    %}
+  {%- endfor -%}
+  {%- if first_active_block == '' and section.blocks.size > 0 -%}
+    {%- assign first_active_block = section.blocks.first.id -%}
+  {%- endif -%}
+
   <div class="color-{{ section.settings.color_scheme }} gradient">
     <div
-      class="section section-featured-products section-w-swiper product-feed overflow-hidden js-animation-fade-in {{ section.settings.layout }}"
+      class="section section-featured-products product-feed overflow-hidden js-animation-fade-in {{ section.settings.layout }}"
       data-section-id="{{- section.id -}}"
     >
       <div class="container containernew {{ section.settings.section_width }}">
@@ -128,139 +193,172 @@
         {%- endif -%}
 
         <div class="section__body">
-          {% comment %} Collect all products from all blocks into one array {% endcomment %}
-          {%- assign all_products = blank -%}
-          {%- for block in section.blocks -%}
-            {% liquid
-              assign block_products = false
-              if block.settings.collection != blank
-                assign selected_collection = collections[block.settings.collection.handle]
-                assign block_products = selected_collection.products
-              elsif block.settings.products != blank
-                assign block_products = block.settings.products
-              elsif block.settings.vendor != blank
-                assign collection_of_all_handle = block.settings.collection_of_products | handleize
-                assign block_products = collections[collection_of_all_handle].all_products | where: 'vendor', block.settings.vendor
-              endif
+          <div class="fp-tabs-{{ section.id }}" id="fp-tabs-{{ section.id }}">
+            <div class="fp-tabs-{{ section.id }}__nav" role="tablist">
+              {%- for block in section.blocks -%}
+                {% liquid
+                  assign collection_setting = block.settings.collection
+                  assign selected_collection = blank
+                  if collection_setting != blank
+                    assign collection_handle = collection_setting.handle | default: collection_setting
+                    if collection_handle != blank
+                      assign selected_collection = collections[collection_handle]
+                    endif
+                    if selected_collection == blank and collection_setting.title
+                      assign selected_collection = collection_setting
+                    endif
+                  endif
 
-              if block_products
-                unless block.settings.show_unavailable_products
-                  assign block_products = block_products | where: 'available'
-                endunless
-                
-                if all_products == blank
-                  assign all_products = block_products
-                else
-                  assign all_products = all_products | concat: block_products
+                  assign block_label = block.settings.title
+                  if block_label == blank and selected_collection
+                    assign block_label = selected_collection.title
+                  elsif block_label == blank and block.settings.vendor != blank
+                    assign block_label = block.settings.vendor
+                  elsif block_label == blank and block.settings.collection_of_products != blank
+                    assign block_label = block.settings.collection_of_products
+                  endif
+
+                  if block_label == blank
+                    assign block_label = 'Collection'
+                  endif
+                %}
+                <button
+                  class="fp-tabs-{{ section.id }}__btn{% if block.id == first_active_block %} active{% endif %}"
+                  type="button"
+                  role="tab"
+                  aria-controls="fp-panel-{{ section.id }}-{{ block.id }}"
+                  aria-selected="{% if block.id == first_active_block %}true{% else %}false{% endif %}"
+                  data-fp-tab="{{ block.id }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{- block_label -}}
+                </button>
+              {%- endfor -%}
+            </div>
+
+            {%- for block in section.blocks -%}
+              {% liquid
+                assign collection_setting = block.settings.collection
+                assign selected_collection = blank
+                if collection_setting != blank
+                  assign collection_handle = collection_setting.handle | default: collection_setting
+                  if collection_handle != blank
+                    assign selected_collection = collections[collection_handle]
+                  endif
+                  if selected_collection == blank and collection_setting.products
+                    assign selected_collection = collection_setting
+                  endif
                 endif
-              endif
-            %}
-          {%- endfor -%}
 
-          <div>
-          <card-product-slider class="swiper card-product-slider {% if section.settings.enable_slideshow_overflow %}overflow-unset{% endif %}" data-section-id="{{- section.id -}}" data-swiper-options=' { "sectionName": "featured-products", "sectionId": "{{ section.id }}", "spaceBetweenDesktop": {{ settings.spacing_desktop | times: 10 | round: 0 }}, "spaceBetweenMobile": {{ settings.spacing_mobile | times: 10 | round: 0 }}, "loop": true {% if section.settings.show_navigation_arrows %}, "navigation": { "prevEl": ".swiper-button--prev-{{ section.id }}", "nextEl": ".swiper-button--next-{{ section.id }}" } {% endif %} {% if section.settings.slideshow_autoplay_interval > 0 %}, "autoplay": { "delay": {{ section.settings.slideshow_autoplay_interval | times: 1000 }} } {% elsif section.settings.slideshow_autoplay_interval == 0 %} , "autoplay": false {% endif %} } ' >
-              <div class="swiper-wrapper card-product-slider__wrapper">
-                {%- if all_products != blank -%}
-                  {%- assign count = 0 -%}
-                  {%- for product in all_products -%}
-                    {%- if count < section.settings.max_products -%}
-                      {%- if section.settings.product_filter == 'discounted' -%}
-                        {%- if product.compare_at_price_max > product.price -%}
-                          <div class="swiper-slide card-product-slider__slide">
-                            {% render 'card-product', product_ref: product, section_id: section.id %}
-                          </div>
-                          {%- assign count = count | plus: 1 -%}
+                assign block_products = blank
+                if selected_collection
+                  assign block_products = selected_collection.products
+                elsif block.settings.products != blank
+                  assign block_products = block.settings.products
+                elsif block.settings.vendor != blank and block.settings.collection_of_products != blank
+                  assign vendor_collection_handle = block.settings.collection_of_products | handleize
+                  if vendor_collection_handle != blank and collections[vendor_collection_handle]
+                    assign block_products = collections[vendor_collection_handle].all_products | where: 'vendor', block.settings.vendor
+                  endif
+                endif
+
+                if block_products and block.settings.show_unavailable_products != true
+                  assign block_products = block_products | where: 'available'
+                endif
+              %}
+
+              <div
+                id="fp-panel-{{ section.id }}-{{ block.id }}"
+                class="fp-tabs-{{ section.id }}__panel{% if block.id == first_active_block %} active{% endif %}"
+                data-fp-panel="{{ block.id }}"
+                role="tabpanel"
+                aria-labelledby="fp-tab-{{ section.id }}-{{ block.id }}"
+              >
+                {% if block_products and block_products.size > 0 %}
+                  <div class="fp-tabs-{{ section.id }}__grid">
+                    {%- assign shown_products = 0 -%}
+                    {%- for product in block_products -%}
+                      {%- if shown_products < section.settings.max_products -%}
+                        {%- if section.settings.product_filter == 'discounted' and product.compare_at_price_max <= product.price -%}
+                          {% continue %}
                         {%- endif -%}
-                      {%- else -%}
-                        <div class="swiper-slide card-product-slider__slide">
+                        <div class="fp-tabs-{{ section.id }}__item">
                           {% render 'card-product', product_ref: product, section_id: section.id %}
                         </div>
-                        {%- assign count = count | plus: 1 -%}
+                        {%- assign shown_products = shown_products | plus: 1 -%}
                       {%- endif -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                {%- else -%}
-                  {%- for i in (1..section.settings.max_products) -%}
-                    <div class="swiper-slide card-product-slider__slide">
-                      {% render 'card-product', product_ref: product, section_id: section.id %}
-                    </div>
-                  {%- endfor -%}
-                {%- endif -%}
+                    {%- endfor -%}
+
+                    {% if shown_products == 0 %}
+                      <p class="fp-tabs-{{ section.id }}__empty">
+                        {{ 'collections.general.no_products' | t | default: 'No products match this filter.' }}
+                      </p>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <p class="fp-tabs-{{ section.id }}__empty">{{ 'collections.general.no_products' | t | default: 'No products found in this block.' }}</p>
+                {% endif %}
               </div>
-            </card-product-slider>
+            {%- endfor -%}
           </div>
         </div>
 
-      
-          <div class="section__foot">
-            <div class="section__head--buttons">
-              {{ section_button | replace_first: 'custom_class' }}
-              {% if section.settings.show_navigation_arrows %}
-                {% if section.settings.layout == 'layout-2' %}
-                  {%- assign icon_arrow = 'theme-arrow' -%}
-                {% else %}
-                  {%- assign icon_arrow = 'theme-chevron' -%}
-                {% endif %}
-
-                <div class="swiper-buttons small-hide card-slider__buttons no-js-hidden">
-                  <button
-                    class="swiper-button {% if arrow_type == 'plain' %}swiper-button--plain{% endif %} swiper-button--prev-{{ section.id }}"
-                    aria-label="{{- 'theme.actions.previous' | t -}}"
-                  >
-                    {%- render 'icon', icon_name: icon_arrow -%}
-                  </button>
-                  <button
-                    class="swiper-button {% if arrow_type == 'plain' %}swiper-button--plain{% endif %} swiper-button--next-{{ section.id }}"
-                    aria-label="{{- 'theme.actions.next' | t -}}"
-                  >
-                    {%- render 'icon', icon_name: icon_arrow -%}
-                  </button>
-                </div>
-              {% endif %}
-            </div>
+        <div class="section__foot">
+          <div class="section__head--buttons">
+            {{ section_button | replace_first: 'custom_class' }}
           </div>
-     
+        </div>
+
       </div>
     </div>
   </div>
 {%- endif -%}
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var sid = '{{ section.id }}';
-  var root = document.querySelector('#shopify-section-' + sid);
-  if (!root) return;
+  (function initFeaturedProductsTabs_{{ section.id }}() {
+    const setupTabs = () => {
+      const root = document.querySelector('#shopify-section-{{ section.id }}');
+      if (!root) return;
+      const tabsRoot = root.querySelector('#fp-tabs-{{ section.id }}');
+      if (!tabsRoot) return;
 
-  var container = root.querySelector('.card-product-slider.swiper');
-  var prevBtn  = root.querySelector('.swiper-button--prev-{{ section.id }}');
-  var nextBtn  = root.querySelector('.swiper-button--next-{{ section.id }}');
-  var JUMP = 4;     // change to 3/5/etc if you ever want different
+      const buttons = tabsRoot.querySelectorAll('[data-fp-tab]');
+      const panels = tabsRoot.querySelectorAll('[data-fp-panel]');
 
-  function bindWhenReady() {
-    var sw = container && container.swiper;
-    if (!sw) { requestAnimationFrame(bindWhenReady); return; }
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-fp-tab');
 
-    function jump(delta) {
-      // Use realIndex to ignore duplicated loop slides
-      var target = sw.realIndex + delta;
-      sw.slideToLoop(target, 500); // 500ms animation
-    }
+          buttons.forEach((btn) => {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach((panel) => {
+            panel.classList.remove('active');
+          });
 
-    // Capture phase so we override Swiper's built-in nav (prevents 1-by-1)
-    nextBtn && nextBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      jump(JUMP);
-    }, { capture: true });
+          button.classList.add('active');
+          button.setAttribute('aria-selected', 'true');
+          const targetPanel = tabsRoot.querySelector(`[data-fp-panel="${targetId}"]`);
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
+        }, { once: false });
+      });
+    };
 
-    prevBtn && prevBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      jump(-JUMP);
-    }, { capture: true });
-  }
-
-  bindWhenReady();
-});
+    document.addEventListener('DOMContentLoaded', setupTabs);
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+        setupTabs();
+      }
+    });
+    document.addEventListener('shopify:block:select', (event) => {
+      if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+        const selectedButton = document.querySelector(`[data-fp-tab="${event.detail.blockId}"]`);
+        selectedButton && selectedButton.click();
+      }
+    });
+  })();
 </script>
 {% schema %}
 {
