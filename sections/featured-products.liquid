@@ -276,6 +276,11 @@
                 if block_products and block.settings.show_unavailable_products != true
                   assign block_products = block_products | where: 'available'
                 endif
+
+                assign apply_discount_filter = false
+                if section.settings.product_filter == 'discounted' and block.settings.products == blank
+                  assign apply_discount_filter = true
+                endif
               %}
 
               <div
@@ -290,7 +295,7 @@
                     {%- assign shown_products = 0 -%}
                     {%- for product in block_products -%}
                       {%- if shown_products < section.settings.max_products -%}
-                        {%- if section.settings.product_filter == 'discounted' and product.compare_at_price_max <= product.price -%}
+                        {%- if apply_discount_filter and product.compare_at_price_max <= product.price -%}
                           {% continue %}
                         {%- endif -%}
                         <div class="fp-tabs-{{ section.id }}__item">
