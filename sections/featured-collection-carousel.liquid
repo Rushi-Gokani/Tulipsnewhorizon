@@ -32,66 +32,111 @@
 
     <div class="featured-collection-carousel-slider swiper">
       <div class="swiper-wrapper">
-        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-          <div class="swiper-slide">
-            {% capture product_card_content %}
-              {% capture gallery_children %}
-                <div class="product-badges product-badges--top-left">
-                  {%- if product.compare_at_price > product.price -%}
-                    {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
-                    <div class="product-badges__badge product-badges__badge--custom">
-                      {{ discount }}% OFF
-                    </div>
-                  {%- endif -%}
-                  {%- if product.available == false -%}
-                    <div class="product-badges__badge product-badges__badge--custom">
-                      SOLD OUT
-                    </div>
-                  {%- endif -%}
-                </div>
-              {% endcapture %}
+        {% if section.settings.collection != blank %}
+          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+            <div class="swiper-slide">
+              {% capture product_card_content %}
+                {% capture gallery_children %}
+                  <div class="product-badges product-badges--top-left">
+                    {%- if product.compare_at_price > product.price -%}
+                      {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        {{ discount }}% OFF
+                      </div>
+                    {%- endif -%}
+                    {%- if product.available == false -%}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        SOLD OUT
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {% endcapture %}
 
-               {% render 'card-gallery', product: product, children: gallery_children %}
-               <div class="card-info" style="padding: 15px;">
-                 <h3 class="card-title h5" style="margin: 0 0 5px;">
+                {% render 'card-gallery', product: product, children: gallery_children %}
+                <div class="card-info" style="padding: 15px;">
+                  <h3 class="card-title h5" style="margin: 0 0 5px;">
                     <a href="{{ product.url }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
                       {{ product.title }}
                     </a>
-                 </h3>
-                 <div style="margin-bottom: 15px;">
+                  </h3>
+                  <div style="margin-bottom: 15px;">
                     {% render 'price', product_resource: product, show_compare_price: true %}
-                 </div>
-                 {% render 'product-card-button', product: product %}
-               </div>
-            {% endcapture %}
-            
-            {% render 'product-card',
-              product: product,
-              children: product_card_content
-            %}
-          </div>
-        {%- else -%}
-             {%- for i in (1..4) -%}
-                <div class="swiper-slide">
-                     {% capture placeholder_content %}
-                        <div class="card-content">
-                             <div class="media media--square media--transparent">
-                                {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
-                             </div>
-                             <div class="card-info" style="padding: 10px 0;">
-                                <h3 class="card-title h5">
-                                    Example Product Title
-                                </h3>
-                                <div>
-                                    $19.99
-                                </div>
-                             </div>
-                        </div>
-                     {% endcapture %}
-                     {% render 'product-card', product: nil, children: placeholder_content %}
+                  </div>
+                  {% render 'product-card-button', product: product %}
                 </div>
-             {%- endfor -%}
-        {%- endfor -%}
+              {% endcapture %}
+
+              {% render 'product-card',
+                product: product,
+                children: product_card_content
+              %}
+            </div>
+          {%- endfor -%}
+        {% elsif section.blocks.size > 0 %}
+          {%- for block in section.blocks limit: section.settings.products_to_show -%}
+            {%- assign product = block.settings.product -%}
+            {% if product != blank %}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                {% capture product_card_content %}
+                  {% capture gallery_children %}
+                    <div class="product-badges product-badges--top-left">
+                      {%- if product.compare_at_price > product.price -%}
+                        {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                        <div class="product-badges__badge product-badges__badge--custom">
+                          {{ discount }}% OFF
+                        </div>
+                      {%- endif -%}
+                      {%- if product.available == false -%}
+                        <div class="product-badges__badge product-badges__badge--custom">
+                          SOLD OUT
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {% endcapture %}
+
+                  {% render 'card-gallery', product: product, children: gallery_children %}
+                  <div class="card-info" style="padding: 15px;">
+                    <h3 class="card-title h5" style="margin: 0 0 5px;">
+                      <a href="{{ product.url }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                        {{ product.title }}
+                      </a>
+                    </h3>
+                    <div style="margin-bottom: 15px;">
+                      {% render 'price', product_resource: product, show_compare_price: true %}
+                    </div>
+                    {% render 'product-card-button', product: product %}
+                  </div>
+                {% endcapture %}
+
+                {% render 'product-card',
+                  product: product,
+                  children: product_card_content
+                %}
+              </div>
+            {% endif %}
+          {%- endfor -%}
+        {% else %}
+          {%- for i in (1..4) -%}
+            <div class="swiper-slide">
+              {% capture placeholder_content %}
+                <div class="card-content">
+                  <div class="media media--square media--transparent">
+                    {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                  <div class="card-info" style="padding: 10px 0;">
+                    <h3 class="card-title h5">
+                      Example Product Title
+                    </h3>
+                    <div>
+                      $19.99
+                    </div>
+                  </div>
+                </div>
+              {% endcapture %}
+              {% render 'product-card', product: nil, children: placeholder_content %}
+            </div>
+          {%- endfor -%}
+        {% endif %}
       </div>
       
       {% if section.settings.show_arrows %}
@@ -250,6 +295,20 @@
   "presets": [
     {
       "name": "Featured Collection Slide"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
     }
   ]
 }
