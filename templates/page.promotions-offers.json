@@ -163,7 +163,7 @@
       ],
       "name": "Featured Collection Slide",
       "settings": {
-        "title": " Perfect Pairs for Everyday Hygiene",
+        "title": "Hygiene Essentials at Lower Prices",
         "heading_size": "h1",
         "collection": "",
         "products_to_show": 8,
@@ -224,6 +224,7 @@
     },
     "custom_liquid_x9yeqU": {
       "type": "custom-liquid",
+      "disabled": true,
       "custom_css": [
         ".custom-heading-wrapper {max-width: 800px; margin: 0 auto;}",
         ".custom-heading-title {font-family: \"TheSeasonsBold\", sans-serif; font-size: 5rem; text-align: center;}"
@@ -289,6 +290,7 @@
         "collection_htyNFf",
         "collection_Hy9RiR"
       ],
+      "disabled": true,
       "custom_css": [],
       "name": "t:sections.featured-products.name",
       "settings": {
