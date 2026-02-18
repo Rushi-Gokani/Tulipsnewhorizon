@@ -26,21 +26,31 @@
   /* Prevents flex item from overflowing */
   margin-right: 2rem;
   /* Spacing between marquee and static link */
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); /* Fade edges */
 }
 
-.marquee {
-  position: relative;
-  display: flex;
-  overflow: hidden;
-  user-select: none;
-  gap: 2rem;
+.marquee__track {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 0; /* Remove gap here, handled by padding in ul */
+    width: max-content;
 }
+
+.marquee__track {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Animation handled by JS inline style now for dynamic duration */
 
 .marquee__content {
   flex-shrink: 0;
   display: flex;
   justify-content: space-around;
-  gap: 2rem;
+  gap: 1rem; /* Reduced further to 1rem */
   min-width: 100%;
   font-family: var(--font-heading-family);
   font-weight: 600;
@@ -49,19 +59,15 @@
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.enable-animation .marquee__content {
-  animation: marquee 20s linear infinite;
+  padding-right: 1rem; /* Match the gap */
 }
 
 @keyframes marquee {
-  from {
+  0% {
     transform: translateX(0);
   }
-
-  to {
-    transform: translateX(-100%);
+  100% {
+    transform: translateX(-50%);
   }
 }
 
@@ -69,8 +75,7 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
-  padding-right: 2rem;
-  /* Add spacing between items */
+  padding-right: 0; /* Removing individual item padding, relying on flex gap */
 }
 
 /* Static Link Styles */
@@ -103,9 +108,7 @@
   }
 
   /* Faster marquee/slider on mobile */
-  .enable-animation .marquee__content {
-    animation-duration: 8s;
-  }
+  /* Handled by JS calculation now, but we can override if needed */
 
   /* Mobile: hide the "New Products" button/link in the announcement bar */
   .announcement-bar__static-link {
@@ -123,7 +126,7 @@
   }
 
   .marquee__item {
-    padding-right: 1.5rem;
+    padding-right: 0;
   }
 
   .announcement-bar__static-link svg {

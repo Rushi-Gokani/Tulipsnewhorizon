@@ -7,25 +7,82 @@
   <div class="announcement-bar__wrapper page-width">
     
     {%- if marquee_slide_blocks.size > 0 -%}
-      <div class="announcement_bar__marquee enable-animation">
-        {% capture marquee_content %}
-          {%- for block in marquee_slide_blocks -%}
-            <li class="marquee__item">
-              {%- if block.settings.icon != 'none' -%}
-                {% render 'icon', icon: block.settings.icon %}
-                <span class="visual-hidden">Icon</span>
-              {%- endif -%}
-              <span>{{ block.settings.content }}</span>
-            </li>
-          {%- endfor -%}
-        {% endcapture %}
-
-        <ul class="marquee__content">
-          {{ marquee_content }}
-          {{ marquee_content }}
-          {{ marquee_content }}
-        </ul>
+      <div class="announcement_bar__marquee">
+        <div class="marquee__track-container">
+          <ul class="marquee__content">
+            {%- for block in marquee_slide_blocks -%}
+              <li class="marquee__item">
+                {%- if block.settings.icon != 'none' -%}
+                  {% render 'icon', icon: block.settings.icon %}
+                  <span class="visual-hidden">Icon</span>
+                {%- endif -%}
+                <span>{{ block.settings.content }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
       </div>
+
+      <script>
+        function initMarquee() {
+          const containers = document.querySelectorAll('.announcement_bar__marquee');
+          
+          containers.forEach(container => {
+            // Check if already initialized to avoid duplicates on re-runs
+            if (container.querySelector('.marquee__track')) return;
+
+            const contentList = container.querySelector('.marquee__content');
+            if (!contentList) return;
+
+            // 1. Clone items until the list is sufficiently wide
+            // Ensure we have enough content to fill screen + buffer
+            let contentWidth = contentList.offsetWidth;
+            const items = Array.from(contentList.children);
+            
+            // Safety break to prevent infinite loops if width is 0
+            if (contentWidth === 0) contentWidth = window.innerWidth || 1000;
+
+            let loops = 0;
+            while (contentWidth < window.innerWidth * 1.5 && loops < 20) {
+                items.forEach(item => {
+                    contentList.appendChild(item.cloneNode(true));
+                });
+                contentWidth = contentList.offsetWidth;
+                loops++;
+            }
+
+            // 2. Wrap in track
+            const wrapper = document.createElement('div');
+            wrapper.className = 'marquee__track';
+            
+            // Clone for seamless loop
+            const cloneList = contentList.cloneNode(true);
+            cloneList.setAttribute('aria-hidden', 'true');
+            
+            // Structure: Track -> [Original List, Clone List]
+            contentList.parentNode.insertBefore(wrapper, contentList);
+            wrapper.appendChild(contentList);
+            wrapper.appendChild(cloneList);
+            
+            // 3. Set Animation Speed
+            // Reduced speed drastically as requested
+            const speed = 20; 
+            const duration = contentWidth / speed;
+            
+            // Apply animation directly
+            wrapper.style.animation = `marquee ${duration}s linear infinite`;
+          });
+        }
+
+        // Run on load to ensure widths are correct
+        window.addEventListener('load', initMarquee);
+        // Also run on DOMContentLoaded just in case load is too late or already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMarquee);
+        } else {
+            initMarquee();
+        }
+      </script>
     {%- endif -%}
 
     {%- for block in link_blocks -%}
