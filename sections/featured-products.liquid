@@ -138,14 +138,19 @@
     {% liquid
       assign collection_setting = block.settings.collection
       assign selected_collection = blank
+      assign collection_handle = ''
       if collection_setting != blank
-        assign collection_handle = collection_setting.handle | default: collection_setting
-        if collection_handle != blank
-          assign selected_collection = collections[collection_handle]
+        if collection_setting.handle
+          assign collection_handle = collection_setting.handle
+        else
+          assign collection_handle = collection_setting
         endif
-        if selected_collection == blank and collection_setting.products
-          assign selected_collection = collection_setting
-        endif
+      endif
+
+      if collection_handle != blank and collections[collection_handle]
+        assign selected_collection = collections[collection_handle]
+      elsif collection_setting != blank and collection_setting.products
+        assign selected_collection = collection_setting
       endif
 
       assign block_products = blank
@@ -199,14 +204,19 @@
                 {% liquid
                   assign collection_setting = block.settings.collection
                   assign selected_collection = blank
+                  assign collection_handle = ''
                   if collection_setting != blank
-                    assign collection_handle = collection_setting.handle | default: collection_setting
-                    if collection_handle != blank
-                      assign selected_collection = collections[collection_handle]
+                    if collection_setting.handle
+                      assign collection_handle = collection_setting.handle
+                    else
+                      assign collection_handle = collection_setting
                     endif
-                    if selected_collection == blank and collection_setting.title
-                      assign selected_collection = collection_setting
-                    endif
+                  endif
+
+                  if collection_handle != blank and collections[collection_handle]
+                    assign selected_collection = collections[collection_handle]
+                  elsif collection_setting != blank and collection_setting.title
+                    assign selected_collection = collection_setting
                   endif
 
                   assign block_label = block.settings.title
@@ -240,14 +250,19 @@
               {% liquid
                 assign collection_setting = block.settings.collection
                 assign selected_collection = blank
+                assign collection_handle = ''
                 if collection_setting != blank
-                  assign collection_handle = collection_setting.handle | default: collection_setting
-                  if collection_handle != blank
-                    assign selected_collection = collections[collection_handle]
+                  if collection_setting.handle
+                    assign collection_handle = collection_setting.handle
+                  else
+                    assign collection_handle = collection_setting
                   endif
-                  if selected_collection == blank and collection_setting.products
-                    assign selected_collection = collection_setting
-                  endif
+                endif
+
+                if collection_handle != blank and collections[collection_handle]
+                  assign selected_collection = collections[collection_handle]
+                elsif collection_setting != blank and collection_setting.products
+                  assign selected_collection = collection_setting
                 endif
 
                 assign block_products = blank
