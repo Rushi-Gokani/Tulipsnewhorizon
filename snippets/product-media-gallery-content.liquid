@@ -27,6 +27,18 @@
   assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
   assign first_3d_model = selected_product.media | where: 'media_type', 'model' | first
 
+  assign product_collection_badge = ''
+  if collection and collection.metafields.custom.badges != blank
+    assign product_collection_badge = collection.metafields.custom.badges
+  elsif selected_product.collections and selected_product.collections.size > 0
+    for product_collection in selected_product.collections
+      if product_collection.metafields.custom.badges != blank
+        assign product_collection_badge = product_collection.metafields.custom.badges
+        break
+      endif
+    endfor
+  endif
+
   if block_settings.hide_variants
     assign variant_images = selected_product.images | where: 'attached_to_variant?', true | map: 'src'
   endif
@@ -318,6 +330,35 @@
   {% endif %}
 
   :root { --gallery-media-border-radius: {{ block_settings.media_radius }}px; }
+
+  media-gallery {
+    position: relative;
+  }
+
+  .pdp-collection-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #d32f2f;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.65rem;
+    z-index: 5;
+    letter-spacing: 0.2px;
+    text-transform: none;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  @media (max-width: 749px) {
+    .pdp-collection-badge {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  }
 {% endstyle %}
 
 {% if closest.product == blank %}
@@ -352,6 +393,10 @@
     data-presentation="{{ media_presentation }}"
     {{ block_shopify_attributes }}
   >
+    {% if product_collection_badge != blank %}
+      <span class="pdp-collection-badge">{{ product_collection_badge }}</span>
+    {% endif %}
+
     {% capture slides %}
       {% for media in sorted_media %}
         {% capture children %}

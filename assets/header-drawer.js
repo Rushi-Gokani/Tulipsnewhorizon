@@ -115,7 +115,12 @@ class HeaderDrawer extends Component {
 
     summary.setAttribute('aria-expanded', 'false');
     details.classList.remove('menu-open');
-    this.refs.menuDrawer.classList.remove('menu-drawer--has-submenu-opened');
+
+    // Only remove submenu-opened class when going back to root level (no other open submenus)
+    const otherOpenSubmenus = this.refs.menuDrawer.querySelectorAll('details.menu-open:not(accordion-custom > details)');
+    if (otherOpenSubmenus.length === 0) {
+      this.refs.menuDrawer.classList.remove('menu-drawer--has-submenu-opened');
+    }
 
     // Wait for the .menu-drawer element's transition, not the entire details subtree
     // This avoids waiting for child accordion/resource-card animations which can cause issues on Firefox

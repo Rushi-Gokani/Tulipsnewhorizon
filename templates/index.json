@@ -27,7 +27,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/Soaps_Banner_Web_7_cb7f9bf6-0fff-45e7-a066-9b9299301d07.webp",
-            "link": "",
+            "link": "shopify://collections/handmade-soaps-1",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/Soaps_Banner_Mobile_c2a82641-ce42-4766-9436-75cf7ee1c5ce.webp"
@@ -48,7 +48,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/Micellar_Water_Banner_Web_6.webp",
-            "link": "",
+            "link": "shopify://products/premium-micellar-cleansing-water-makeup-remover",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/Micellar_Water_Banner_Mobile_dce0bd83-7d4a-48a0-b685-d788217187fa.webp"
@@ -69,7 +69,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/Baby_Wipes_Banner_Web_6.webp",
-            "link": "",
+            "link": "shopify://collections/baby-we-wipes",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/Baby_Wipes_Banner_Mobile_0cb6410d-fd28-4d5b-997a-d1bb4d0987dd.webp"
@@ -90,7 +90,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/tulips-adult-diapers-d_ef992781-d89b-454a-9736-2211126e1811.webp",
-            "link": "",
+            "link": "shopify://collections/adult-diaper-pants",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/tulips-adult-diapers-m_eacedb30-acb8-479e-906e-cd15b6ccb511.webp"

@@ -88,7 +88,7 @@
           "primary_hover": "#000000",
           "border": "#0000000f",
           "shadow": "#000000",
-          "primary_button_background": "#000000",
+          "primary_button_background": "#a3ca6d",
           "primary_button_text": "#ffffff",
           "primary_button_border": "#000000",
           "primary_button_hover_background": "#333333",
@@ -199,8 +199,8 @@
       "scheme-4": {
         "settings": {
           "background": "#a3ca6d",
-          "foreground_heading": "#000000",
-          "foreground": "#000000cf",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffff",
           "primary": "#000000cf",
           "primary_hover": "#000000",
           "border": "#a3ca6d",

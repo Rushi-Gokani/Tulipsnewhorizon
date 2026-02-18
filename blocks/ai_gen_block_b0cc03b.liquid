@@ -1,0 +1,175 @@
+{% doc %}
+  @prompt
+    youtube video need to display via link in full screen & in mobile show as it is landscape ,
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% comment %} Convert regular YouTube URL to embed URL {% endcomment %}
+{% assign yt_url = block.settings.video_url | strip %}
+{% assign yt_embed_url = '' %}
+{% if yt_url != blank %}
+  {% if yt_url contains 'youtube.com/embed/' %}
+    {% assign yt_embed_url = yt_url %}
+  {% elsif yt_url contains 'youtu.be/' %}
+    {% assign yt_video_id = yt_url | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first %}
+    {% assign yt_embed_url = 'https://www.youtube.com/embed/' | append: yt_video_id %}
+  {% elsif yt_url contains 'youtube.com/watch' %}
+    {% assign yt_video_id = yt_url | split: 'v=' | last | split: '&' | first %}
+    {% assign yt_embed_url = 'https://www.youtube.com/embed/' | append: yt_video_id %}
+  {% elsif yt_url contains 'youtube.com/shorts/' %}
+    {% assign yt_video_id = yt_url | split: 'shorts/' | last | split: '?' | first | split: '&' | first %}
+    {% assign yt_embed_url = 'https://www.youtube.com/embed/' | append: yt_video_id %}
+  {% endif %}
+{% endif %}
+
+{% style %}
+  .ai-youtube-video-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-youtube-video-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-youtube-video-iframe-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .ai-youtube-video-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-youtube-video-{{ ai_gen_id }} {
+      width: 100%;
+    }
+    .ai-youtube-video-wrapper-{{ ai_gen_id }} {
+      padding-bottom: 56.25%;
+    }
+  }
+{% endstyle %}
+
+<youtube-video-{{ ai_gen_id }}
+  class="ai-youtube-video-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-youtube-video-wrapper-{{ ai_gen_id }}">
+    {% if yt_embed_url != blank %}
+      <iframe
+        class="ai-youtube-video-iframe-{{ ai_gen_id }}"
+        src="{{ yt_embed_url }}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    {% else %}
+      <div class="ai-youtube-video-placeholder-{{ ai_gen_id }}">
+        Next, add a YouTube video URL
+      </div>
+    {% endif %}
+  </div>
+</youtube-video-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class YoutubeVideo{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupVideo();
+      }
+
+      setupVideo() {
+        const iframe = this.querySelector('.ai-youtube-video-iframe-{{ ai_gen_id }}');
+        if (!iframe) return;
+
+        const src = iframe.getAttribute('src');
+        if (src && !src.includes('?')) {
+          iframe.setAttribute('src', src + '?rel=0&modestbranding=1');
+        } else if (src && !src.includes('rel=')) {
+          iframe.setAttribute('src', src + '&rel=0&modestbranding=1');
+        }
+      }
+    }
+
+    customElements.define('youtube-video-{{ ai_gen_id }}', YoutubeVideo{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "YouTube video",
+  "tag": null,
+  "settings": [
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "YouTube video link",
+      "info": "Paste a YouTube link, e.g. https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "YouTube video"
+    }
+  ]
+}
+{% endschema %}

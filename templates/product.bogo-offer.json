@@ -218,6 +218,14 @@
               },
               "blocks": {}
             },
+            "custom_liquid_QUF7FU": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<div style=\"\n  background:#fff4e5;\n  border:2px dashed #ff9800;\n  padding:14px;\n  border-radius:8px;\n  text-align:center;\n  margin-bottom:15px;\n\">\n  <p style=\"\n    font-weight:700;\n    font-size:16px;\n    margin:0;\n  \">\n    🎉 Buy 1, Get 1 FREE!\n  </p>\n\n  <p style=\"\n    font-size:14px;\n    margin:6px 0 0;\n  \">\n    👉 Add 2 Quantity to Cart → Get 1 FREE\n  </p>\n</div>"
+              },
+              "blocks": {}
+            },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
@@ -498,6 +506,7 @@
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
+            "custom_liquid_QUF7FU",
             "buy_buttons_eYQEYi",
             "text_nfPAwE",
             "text_fLtheh",
@@ -513,15 +522,15 @@
         "limit_details_width": true,
         "gap": 48,
         "enable_sticky_add_to_cart": true,
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
     },
-    "1771338014893c6190": {
+    "blocks_9rzGGp": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_6ca7f99_nDTkzE": {
+        "ai_gen_block_6ca7f99_deVmf8": {
           "type": "ai_gen_block_6ca7f99",
           "settings": {
             "marquee_text_1": "Untouched By Hands",
@@ -548,7 +557,7 @@
         }
       },
       "block_order": [
-        "ai_gen_block_6ca7f99_nDTkzE"
+        "ai_gen_block_6ca7f99_deVmf8"
       ],
       "settings": {
         "content_direction": "column",
@@ -963,73 +972,6 @@
         "padding-block-end": 48
       }
     },
-    "happy_customers_zqnPwF": {
-      "type": "happy-customers",
-      "blocks": {
-        "testimonial_VHdrLH": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Isha Keskar",
-            "rating": 5,
-            "product_name": "Tulips Cotton Pad",
-            "text": "Tulips Cotton PadUndoubtedly one of the best. Been using for years and ordering multiple times. Will definitely recommend."
-          }
-        },
-        "testimonial_YH3Mrx": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Sonali Umare",
-            "rating": 5,
-            "product_name": "",
-            "text": "Wow! Amazing product ,like no one in the market Amazing cotton pads—truly the best in the market! Double-sided, high-quality, and perfect for sensitive skin. I use them with micellar water every night, and they visibly remove dirt. Great packaging, multipurpose, and budget-friendly. Highly recommended!\""
-          }
-        },
-        "testimonial_JfWzw3": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Jyotsassy Arya",
-            "rating": 4,
-            "product_name": "",
-            "text": "Affordable and best Go for it without any second thoughts. It is very nice soft and thick cotton pad. Can easily remove makeup. Is gentle on your skin and Very affordable. Go for it at this price you won't get 50 pads in other brands."
-          }
-        },
-        "testimonial_ExVn3j": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Vaidehee",
-            "rating": 5,
-            "product_name": "",
-            "text": "Good product to remove make upTulips has good quality products! I used their cotton pad to wipe off my sister's make up. Cotton pad has different textures on both sides. One sides has soft and other has long ridges. It's easy to use and removes smudge proof and water proof make up easily. Moves softly on skin. Good quality and bought it at cheap price."
-          }
-        },
-        "testimonial_y78ih7": {
-          "type": "testimonial",
-          "settings": {
-            "author": "Sneha Singh",
-            "rating": 4,
-            "product_name": "",
-            "text": "The best in the market It comes in a neat zip lock packet which is so convenient. It doesn’t leave fibers on you while you rub your face with it."
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_VHdrLH",
-        "testimonial_YH3Mrx",
-        "testimonial_JfWzw3",
-        "testimonial_ExVn3j",
-        "testimonial_y78ih7"
-      ],
-      "name": "Happy Customers",
-      "settings": {
-        "bg_color": "#ffffff",
-        "show_badge": true,
-        "badge_text": "300,000+ online ratings and reviews",
-        "subheading": "OUR PROMISE OF PURITY, PROVEN BY THE PEOPLE WHO USE OUR PRODUCTS DAILY",
-        "heading": "From Our Happy Customers",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "testimonials_w7YjxB": {
       "type": "testimonials",
       "blocks": {
@@ -1091,7 +1033,6 @@
         "testimonial_jTppPx",
         "testimonial_hDcYMn"
       ],
-      "disabled": true,
       "name": "Testimonials",
       "settings": {
         "heading": "From Our Happy Customers",
@@ -1125,11 +1066,10 @@
   },
   "order": [
     "main",
-    "1771338014893c6190",
+    "blocks_9rzGGp",
     "brand_section_KUUPUg",
     "product_recommendations_qggXJq",
     "product_list_YN38c8",
-    "happy_customers_zqnPwF",
     "testimonials_w7YjxB",
     "custom_liquid_BJ7pgF"
   ]

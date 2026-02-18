@@ -1,6 +1,82 @@
-* {
+/* ========================================
+   CUSTOM FONTS - @font-face declarations
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+/* TT Neoris Regular (Bold) */
+@font-face {
+  font-family: 'TT Neoris';
+  src: url('https://cdn.shopify.com/s/files/1/0679/3822/2261/files/TT_Neoris_Trial_Bold.woff2?v=1751957790') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* TT Neoris Light */
+@font-face {
+  font-family: 'TT Neoris light';
+  src: url('https://cdn.shopify.com/s/files/1/0679/3822/2261/files/TT_Neoris_Trial_ExtraLight.woff2?v=1751967327') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Livvic SemiBold */
+@font-face {
+  font-family: "Livvic";
+  src: url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/Livvic-SemiBold.woff?v=1771329892') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Livvic Regular */
+@font-face {
+  font-family: "Livvic Regular";
+  src: url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/Livvic-Regular.woff?v=1771329892') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The Seasons Bold */
+@font-face {
+  font-family: "TheSeasonsBold";
+  src: url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/FONTSPRINGDEMO-TheSeasonsBold.woff?v=1771329892') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The Seasons LT */
+@font-face {
+  font-family: "TheSeasonsLT";
+  src: url('https://cdn.shopify.com/s/files/1/0798/9162/8258/files/TheSeasonsLT.woff?v=1771329892') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================
+   GLOBAL FONT VARIABLES
+   ======================================== */
+:root {
+  --font-tt-neoris-light: 'TT Neoris light', sans-serif;
+  --font-tt-neoris-bold: 'TT Neoris', sans-serif;
+  --font-livvic: "Livvic", sans-serif;
+  --font-livvic-regular: "Livvic Regular", sans-serif;
+  --font-seasons-lt: "TheSeasonsLT", sans-serif;
+  --font-seasons-bold: "TheSeasonsBold", sans-serif;
+}
+
+
+ * {
   box-sizing: border-box;
 }
+
 
 body {
   color: var(--color-foreground);
@@ -4944,3 +5020,48 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+/* ========================================
+   GLOBAL FONT APPLICATION (moved to end for priority)
+   ======================================== */
+
+body {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'TT Neoris light' !important;
+}
+
+/* Italic heading styling */
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em,
+h6 em,
+.h1 em,
+.h2 em,
+.h3 em,
+.h4 em,
+.h5 em,
+.h6 em {
+  font-family: 'TT Neoris light' !important;
+}
+
+/* h2 specific override */
+h2 {
+  font-family: 'TT Neoris light' !important;
+}
+
