@@ -1634,7 +1634,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Yes, long & continuous usage of diapers can cause rashes or skin irritation. TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin friendly. But this aloe-vera coating is not a guarantee against rashes or skin irritation. For best results: TULIPS recommends that user should change regularly. Keep skin clean and dry. And when wearing diapers on daily basis, it is important to air the groin area on regular basis.",
+                "heading": "Adult Diapers might cause some rashes if I wear them longer. Is that true? How does TULIPS Adult diaper pants help reduce rashes?",
                 "open_by_default": false,
                 "hide_if_empty": false,
                 "icon": "none",
@@ -1644,7 +1644,7 @@
                 "text_ChRiRk": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
+                    "text": "<p>Yes, long & continuous usage of diapers can cause rashes or skin irritation. <br/>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin friendly. But this aloe-vera coating is not a guarantee against rashes or skin irritation. <br/>For best results: TULIPS recommends that user should change regularly. Keep skin clean and dry. And when wearing diapers on daily basis, it is important to air the groin area on regular basis.<br/></p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
