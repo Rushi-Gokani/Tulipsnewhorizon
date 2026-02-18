@@ -937,8 +937,8 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-1",
-            "heading": "<p>Slide Heading</p>",
-            "text": "<p>Slide description text</p>",
+            "heading": "",
+            "text": "",
             "button_link_1": "/",
             "button_label_1": "View more",
             "button_style_1": "button--filled",
@@ -958,7 +958,6 @@
       "block_order": [
         "slide_CiwGhT"
       ],
-      "disabled": true,
       "name": "Image Slider",
       "settings": {
         "slideshow_autoplay_interval": 6,
