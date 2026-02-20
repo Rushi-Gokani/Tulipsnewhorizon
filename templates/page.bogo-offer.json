@@ -75,7 +75,7 @@
             "content_position": "center",
             "content_alignment": "center",
             "image": "shopify://shop_images/tulips-adult-diapers-d_ef992781-d89b-454a-9736-2211126e1811.webp",
-            "link": "",
+            "link": "shopify://collections/adult-diaper-pants",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/tulips-adult-diapers-m_eacedb30-acb8-479e-906e-cd15b6ccb511.webp"
@@ -102,7 +102,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p><strong>To avail the Buy 1 Get 1 offer, make sure to add quantity 2 of the same product to your cart.</strong></p>",
+            "text": "<p>To avail the Buy 1 Get 1 offer, make sure to add quantity 2 of the same product to your cart.</p>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -209,7 +209,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>Offer Eligibility</strong></h2>",
+            "text": "<h2>Offer Eligibility</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -315,7 +315,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>Offer Details:</strong></h2>",
+            "text": "<h2>Offer Details:</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -421,7 +421,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>Validity Period:</strong></h2>",
+            "text": "<h2>Validity Period:</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -527,7 +527,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2><strong>Shipping & Charges:</strong></h2>",
+            "text": "<h2>Shipping & Charges:</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -633,7 +633,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p><strong>General Conditions:</strong></p>",
+            "text": "<h2>General Conditions:</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",

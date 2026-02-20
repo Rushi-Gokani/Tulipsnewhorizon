@@ -12,17 +12,29 @@
 
 {% case variant %}
   {% when 'mobile' %}
+    {% liquid
+      assign mobile_menu = section.settings.mobile_menu
+      if mobile_menu == blank
+        assign mobile_menu = block_settings.menu
+      endif
+    %}
     <div
       class="header__drawer"
       ref="headerDrawerContainer"
       data-hydration-key="header-drawer-mobile"
       {{ block.shopify_attributes }}
     >
-      {% render 'header-drawer', linklist: block_settings.menu, data_header_drawer_type: 'mobile-drawer', block: block %}
+      {% render 'header-drawer', linklist: mobile_menu, data_header_drawer_type: 'mobile-drawer', block: block %}
     </div>
 
   {% when 'navigation_bar' %}
-    {% if block_settings.navigation_bar == true %}
+    {% liquid
+      assign mobile_menu = section.settings.mobile_menu
+      if mobile_menu == blank
+        assign mobile_menu = block_settings.menu
+      endif
+    %}
+    {% if block_settings.navigation_bar == true and mobile_menu %}
       <div
         class="menu-list menu-list--mobile{% if transparent == blank %} color-{{ block_settings.color_scheme_navigation_bar }}{% endif %}"
         style="--menu-horizontal-gap: 15px; --mobile-nav-margin: auto;"
@@ -33,7 +45,7 @@
             class="menu-list__list list-unstyled"
             role="list"
           >
-            {% for link in block_settings.menu.links %}
+            {% for link in mobile_menu.links %}
               <li>
                 <a
                   href="{{ link.url }}"
@@ -759,22 +771,34 @@
   .menu-pill {
     background-color: var(--pill-bg-color, #388e3c);
     color: var(--pill-text-color, #ffffff) !important;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: bold;
-    display: inline-block;
-    line-height: normal;
-    margin-inline: 4px;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 0.875em;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin-inline: 6px;
     white-space: nowrap;
     vertical-align: middle;
+    min-height: 32px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
     &::after {
-      content: '';
-      bottom: 2px;
-      left: 20px;
-      right: 20px;
+      display: none;
     }
+  }
+
+  .menu-list__link:has(.menu-pill) .menu-list__link-title::after {
+    display: none;
   }
   /* ===== Mega Menu Side Nav: Fixed 600px Width ===== */
   .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu:has(.mega-menu-side-nav) {

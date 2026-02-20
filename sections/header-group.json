@@ -24,7 +24,7 @@
         "marquee_text_2": {
           "type": "marquee_slide",
           "settings": {
-            "content": "ABOVE ₹399",
+            "content": "Free delivery above orders 399",
             "icon": "none"
           }
         },
@@ -80,7 +80,7 @@
       "settings": {
         "speed": 5,
         "section_width": "page-width",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
         "divider_width": 1,
         "padding-block-start": 15,
         "padding-block-end": 15
@@ -120,7 +120,9 @@
             "drawer_accordion": false,
             "drawer_accordion_expand_first": false,
             "drawer_dividers": false,
-            "pill_bg_color": "#A3CA6D"
+            "pill_labels": "New Arrivals, B1G1 T&C",
+            "pill_bg_color": "#a3ca6d",
+            "pill_text_color": "#ffffff"
           },
           "blocks": {}
         }
@@ -129,6 +131,7 @@
         "logo_position": "left",
         "menu_position": "center",
         "menu_row": "top",
+        "mobile_menu": "mobile-menu",
         "show_search": true,
         "search_position": "right",
         "search_row": "top",
