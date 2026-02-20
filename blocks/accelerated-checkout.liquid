@@ -20,7 +20,7 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank and form_obj != blank %}
-    {{ form_obj | payment_button }}
+    {% comment %} {{ form_obj | payment_button }} {% endcomment %}
     {% render 'gokwik-buy-now' %}
   {% endif %}
 {% endcapture %}
