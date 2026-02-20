@@ -14,6 +14,27 @@
 <link rel="dns-prefetch" href="https://pdp.gokwik.co/">
 <link rel="dns-prefetch" href="https://api.gokwik.co">
 {% render 'gokwik' %}
+
+
+<script>
+ function onCheckoutNow(e) {
+   console.log('justclicked');
+   const dialog = document.querySelector('.cart-drawer dialog');
+const cart = document.querySelector('.cart-drawer');
+   if (dialog?.hasAttribute('open')) {
+     console.log('failing?');
+     console.log(cart.close?.(),'cartclose');
+     cart.close?.();
+     setTimeout(() => {
+       onCheckoutClick(e);
+     }, 100);
+   } else {
+     onCheckoutClick(e);
+   }
+ }
+</script>
+
+
 <!-- Gokwik theme code End -->
 
 
