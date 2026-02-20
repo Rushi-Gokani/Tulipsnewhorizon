@@ -79,6 +79,12 @@ gokwikCheckoutButtons.forEach(function(button) {
          }, delay);
        };
      }
+      var gokwikCheckoutButtons = document.querySelectorAll('.gokwik-checkout button');
+gokwikCheckoutButtons.forEach(function(button) {
+   button.disabled = false;
+   button.classList.remove('disabled');
+});
+
      const observer = new MutationObserver(() => {
       const addToCartButton = document.querySelector("button[name='add']");
 const gokwikBuyNowButton = document.getElementById('gokwik-buy-now');
