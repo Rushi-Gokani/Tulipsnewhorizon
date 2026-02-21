@@ -26,6 +26,10 @@
     gap: {{ block.settings.item_spacing }}px;
   }
 
+  .ai-marquee-content-{{ ai_gen_id }}:first-child {
+    margin-right: {{ block.settings.item_spacing }}px;
+  }
+
   .ai-marquee-text-{{ ai_gen_id }} {
     color: {{ block.settings.text_color }};
     font-size: {{ block.settings.text_size }}px;
