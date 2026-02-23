@@ -959,7 +959,7 @@
         "slide_CiwGhT"
       ],
       "custom_css": [
-        ".image-slider__inner{max-width: 1440px; margin: 0 auto;}"
+        ".image-slider__inner {max-width: 1440px; margin: 0 auto;}"
       ],
       "name": "Image Slider",
       "settings": {
@@ -999,6 +999,9 @@
       "block_order": [
         "slide_eDD4wT"
       ],
+      "custom_css": [
+        ".image-slider__inner {max-width: 1440px; margin: 0 auto;}"
+      ],
       "name": "Image Slider",
       "settings": {
         "slideshow_autoplay_interval": 6,
@@ -1036,6 +1039,9 @@
       },
       "block_order": [
         "slide_H7BPdV"
+      ],
+      "custom_css": [
+        ".image-slider__inner {max-width: 1440px; margin: 0 auto;}"
       ],
       "name": "Image Slider",
       "settings": {
