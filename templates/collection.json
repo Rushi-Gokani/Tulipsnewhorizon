@@ -81,7 +81,7 @@
         "gap": 12,
         "section_width": "page-width",
         "section_height": "custom",
-        "section_height_custom": 25,
+        "section_height_custom": 15,
         "color_scheme": "scheme-4",
         "background_media": "none",
         "video_position": "cover",
@@ -94,8 +94,8 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 30,
+        "padding-block-end": 30
       }
     },
     "main": {
