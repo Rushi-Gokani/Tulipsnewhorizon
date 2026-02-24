@@ -12,6 +12,7 @@
     "logo": "shopify://shop_images/Tullips_logo.webp",
     "logo_height": 36,
     "logo_height_mobile": 28,
+    "favicon": "shopify://shop_images/WhatsApp_Image_2026-02-24_at_13.56.44.jpg",
     "type_body_font": "inter_n4",
     "type_subheading_font": "inter_n5",
     "type_heading_font": "inter_n7",
@@ -77,6 +78,13 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
+    "mid": "19m6uidtvo6b",
+    "envType": "production",
+    "goEnable": true,
+    "priClr": "#a3ca6d",
+    "goBuynowEnable": true,
+    "btnBClr": "#a3ca6d",
+    "sub-titile": "5% off on prepaid orders",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {

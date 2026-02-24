@@ -6,6 +6,51 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+
+
+<!-- Gokwik theme code start -->
+
+
+<link rel="dns-prefetch" href="https://pdp.gokwik.co/">
+<link rel="dns-prefetch" href="https://api.gokwik.co">
+{% render 'gokwik' %}
+
+
+<script>
+ function onCheckoutNow(e) {
+   console.log('justclicked');
+   const dialog = document.querySelector('.cart-drawer dialog');
+const cart = document.querySelector('.cart-drawer');
+   if (dialog?.hasAttribute('open')) {
+     console.log('failing?');
+     console.log(cart.close?.(),'cartclose');
+     cart.close?.();
+     setTimeout(() => {
+       onCheckoutClick(e);
+     }, 100);
+   } else {
+     onCheckoutClick(e);
+   }
+ }
+</script>
+
+
+<!-- Gokwik theme code End -->
+
+
+
+
+
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H09HCRV29Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H09HCRV29Y');
+</script>
     <!-- Facebook Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -53,7 +98,7 @@
     {% endif %}
 
     {{ content_for_header }}
-
+<meta name="google-site-verification" content="-eSE3nFVgthK2DXrQMqZTrOOozFqr_QE9I4Mra6ti48" />
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
