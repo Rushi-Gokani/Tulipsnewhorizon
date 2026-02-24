@@ -44,6 +44,22 @@
                   {{ shop.name }}
                 </a>
               {% endif %}
+
+              {% comment %} Social Media Icons (YouTube & Facebook) inside logo area {% endcomment %}
+              {% if section.settings.facebook_url != blank or section.settings.youtube_url != blank %}
+                <div class="custom-footer__social-custom">
+                  {% if section.settings.facebook_url != blank and section.settings.facebook_logo != blank %}
+                    <a href="{{ section.settings.facebook_url }}" class="custom-footer__social-custom-link" aria-label="Facebook" target="_blank" rel="noopener">
+                      {{ section.settings.facebook_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'Facebook', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.youtube_url != blank and section.settings.youtube_logo != blank %}
+                    <a href="{{ section.settings.youtube_url }}" class="custom-footer__social-custom-link" aria-label="YouTube" target="_blank" rel="noopener">
+                      {{ section.settings.youtube_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'YouTube', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
             </div>
           {% endif %}
 
@@ -237,6 +253,41 @@
     align-items: center;
   }
 
+  /* ---- Custom Social Icons (YouTube & Facebook below logo) ---- */
+  .custom-footer__social-custom {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 0.25rem;
+  }
+
+  .custom-footer__social-custom-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.9;
+    line-height: 0;
+  }
+
+  .custom-footer__social-custom-link:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  .custom-footer__social-custom-link svg {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  .custom-footer__social-custom-img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
   .custom-footer__social-link {
     display: flex;
     align-items: center;
@@ -409,6 +460,15 @@
       justify-content: center;
     }
 
+    .custom-footer__social-custom {
+      justify-content: center;
+    }
+
+    .custom-footer__social-custom-link svg {
+      width: 28px;
+      height: 28px;
+    }
+
     /* Contact - full width on mobile */
     .custom-footer__contact {
       padding: 1rem 0;
@@ -529,6 +589,30 @@
       "id": "show_social_icons",
       "label": "Show social icons",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_logo",
+      "label": "Facebook logo"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook link"
+    },
+    {
+      "type": "image_picker",
+      "id": "youtube_logo",
+      "label": "YouTube logo"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube link"
     },
     {
       "type": "header",
