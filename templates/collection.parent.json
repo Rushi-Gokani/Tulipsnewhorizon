@@ -112,7 +112,9 @@
     },
     "subcollections": {
       "type": "custom-liquid",
-      "custom_css": [],
+      "custom_css": [
+        ".pc-tabs__product-title {text-transform: uppercase; }"
+      ],
       "settings": {
         "custom_liquid": "{% render 'parent-collection-tabs' %}",
         "color_scheme": "scheme-1",
