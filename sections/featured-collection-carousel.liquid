@@ -186,11 +186,18 @@
         {%- endif -%}
       {%- endif -%}
 
+      <!-- DEBUG CONTENT: {{ setting_key }} collection = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG CONTENT: {{ setting_key }} products count = {{ tab_collection.products_count | default: 0 }} -->
+
       {% if tab_collection != blank %}
         {% assign tab_content_index = tab_content_index | plus: 1 %}
+        <!-- DEBUG CONTENT: Creating tab content #{{ tab_content_index }} with class active = {% if tab_content_index == 1 %}true{% else %}false{% endif %} -->
+
         <div class="tab-content {% if tab_content_index == 1 %}active{% endif %}"
              id="tab-{{ section.id }}-{{ i }}"
              data-tab-content="tab-{{ section.id }}-{{ i }}">
+
+          <!-- DEBUG: Inside tab-{{ section.id }}-{{ i }}, showing {{ tab_collection.products_count }} products -->
 
           <div class="featured-collection-carousel-slider swiper">
             <div class="swiper-wrapper">
@@ -231,6 +238,12 @@
                     product: product,
                     children: product_card_content
                   %}
+                </div>
+              {%- else -%}
+                <!-- DEBUG: No products found in {{ tab_collection.title }} -->
+                <div class="swiper-slide" style="text-align: center; padding: 40px;">
+                  <p>No products found in this collection.</p>
+                  <!-- DEBUG: Collection {{ tab_collection.title }} has {{ tab_collection.products_count }} products -->
                 </div>
               {%- endfor -%}
             </div>
