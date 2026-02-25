@@ -11,6 +11,17 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "custom_liquid_73ppkT": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"height:10px;\"></div>",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "wave_transition_KLdbUU": {
       "type": "wave-transition",
       "name": "Wave Transition",
@@ -251,6 +262,7 @@
     }
   },
   "order": [
+    "custom_liquid_73ppkT",
     "wave_transition_KLdbUU",
     "custom_footer_WeUwWP",
     "footer_m9NzUG",
