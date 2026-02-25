@@ -12,6 +12,27 @@
     "image_slider_yJgiFj": {
       "type": "image-slider",
       "blocks": {
+        "slide_JkewDF": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "heading": "",
+            "text": "",
+            "button_link_1": "/",
+            "button_label_1": "View more",
+            "button_style_1": "button--filled",
+            "button_link_2": "/",
+            "button_label_2": "Learn more",
+            "button_style_2": "button--outlined",
+            "content_position": "center",
+            "content_alignment": "center",
+            "image": "shopify://shop_images/tulips-adult-diapers-d_ef992781-d89b-454a-9736-2211126e1811.webp",
+            "link": "shopify://collections/adult-diaper-pants",
+            "content_position_mobile": "center",
+            "content_alignment_mobile": "center",
+            "image_mobile": "shopify://shop_images/tulips-adult-diapers-m_eacedb30-acb8-479e-906e-cd15b6ccb511.webp"
+          }
+        },
         "slide_ELtNhH": {
           "type": "slide",
           "settings": {
@@ -74,34 +95,13 @@
             "content_alignment_mobile": "center",
             "image_mobile": "shopify://shop_images/Baby_Wipes_Banner_Mobile_0cb6410d-fd28-4d5b-997a-d1bb4d0987dd.webp"
           }
-        },
-        "slide_JkewDF": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-1",
-            "heading": "",
-            "text": "",
-            "button_link_1": "/",
-            "button_label_1": "View more",
-            "button_style_1": "button--filled",
-            "button_link_2": "/",
-            "button_label_2": "Learn more",
-            "button_style_2": "button--outlined",
-            "content_position": "center",
-            "content_alignment": "center",
-            "image": "shopify://shop_images/tulips-adult-diapers-d_ef992781-d89b-454a-9736-2211126e1811.webp",
-            "link": "shopify://collections/adult-diaper-pants",
-            "content_position_mobile": "center",
-            "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/tulips-adult-diapers-m_eacedb30-acb8-479e-906e-cd15b6ccb511.webp"
-          }
         }
       },
       "block_order": [
+        "slide_JkewDF",
         "slide_ELtNhH",
         "slide_yJ8HnB",
-        "slide_F9xVYA",
-        "slide_JkewDF"
+        "slide_F9xVYA"
       ],
       "name": "Image Slider",
       "settings": {
