@@ -18,6 +18,72 @@
   .featured-collection-carousel-section {
     background-color: {{ section.settings.bg_color }};
   }
+
+  /* Tabs Styles */
+  .collection-tabs-wrapper {
+    margin-bottom: 30px;
+  }
+
+  .collection-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .collection-tab {
+    border: none;
+    background: transparent;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: {{ section.settings.tab_text_color }};
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .collection-tab:hover {
+    color: {{ section.settings.tab_active_color }};
+  }
+
+  .collection-tab.active {
+    color: {{ section.settings.tab_active_color }};
+    border-bottom-color: {{ section.settings.tab_active_color }};
+  }
+
+  .collection-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: {{ section.settings.tab_active_color }};
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-tabs {
+      gap: 5px;
+    }
+
+    .collection-tab {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -30,9 +96,144 @@
       </div>
     {%- endif -%}
 
-    <div class="featured-collection-carousel-slider swiper">
-      <div class="swiper-wrapper">
-        {% if section.settings.collection != blank %}
+    <!-- Tabs Navigation -->
+    {% assign show_tabs = false %}
+    {% for i in (1..5) %}
+      {% case i %}
+        {% when 1 %}{% assign metafield_key = 'first' %}
+        {% when 2 %}{% assign metafield_key = 'second' %}
+        {% when 3 %}{% assign metafield_key = 'third' %}
+        {% when 4 %}{% assign metafield_key = 'fourth' %}
+        {% when 5 %}{% assign metafield_key = 'fifth' %}
+      {% endcase %}
+
+      {% if collection.metafields.category_tab[metafield_key] != blank %}
+        {% assign show_tabs = true %}
+      {% elsif section.settings[metafield_key] != blank %}
+        {% assign show_tabs = true %}
+      {% endif %}
+    {% endfor %}
+
+    {% if show_tabs %}
+      <div class="collection-tabs-wrapper">
+        <ul class="collection-tabs" role="tablist">
+          {% assign tab_index = 0 %}
+          {% for i in (1..5) %}
+            {% case i %}
+              {% when 1 %}{% assign metafield_key = 'first' %}
+              {% when 2 %}{% assign metafield_key = 'second' %}
+              {% when 3 %}{% assign metafield_key = 'third' %}
+              {% when 4 %}{% assign metafield_key = 'fourth' %}
+              {% when 5 %}{% assign metafield_key = 'fifth' %}
+            {% endcase %}
+
+            {%- assign tab_collection = collection.metafields.category_tab[metafield_key].value -%}
+            {%- if tab_collection == blank -%}
+              {%- assign tab_collection = collections[section.settings[metafield_key]] -%}
+            {%- endif -%}
+
+            {% if tab_collection != blank %}
+              {% assign tab_index = tab_index | plus: 1 %}
+              <li class="collection-tab {% if tab_index == 1 %}active{% endif %}"
+                  role="tab"
+                  data-tab="tab-{{ section.id }}-{{ i }}"
+                  data-collection="{{ tab_collection.id }}">
+                {{ tab_collection.title }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- Tab Contents -->
+    {% assign tab_content_index = 0 %}
+    {% for i in (1..5) %}
+      {% case i %}
+        {% when 1 %}{% assign metafield_key = 'first' %}
+        {% when 2 %}{% assign metafield_key = 'second' %}
+        {% when 3 %}{% assign metafield_key = 'third' %}
+        {% when 4 %}{% assign metafield_key = 'fourth' %}
+        {% when 5 %}{% assign metafield_key = 'fifth' %}
+      {% endcase %}
+
+      {%- assign tab_collection = collection.metafields.category_tab[metafield_key].value -%}
+      {%- if tab_collection == blank -%}
+        {%- assign tab_collection = collections[section.settings[metafield_key]] -%}
+      {%- endif -%}
+
+      {% if tab_collection != blank %}
+        {% assign tab_content_index = tab_content_index | plus: 1 %}
+        <div class="tab-content {% if tab_content_index == 1 %}active{% endif %}"
+             id="tab-{{ section.id }}-{{ i }}"
+             data-tab-content="tab-{{ section.id }}-{{ i }}">
+
+          <div class="featured-collection-carousel-slider swiper">
+            <div class="swiper-wrapper">
+              {%- for product in tab_collection.products limit: section.settings.products_to_show -%}
+                <div class="swiper-slide">
+                  {% capture product_card_content %}
+                    {% capture gallery_children %}
+                      <div class="product-badges product-badges--top-left">
+                        {%- if product.compare_at_price > product.price -%}
+                          {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                          <div class="product-badges__badge product-badges__badge--custom">
+                            {{ discount }}% OFF
+                          </div>
+                        {%- endif -%}
+                        {%- if product.available == false -%}
+                          <div class="product-badges__badge product-badges__badge--custom">
+                            SOLD OUT
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {% endcapture %}
+
+                    {% render 'card-gallery', product: product, children: gallery_children %}
+                    <div class="card-info" style="padding: 15px;">
+                      <h3 class="card-title h5" style="margin: 0 0 5px;">
+                        <a href="{{ product.url }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                          {{ product.title }}
+                        </a>
+                      </h3>
+                      <div style="margin-bottom: 15px;">
+                        {% render 'price', product_resource: product, show_compare_price: true %}
+                      </div>
+                      {% render 'product-card-button', product: product %}
+                    </div>
+                  {% endcapture %}
+
+                  {% render 'product-card',
+                    product: product,
+                    children: product_card_content
+                  %}
+                </div>
+              {%- endfor -%}
+            </div>
+
+            {% if section.settings.show_arrows %}
+              <div class="featured-collection-controls">
+                <div class="swiper-button-prev">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="swiper-button-next">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Fallback: Single collection if no tabs -->
+    {% if show_tabs == false and section.settings.collection != blank %}
+      <div class="featured-collection-carousel-slider swiper">
+        <div class="swiper-wrapper">
           {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
             <div class="swiper-slide">
               {% capture product_card_content %}
@@ -72,74 +273,9 @@
               %}
             </div>
           {%- endfor -%}
-        {% elsif section.blocks.size > 0 %}
-          {%- for block in section.blocks limit: section.settings.products_to_show -%}
-            {%- assign product = block.settings.product -%}
-            {% if product != blank %}
-              <div class="swiper-slide" {{ block.shopify_attributes }}>
-                {% capture product_card_content %}
-                  {% capture gallery_children %}
-                    <div class="product-badges product-badges--top-left">
-                      {%- if product.compare_at_price > product.price -%}
-                        {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
-                        <div class="product-badges__badge product-badges__badge--custom">
-                          {{ discount }}% OFF
-                        </div>
-                      {%- endif -%}
-                      {%- if product.available == false -%}
-                        <div class="product-badges__badge product-badges__badge--custom">
-                          SOLD OUT
-                        </div>
-                      {%- endif -%}
-                    </div>
-                  {% endcapture %}
+        </div>
 
-                  {% render 'card-gallery', product: product, children: gallery_children %}
-                  <div class="card-info" style="padding: 15px;">
-                    <h3 class="card-title h5" style="margin: 0 0 5px;">
-                      <a href="{{ product.url }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
-                        {{ product.title }}
-                      </a>
-                    </h3>
-                    <div style="margin-bottom: 15px;">
-                      {% render 'price', product_resource: product, show_compare_price: true %}
-                    </div>
-                    {% render 'product-card-button', product: product %}
-                  </div>
-                {% endcapture %}
-
-                {% render 'product-card',
-                  product: product,
-                  children: product_card_content
-                %}
-              </div>
-            {% endif %}
-          {%- endfor -%}
-        {% else %}
-          {%- for i in (1..4) -%}
-            <div class="swiper-slide">
-              {% capture placeholder_content %}
-                <div class="card-content">
-                  <div class="media media--square media--transparent">
-                    {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
-                  </div>
-                  <div class="card-info" style="padding: 10px 0;">
-                    <h3 class="card-title h5">
-                      Example Product Title
-                    </h3>
-                    <div>
-                      $19.99
-                    </div>
-                  </div>
-                </div>
-              {% endcapture %}
-              {% render 'product-card', product: nil, children: placeholder_content %}
-            </div>
-          {%- endfor -%}
-        {% endif %}
-      </div>
-      
-      {% if section.settings.show_arrows %}
+        {% if section.settings.show_arrows %}
           <div class="featured-collection-controls">
             <div class="swiper-button-prev">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,36 +288,68 @@
               </svg>
             </div>
           </div>
-      {% endif %}
-    </div>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    new Swiper('.featured-collection-carousel-slider', {
-      slidesPerView: 1.2,
-      spaceBetween: 10,
-      loop: true,
-      centeredSlides: false,
-      autoplay: {
-        delay: {{ section.settings.autoplay_speed | times: 1000 }},
-        disableOnInteraction: false,
-      },
-      navigation: {
-        nextEl: '.featured-collection-carousel-section .swiper-button-next',
-        prevEl: '.featured-collection-carousel-section .swiper-button-prev',
-      },
-      breakpoints: {
-        750: {
-          slidesPerView: 2.5,
-           spaceBetween: 20,
+    // Initialize Swipers for all tabs
+    var swiperInstances = {};
+
+    document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider, index) {
+      swiperInstances[index] = new Swiper(slider, {
+        slidesPerView: 1.2,
+        spaceBetween: 10,
+        loop: true,
+        centeredSlides: false,
+        autoplay: {
+          delay: {{ section.settings.autoplay_speed | times: 1000 }},
+          disableOnInteraction: false,
         },
-        990: {
-          slidesPerView: {{ section.settings.desktop_columns }},
-           spaceBetween: 30,
+        navigation: {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev'),
+        },
+        breakpoints: {
+          750: {
+            slidesPerView: 2.5,
+             spaceBetween: 20,
+          },
+          990: {
+            slidesPerView: {{ section.settings.desktop_columns }},
+             spaceBetween: 30,
+          }
         }
-      }
+      });
+    });
+
+    // Tab functionality
+    document.querySelectorAll('.collection-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var tabId = this.getAttribute('data-tab');
+
+        // Remove active class from all tabs
+        document.querySelectorAll('.collection-tab').forEach(function(t) {
+          t.classList.remove('active');
+        });
+
+        // Remove active class from all tab contents
+        document.querySelectorAll('.tab-content').forEach(function(content) {
+          content.classList.remove('active');
+        });
+
+        // Add active class to clicked tab
+        this.classList.add('active');
+
+        // Show corresponding tab content
+        var tabContent = document.querySelector('[data-tab-content="' + tabId + '"]');
+        if (tabContent) {
+          tabContent.classList.add('active');
+        }
+      });
     });
   });
 </script>
@@ -219,9 +387,58 @@
       "label": "Heading size"
     },
     {
+      "type": "header",
+      "content": "Tab Settings (Uses Collection Metafields: category_tab.first, category_tab.second, etc.)"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Tab Active Color",
+      "default": "#a3ca6d"
+    },
+    {
+      "type": "header",
+      "content": "Fallback Collection (Used if no metafield tabs)"
+    },
+    {
       "type": "collection",
       "id": "collection",
       "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Alternative Tab Collections (Fallback if metafields not set)"
+    },
+    {
+      "type": "collection",
+      "id": "first",
+      "label": "First Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "second",
+      "label": "Second Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "third",
+      "label": "Third Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "fourth",
+      "label": "Fourth Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "fifth",
+      "label": "Fifth Tab Collection"
     },
     {
       "type": "range",
