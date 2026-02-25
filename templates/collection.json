@@ -211,6 +211,9 @@
           ]
         }
       },
+      "custom_css": [
+        ".text-block {text-transform: uppercase; }"
+      ],
       "settings": {
         "layout_type": "grid",
         "product_card_size": "large",
