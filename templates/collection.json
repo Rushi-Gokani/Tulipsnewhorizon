@@ -163,7 +163,7 @@
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "custom",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -212,7 +212,7 @@
         }
       },
       "custom_css": [
-        ".text-block {text-transform: uppercase; }"
+        ".text-block {text-transform: uppercase;}"
       ],
       "settings": {
         "layout_type": "grid",
