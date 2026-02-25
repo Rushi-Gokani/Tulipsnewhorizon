@@ -102,6 +102,9 @@
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
+    <!-- DEBUG: source_collection = {{ source_collection.title | default: 'blank' }} -->
+    <!-- DEBUG: section.settings.collection = {{ section.settings.collection | default: 'blank' }} -->
+
     {% assign show_tabs = false %}
     {% for i in (1..5) %}
       {% case i %}
@@ -114,13 +117,24 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
+        {%- comment -%} Try as collection reference first {%- endcomment -%}
         {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- if tab_collection == blank -%}
+          {%- comment -%} Try as single line text (collection handle) {%- endcomment -%}
+          {%- assign collection_handle = source_collection.metafields.custom[setting_key] -%}
+          {%- assign tab_collection = collections[collection_handle] -%}
+        {%- endif -%}
       {%- endif -%}
+
+      <!-- DEBUG: {{ setting_key }} = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG: {{ setting_key }} metafield raw = {{ source_collection.metafields.custom[setting_key] | default: 'blank' }} -->
 
       {% if tab_collection != blank %}
         {% assign show_tabs = true %}
       {% endif %}
     {% endfor %}
+
+    <!-- DEBUG: show_tabs = {{ show_tabs }} -->
 
     {% if show_tabs %}
       <div class="collection-tabs-wrapper">
@@ -167,7 +181,13 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
+        {%- comment -%} Try as collection reference first {%- endcomment -%}
         {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- if tab_collection == blank -%}
+          {%- comment -%} Try as single line text (collection handle) {%- endcomment -%}
+          {%- assign collection_handle = source_collection.metafields.custom[setting_key] -%}
+          {%- assign tab_collection = collections[collection_handle] -%}
+        {%- endif -%}
       {%- endif -%}
 
       {% if tab_collection != blank %}
