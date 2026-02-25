@@ -19,7 +19,7 @@
     background-color: {{ section.settings.bg_color }};
   }
 
-  /* Tabs Styles */
+  /* Tabs Styles - Capsule/Pill Button */
   .collection-tabs-wrapper {
     margin-bottom: 30px;
   }
@@ -35,35 +35,28 @@
   }
 
   .collection-tab {
-    border: none;
-    background: transparent;
-    padding: 12px 24px;
+    border: 2px solid #e0e0e0;
+    background: #ffffff;
+    padding: 12px 28px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: {{ section.settings.tab_text_color }};
-    border-bottom: 2px solid transparent;
+    border-radius: 50px;
     transition: all 0.3s ease;
-    position: relative;
+    white-space: nowrap;
   }
 
   .collection-tab:hover {
+    border-color: {{ section.settings.tab_active_color }};
     color: {{ section.settings.tab_active_color }};
+    background: #f8f8f8;
   }
 
   .collection-tab.active {
-    color: {{ section.settings.tab_active_color }};
-    border-bottom-color: {{ section.settings.tab_active_color }};
-  }
-
-  .collection-tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: {{ section.settings.tab_active_color }};
+    background: {{ section.settings.tab_active_color }};
+    color: #ffffff;
+    border-color: {{ section.settings.tab_active_color }};
   }
 
   .tab-content {
@@ -76,11 +69,11 @@
 
   @media screen and (max-width: 749px) {
     .collection-tabs {
-      gap: 5px;
+      gap: 8px;
     }
 
     .collection-tab {
-      padding: 10px 16px;
+      padding: 10px 20px;
       font-size: 14px;
     }
   }
