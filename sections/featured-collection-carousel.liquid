@@ -365,14 +365,15 @@
     document.querySelectorAll('.collection-tab').forEach(function(tab) {
       tab.addEventListener('click', function() {
         var tabId = this.getAttribute('data-tab');
+        var section = this.closest('.featured-collection-carousel-section');
 
-        // Remove active class from all tabs
-        document.querySelectorAll('.collection-tab').forEach(function(t) {
+        // Remove active class from tabs within the same section only
+        section.querySelectorAll('.collection-tab').forEach(function(t) {
           t.classList.remove('active');
         });
 
-        // Remove active class from all tab contents
-        document.querySelectorAll('.tab-content').forEach(function(content) {
+        // Remove active class from tab contents within the same section only
+        section.querySelectorAll('.tab-content').forEach(function(content) {
           content.classList.remove('active');
         });
 
@@ -380,7 +381,7 @@
         this.classList.add('active');
 
         // Show corresponding tab content
-        var tabContent = document.querySelector('[data-tab-content="' + tabId + '"]');
+        var tabContent = section.querySelector('[data-tab-content="' + tabId + '"]');
         if (tabContent) {
           tabContent.classList.add('active');
         }
