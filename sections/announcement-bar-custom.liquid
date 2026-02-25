@@ -65,9 +65,9 @@
             wrapper.appendChild(cloneList);
             
             // 3. Set Animation Speed
-            // 3. Set Animation Speed
-            // Reduced speed drastically as requested
-            const speed = 8; 
+            // Use slower speed on mobile for better readability
+            const isMobile = window.innerWidth <= 768;
+            const speed = isMobile ? 3 : 8; 
             const duration = contentWidth / speed;
             
             // Apply animation directly
