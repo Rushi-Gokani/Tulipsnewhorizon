@@ -112,6 +112,7 @@
     },
     "subcollections": {
       "type": "custom-liquid",
+      "custom_css": [],
       "settings": {
         "custom_liquid": "{% render 'parent-collection-tabs' %}",
         "color_scheme": "scheme-1",
