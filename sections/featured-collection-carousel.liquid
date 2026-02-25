@@ -97,6 +97,11 @@
     {%- endif -%}
 
     <!-- Tabs Navigation -->
+    {%- assign source_collection = collections[section.settings.collection] -%}
+    {%- if source_collection == blank -%}
+      {%- assign source_collection = collection -%}
+    {%- endif -%}
+
     {% assign show_tabs = false %}
     {% for i in (1..5) %}
       {% case i %}
@@ -108,8 +113,8 @@
       {% endcase %}
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
-      {%- if tab_collection == blank and collection != blank -%}
-        {%- assign tab_collection = collection.metafields.category_tab[setting_key].value -%}
+      {%- if tab_collection == blank and source_collection != blank -%}
+        {%- assign tab_collection = source_collection.metafields.category_tab[setting_key].value -%}
       {%- endif -%}
 
       {% if tab_collection != blank %}
@@ -131,8 +136,8 @@
             {% endcase %}
 
             {%- assign tab_collection = collections[section.settings[setting_key]] -%}
-            {%- if tab_collection == blank and collection != blank -%}
-              {%- assign tab_collection = collection.metafields.category_tab[setting_key].value -%}
+            {%- if tab_collection == blank and source_collection != blank -%}
+              {%- assign tab_collection = source_collection.metafields.category_tab[setting_key].value -%}
             {%- endif -%}
 
             {% if tab_collection != blank %}
@@ -161,8 +166,8 @@
       {% endcase %}
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
-      {%- if tab_collection == blank and collection != blank -%}
-        {%- assign tab_collection = collection.metafields.category_tab[setting_key].value -%}
+      {%- if tab_collection == blank and source_collection != blank -%}
+        {%- assign tab_collection = source_collection.metafields.category_tab[setting_key].value -%}
       {%- endif -%}
 
       {% if tab_collection != blank %}
