@@ -117,17 +117,19 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- comment -%} Try as collection reference first {%- endcomment -%}
-        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
-        {%- if tab_collection == blank -%}
-          {%- comment -%} Try as single line text (collection handle) {%- endcomment -%}
-          {%- assign collection_handle = source_collection.metafields.custom[setting_key] -%}
-          {%- assign tab_collection = collections[collection_handle] -%}
+        {%- comment -%} Try as collection reference (no .value needed) {%- endcomment -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
+        {%- if tab_collection != blank and tab_collection != blank -%}
+          {%- comment -%} It's a collection reference, already a collection object {%- endcomment -%}
+        {%- elsif source_collection.metafields.custom[setting_key].value != blank -%}
+          {%- comment -%} Try with .value for newer metafield syntax {%- endcomment -%}
+          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
         {%- endif -%}
       {%- endif -%}
 
-      <!-- DEBUG: {{ setting_key }} = {{ tab_collection.title | default: 'blank' }} -->
-      <!-- DEBUG: {{ setting_key }} metafield raw = {{ source_collection.metafields.custom[setting_key] | default: 'blank' }} -->
+      <!-- DEBUG: {{ setting_key }} metafield exists = {{ source_collection.metafields.custom[setting_key] | default: 'NO' }} -->
+      <!-- DEBUG: {{ setting_key }} tab_collection.title = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG: {{ setting_key }} tab_collection.type = {{ tab_collection.object_type | default: 'blank' }} -->
 
       {% if tab_collection != blank %}
         {% assign show_tabs = true %}
@@ -181,12 +183,13 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- comment -%} Try as collection reference first {%- endcomment -%}
-        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
-        {%- if tab_collection == blank -%}
-          {%- comment -%} Try as single line text (collection handle) {%- endcomment -%}
-          {%- assign collection_handle = source_collection.metafields.custom[setting_key] -%}
-          {%- assign tab_collection = collections[collection_handle] -%}
+        {%- comment -%} Try as collection reference (no .value needed) {%- endcomment -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
+        {%- if tab_collection != blank and tab_collection != blank -%}
+          {%- comment -%} It's a collection reference, already a collection object {%- endcomment -%}
+        {%- elsif source_collection.metafields.custom[setting_key].value != blank -%}
+          {%- comment -%} Try with .value for newer metafield syntax {%- endcomment -%}
+          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
         {%- endif -%}
       {%- endif -%}
 
