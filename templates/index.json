@@ -117,7 +117,7 @@
       "type": "featured-collection-carousel",
       "name": "Featured Collection Slide",
       "settings": {
-        "title": "Cotton",
+        "title": "Cotton Collection",
         "heading_size": "h1",
         "collection": "cotton",
         "products_to_show": 8,
