@@ -100,16 +100,19 @@
     {% assign show_tabs = false %}
     {% for i in (1..5) %}
       {% case i %}
-        {% when 1 %}{% assign metafield_key = 'first' %}
-        {% when 2 %}{% assign metafield_key = 'second' %}
-        {% when 3 %}{% assign metafield_key = 'third' %}
-        {% when 4 %}{% assign metafield_key = 'fourth' %}
-        {% when 5 %}{% assign metafield_key = 'fifth' %}
+        {% when 1 %}{% assign setting_key = 'first' %}
+        {% when 2 %}{% assign setting_key = 'second' %}
+        {% when 3 %}{% assign setting_key = 'third' %}
+        {% when 4 %}{% assign setting_key = 'fourth' %}
+        {% when 5 %}{% assign setting_key = 'fifth' %}
       {% endcase %}
 
-      {% if collection.metafields.category_tab[metafield_key] != blank %}
-        {% assign show_tabs = true %}
-      {% elsif section.settings[metafield_key] != blank %}
+      {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+      {%- if tab_collection == blank and collection != blank -%}
+        {%- assign tab_collection = collection.metafields.category_tab[setting_key].value -%}
+      {%- endif -%}
+
+      {% if tab_collection != blank %}
         {% assign show_tabs = true %}
       {% endif %}
     {% endfor %}
@@ -120,16 +123,16 @@
           {% assign tab_index = 0 %}
           {% for i in (1..5) %}
             {% case i %}
-              {% when 1 %}{% assign metafield_key = 'first' %}
-              {% when 2 %}{% assign metafield_key = 'second' %}
-              {% when 3 %}{% assign metafield_key = 'third' %}
-              {% when 4 %}{% assign metafield_key = 'fourth' %}
-              {% when 5 %}{% assign metafield_key = 'fifth' %}
+              {% when 1 %}{% assign setting_key = 'first' %}
+              {% when 2 %}{% assign setting_key = 'second' %}
+              {% when 3 %}{% assign setting_key = 'third' %}
+              {% when 4 %}{% assign setting_key = 'fourth' %}
+              {% when 5 %}{% assign setting_key = 'fifth' %}
             {% endcase %}
 
-            {%- assign tab_collection = collection.metafields.category_tab[metafield_key].value -%}
-            {%- if tab_collection == blank -%}
-              {%- assign tab_collection = collections[section.settings[metafield_key]] -%}
+            {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+            {%- if tab_collection == blank and collection != blank -%}
+              {%- assign tab_collection = collection.metafields.category_tab[setting_key].value -%}
             {%- endif -%}
 
             {% if tab_collection != blank %}
@@ -150,16 +153,16 @@
     {% assign tab_content_index = 0 %}
     {% for i in (1..5) %}
       {% case i %}
-        {% when 1 %}{% assign metafield_key = 'first' %}
-        {% when 2 %}{% assign metafield_key = 'second' %}
-        {% when 3 %}{% assign metafield_key = 'third' %}
-        {% when 4 %}{% assign metafield_key = 'fourth' %}
-        {% when 5 %}{% assign metafield_key = 'fifth' %}
+        {% when 1 %}{% assign setting_key = 'first' %}
+        {% when 2 %}{% assign setting_key = 'second' %}
+        {% when 3 %}{% assign setting_key = 'third' %}
+        {% when 4 %}{% assign setting_key = 'fourth' %}
+        {% when 5 %}{% assign setting_key = 'fifth' %}
       {% endcase %}
 
-      {%- assign tab_collection = collection.metafields.category_tab[metafield_key].value -%}
-      {%- if tab_collection == blank -%}
-        {%- assign tab_collection = collections[section.settings[metafield_key]] -%}
+      {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+      {%- if tab_collection == blank and collection != blank -%}
+        {%- assign tab_collection = collection.metafields.category_tab[setting_key].value -%}
       {%- endif -%}
 
       {% if tab_collection != blank %}
@@ -388,32 +391,7 @@
     },
     {
       "type": "header",
-      "content": "Tab Settings (Uses Collection Metafields: category_tab.first, category_tab.second, etc.)"
-    },
-    {
-      "type": "color",
-      "id": "tab_text_color",
-      "label": "Tab Text Color",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "tab_active_color",
-      "label": "Tab Active Color",
-      "default": "#a3ca6d"
-    },
-    {
-      "type": "header",
-      "content": "Fallback Collection (Used if no metafield tabs)"
-    },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
-    },
-    {
-      "type": "header",
-      "content": "Alternative Tab Collections (Fallback if metafields not set)"
+      "content": "Tab Collections"
     },
     {
       "type": "collection",
@@ -441,13 +419,38 @@
       "label": "Fifth Tab Collection"
     },
     {
+      "type": "header",
+      "content": "Tab Styling"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Tab Active Color",
+      "default": "#a3ca6d"
+    },
+    {
+      "type": "header",
+      "content": "Fallback Single Collection (Only used if no tabs are configured)"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
       "type": "range",
       "id": "products_to_show",
       "min": 2,
       "max": 20,
       "step": 1,
       "default": 8,
-      "label": "Maximum products to show"
+      "label": "Maximum products to show per tab"
     },
     {
       "type": "range",
