@@ -114,7 +114,7 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- assign tab_collection = source_collection.metafields.category_tab[setting_key].value -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
       {%- endif -%}
 
       {% if tab_collection != blank %}
@@ -137,7 +137,7 @@
 
             {%- assign tab_collection = collections[section.settings[setting_key]] -%}
             {%- if tab_collection == blank and source_collection != blank -%}
-              {%- assign tab_collection = source_collection.metafields.category_tab[setting_key].value -%}
+              {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
             {%- endif -%}
 
             {% if tab_collection != blank %}
@@ -167,7 +167,7 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- assign tab_collection = source_collection.metafields.category_tab[setting_key].value -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
       {%- endif -%}
 
       {% if tab_collection != blank %}
