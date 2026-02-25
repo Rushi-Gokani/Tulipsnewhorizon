@@ -230,6 +230,7 @@
     },
     "featured_collection_carousel_tVtqtU": {
       "type": "featured-collection-carousel",
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Makeup & Nail Paint Removal",
