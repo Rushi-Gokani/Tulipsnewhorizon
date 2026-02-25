@@ -110,12 +110,11 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- comment -%} Try as collection reference (no .value needed) {%- endcomment -%}
+        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
         {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
-        {%- if tab_collection != blank and tab_collection != blank -%}
-          {%- comment -%} It's a collection reference, already a collection object {%- endcomment -%}
-        {%- elsif source_collection.metafields.custom[setting_key].value != blank -%}
-          {%- comment -%} Try with .value for newer metafield syntax {%- endcomment -%}
+        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
+        {%- if tab_collection.title == blank -%}
+          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
           {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
         {%- endif -%}
       {%- endif -%}
@@ -176,12 +175,11 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- comment -%} Try as collection reference (no .value needed) {%- endcomment -%}
+        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
         {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
-        {%- if tab_collection != blank and tab_collection != blank -%}
-          {%- comment -%} It's a collection reference, already a collection object {%- endcomment -%}
-        {%- elsif source_collection.metafields.custom[setting_key].value != blank -%}
-          {%- comment -%} Try with .value for newer metafield syntax {%- endcomment -%}
+        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
+        {%- if tab_collection.title == blank -%}
+          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
           {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
         {%- endif -%}
       {%- endif -%}
