@@ -298,7 +298,7 @@
       "name": "Featured Blog Cards",
       "settings": {
         "blog": "news",
-        "heading": "Blogs",
+        "heading": "BLOGS",
         "show_navigation": true,
         "show_view_all": true,
         "view_all_text": "VISIT BLOG",
