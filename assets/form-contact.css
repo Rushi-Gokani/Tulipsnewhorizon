@@ -22,7 +22,7 @@
 /* Container */
 .form-container {
   background-color: #f8f9fa;
-  max-width: 500px;
+  max-width: 900px;
   margin: 40px auto;
   padding: 40px 30px;
   border-radius: 8px;
@@ -278,6 +278,15 @@
   .form-contact .field__textarea,
   #ContactForm-subject {
     font-size: 16px;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 751px) and (max-width: 1024px) {
+  .form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 35px 25px;
   }
 }
 
