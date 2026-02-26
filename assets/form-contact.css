@@ -63,11 +63,22 @@
   gap: 20px !important;
 }
 
-/* Force all columns to full width */
+/* Force all columns to full width and visible */
 .form-contact .col-span-6,
 .form-contact .col-span-3 {
   grid-column: 1 / -1 !important;
   width: 100% !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure all fields are visible */
+.form-contact .field,
+.form-contact [class*="col-span"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Field Container */

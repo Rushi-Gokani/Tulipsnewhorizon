@@ -181,6 +181,78 @@
           {% unless field_type_list contains 'email' %}
             <div class="col-span-6">
               {% liquid
+                assign label = 'EMAIL'
+                assign placeholder = 'Enter your email'
+                assign id = 'ContactForm-email'
+                assign name = 'contact[email]'
+                capture attr
+                  echo 'autocomplete="email"'
+                  echo 'spellcheck="false"'
+                  echo 'autocapitalize="off"'
+                endcapture
+                if form.email
+                  assign value = form.email
+                elsif customer
+                  assign value = customer.email
+                else
+                  assign value = ''
+                endif
+                if form.errors contains 'email'
+                  assign error = form.errors.translated_fields.email | capitalize | append: ' ' | append: form.errors.messages.email
+                  assign has_error = true
+                endif
+                render 'text-input', type: 'email', id: id, label: label, name: name, placeholder: placeholder, attr: attr, value: value, has_error: has_error, message: error, required: true
+              %}
+
+              {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
+              {% unless field_type_list contains 'subject' %}
+                <div class="col-span-6">
+                  {% liquid
+                    assign label = 'SELECT THE SUBJECT'
+                    assign id = 'ContactForm-subject'
+                    assign name = 'contact[subject]'
+                    assign options = 'General Inquiry,Order Issue,Product Information,Technical Support,Other' | split: ','
+                    assign required = 'required'
+                    if form.subject
+                      assign value = form.subject
+                    else
+                      assign value = ''
+                    endif
+                    if form.errors contains 'subject'
+                      assign error = form.errors.translated_fields.subject | capitalize | append: ' ' | append: form.errors.messages.subject
+                      assign has_error = true
+                    endif
+                  %}
+
+                  <!-- Dropdown Field -->
+                  <label class="field__label" for="{{ id }}">{{ label }}</label>
+                  <select name="{{ name }}" id="{{ id }}" class="form-control" {{ required }}>
+                    <option class="field__options" value="" disabled selected>Select an option</option>
+                    {% for option in options %}
+                      <option
+                        value="{{ option }}"
+                        {% if option == value %}
+                          selected
+                        {% endif %}
+                      >
+                        {{ option }}
+                      </option>
+                    {% endfor %}
+                  </select>
+
+                  <!-- Error Message Handling -->
+                  {% if has_error %}
+                    <span class="error-message">{{ message }}</span>
+                  {% endif %}
+                </div>
+              {% endunless %}
+            </div>
+          {% endunless %}
+
+          {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
+          {% unless field_type_list contains 'email' %}
+            <div class="col-span-6">
+              {% liquid
                 assign label = 'theme.form.email' | t
                 assign placeholder = 'theme.form.email_placeholder' | t
                 assign id = 'ContactForm-' | append: 'email'
