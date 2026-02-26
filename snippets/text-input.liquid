@@ -1,0 +1,39 @@
+{%- liquid
+  assign field_id = id | default: 'field-' | append: unique
+  assign field_name = name | default: field_id
+  assign field_label = label | default: false
+  assign field_placeholder = placeholder | default: false
+  assign field_required = required | default: false
+  assign field_value = value | default: false
+  assign field_type = type | default: 'text'
+  assign field_attr = attr | default: false
+  assign field_error = message | default: false
+  assign field_has_error = has_error | default: false
+-%}
+
+<div class="field{% if field_has_error %} field--error{% endif %}">
+  {%- if field_label -%}
+    <label class="field__label" for="{{ field_id }}">
+      {{ field_label }}
+      {%- if field_required -%}<span class="field__label__required">*</span>{%- endif -%}
+    </label>
+  {%- endif -%}
+
+  <input
+    type="{{ field_type }}"
+    id="{{ field_id }}"
+    name="{{ field_name }}"
+    {% if field_placeholder %}placeholder="{{ field_placeholder }}"{% endif %}
+    {% if field_value %}value="{{ field_value }}"{% endif %}
+    {% if field_required %}required{% endif %}
+    {% if field_has_error %}aria-invalid="true" aria-describedby="{{ field_id }}-error"{% endif %}
+    {{ field_attr }}
+    class="field__input"
+  >
+
+  {%- if field_has_error and field_error -%}
+    <span id="{{ field_id }}-error" class="field__error">
+      {{ field_error }}
+    </span>
+  {%- endif -%}
+</div>
