@@ -35,7 +35,11 @@
         <div class="custom-footer__brand">
           {% if section.settings.show_logo %}
             <div class="custom-footer__logo">
-              {% if settings.logo %}
+              {% if section.settings.footer_logo %}
+                <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+                  {{ section.settings.footer_logo | image_url: width: 400 | image_tag: width: section.settings.footer_logo.width, alt: shop.name, class: 'custom-footer__logo-image' }}
+                </a>
+              {% elsif settings.logo %}
                 <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
                   {{ settings.logo | image_url: width: 400 | image_tag: width: settings.logo.width, alt: shop.name, class: 'custom-footer__logo-image' }}
                 </a>
@@ -43,6 +47,46 @@
                 <a href="{{ routes.root_url }}" class="custom-footer__logo-text h2">
                   {{ shop.name }}
                 </a>
+              {% endif %}
+
+              {% comment %} Social Media Icons inside logo area {% endcomment %}
+              {% assign has_social = false %}
+              {% if section.settings.facebook_url != blank or section.settings.youtube_url != blank or section.settings.instagram_url != blank or section.settings.twitter_url != blank or section.settings.linkedin_url != blank or section.settings.pinterest_url != blank %}
+                {% assign has_social = true %}
+              {% endif %}
+              {% if has_social %}
+                <div class="custom-footer__social-custom">
+                  {% if section.settings.facebook_url != blank and section.settings.facebook_logo != blank %}
+                    <a href="{{ section.settings.facebook_url }}" class="custom-footer__social-custom-link" aria-label="Facebook" target="_blank" rel="noopener">
+                      {{ section.settings.facebook_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'Facebook', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.instagram_url != blank and section.settings.instagram_logo != blank %}
+                    <a href="{{ section.settings.instagram_url }}" class="custom-footer__social-custom-link" aria-label="Instagram" target="_blank" rel="noopener">
+                      {{ section.settings.instagram_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'Instagram', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.youtube_url != blank and section.settings.youtube_logo != blank %}
+                    <a href="{{ section.settings.youtube_url }}" class="custom-footer__social-custom-link" aria-label="YouTube" target="_blank" rel="noopener">
+                      {{ section.settings.youtube_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'YouTube', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.twitter_url != blank and section.settings.twitter_logo != blank %}
+                    <a href="{{ section.settings.twitter_url }}" class="custom-footer__social-custom-link" aria-label="Twitter" target="_blank" rel="noopener">
+                      {{ section.settings.twitter_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'Twitter', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.linkedin_url != blank and section.settings.linkedin_logo != blank %}
+                    <a href="{{ section.settings.linkedin_url }}" class="custom-footer__social-custom-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                      {{ section.settings.linkedin_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'LinkedIn', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.pinterest_url != blank and section.settings.pinterest_logo != blank %}
+                    <a href="{{ section.settings.pinterest_url }}" class="custom-footer__social-custom-link" aria-label="Pinterest" target="_blank" rel="noopener">
+                      {{ section.settings.pinterest_logo | image_url: width: 68 | image_tag: width: 34, height: 34, alt: 'Pinterest', class: 'custom-footer__social-custom-img' }}
+                    </a>
+                  {% endif %}
+                </div>
               {% endif %}
             </div>
           {% endif %}
@@ -213,7 +257,11 @@
   }
 
   .custom-footer__logo {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .custom-footer__logo-image {
@@ -235,6 +283,41 @@
     display: flex;
     gap: 0.75rem;
     align-items: center;
+  }
+
+  .custom-footer__social-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .custom-footer__social-custom-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.9;
+    line-height: 0;
+  }
+
+  .custom-footer__social-custom-link:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  .custom-footer__social-custom-link svg {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  .custom-footer__social-custom-img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    border-radius: 4px;
   }
 
   .custom-footer__social-link {
@@ -409,6 +492,15 @@
       justify-content: center;
     }
 
+    .custom-footer__social-custom {
+      justify-content: center;
+    }
+
+    .custom-footer__social-custom-link svg {
+      width: 28px;
+      height: 28px;
+    }
+
     /* Contact - full width on mobile */
     .custom-footer__contact {
       padding: 1rem 0;
@@ -529,6 +621,80 @@
       "id": "show_social_icons",
       "label": "Show social icons",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Footer Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Footer logo",
+      "info": "Upload a custom logo for the footer. Falls back to theme logo if empty."
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_logo",
+      "label": "Facebook logo"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook link"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_logo",
+      "label": "Instagram logo"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram link"
+    },
+    {
+      "type": "image_picker",
+      "id": "youtube_logo",
+      "label": "YouTube logo"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube link"
+    },
+    {
+      "type": "image_picker",
+      "id": "twitter_logo",
+      "label": "Twitter / X logo"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "Twitter / X link"
+    },
+    {
+      "type": "image_picker",
+      "id": "linkedin_logo",
+      "label": "LinkedIn logo"
+    },
+    {
+      "type": "url",
+      "id": "linkedin_url",
+      "label": "LinkedIn link"
+    },
+    {
+      "type": "image_picker",
+      "id": "pinterest_logo",
+      "label": "Pinterest logo"
+    },
+    {
+      "type": "url",
+      "id": "pinterest_url",
+      "label": "Pinterest link"
     },
     {
       "type": "header",

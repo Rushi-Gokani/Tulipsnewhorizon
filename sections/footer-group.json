@@ -11,13 +11,24 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "custom_liquid_73ppkT": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"height:10px;\"></div>",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "wave_transition_KLdbUU": {
       "type": "wave-transition",
       "name": "Wave Transition",
       "settings": {
         "wave_image": "shopify://shop_images/wave_800x800_15481d6c-1a98-4358-a159-3ce32b60fda6.svg",
         "wave_link": "",
-        "padding_top": 0,
+        "padding_top": 50,
         "padding_bottom": 0
       }
     },
@@ -29,6 +40,15 @@
         "text_color": "#ffffff",
         "show_logo": true,
         "show_social_icons": true,
+        "facebook_logo": "shopify://shop_images/icons8-facebook-100.png",
+        "facebook_url": "https://www.facebook.com/tulipshygiene",
+        "instagram_logo": "shopify://shop_images/icons8-instagram-100_1.png",
+        "instagram_url": "https://www.instagram.com/tulipshygiene/",
+        "youtube_logo": "shopify://shop_images/icons8-youtube-100.png",
+        "youtube_url": "https://www.youtube.com/@tulipshygiene2877",
+        "twitter_url": "",
+        "linkedin_url": "",
+        "pinterest_url": "",
         "contact_heading": "Customer Care Details",
         "contact_label": "Customer Care:",
         "contact_email": "wecare@tulipshygiene.com",
@@ -242,6 +262,7 @@
     }
   },
   "order": [
+    "custom_liquid_73ppkT",
     "wave_transition_KLdbUU",
     "custom_footer_WeUwWP",
     "footer_m9NzUG",

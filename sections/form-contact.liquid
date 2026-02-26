@@ -494,6 +494,36 @@
         }
       ]
     }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.form-contact.name",
+      "blocks": [
+        {
+          "type": "field",
+          "settings": {
+            "heading": "Name",
+            "type": "text",
+            "binding": "name"
+          }
+        },
+        {
+          "type": "field",
+          "settings": {
+            "heading": "Email",
+            "type": "email"
+          }
+        },
+        {
+          "type": "field",
+          "settings": {
+            "heading": "Phone",
+            "type": "tel",
+            "binding": "phone"
+          }
+        }
+      ]
+    }
   ]
 }
 {% endschema %}

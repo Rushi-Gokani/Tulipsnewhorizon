@@ -255,6 +255,7 @@
 
 <div class="cart__ctas">
   <button
+    style="display:none!important"
     type="submit"
     id="checkout"
     class="cart__checkout-button button"
@@ -268,6 +269,7 @@
       {{ 'content.checkout' | t }}
     </span>
   </button>
+  {% render 'gokwik-checkout' %}
 
   {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
     <div

@@ -68,9 +68,21 @@
 
     .pc-tabs__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: var(--padding-lg, 1.5rem);
       margin-bottom: 5%;
+    }
+
+    @media screen and (min-width: 1200px) {
+      .pc-tabs__grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+    }
+
+    @media screen and (max-width: 1199px) {
+      .pc-tabs__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media screen and (max-width: 749px) {

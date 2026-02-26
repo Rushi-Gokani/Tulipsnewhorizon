@@ -80,6 +80,7 @@
 
 /* Static Link Styles */
 .announcement-bar__static-link {
+  display: none !important;
   flex: 0 0 auto;
   /* Do not grow or shrink */
   display: flex;
