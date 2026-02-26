@@ -148,57 +148,6 @@
     "form_contact_TpgeEg": {
       "type": "form-contact",
       "blocks": {
-        "field_xCKgjp": {
-          "type": "field",
-          "settings": {
-            "column_factor": "6",
-            "heading": "Full Name",
-            "type": "text",
-            "required": false,
-            "checked": false,
-            "placeholder": "Enter Full Name",
-            "binding": "name",
-            "label_description": "",
-            "option_1": "",
-            "option_2": "",
-            "option_3": "",
-            "option_4": ""
-          }
-        },
-        "field_xXbPPc": {
-          "type": "field",
-          "settings": {
-            "column_factor": "6",
-            "heading": "Email",
-            "type": "email",
-            "required": false,
-            "checked": false,
-            "placeholder": "Enter your email",
-            "binding": "custom",
-            "label_description": "",
-            "option_1": "",
-            "option_2": "",
-            "option_3": "",
-            "option_4": ""
-          }
-        },
-        "field_E9mYin": {
-          "type": "field",
-          "settings": {
-            "column_factor": "6",
-            "heading": "Select the Subject",
-            "type": "radio",
-            "required": false,
-            "checked": false,
-            "placeholder": "Select",
-            "binding": "custom",
-            "label_description": "Select Option",
-            "option_1": "General Inquiry",
-            "option_2": "Order Issue",
-            "option_3": "Product Information",
-            "option_4": "Technical Support"
-          }
-        },
         "field_LTMxPk": {
           "type": "field",
           "disabled": true,
@@ -219,15 +168,16 @@
         }
       },
       "block_order": [
-        "field_xCKgjp",
-        "field_xXbPPc",
-        "field_E9mYin",
         "field_LTMxPk"
       ],
       "name": "t:sections.form-contact.name",
       "settings": {
         "section_width": "max-w-page",
         "color_scheme": "",
+        "subject_label": "SELECT THE SUBJECT",
+        "subject_placeholder": "Select an option",
+        "subject_options": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
+        "subject_required": true,
         "message_label": "MESSAGE",
         "message_placeholder": "Your message",
         "spacing_top": "2",
