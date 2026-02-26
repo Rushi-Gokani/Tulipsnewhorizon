@@ -151,5 +151,20 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    <!-- Gokwik AddToCart Manual Trigger -->
+    <script>
+      document.addEventListener("click", function(e) {
+        var gokwikBtn = e.target.closest('.gokwik-buy-now, .gokwik-checkout, [data-gokwik]');
+        if (gokwikBtn) {
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'AddToCart', {
+              value: {{ product.price | default: 0 | money_without_currency | remove: ',' }},
+              currency: 'INR'
+            });
+          }
+        }
+      });
+    </script>
   </body>
 </html>
