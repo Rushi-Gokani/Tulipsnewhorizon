@@ -4,6 +4,15 @@
   padding: 40px 20px;
 }
 
+/* Inner Container - Override theme width settings */
+.form-contact > .container,
+.form-contact .container {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100% !important;
+}
+
 /* Container */
 .form-container {
   background-color: #f8f9fa;
