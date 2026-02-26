@@ -157,6 +157,15 @@
   font-family: inherit;
 }
 
+/* Ensure message field is always visible */
+#ContactForm-body,
+.form-contact textarea,
+.form-contact .field textarea {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 /* Subject Dropdown */
 #ContactForm-subject,
 .form-control {

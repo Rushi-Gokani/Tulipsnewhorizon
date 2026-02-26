@@ -203,49 +203,6 @@
                 endif
                 render 'text-input', type: 'email', id: id, label: label, name: name, placeholder: placeholder, attr: attr, value: value, has_error: has_error, message: error, required: true
               %}
-
-              {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
-              {% unless field_type_list contains 'subject' %}
-                <div class="col-span-6">
-                  {% liquid
-                    assign label = 'SELECT THE SUBJECT'
-                    assign id = 'ContactForm-subject'
-                    assign name = 'contact[subject]'
-                    assign options = 'General Inquiry,Order Issue,Product Information,Technical Support,Other' | split: ','
-                    assign required = 'required'
-                    if form.subject
-                      assign value = form.subject
-                    else
-                      assign value = ''
-                    endif
-                    if form.errors contains 'subject'
-                      assign error = form.errors.translated_fields.subject | capitalize | append: ' ' | append: form.errors.messages.subject
-                      assign has_error = true
-                    endif
-                  %}
-
-                  <!-- Dropdown Field -->
-                  <label class="field__label" for="{{ id }}">{{ label }}</label>
-                  <select name="{{ name }}" id="{{ id }}" class="form-control" {{ required }}>
-                    <option class="field__options" value="" disabled selected>Select an option</option>
-                    {% for option in options %}
-                      <option
-                        value="{{ option }}"
-                        {% if option == value %}
-                          selected
-                        {% endif %}
-                      >
-                        {{ option }}
-                      </option>
-                    {% endfor %}
-                  </select>
-
-                  <!-- Error Message Handling -->
-                  {% if has_error %}
-                    <span class="error-message">{{ message }}</span>
-                  {% endif %}
-                </div>
-              {% endunless %}
             </div>
           {% endunless %}
 
@@ -292,7 +249,7 @@
             </div>
           {% endunless %}
 
-          <div class="col-span-6">
+          <div class="col-span-6" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
             {%- liquid
               assign label = 'MESSAGE'
               assign placeholder = 'Your message'
