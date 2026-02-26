@@ -251,8 +251,8 @@
 
           <div class="col-span-6" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
             {%- liquid
-              assign label = 'MESSAGE'
-              assign placeholder = 'Your message'
+              assign label = section.settings.message_label | default: 'MESSAGE'
+              assign placeholder = section.settings.message_placeholder | default: 'Your message'
               render 'textarea-input', id: 'ContactForm-body', label: label, name: 'contact[message]', placeholder: placeholder, body: form.body
             -%}
           </div>
@@ -301,6 +301,22 @@
       "id": "color_scheme",
       "default": "scheme-1",
       "label": "t:sections.global.color_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "Message Field Settings"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message Field Label",
+      "default": "MESSAGE"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Field Placeholder",
+      "default": "Your message"
     },
     {
       "type": "select",
