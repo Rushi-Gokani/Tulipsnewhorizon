@@ -10,6 +10,12 @@
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="form-container">
     <div class="form-contact">
+      <!-- Form Header -->
+      <div class="form-header">
+        <h2>Contact</h2>
+        <p>We'd love to hear from you. Send us a message.</p>
+      </div>
+
       <div class="container {{ section.settings.section_width }}">
         {%- form 'contact', id: 'ContactForm', class: 'contact-form grid' -%}
           {%- if form.posted_successfully? -%}
@@ -502,24 +508,18 @@
         {
           "type": "field",
           "settings": {
-            "heading": "Name",
+            "heading": "Full Name",
             "type": "text",
-            "binding": "name"
+            "placeholder": "Enter your full name"
           }
         },
         {
           "type": "field",
           "settings": {
             "heading": "Email",
-            "type": "email"
-          }
-        },
-        {
-          "type": "field",
-          "settings": {
-            "heading": "Phone",
-            "type": "tel",
-            "binding": "phone"
+            "type": "email",
+            "placeholder": "Enter your email",
+            "required": true
           }
         }
       ]
