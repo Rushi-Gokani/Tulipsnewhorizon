@@ -1,15 +1,16 @@
+/* Main Section */
 .form-contact {
-  color: rgb(var(--color-foreground));
-  padding: 40px 0;
+  color: #2d3748;
+  padding: 40px 20px;
 }
 
+/* Container */
 .form-container {
   background-color: #f8f9fa;
-  max-width: 650px;
-  margin: 40px auto;
+  max-width: 600px;
+  margin: 0 auto;
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Form Header */
@@ -19,12 +20,12 @@
 }
 
 .form-header h2 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: #2d3748;
   margin: 0 0 8px 0;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .form-header p {
@@ -33,105 +34,94 @@
   margin: 0;
 }
 
-/* Grid Layout - Single Column */
+/* Grid - Override to single column */
 .form-contact .grid {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
 }
 
-/* Form Container */
+/* Form Container - Override grid layout */
 .form-contact .contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
 }
 
-/* Column span override for full width */
+/* Force all columns to full width */
 .form-contact .col-span-6,
 .form-contact .col-span-3 {
-  grid-column: 1 / -1;
-  width: 100%;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
 }
 
-/* Field Styling */
+/* Field Container */
 .form-contact .field {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Labels - Uppercase Bold */
 .form-contact .field__label {
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 700 !important;
   color: #2d3748;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   letter-spacing: 0.5px;
   margin: 0;
 }
 
+/* Input Fields - White with gray border */
 .form-contact .field__input,
 .form-contact .field__textarea,
 #ContactForm-subject {
   width: 100%;
-  background-color: #ffffff;
+  background-color: #ffffff !important;
   color: #2d3748;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 12px 16px;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 12px 16px !important;
   font-size: 15px;
   line-height: 1.5;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
+  height: 48px !important;
 }
 
 .form-contact .field__input::placeholder,
 .form-contact .field__textarea::placeholder,
 #ContactForm-subject option {
-  color: #a0aec0;
+  color: #a0aec0 !important;
 }
 
+/* Focus State - Orange Border */
 .form-contact .field__input:focus,
 .form-contact .field__textarea:focus,
 #ContactForm-subject:focus {
-  border-color: #f97316;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1) !important;
 }
 
+/* Textarea */
 .form-contact .field__textarea {
-  min-height: 120px;
+  min-height: 120px !important;
   resize: vertical;
   font-family: inherit;
 }
 
-/* Subject Dropdown Override */
+/* Subject Dropdown */
 #ContactForm-subject {
-  width: 100%;
-  outline: none;
-  font: inherit;
-  font-size: 15px;
-  line-height: 1.5;
-  background-color: #ffffff;
-  color: #2d3748;
-  height: 48px;
-  padding: 12px 16px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
   -webkit-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23718096' d='M6 9L1 4l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
-  padding-right: 40px;
+  padding-right: 40px !important;
   cursor: pointer;
 }
 
-#ContactForm-subject:focus {
-  border-color: #f97316;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-}
-
-/* Checkbox/Radio Options */
+/* Checkbox/Radio */
 .form-contact .field__options {
   display: flex;
   flex-wrap: wrap;
@@ -158,17 +148,17 @@
   cursor: pointer;
 }
 
-/* Required Asterisk */
+/* Required Asterisk - Red */
 .form-contact label:has(+ input:required)::after,
 .form-contact .field__label:has(+ .field__options input[type="checkbox"]:required)::after,
 .form-contact .field__label:has(+ .field__options input[type="radio"]:required)::after {
   content: ' *';
-  color: #e53e3e;
-  font-size: 13px;
+  color: #e53e3e !important;
+  font-size: 13px !important;
   font-weight: 700;
 }
 
-/* Submit Button */
+/* Submit Button - Orange Pill */
 .form-contact .form-row--actions {
   margin-top: 8px;
 }
@@ -176,21 +166,21 @@
 .form-contact .form-row--actions button {
   width: 100%;
   max-width: 200px;
-  padding: 14px 32px;
-  background-color: #f97316;
-  color: #ffffff;
-  border: none;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
+  padding: 14px 32px !important;
+  background-color: #f97316 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 30px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
   letter-spacing: 1px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .form-contact .form-row--actions button:hover {
-  background-color: #ea580c;
+  background-color: #ea580c !important;
   transform: translateY(-1px);
 }
 
@@ -227,15 +217,20 @@
 .form-contact .field--error .field__input,
 .form-contact .field--error .field__textarea,
 .form-contact .field--error #ContactForm-subject {
-  border-color: #e53e3e;
+  border-color: #e53e3e !important;
 }
 
-/* Hide native checkbox container */
+/* Hide native checkbox wrapper */
 .form-contact .checkbox {
+  display: none !important;
+}
+
+/* Hide old success message span if exists */
+.form-contact .form-contact__message--success span {
   display: none;
 }
 
-/* Responsive */
+/* Mobile Responsive */
 @media screen and (max-width: 750px) {
   .form-contact {
     padding: 20px 0;
@@ -244,7 +239,7 @@
   .form-container {
     max-width: 100%;
     margin: 20px;
-    padding: 24px;
+    padding: 24px 20px;
     border-radius: 6px;
   }
 
@@ -262,7 +257,7 @@
 @media screen and (max-width: 480px) {
   .form-container {
     margin: 0;
-    padding: 20px;
+    padding: 20px 16px;
     border-radius: 0;
   }
 }
