@@ -72,20 +72,31 @@
 
 /* Field Container */
 .form-contact .field {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
 }
 
 /* Labels - UPPERCASE Bold */
-.form-contact .field__label {
+.form-contact .field__label,
+.form-contact label.field__label {
   display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
   font-size: 14px !important;
   font-weight: 700 !important;
   color: #2d3748 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px !important;
   margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure labels appear before inputs */
+.form-contact .field > label:first-child,
+.form-contact .field > .field__label:first-child {
+  order: -1 !important;
 }
 
 /* Ensure required asterisk is red */

@@ -5,6 +5,28 @@
     padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }});
     padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
   }
+
+  /* Force labels to be visible and above inputs */
+  #shopify-section-{{ section.id }} .field__label,
+  #shopify-section-{{ section.id }} label.field__label,
+  #shopify-section-{{ section.id }} .field > label {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #2d3748 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .field__label__required {
+    color: #e53e3e !important;
+    margin-left: 2px;
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
