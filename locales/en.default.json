@@ -295,6 +295,12 @@
     "recipient_form_error": "There was an error with the form submission",
     "product_custom_property_character_count": "{{ used_chars }}/{{ max_chars }} characters used"
   },
+  "contact": {
+    "success_message": "Thanks for contacting us. We'll get back to you as soon as possible.",
+    "message": "Message",
+    "message_placeholder": "Tell us more about your inquiry",
+    "submit": "Send message"
+  },
   "collections": {
     "general": {
       "no_products": "No products available."
