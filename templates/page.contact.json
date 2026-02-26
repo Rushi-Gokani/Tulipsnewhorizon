@@ -115,7 +115,6 @@
       "block_order": [
         "contact_form_UwiCkQ"
       ],
-      "disabled": true,
       "name": "t:names.contact_form",
       "settings": {
         "content_direction": "column",
@@ -170,6 +169,7 @@
       "block_order": [
         "field_LTMxPk"
       ],
+      "disabled": true,
       "name": "t:sections.form-contact.name",
       "settings": {
         "section_width": "max-w-page",
