@@ -202,35 +202,6 @@
             </div>
           {% endfor %}
 
-          {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
-          {% unless field_type_list contains 'email' %}
-            <div class="col-span-6">
-              {% liquid
-                assign label = 'EMAIL'
-                assign placeholder = 'Enter your email'
-                assign id = 'ContactForm-email'
-                assign name = 'contact[email]'
-                capture attr
-                  echo 'autocomplete="email"'
-                  echo 'spellcheck="false"'
-                  echo 'autocapitalize="off"'
-                endcapture
-                if form.email
-                  assign value = form.email
-                elsif customer
-                  assign value = customer.email
-                else
-                  assign value = ''
-                endif
-                if form.errors contains 'email'
-                  assign error = form.errors.translated_fields.email | capitalize | append: ' ' | append: form.errors.messages.email
-                  assign has_error = true
-                endif
-                render 'text-input', type: 'email', id: id, label: label, name: name, placeholder: placeholder, attr: attr, value: value, has_error: has_error, message: error, required: true
-              %}
-            </div>
-          {% endunless %}
-
           <div class="form-row form-row--actions col-span-6">
             <button type="submit" class="button submit-button">SUBMIT</button>
           </div>
@@ -512,43 +483,7 @@
   "presets": [
     {
       "name": "t:sections.form-contact.name",
-      "blocks": [
-        {
-          "type": "field",
-          "settings": {
-            "heading": "Full Name",
-            "type": "text",
-            "placeholder": "Enter your full name"
-          }
-        },
-        {
-          "type": "field",
-          "settings": {
-            "heading": "Email",
-            "type": "email",
-            "placeholder": "Enter your email",
-            "required": true
-          }
-        },
-        {
-          "type": "field",
-          "settings": {
-            "heading": "SELECT THE SUBJECT",
-            "type": "select",
-            "placeholder": "Select an option",
-            "select_options": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
-            "required": true
-          }
-        },
-        {
-          "type": "field",
-          "settings": {
-            "heading": "MESSAGE",
-            "type": "textarea",
-            "placeholder": "Your message"
-          }
-        }
-      ]
+      "blocks": []
     }
   ]
 }
