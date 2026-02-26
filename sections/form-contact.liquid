@@ -210,11 +210,16 @@
           {% unless field_type_list contains 'subject' %}
             <div class="col-span-6">
               {% liquid
-                assign label = 'SELECT THE SUBJECT'
+                assign label = section.settings.subject_label | default: 'SELECT THE SUBJECT'
                 assign id = 'ContactForm-subject'
                 assign name = 'contact[subject]'
-                assign options = 'General Inquiry,Order Issue,Product Information,Technical Support,Other' | split: ','
-                assign required = 'required'
+                assign options_string = section.settings.subject_options | default: 'General Inquiry,Order Issue,Product Information,Technical Support,Other'
+                assign options = options_string | split: ','
+                assign placeholder = section.settings.subject_placeholder | default: 'Select an option'
+                assign required_attr = ''
+                if section.settings.subject_required
+                  assign required_attr = 'required'
+                endif
                 if form.subject
                   assign value = form.subject
                 else
@@ -228,8 +233,8 @@
 
               <!-- Dropdown Field -->
               <label class="field__label" for="{{ id }}">{{ label }}</label>
-              <select name="{{ name }}" id="{{ id }}" class="form-control" {{ required }}>
-                <option class="field__options" value="" disabled selected>Select an option</option>
+              <select name="{{ name }}" id="{{ id }}" class="form-control" {{ required_attr }}>
+                <option class="field__options" value="" disabled selected>{{ placeholder }}</option>
                 {% for option in options %}
                   <option
                     value="{{ option }}"
@@ -304,6 +309,36 @@
     },
     {
       "type": "header",
+      "content": "Subject Dropdown Settings"
+    },
+    {
+      "type": "text",
+      "id": "subject_label",
+      "label": "Subject Field Label",
+      "default": "SELECT THE SUBJECT"
+    },
+    {
+      "type": "text",
+      "id": "subject_placeholder",
+      "label": "Subject Placeholder Text",
+      "default": "Select an option",
+      "info": "Text shown when no option is selected"
+    },
+    {
+      "type": "textarea",
+      "id": "subject_options",
+      "label": "Subject Options",
+      "default": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
+      "info": "Enter options separated by commas"
+    },
+    {
+      "type": "checkbox",
+      "id": "subject_required",
+      "label": "Make subject field required",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "Message Field Settings"
     },
     {
@@ -317,6 +352,10 @@
       "id": "message_placeholder",
       "label": "Message Field Placeholder",
       "default": "Your message"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
     },
     {
       "type": "select",
