@@ -144,6 +144,31 @@
                     echo '</div>'
                     echo '</div>'
 
+                  when 'select'
+                    assign options_string = block.settings.select_options | default: 'Option 1,Option 2,Option 3'
+                    assign options = options_string | split: ','
+                    assign select_placeholder = block.settings.placeholder | default: 'Select an option'
+                    assign required_attr = ''
+                    if required
+                      assign required_attr = 'required'
+                    endif
+                    echo '<label class="field__label" for="' | append: id | append: '">' | append: label | append: '</label>'
+                    echo '<select name="' | append: name | append: '" id="' | append: id | append: '" class="form-control" ' | append: required_attr | append '>'
+                    echo '<option value="" disabled selected>' | append: select_placeholder | append: '</option>'
+                    for option in options
+                      echo '<option value="' | append: option | append: '">' | append: option | append: '</option>'
+                    endfor
+                    echo '</select>'
+
+                  when 'textarea'
+                    assign textarea_placeholder = block.settings.placeholder | default: placeholder
+                    assign required_attr = ''
+                    if required
+                      assign required_attr = 'required'
+                    endif
+                    echo '<label class="field__label" for="' | append: id | append: '">' | append: label | append: '</label>'
+                    echo '<textarea id="' | append: id | append: '" name="' | append: name | append: '" placeholder="' | append: textarea_placeholder | append: '" ' | append: required_attr | append ' rows="5" class="field__input field__textarea">' | append: form[label_handle] | append: '</textarea>'
+
                   else
                     if block.settings.binding != 'custom'
                       if form[label_handle]
@@ -206,62 +231,6 @@
             </div>
           {% endunless %}
 
-          {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
-          {% unless field_type_list contains 'subject' %}
-            <div class="col-span-6">
-              {% liquid
-                assign label = section.settings.subject_label | default: 'SELECT THE SUBJECT'
-                assign id = 'ContactForm-subject'
-                assign name = 'contact[subject]'
-                assign options_string = section.settings.subject_options | default: 'General Inquiry,Order Issue,Product Information,Technical Support,Other'
-                assign options = options_string | split: ','
-                assign placeholder = section.settings.subject_placeholder | default: 'Select an option'
-                assign required_attr = ''
-                if section.settings.subject_required
-                  assign required_attr = 'required'
-                endif
-                if form.subject
-                  assign value = form.subject
-                else
-                  assign value = ''
-                endif
-                if form.errors contains 'subject'
-                  assign error = form.errors.translated_fields.subject | capitalize | append: ' ' | append: form.errors.messages.subject
-                  assign has_error = true
-                endif
-              %}
-
-              <!-- Dropdown Field -->
-              <label class="field__label" for="{{ id }}">{{ label }}</label>
-              <select name="{{ name }}" id="{{ id }}" class="form-control" {{ required_attr }}>
-                <option class="field__options" value="" disabled selected>{{ placeholder }}</option>
-                {% for option in options %}
-                  <option
-                    value="{{ option }}"
-                    {% if option == value %}
-                      selected
-                    {% endif %}
-                  >
-                    {{ option }}
-                  </option>
-                {% endfor %}
-              </select>
-
-              <!-- Error Message Handling -->
-              {% if has_error %}
-                <span class="error-message">{{ message }}</span>
-              {% endif %}
-            </div>
-          {% endunless %}
-
-          <div class="col-span-6" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
-            {%- liquid
-              assign label = section.settings.message_label | default: 'MESSAGE'
-              assign placeholder = section.settings.message_placeholder | default: 'Your message'
-              render 'textarea-input', id: 'ContactForm-body', label: label, name: 'contact[message]', placeholder: placeholder, body: form.body
-            -%}
-          </div>
-
           <div class="form-row form-row--actions col-span-6">
             <button type="submit" class="button submit-button">SUBMIT</button>
           </div>
@@ -306,52 +275,6 @@
       "id": "color_scheme",
       "default": "scheme-1",
       "label": "t:sections.global.color_scheme.label"
-    },
-    {
-      "type": "header",
-      "content": "Subject Dropdown Settings"
-    },
-    {
-      "type": "text",
-      "id": "subject_label",
-      "label": "Subject Field Label",
-      "default": "SELECT THE SUBJECT"
-    },
-    {
-      "type": "text",
-      "id": "subject_placeholder",
-      "label": "Subject Placeholder Text",
-      "default": "Select an option",
-      "info": "Text shown when no option is selected"
-    },
-    {
-      "type": "textarea",
-      "id": "subject_options",
-      "label": "Subject Options",
-      "default": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
-      "info": "Enter options separated by commas"
-    },
-    {
-      "type": "checkbox",
-      "id": "subject_required",
-      "label": "Make subject field required",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Message Field Settings"
-    },
-    {
-      "type": "text",
-      "id": "message_label",
-      "label": "Message Field Label",
-      "default": "MESSAGE"
-    },
-    {
-      "type": "text",
-      "id": "message_placeholder",
-      "label": "Message Field Placeholder",
-      "default": "Your message"
     },
     {
       "type": "header",
@@ -463,6 +386,16 @@
               "group": "t:sections.global.settings.form.type.groups.group__1.label"
             },
             {
+              "value": "select",
+              "label": "Dropdown",
+              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+            },
+            {
+              "value": "textarea",
+              "label": "Textarea",
+              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+            },
+            {
               "value": "checkbox",
               "label": "t:sections.global.settings.form.type.options.checkbox.label",
               "group": "t:sections.global.settings.form.type.groups.group__2.label"
@@ -493,6 +426,13 @@
           "type": "text",
           "id": "placeholder",
           "label": "t:sections.global.settings.form.placeholder.label"
+        },
+        {
+          "type": "textarea",
+          "id": "select_options",
+          "label": "Dropdown Options",
+          "info": "Enter options separated by commas (e.g., Option 1,Option 2,Option 3)",
+          "default": "Option 1,Option 2,Option 3"
         },
         {
           "type": "select",
@@ -588,6 +528,24 @@
             "type": "email",
             "placeholder": "Enter your email",
             "required": true
+          }
+        },
+        {
+          "type": "field",
+          "settings": {
+            "heading": "SELECT THE SUBJECT",
+            "type": "select",
+            "placeholder": "Select an option",
+            "select_options": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
+            "required": true
+          }
+        },
+        {
+          "type": "field",
+          "settings": {
+            "heading": "MESSAGE",
+            "type": "textarea",
+            "placeholder": "Your message"
           }
         }
       ]
