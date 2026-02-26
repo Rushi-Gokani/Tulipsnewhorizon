@@ -132,6 +132,9 @@
             {% if section.settings.contact_phone != blank %}
               <a href="tel:{{ section.settings.contact_phone | remove: ' ' | remove: '-' }}" class="custom-footer__contact-link">{{ section.settings.contact_phone }}</a>
             {% endif %}
+            {% if section.settings.contact_address != blank %}
+              <p class="custom-footer__contact-address">{{ section.settings.contact_address }}</p>
+            {% endif %}
           </div>
         </div>
 
@@ -374,6 +377,14 @@
   .custom-footer__contact-link:hover {
     opacity: 1;
     text-decoration: underline;
+  }
+
+  .custom-footer__contact-address {
+    margin: 0;
+    font-size: 0.875rem;
+    opacity: 0.85;
+    line-height: 1.4;
+    white-space: pre-line;
   }
 
   /* ---- Common Heading Style ---- */
@@ -723,6 +734,12 @@
       "id": "contact_phone",
       "label": "Phone",
       "default": "+91-9555745745"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_address",
+      "label": "Address",
+      "default": "1234 Business Street, New York, NY 10001, USA"
     },
     {
       "type": "header",
