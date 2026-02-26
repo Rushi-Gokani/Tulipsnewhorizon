@@ -152,11 +152,11 @@
           "type": "field",
           "settings": {
             "column_factor": "6",
-            "heading": "Name",
+            "heading": "Full Name",
             "type": "text",
             "required": false,
             "checked": false,
-            "placeholder": "",
+            "placeholder": "Enter Full Name",
             "binding": "name",
             "label_description": "",
             "option_1": "",
@@ -173,7 +173,7 @@
             "type": "email",
             "required": false,
             "checked": false,
-            "placeholder": "",
+            "placeholder": "Enter your email",
             "binding": "custom",
             "label_description": "",
             "option_1": "",
@@ -182,8 +182,26 @@
             "option_4": ""
           }
         },
+        "field_E9mYin": {
+          "type": "field",
+          "settings": {
+            "column_factor": "6",
+            "heading": "Select the Subject",
+            "type": "radio",
+            "required": false,
+            "checked": false,
+            "placeholder": "Select Option",
+            "binding": "custom",
+            "label_description": "Select Option",
+            "option_1": "General Inquiry",
+            "option_2": "Order Issue",
+            "option_3": "Product Information",
+            "option_4": "Technical Support"
+          }
+        },
         "field_LTMxPk": {
           "type": "field",
+          "disabled": true,
           "settings": {
             "column_factor": "6",
             "heading": "Phone",
@@ -203,6 +221,7 @@
       "block_order": [
         "field_xCKgjp",
         "field_xXbPPc",
+        "field_E9mYin",
         "field_LTMxPk"
       ],
       "name": "t:sections.form-contact.name",
