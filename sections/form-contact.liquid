@@ -186,7 +186,7 @@
               {% unless field_type_list contains 'subject' %}
                 <div class="col-span-6">
                   {% liquid
-                    assign label = 'Subject'
+                    assign label = 'SELECT THE SUBJECT'
                     assign id = 'ContactForm-subject'
                     assign name = 'contact[subject]'
                     assign options = 'General Inquiry,Order Issue,Product Information,Technical Support,Other' | split: ','
@@ -229,7 +229,7 @@
 
           <div class="col-span-6">
             {%- liquid
-              assign label = 'Message'
+              assign label = 'MESSAGE'
               assign placeholder = 'Your message'
               render 'textarea-input', id: 'ContactForm-body', label: label, name: 'contact[message]', placeholder: placeholder, body: form.body
             -%}

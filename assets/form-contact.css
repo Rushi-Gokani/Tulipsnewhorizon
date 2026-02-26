@@ -77,14 +77,14 @@
   gap: 12px;
 }
 
-/* Labels - Bold and visible */
+/* Labels - UPPERCASE Bold */
 .form-contact .field__label {
   display: block !important;
   font-size: 14px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   color: #2d3748 !important;
-  text-transform: none !important;
-  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
   margin: 0 0 8px 0 !important;
 }
 
