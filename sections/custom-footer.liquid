@@ -128,20 +128,32 @@
             {% endif %}
             {% if section.settings.contact_email != blank %}
               <a href="mailto:{{ section.settings.contact_email }}" class="custom-footer__contact-link">
-                <span class="custom-footer__contact-icon">📧</span>
-                {{ section.settings.contact_email }}
+                {% if section.settings.email_icon %}
+                  {{ section.settings.email_icon | image_url: width: 16, height: 16 | image_tag: alt: 'Email', class: 'custom-footer__contact-icon' }}
+                {% else %}
+                  <svg class="custom-footer__contact-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                {% endif %}
+                <span>{{ section.settings.contact_email }}</span>
               </a>
             {% endif %}
             {% if section.settings.contact_phone != blank %}
               <a href="tel:{{ section.settings.contact_phone | remove: ' ' | remove: '-' }}" class="custom-footer__contact-link">
-                <span class="custom-footer__contact-icon">📞</span>
-                {{ section.settings.contact_phone }}
+                {% if section.settings.phone_icon %}
+                  {{ section.settings.phone_icon | image_url: width: 16, height:16 | image_tag: alt: 'Phone', class: 'custom-footer__contact-icon' }}
+                {% else %}
+                  <svg class="custom-footer__contact-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 19.79 19.79 19.79-2 2.18-2 2v-3"/><path d="M15 10a5 5 0 0 1-7.54.54l-3.6-3.6a5 5 0 0 1-.54-7.54l9-9a5 5 0 0 1 7.54-.54l3.6 3.6a5 5 0 0 1 .54 7.54l-9 9z"/></svg>
+                {% endif %}
+                <span>{{ section.settings.contact_phone }}</span>
               </a>
             {% endif %}
             {% if section.settings.contact_address != blank %}
               <p class="custom-footer__contact-address">
-                <span class="custom-footer__contact-icon">📍</span>
-                {{ section.settings.contact_address }}
+                {% if section.settings.address_icon %}
+                  {{ section.settings.address_icon | image_url: width: 16, height:16 | image_tag: alt: 'Address', class: 'custom-footer__contact-icon' }}
+                {% else %}
+                  <svg class="custom-footer__contact-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-9-9-13 9-9 9 13zm-9-5a5 5 0 1 1 7.54.54l-3.6 3.6a5 5 0 0 1-.54-7.54l3.6-3.6a5 5 0 0 1 7.54.54l3.6 3.6a5 5 0 0 1-.54 7.54l3.6 3.6A5 5 0 1 1 12 5z"/><circle cx="12" cy="10" r="3"/></svg>
+                {% endif %}
+                <span>{{ section.settings.contact_address }}</span>
               </p>
             {% endif %}
           </div>
@@ -406,11 +418,29 @@
     font-size: 0.875rem;
     opacity: 0.9;
     flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    stroke: #ffffff !important;
+    color: #ffffff !important;
+  }
+
+  /* Ensure uploaded images display properly */
+  .custom-footer__contact-icon img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
   }
 
   .custom-footer__contact-link:hover .custom-footer__contact-icon,
   .custom-footer__contact-address:hover .custom-footer__contact-icon {
     opacity: 1;
+  }
+
+  /* Ensure text span has proper spacing */
+  .custom-footer__contact-link span,
+  .custom-footer__contact-address span {
+    flex-shrink: 1;
   }
 
   /* ---- Common Heading Style ---- */
@@ -766,6 +796,21 @@
       "id": "contact_address",
       "label": "Address",
       "default": "1234 Business Street, New York, NY 10001, USA"
+    },
+    {
+      "type": "image_picker",
+      "id": "email_icon",
+      "label": "Email Icon (White)"
+    },
+    {
+      "type": "image_picker",
+      "id": "phone_icon",
+      "label": "Phone Icon (White)"
+    },
+    {
+      "type": "image_picker",
+      "id": "address_icon",
+      "label": "Address Icon (White)"
     },
     {
       "type": "header",
