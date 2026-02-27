@@ -330,64 +330,107 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Swipers for all tabs
-    var swiperInstances = {};
+  (function() {
+    // Wait for DOM to be ready
+    function initCarousel() {
+      // Store swiper instances with their tab content
+      var swiperInstances = {};
+      var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
 
-    document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider, index) {
-      swiperInstances[index] = new Swiper(slider, {
-        slidesPerView: 1.2,
-        spaceBetween: 10,
-        loop: true,
-        centeredSlides: false,
-        autoplay: {
-          delay: {{ section.settings.autoplay_speed | times: 1000 }},
-          disableOnInteraction: false,
-        },
-        navigation: {
-          nextEl: slider.querySelector('.swiper-button-next'),
-          prevEl: slider.querySelector('.swiper-button-prev'),
-        },
-        breakpoints: {
-          750: {
-            slidesPerView: 2.5,
-             spaceBetween: 20,
+      // Initialize Swipers - only autoplay for active tab
+      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+        var tabContent = slider.closest('.tab-content');
+        var isActive = tabContent && tabContent.classList.contains('active');
+
+        var swiperInstance = new Swiper(slider, {
+          slidesPerView: 1.2,
+          spaceBetween: 10,
+          loop: false,
+          rewind: true,
+          centeredSlides: false,
+          autoplay: isActive ? {
+            delay: autoplayDelay,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          } : false,
+          navigation: {
+            nextEl: slider.querySelector('.swiper-button-next'),
+            prevEl: slider.querySelector('.swiper-button-prev'),
           },
-          990: {
-            slidesPerView: {{ section.settings.desktop_columns }},
-             spaceBetween: 30,
+          breakpoints: {
+            750: {
+              slidesPerView: 2.5,
+              spaceBetween: 20,
+            },
+            990: {
+              slidesPerView: {{ section.settings.desktop_columns }},
+              spaceBetween: 30,
+            }
+          },
+          on: {
+            init: function() {
+              // Store reference
+              if (tabContent) {
+                swiperInstances[tabContent.id] = this;
+              }
+            }
           }
-        }
-      });
-    });
-
-    // Tab functionality
-    document.querySelectorAll('.collection-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        var tabId = this.getAttribute('data-tab');
-        var section = this.closest('.featured-collection-carousel-section');
-
-        // Remove active class from tabs within the same section only
-        section.querySelectorAll('.collection-tab').forEach(function(t) {
-          t.classList.remove('active');
         });
-
-        // Remove active class from tab contents within the same section only
-        section.querySelectorAll('.tab-content').forEach(function(content) {
-          content.classList.remove('active');
-        });
-
-        // Add active class to clicked tab
-        this.classList.add('active');
-
-        // Show corresponding tab content
-        var tabContent = section.querySelector('[data-tab-content="' + tabId + '"]');
-        if (tabContent) {
-          tabContent.classList.add('active');
-        }
       });
-    });
-  });
+
+      // Tab functionality with proper swiper management
+      document.querySelectorAll('.collection-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var tabId = this.getAttribute('data-tab');
+          var section = this.closest('.featured-collection-carousel-section');
+
+          // Stop autoplay on all swipers in this section
+          section.querySelectorAll('.tab-content').forEach(function(content) {
+            var swiper = swiperInstances[content.id];
+            if (swiper && swiper.autoplay) {
+              swiper.autoplay.stop();
+            }
+          });
+
+          // Remove active class from all tabs
+          section.querySelectorAll('.collection-tab').forEach(function(t) {
+            t.classList.remove('active');
+          });
+
+          // Remove active class from all tab contents
+          section.querySelectorAll('.tab-content').forEach(function(content) {
+            content.classList.remove('active');
+          });
+
+          // Add active class to clicked tab
+          tab.classList.add('active');
+
+          // Show corresponding tab content
+          var tabContent = section.querySelector('[data-tab-content="' + tabId + '"]');
+          if (tabContent) {
+            tabContent.classList.add('active');
+
+            // Start autoplay on the new active tab's swiper
+            var swiper = swiperInstances[tabId];
+            if (swiper) {
+              // Update swiper first to ensure proper sizing
+              setTimeout(function() {
+                swiper.update();
+                swiper.autoplay.start();
+              }, 100);
+            }
+          }
+        });
+      });
+    }
+
+    // Initialize on DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCarousel);
+    } else {
+      initCarousel();
+    }
+  })();
 </script>
 
 {% schema %}
