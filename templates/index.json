@@ -129,7 +129,7 @@
         "collection": "cotton",
         "products_to_show": 8,
         "desktop_columns": 4,
-        "autoplay_speed": 3,
+        "autoplay_speed": 5,
         "show_arrows": true,
         "padding_top": 36,
         "padding_bottom": 36,
@@ -225,7 +225,7 @@
         "show_arrows": true,
         "padding_top": 36,
         "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
+        "bg_color": "#ffffff"
       }
     },
     "featured_collection_carousel_QMdUwV": {
