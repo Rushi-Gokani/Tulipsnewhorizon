@@ -52,6 +52,15 @@ export class ZoomDialog extends Component {
     const open = () => {
       dialog.showModal();
 
+      // Set active class on the selected media item
+      Array.from(media).forEach((mediaItem, i) => {
+        if (i === index) {
+          mediaItem.classList.add('dialog-zoomed-gallery__active');
+        } else {
+          mediaItem.classList.remove('dialog-zoomed-gallery__active');
+        }
+      });
+
       for (const target of [targetThumbnail, targetImage]) {
         target?.scrollIntoView({ behavior: 'instant' });
       }
@@ -244,13 +253,18 @@ export class ZoomDialog extends Component {
       inline: 'center',
     });
 
+    // Remove active class from all media items and add to selected one
+    Array.from(media).forEach((mediaItem, i) => {
+      if (i === index) {
+        mediaItem.classList.add('dialog-zoomed-gallery__active');
+      } else {
+        mediaItem.classList.remove('dialog-zoomed-gallery__active');
+      }
+    });
+
     const targetImage = media[index];
 
     if (targetImage) {
-      targetImage.scrollIntoView({
-        behavior: options.behavior,
-      });
-
       this.loadHighResolutionImage(targetImage);
     }
     this.dispatchEvent(new ZoomMediaSelectedEvent(index));

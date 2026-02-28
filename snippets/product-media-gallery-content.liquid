@@ -611,9 +611,6 @@
                 class="{{ product_media_container_class | remove: 'media-fit-cover' }} product-media-container--{{ media.media_type }}{% if media.media_type == 'image' %} product-media-container--zoomable{% endif %}"
                 style="{% if block_settings.aspect_ratio == 'adapt' %} --media-preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};{% endif %}"
                 ref="media[]"
-                {% if media.media_type == 'image' %}
-                  on:click="/close"
-                {% endif %}
               >
                 {% if media.media_type == 'image' %}
                   <drag-zoom-wrapper class="product-media__drag-zoom-wrapper">
@@ -716,13 +713,29 @@
   }
 
   .dialog-zoomed-gallery {
-    cursor: zoom-out;
+    cursor: default;
     /* Make the gallery fit within the dialog */
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+
+  /* Hide all media items by default */
+  .dialog-zoomed-gallery > li {
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Show only the active media item (when thumbnail is selected) */
+  .dialog-zoomed-gallery > li:has(+ .dialog-zoomed-gallery__active),
+  .dialog-zoomed-gallery > li.dialog-zoomed-gallery__active,
+  .dialog-zoomed-gallery > li:first-child {
+    display: flex;
   }
 
   /* Adjust thumbnails container for smaller dialog */
@@ -763,10 +776,15 @@
   /* Main media container in dialog */
   .dialog-zoomed-gallery > li {
     flex: 1;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     min-height: 0;
+  }
+
+  /* Show only the active media item */
+  .dialog-zoomed-gallery > li.dialog-zoomed-gallery__active {
+    display: flex;
   }
 
   .dialog-zoomed-gallery .product-media-container {
@@ -906,7 +924,7 @@
   }
 
   .dialog-zoomed-gallery .product-media-container--zoomable.product-media-container--image {
-    cursor: zoom-out;
+    cursor: default;
   }
 
   .product-media-container--zoomable.product-media-container--image {
