@@ -5,16 +5,38 @@
     padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }});
     padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
   }
+
+  /* Force labels to be visible and above inputs */
+  #shopify-section-{{ section.id }} .field__label,
+  #shopify-section-{{ section.id }} label.field__label,
+  #shopify-section-{{ section.id }} .field > label {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #2d3748 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .field__label__required {
+    color: #e53e3e !important;
+    margin-left: 2px;
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="form-container">
     <div class="form-contact">
-      <div class="container {{ section.settings.section_width }}">
+      <div class="container form-contact__inner">
         {%- form 'contact', id: 'ContactForm', class: 'contact-form grid' -%}
           {%- if form.posted_successfully? -%}
             <p class="form-contact__message--success h4 col-span-6" tabindex="-1" autofocus>
-              {{- 'contact.success_message' | t -}}
+              Thanks for contacting us. We'll get back to you as soon as possible.
             </p>
           {%- elsif form.errors -%}
             <div class="color-red">
@@ -122,6 +144,31 @@
                     echo '</div>'
                     echo '</div>'
 
+                  when 'select'
+                    assign options_string = block.settings.select_options | default: 'Option 1,Option 2,Option 3'
+                    assign options = options_string | split: ','
+                    assign select_placeholder = block.settings.placeholder | default: 'Select an option'
+                    assign required_attr = ''
+                    if required
+                      assign required_attr = 'required'
+                    endif
+                    echo '<label class="field__label" for="' | append: id | append: '">' | append: label | append: '</label>'
+                    echo '<select name="' | append: name | append: '" id="' | append: id | append: '" class="form-control" ' | append: required_attr | append '>'
+                    echo '<option value="" disabled selected>' | append: select_placeholder | append: '</option>'
+                    for option in options
+                      echo '<option value="' | append: option | append: '">' | append: option | append: '</option>'
+                    endfor
+                    echo '</select>'
+
+                  when 'textarea'
+                    assign textarea_placeholder = block.settings.placeholder | default: placeholder
+                    assign required_attr = ''
+                    if required
+                      assign required_attr = 'required'
+                    endif
+                    echo '<label class="field__label" for="' | append: id | append: '">' | append: label | append: '</label>'
+                    echo '<textarea id="' | append: id | append: '" name="' | append: name | append: '" placeholder="' | append: textarea_placeholder | append: '" ' | append: required_attr | append ' rows="5" class="field__input field__textarea">' | append: form[label_handle] | append: '</textarea>'
+
                   else
                     if block.settings.binding != 'custom'
                       if form[label_handle]
@@ -155,91 +202,8 @@
             </div>
           {% endfor %}
 
-          {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
-          {% unless field_type_list contains 'email' %}
-            <div class="col-span-6">
-              {% liquid
-                assign label = 'theme.form.email' | t
-                assign placeholder = 'theme.form.email_placeholder' | t
-                assign id = 'ContactForm-' | append: 'email'
-                assign name = 'contact[' | append: 'email' | append: ']'
-                capture attr
-                  echo 'autocomplete="email"'
-                  echo 'spellcheck="false"'
-                  echo 'autocapitalize="off"'
-                endcapture
-                if form.email
-                  assign value = form.email
-                elsif customer
-                  assign value = customer.email
-                else
-                  assign value = ''
-                endif
-                if form.errors contains 'email'
-                  assign error = form.errors.translated_fields.email | capitalize | append: ' ' | append: form.errors.messages.email
-                  assign has_error = true
-                endif
-                render 'text-input', type: 'email', id: id, label: label, name: name, placeholder: placeholder, attr: attr, value: value, has_error: has_error, message: error, required: true
-              %}
-
-              {%- assign field_type_list = field_type_list | split: ',' | uniq -%}
-              {% unless field_type_list contains 'subject' %}
-                <div class="col-span-6">
-                  {% liquid
-                    assign label = 'Select the Subject'
-                    assign id = 'ContactForm-subject'
-                    assign name = 'contact[subject]'
-                    assign options = 'General Inquiry,Order Issue,Product Information,Technical Support,Other' | split: ','
-                    assign required = 'required'
-                    if form.subject
-                      assign value = form.subject
-                    else
-                      assign value = ''
-                    endif
-                    if form.errors contains 'subject'
-                      assign error = form.errors.translated_fields.subject | capitalize | append: ' ' | append: form.errors.messages.subject
-                      assign has_error = true
-                    endif
-                  %}
-
-                  <br>
-                  <!-- Dropdown Field -->
-                  <label class="field__label" for="{{ id }}">{{ label }}</label>
-                  <select name="{{ name }}" id="{{ id }}" class="form-control" {{ required }}>
-                    <option class="field__options" value="" disabled selected>Select an option</option>
-                    {% for option in options %}
-                      <option
-                        value="{{ option }}"
-                        {% if option == value %}
-                          selected
-                        {% endif %}
-                      >
-                        {{ option }}
-                      </option>
-                    {% endfor %}
-                  </select>
-
-                  <!-- Error Message Handling -->
-                  {% if has_error %}
-                    <span class="error-message">{{ message }}</span>
-                  {% endif %}
-                </div>
-              {% endunless %}
-            </div>
-          {% endunless %}
-
-          <div class="col-span-6">
-            {%- liquid
-              assign label = 'contact.message' | t
-              assign placeholder = 'contact.message_placeholder' | t
-              render 'textarea-input', id: 'ContactForm-body', label: label, name: 'contact[message]', placeholder: placeholder, body: form.body
-            -%}
-          </div>
-
           <div class="form-row form-row--actions col-span-6">
-            {%- assign value = 'contact.submit' | t -%}
-            {%- render 'button', type: 'submit', style: 'solid', value: value, class: 'button' -%}
-            {%- assign value = null -%}
+            <button type="submit" class="button submit-button">SUBMIT</button>
           </div>
         {%- endform -%}
       </div>
@@ -282,6 +246,10 @@
       "id": "color_scheme",
       "default": "scheme-1",
       "label": "t:sections.global.color_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
     },
     {
       "type": "select",
@@ -389,6 +357,16 @@
               "group": "t:sections.global.settings.form.type.groups.group__1.label"
             },
             {
+              "value": "select",
+              "label": "Dropdown",
+              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+            },
+            {
+              "value": "textarea",
+              "label": "Textarea",
+              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+            },
+            {
               "value": "checkbox",
               "label": "t:sections.global.settings.form.type.options.checkbox.label",
               "group": "t:sections.global.settings.form.type.groups.group__2.label"
@@ -419,6 +397,13 @@
           "type": "text",
           "id": "placeholder",
           "label": "t:sections.global.settings.form.placeholder.label"
+        },
+        {
+          "type": "textarea",
+          "id": "select_options",
+          "label": "Dropdown Options",
+          "info": "Enter options separated by commas (e.g., Option 1,Option 2,Option 3)",
+          "default": "Option 1,Option 2,Option 3"
         },
         {
           "type": "select",
@@ -498,31 +483,7 @@
   "presets": [
     {
       "name": "t:sections.form-contact.name",
-      "blocks": [
-        {
-          "type": "field",
-          "settings": {
-            "heading": "Name",
-            "type": "text",
-            "binding": "name"
-          }
-        },
-        {
-          "type": "field",
-          "settings": {
-            "heading": "Email",
-            "type": "email"
-          }
-        },
-        {
-          "type": "field",
-          "settings": {
-            "heading": "Phone",
-            "type": "tel",
-            "binding": "phone"
-          }
-        }
-      ]
+      "blocks": []
     }
   ]
 }

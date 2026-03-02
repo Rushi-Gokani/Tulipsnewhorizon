@@ -12,7 +12,7 @@
 <div class="field{% if field_has_error %} field--error{% endif %}">
   {%- if field_label -%}
     <label class="field__label" for="{{ field_id }}">
-      {{ field_label }}
+      {{ field_label | upcase }}
       {%- if field_required -%}<span class="field__label__required">*</span>{%- endif -%}
     </label>
   {%- endif -%}

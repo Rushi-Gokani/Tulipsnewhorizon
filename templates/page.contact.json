@@ -115,7 +115,6 @@
       "block_order": [
         "contact_form_UwiCkQ"
       ],
-      "disabled": true,
       "name": "t:names.contact_form",
       "settings": {
         "content_direction": "column",
@@ -148,42 +147,9 @@
     "form_contact_TpgeEg": {
       "type": "form-contact",
       "blocks": {
-        "field_xCKgjp": {
-          "type": "field",
-          "settings": {
-            "column_factor": "6",
-            "heading": "Name",
-            "type": "text",
-            "required": false,
-            "checked": false,
-            "placeholder": "",
-            "binding": "name",
-            "label_description": "",
-            "option_1": "",
-            "option_2": "",
-            "option_3": "",
-            "option_4": ""
-          }
-        },
-        "field_xXbPPc": {
-          "type": "field",
-          "settings": {
-            "column_factor": "6",
-            "heading": "Email",
-            "type": "email",
-            "required": false,
-            "checked": false,
-            "placeholder": "",
-            "binding": "custom",
-            "label_description": "",
-            "option_1": "",
-            "option_2": "",
-            "option_3": "",
-            "option_4": ""
-          }
-        },
         "field_LTMxPk": {
           "type": "field",
+          "disabled": true,
           "settings": {
             "column_factor": "6",
             "heading": "Phone",
@@ -201,22 +167,43 @@
         }
       },
       "block_order": [
-        "field_xCKgjp",
-        "field_xXbPPc",
         "field_LTMxPk"
       ],
+      "disabled": true,
       "name": "t:sections.form-contact.name",
       "settings": {
         "section_width": "max-w-page",
         "color_scheme": "",
+        "subject_label": "SELECT THE SUBJECT",
+        "subject_placeholder": "Select an option",
+        "subject_options": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
+        "subject_required": true,
+        "message_label": "MESSAGE",
+        "message_placeholder": "Your message",
         "spacing_top": "2",
         "spacing_bottom": "2"
+      }
+    },
+    "contact_boxes_YVghPV": {
+      "type": "contact-boxes",
+      "name": "Contact Boxes",
+      "settings": {
+        "customer_service_title": "Customer Service",
+        "customer_service_desc": "We reply within 24 hours",
+        "customer_service_email": "wecare@tulipshygiene.com",
+        "helpline_title": "Helpline",
+        "helpline_desc": "Call us for quick support",
+        "helpline_phone": "011 25284549",
+        "address_title": "Our Address",
+        "address_details": "Tulips Hygiene Pvt. Ltd.\n<br>487/18, Peeragarhi, Rohtak Road,  Delhi - 110087",
+        "additional_phone": "+91 9555745745"
       }
     }
   },
   "order": [
     "main",
     "form",
-    "form_contact_TpgeEg"
+    "form_contact_TpgeEg",
+    "contact_boxes_YVghPV"
   ]
 }
