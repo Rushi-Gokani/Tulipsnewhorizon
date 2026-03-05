@@ -258,7 +258,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>✔ Free Shipping for Orders Above 399<br/>✔ Secure online payment</p>",
+                "text": "<p>✔ Free Shipping On Orders Above 399<br/>✔ Secure online payment</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
