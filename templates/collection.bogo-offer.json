@@ -54,7 +54,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>ADULT DIAPER PANTS</h2>",
+            "text": "<h1>ADULT DIAPER PANTS</h1>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
