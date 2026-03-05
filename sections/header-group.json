@@ -24,14 +24,14 @@
         "marquee_text_2": {
           "type": "marquee_slide",
           "settings": {
-            "content": "Free delivery above orders 399",
+            "content": "FREE DELIVERY ON ORDERS ABOVE 399/-",
             "icon": "none"
           }
         },
         "marquee_text_3": {
           "type": "marquee_slide",
           "settings": {
-            "content": "FREE DELIVERY ON ORDERS ABOVE ₹399",
+            "content": "FREE DELIVERY ON ORDERS ABOVE 399/-",
             "icon": "none"
           }
         },
