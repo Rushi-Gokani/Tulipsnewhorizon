@@ -90,7 +90,12 @@
       <div class="grid-item">
         {% if section.settings[icon_key] %}
           <div class="icon-box">
-            <img src="{{ section.settings[icon_key] | img_url: '60x60' }}" alt="{{ section.settings[label_key] }}">
+            <img
+              src="{{ section.settings[icon_key] | image_url: width: 60 }}"
+              alt="{{ section.settings[label_key] }}"
+              width="{{ section.settings[icon_key].width }}"
+              height="{{ section.settings[icon_key].height }}"
+            >
           </div>
         {% endif %}
 

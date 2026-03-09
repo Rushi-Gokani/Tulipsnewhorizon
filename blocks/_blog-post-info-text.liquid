@@ -23,7 +23,12 @@
     "
     style="{% render 'spacing-style', settings: block_settings %}"
   >
-    <span class="blog-post-details__text">Posted by Tulips Hygiene posted on</span>
+    {%- if block_settings.show_author -%}
+      <span class="blog-post-details__author">Posted by {{ display_author }}</span>
+    {%- endif -%}
+    {%- if block_settings.show_author and block_settings.show_date -%}
+      <span class="blog-post-details__text">posted on</span>
+    {%- endif -%}
     {%- if block_settings.show_date -%}
       <span class="blog-post-details__date">{{- display_date | time_tag: format: 'date' -}}</span>
     {%- endif -%}

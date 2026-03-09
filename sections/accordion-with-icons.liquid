@@ -94,7 +94,12 @@
         <div class="accordion-inner">
           {% if block.settings.image %}
             <div class="accordion-image">
-              <img src="{{ block.settings.image | img_url: 'medium' }}" alt="Accordion Image">
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                alt="Accordion Image"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
             </div>
           {% endif %}
 

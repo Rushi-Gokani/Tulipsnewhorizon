@@ -22,6 +22,8 @@
     <img
       src="{{ section.settings.wave_image | image_url: width: 2000 }}"
       alt="Wavy Design"
+      width="{{ section.settings.wave_image.width }}"
+      height="{{ section.settings.wave_image.height }}"
       class="banner-wave"
       loading="lazy"
       decoding="async"

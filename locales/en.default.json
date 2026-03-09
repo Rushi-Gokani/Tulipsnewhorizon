@@ -96,6 +96,21 @@
     "view_store_information": "View store information",
     "sort": "Sort"
   },
+  "theme": {
+    "actions": {
+      "add_to_cart": "Add to cart",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "accessibility": {
+      "slideshow": "Slideshow"
+    },
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "home": "Home",
+      "search": "Search"
+    }
+  },
   "blocks": {
     "contact_form": {
       "name": "Name",
@@ -117,7 +132,15 @@
     "slider_label": "Slider"
   },
   "product": {
-    "label": "Product"
+    "label": "Product",
+    "choose_options": "Choose options",
+    "preorder": "Pre-order",
+    "variant_info_multiple_options": "{{ options_count_and_name }} and {{ option_last_count_and_name }}",
+    "variant_info_one_option": "{{ option_count_and_name }}",
+    "go_to_title": "Go to {{ title }}",
+    "discount_badge_html": "Save {{ percentage }}%",
+    "preorder_badge": "Pre-order",
+    "sold_out": "Sold out"
   },
   "blogs": {
     "article": {
@@ -304,6 +327,11 @@
   "collections": {
     "general": {
       "no_products": "No products available."
+    }
+  },
+  "sections": {
+    "header": {
+      "announcement": "Announcement"
     }
   },
   "fields": {

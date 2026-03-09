@@ -13,9 +13,11 @@
       <a href="{{ product.url | default: '#' }}" class="simple-product-card__link">
         {% if product.featured_image %}
           <img
-            src="{{ product.featured_image | img_url: '600x' }}"
+            src="{{ product.featured_image | image_url: width: 600 }}"
             alt="{{ product.featured_image.alt | escape }}"
             class="simple-product-card__image"
+            width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}"
             loading="lazy"
           >
         {% else %}

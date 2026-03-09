@@ -48,6 +48,16 @@
   %}
 {% endcapture %}
 
+{% capture description %}
+  {% content_for 'block',
+    id: 'blog-post-description',
+    type: '_blog-post-description',
+    article: article,
+    should_truncate: truncate_description,
+    onboarding_text: display_description
+  %}
+{% endcapture %}
+
 
 
 <div
@@ -87,6 +97,7 @@
     <div class="featured-blog-posts-card__content layout-panel-flex--column">
       <h4 class="featured-blog-posts-card__title">{{ title }}</h4>
       {{ details }}
+      {{ description }}
     </div>
   </div>
 </div>

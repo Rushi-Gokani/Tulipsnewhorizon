@@ -24,7 +24,7 @@
       NOTIFY ME
     </button>
   {% else %}
-    <form method="post" action="/cart/add" class="product-card-btn-form" style="width: 100%; display: flex; justify-content: center;">
+    <form method="post" action="{{ routes.cart_add_url }}" class="product-card-btn-form" style="width: 100%; display: flex; justify-content: center;">
       <input type="hidden" name="id" value="{{ variant.id }}">
       <button
         type="submit"
