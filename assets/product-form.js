@@ -34,10 +34,22 @@ export class AddToCartComponent extends Component {
   /** @type {number[] | undefined} */
   #resetTimeouts = /** @type {number[]} */ ([]);
 
+  /** @type {((event: Event) => void) | undefined} */
+  #backupClickHandler;
+
   connectedCallback() {
     super.connectedCallback();
 
     this.addEventListener('pointerenter', this.#preloadImage);
+
+    // Add a backup click listener directly on the button for mobile/iOS compatibility
+    // This ensures the form submission happens even if event delegation fails
+    setTimeout(() => {
+      if (this.refs.addToCartButton) {
+        console.log('[AddToCart] Setting up backup click listener on button');
+        this.#setupBackupClickListener();
+      }
+    }, 100);
   }
 
   disconnectedCallback() {
@@ -47,20 +59,72 @@ export class AddToCartComponent extends Component {
       this.#resetTimeouts.forEach(/** @param {number} timeoutId */ (timeoutId) => clearTimeout(timeoutId));
     }
     this.removeEventListener('pointerenter', this.#preloadImage);
+
+    // Remove backup click listener
+    if (this.#backupClickHandler && this.refs.addToCartButton) {
+      this.refs.addToCartButton.removeEventListener('click', this.#backupClickHandler);
+    }
+  }
+
+  /**
+   * Sets up a backup click listener for mobile/iOS compatibility
+   */
+  #setupBackupClickListener() {
+    if (!this.refs.addToCartButton || this.#backupClickHandler) return;
+
+    this.#backupClickHandler = (event) => {
+      console.log('[AddToCart] Backup click listener triggered');
+      const form = this.closest('form');
+      if (form && this.refs.addToCartButton.type === 'submit') {
+        console.log('[AddToCart] Backup: Triggering form submission');
+        setTimeout(() => {
+          try {
+            if (typeof form.requestSubmit === 'function') {
+              form.requestSubmit();
+            } else {
+              // Fallback: create and dispatch submit event
+              const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+              const canSubmit = form.dispatchEvent(submitEvent);
+              if (canSubmit) {
+                form.submit();
+              }
+            }
+          } catch (error) {
+            console.error('[AddToCart] Backup: Error submitting form:', error);
+          }
+        }, 50);
+      }
+    };
+
+    this.refs.addToCartButton.addEventListener('click', this.#backupClickHandler, { capture: false });
+    console.log('[AddToCart] Backup click listener attached');
   }
 
   /**
    * Disables the add to cart button.
    */
   disable() {
-    this.refs.addToCartButton.disabled = true;
+    console.log('[AddToCart] Disabling button');
+    if (this.refs.addToCartButton) {
+      this.refs.addToCartButton.disabled = true;
+      console.log('[AddToCart] Button disabled state:', this.refs.addToCartButton.disabled);
+    } else {
+      console.error('[AddToCart] No button found to disable');
+    }
   }
 
   /**
    * Enables the add to cart button.
    */
   enable() {
-    this.refs.addToCartButton.disabled = false;
+    console.log('[AddToCart] Enabling button');
+    if (this.refs.addToCartButton) {
+      this.refs.addToCartButton.disabled = false;
+      console.log('[AddToCart] Button disabled state:', this.refs.addToCartButton.disabled);
+      console.log('[AddToCart] Button classes:', this.refs.addToCartButton.className);
+    } else {
+      console.error('[AddToCart] No button found to enable');
+    }
   }
 
   /**
@@ -68,25 +132,93 @@ export class AddToCartComponent extends Component {
    * @param {MouseEvent & {target: HTMLElement}} event - The click event.
    */
   handleClick(event) {
+    console.log('[AddToCart] handleClick called', {
+      eventType: event.type,
+      target: event.target?.tagName,
+      button: this.refs.addToCartButton?.tagName,
+      buttonDisabled: this.refs.addToCartButton?.disabled,
+      buttonType: this.refs.addToCartButton?.type
+    });
+
     const form = this.closest('form');
-    if (!form?.checkValidity()) return;
+    console.log('[AddToCart] Form found:', !!form, 'Valid:', form?.checkValidity());
+
+    if (!form?.checkValidity()) {
+      // Show validation errors if form is invalid
+      console.warn('[AddToCart] Form is invalid, showing errors');
+      form?.reportValidity();
+      return;
+    }
 
     // Check if adding would exceed max before animating
     const productForm = /** @type {ProductFormComponent | null} */ (this.closest('product-form-component'));
+    console.log('[AddToCart] ProductFormComponent found:', !!productForm);
+
     const quantitySelector = productForm?.refs.quantitySelector;
     if (quantitySelector?.canAddToCart) {
       const validation = quantitySelector.canAddToCart();
+      console.log('[AddToCart] Quantity validation:', validation);
       // Don't animate if it would exceed max
       if (!validation.canAdd) {
+        console.warn('[AddToCart] Cannot add to cart - max quantity exceeded');
         return;
       }
     }
-    if (this.refs.addToCartButton.dataset.puppet !== 'true') {
+
+    const isPuppet = this.refs.addToCartButton.dataset.puppet === 'true';
+    console.log('[AddToCart] Is puppet click:', isPuppet);
+
+    if (!isPuppet) {
       const animationEnabled = this.dataset.addToCartAnimation === 'true';
+      console.log('[AddToCart] Animation enabled:', animationEnabled);
       if (animationEnabled && !event.target.closest('.quick-add-modal')) {
         this.#animateFlyToCart();
       }
       this.animateAddToCart();
+    }
+
+    // Explicitly trigger form submission for mobile/iOS compatibility
+    // This ensures the submit event is properly fired on all devices,
+    // especially iOS where the custom event handling may interfere with
+    // the default submit button behavior
+    console.log('[AddToCart] About to submit form', {
+      formExists: !!form,
+      buttonType: this.refs.addToCartButton?.type,
+      defaultPrevented: event.defaultPrevented
+    });
+
+    if (form && this.refs.addToCartButton.type === 'submit' && !event.defaultPrevented) {
+      console.log('[AddToCart] Triggering form submission...');
+
+      // Use requestSubmit() to trigger the submit event properly
+      // This method is supported in all modern browsers including iOS Safari 15.4+
+      // Use setTimeout to ensure the animation starts before submission
+      setTimeout(() => {
+        console.log('[AddToCart] Executing submit now');
+        try {
+          if (typeof form.requestSubmit === 'function') {
+            console.log('[AddToCart] Using requestSubmit()');
+            form.requestSubmit();
+          } else {
+            console.log('[AddToCart] Using fallback submit method');
+            // Fallback for older browsers - dispatch submit event and then submit
+            const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+            const canSubmit = form.dispatchEvent(submitEvent);
+            console.log('[AddToCart] Submit event dispatched, canSubmit:', canSubmit);
+            if (canSubmit) {
+              form.submit();
+            }
+          }
+        } catch (error) {
+          console.error('[AddToCart] Error submitting form:', error);
+        }
+      }, 50);
+    } else {
+      console.error('[AddToCart] Cannot submit form - conditions not met', {
+        formExists: !!form,
+        buttonType: this.refs.addToCartButton?.type,
+        defaultPrevented: event.defaultPrevented
+      });
     }
   }
 
@@ -195,8 +327,13 @@ class ProductFormComponent extends Component {
   /** @type {number | undefined} */
   #timeout;
 
+  /** @type {((event: Event) => void) | undefined} */
+  #formSubmitHandler;
+
   connectedCallback() {
     super.connectedCallback();
+
+    console.log('[ProductForm] Component connected, setting up form backup listener');
 
     const { signal } = this.#abortController;
     const target = this.closest('.shopify-section, dialog, product-card');
@@ -205,10 +342,49 @@ class ProductFormComponent extends Component {
 
     // Listen for cart updates to sync data-cart-quantity
     document.addEventListener(ThemeEvents.cartUpdate, this.#onCartUpdate, { signal });
+
+    // Set up backup submit listener for mobile/iOS compatibility
+    // This ensures the form submission happens even if event delegation fails
+    setTimeout(() => {
+      const form = this.querySelector('form');
+      if (form && !this.#formSubmitHandler) {
+        console.log('[ProductForm] Setting up backup submit listener on form');
+        this.#formSubmitHandler = (event) => {
+          console.log('[ProductForm] Backup submit listener triggered');
+          // Call the handleSubmit method
+          this.handleSubmit(event);
+        };
+        form.addEventListener('submit', this.#formSubmitHandler);
+      }
+
+      // Debug: Check button state on mobile after connection
+      const addToCartButton = this.refs.addToCartButtonContainer?.refs.addToCartButton;
+      console.log('[ProductForm] Initial button state check:', {
+        buttonExists: !!addToCartButton,
+        buttonDisabled: addToCartButton?.disabled,
+        variantId: this.refs.variantId?.value,
+        productId: this.dataset.productId
+      });
+
+      // TEMPORARY: Force-enable button for testing on mobile
+      // This helps us determine if the issue is just variant selection or something else
+      if (addToCartButton?.disabled && this.refs.variantId?.value) {
+        console.warn('[ProductForm] Button is disabled but variant ID exists, force-enabling for testing');
+        this.refs.addToCartButtonContainer?.enable();
+      }
+    }, 100);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+
+    // Remove backup submit listener
+    if (this.#formSubmitHandler) {
+      const form = this.querySelector('form');
+      if (form) {
+        form.removeEventListener('submit', this.#formSubmitHandler);
+      }
+    }
 
     this.#abortController.abort();
   }
@@ -277,7 +453,26 @@ class ProductFormComponent extends Component {
    *
    * @param {Event} event - The submit event.
    */
+  /**
+   * Handles the click event on the add to cart button.
+   * This is used to report validation errors if the form is invalid.
+   * @param {PointerEvent} event - The click event.
+   */
+  handleClick(event) {
+    const form = this.querySelector('form');
+    if (form && !form.checkValidity()) {
+      form.reportValidity();
+    }
+  }
+
   handleSubmit(event) {
+    console.log('[ProductForm] handleSubmit called', {
+      eventType: event.type,
+      target: event.target?.tagName,
+      productId: this.dataset.productId,
+      currentTarget: event.currentTarget?.tagName
+    });
+
     const { addToCartTextError } = this.refs;
     // Stop default behaviour from the browser
     event.preventDefault();
@@ -289,16 +484,26 @@ class ProductFormComponent extends Component {
       this.querySelectorAll('add-to-cart-component')
     );
 
+    console.log('[ProductForm] Add to cart containers found:', allAddToCartContainers.length);
+
     // Check if ANY add to cart button is disabled and do an early return if it is
     const anyButtonDisabled = Array.from(allAddToCartContainers).some(
       (container) => container.refs.addToCartButton?.disabled
     );
-    if (anyButtonDisabled) return;
+    if (anyButtonDisabled) {
+      console.warn('[ProductForm] Button disabled, returning early');
+      return;
+    }
 
     // Send the add to cart information to the cart
     const form = this.querySelector('form');
 
-    if (!form) throw new Error('Product form element missing');
+    console.log('[ProductForm] Form element found:', !!form);
+
+    if (!form) {
+      console.error('[ProductForm] Product form element missing');
+      throw new Error('Product form element missing');
+    }
 
     if (this.refs.quantitySelector?.canAddToCart) {
       const validation = this.refs.quantitySelector.canAddToCart();
@@ -345,6 +550,11 @@ class ProductFormComponent extends Component {
 
     const formData = new FormData(form);
 
+    console.log('[ProductForm] FormData prepared', {
+      variantId: formData.get('id'),
+      quantity: formData.get('quantity')
+    });
+
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
     let cartItemComponentsSectionIds = [];
     cartItemsComponents.forEach((item) => {
@@ -356,15 +566,21 @@ class ProductFormComponent extends Component {
 
     const fetchCfg = fetchConfig('javascript', { body: formData });
 
+    console.log('[ProductForm] Fetching cart add URL:', Theme.routes.cart_add_url);
+
     fetch(Theme.routes.cart_add_url, {
       ...fetchCfg,
       headers: {
         ...fetchCfg.headers,
-        Accept: 'text/html',
+        Accept: 'application/json',
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log('[ProductForm] Fetch response status:', response.status);
+        return response.json();
+      })
       .then(async (response) => {
+        console.log('[ProductForm] Fetch response:', response);
         if (response.status) {
           this.dispatchEvent(
             new CartErrorEvent(form.getAttribute('id') || '', response.message, response.description, response.errors)
@@ -443,9 +659,10 @@ class ProductFormComponent extends Component {
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.error('[ProductForm] Fetch error:', error);
       })
       .finally(() => {
+        console.log('[ProductForm] Fetch complete');
         cartPerformance.measureFromEvent('add:user-action', event);
       });
   }
@@ -500,9 +717,17 @@ class ProductFormComponent extends Component {
    * @param {VariantUpdateEvent} event
    */
   #onVariantUpdate = async (event) => {
+    console.log('[ProductForm] #onVariantUpdate called', {
+      productId: event.detail.data.productId,
+      variantResource: event.detail.resource,
+      available: event.detail.resource?.available,
+      newProduct: event.detail.data.newProduct
+    });
+
     if (event.detail.data.newProduct) {
       this.dataset.productId = event.detail.data.newProduct.id;
     } else if (event.detail.data.productId !== this.dataset.productId) {
+      console.log('[ProductForm] Product ID mismatch, returning');
       return;
     }
 
@@ -513,13 +738,24 @@ class ProductFormComponent extends Component {
     const { addToCartButtonContainer: currentAddToCartButtonContainer, acceleratedCheckoutButtonContainer } = this.refs;
     const currentAddToCartButton = currentAddToCartButtonContainer?.refs.addToCartButton;
 
+    console.log('[ProductForm] Button elements', {
+      containerExists: !!currentAddToCartButtonContainer,
+      buttonExists: !!currentAddToCartButton,
+      buttonDisabled: currentAddToCartButton?.disabled
+    });
+
     // Update state and text for add-to-cart button
-    if (!currentAddToCartButtonContainer || (!currentAddToCartButton && !acceleratedCheckoutButtonContainer)) return;
+    if (!currentAddToCartButtonContainer || (!currentAddToCartButton && !acceleratedCheckoutButtonContainer)) {
+      console.error('[ProductForm] Required button elements not found');
+      return;
+    }
 
     // Update the button state
     if (event.detail.resource == null || event.detail.resource.available == false) {
+      console.log('[ProductForm] Disabling button - variant unavailable');
       currentAddToCartButtonContainer.disable();
     } else {
+      console.log('[ProductForm] Enabling button - variant available');
       currentAddToCartButtonContainer.enable();
     }
 

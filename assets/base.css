@@ -548,7 +548,15 @@ p:empty {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: var(--layer-section-background);
+  z-index: -1;
+  pointer-events: none;
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .shopify-section:not(.header-section) .section-background {
+    display: block;
+  }
 }
 
 /* For page-width sections, all content goes in the center column */
@@ -564,6 +572,47 @@ p:empty {
 @media screen and (max-width: 749px) {
   .section--mobile-full-width > * {
     grid-column: 1 / -1;
+  }
+
+  /* Ensure all interactive elements are clickable on mobile */
+  .product-information section,
+  .product-information button,
+  .product-information a,
+  .product-information input,
+  .product-information textarea,
+  .product-information select,
+  .product-information summary,
+  .product-information label,
+  .product-information add-to-cart-component,
+  .product-information quantity-selector-component,
+  .product-information .variant-option,
+  .product-information .quantity-selector,
+  .product-information .buy-buttons-block,
+  .product-information .accordion,
+  .product-information .accordion-custom,
+  .product-information .details,
+  .product-information .details__header {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  .product-details {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  .product-details > * {
+    pointer-events: auto !important;
+  }
+
+  .group-block {
+    pointer-events: auto !important;
+  }
+
+  .group-block-content {
+    pointer-events: auto !important;
   }
 }
 
@@ -1809,9 +1858,11 @@ zoom-dialog dialog {
   opacity: 0;
   transition: opacity var(--animation-speed) var(--animation-easing);
   scrollbar-width: none;
+  pointer-events: none;
 
   &[open] {
     opacity: 1;
+    pointer-events: auto;
   }
 
   @media (prefers-reduced-motion: no-preference) {

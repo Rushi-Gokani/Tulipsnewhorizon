@@ -163,9 +163,14 @@ class StickyAddToCartComponent extends Component {
    * Handles the add to cart button click in the sticky bar
    */
   handleAddToCartClick = async () => {
-    if (!this.#targetAddToCartButton) return;
-    this.#targetAddToCartButton.dataset.puppet = 'true';
-    this.#targetAddToCartButton.click();
+    // Re-query the button from the document to avoid hitting a detached node after morphing
+    const mainAddToCartButton = /** @type {HTMLElement | null} */ (document.querySelector(`product-form-component[data-product-id="${this.dataset.productId}"] [name="add"]`));
+    if (mainAddToCartButton) {
+      mainAddToCartButton.click();
+    } else {
+      // Fallback to the cached ref if the specific query fails
+      /** @type {any} */ (this.refs.addToCartButton)?.click();
+    }
     const cartIcon = document.querySelector('.header-actions__cart-icon');
 
     if (this.refs.addToCartButton.dataset.added !== 'true') {
@@ -266,6 +271,25 @@ class StickyAddToCartComponent extends Component {
     if (!selectedOptions) return;
     variantTitleElement.textContent = selectedOptions;
   };
+
+  /**
+   * Handles the click event on the add to cart button.
+   * This is used to report validation errors if the form is invalid.
+   * @param {PointerEvent | MouseEvent} event - The click event.
+   */
+  handleClick(event) {
+    // If the target add to cart button is disabled, prevent the click
+    if (this.#targetAddToCartButton?.disabled) {
+      event.preventDefault();
+      return;
+    }
+
+    // If the target add to cart button is present, "puppet" its click
+    if (this.#targetAddToCartButton) {
+      this.#targetAddToCartButton.dataset.puppet = 'true';
+      this.#targetAddToCartButton.click();
+    }
+  }
 
   /**
    * Handles cart add complete (success or error) - resets puppet flag
