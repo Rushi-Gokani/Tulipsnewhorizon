@@ -211,11 +211,17 @@
 }
 
 .product-card__actions .button:not(.button--icon) {
-  inset-inline: 1rem;
+  inset-inline: 0;
+  margin: 0 auto;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  width: calc(100% - 2rem);
+  width: fit-content;
+  min-width: 140px;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .product-card__actions .button:not(.button--icon):focus-within {
@@ -262,8 +268,11 @@
   overflow: hidden;
   border: none;
   border-color: transparent;
-  background-color: rgb(var(--color-background));
-  color: rgb(var(--color-foreground));
+  background-color: #A3CA6D;
+  color: #ffffff;
+  margin: 0 auto;
+  font-size: calc(var(--font-size-static-sm) + 2px);
+  border-radius: 50px;
 }
 
 .button.product-card__add-to-cart--button svg * {
