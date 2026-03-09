@@ -330,6 +330,9 @@ class ProductFormComponent extends Component {
   /** @type {((event: Event) => void) | undefined} */
   #formSubmitHandler;
 
+  /** @type {boolean} */
+  #isSubmitting = false;
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -473,11 +476,22 @@ class ProductFormComponent extends Component {
       currentTarget: event.currentTarget?.tagName
     });
 
+    // Prevent duplicate submissions
+    if (this.#isSubmitting) {
+      console.warn('[ProductForm] Form already submitting, ignoring duplicate submission');
+      event.preventDefault();
+      return;
+    }
+
     const { addToCartTextError } = this.refs;
     // Stop default behaviour from the browser
     event.preventDefault();
 
     if (this.#timeout) clearTimeout(this.#timeout);
+
+    // Set the submitting flag to prevent duplicate submissions
+    this.#isSubmitting = true;
+    console.log('[ProductForm] Set submitting flag to true');
 
     // Query for ALL add-to-cart components
     const allAddToCartContainers = /** @type {NodeListOf<AddToCartComponent>} */ (
@@ -664,6 +678,9 @@ class ProductFormComponent extends Component {
       .finally(() => {
         console.log('[ProductForm] Fetch complete');
         cartPerformance.measureFromEvent('add:user-action', event);
+        // Reset the submitting flag to allow new submissions
+        this.#isSubmitting = false;
+        console.log('[ProductForm] Reset submitting flag to false');
       });
   }
 
