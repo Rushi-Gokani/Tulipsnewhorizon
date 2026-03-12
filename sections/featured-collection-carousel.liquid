@@ -207,7 +207,11 @@
 
           <div class="featured-collection-carousel-slider swiper">
             <div class="swiper-wrapper">
-              {%- for product in tab_collection.products limit: section.settings.products_to_show -%}
+              {%- assign limit = section.settings.products_to_show -%}
+              {%- if section.settings.show_all_products -%}
+                {%- assign limit = 50 -%}
+              {%- endif -%}
+              {%- for product in tab_collection.products limit: limit -%}
                 <div class="swiper-slide">
                   {% capture product_card_content %}
                     {% capture gallery_children %}
@@ -277,7 +281,11 @@
     {% if show_tabs == false and section.settings.collection != blank %}
       <div class="featured-collection-carousel-slider swiper">
         <div class="swiper-wrapper">
-          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          {%- assign limit = section.settings.products_to_show -%}
+          {%- if section.settings.show_all_products -%}
+            {%- assign limit = 50 -%}
+          {%- endif -%}
+          {%- for product in section.settings.collection.products limit: limit -%}
             <div class="swiper-slide">
               {% capture product_card_content %}
                 {% capture gallery_children %}
@@ -535,6 +543,12 @@
       "step": 1,
       "default": 8,
       "label": "Maximum products to show per tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_products",
+      "label": "Show all products (max 50)",
+      "default": false
     },
     {
       "type": "range",
