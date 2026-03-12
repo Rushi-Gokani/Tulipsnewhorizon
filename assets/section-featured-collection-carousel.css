@@ -91,23 +91,25 @@
 
 /* Button Styling Override */
 .featured-collection-carousel-section .product-card-btn {
-    width: auto !important; /* Allow natural width */
-    min-width: 120px; /* Slight min-width for aesthetics */
+    width: fit-content !important; /* Allow natural width */
+    min-width: 140px; /* Slight min-width for aesthetics */
     max-width: 100%;
-    margin-top: 10px;
-    background-color: #D95D39 !important;
-    border-color: #D95D39 !important;
+    margin: 15px auto 0 !important;
+    background-color: #A3CA6D !important;
+    border-color: #A3CA6D !important;
     color: #ffffff !important;
-    border-radius: 25px; /* Pill shape */
+    border-radius: 50px; /* Pill shape */
     padding: 10px 24px; /* Horizontal padding */
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 1px;
-    display: inline-block; /* Ensure it doesn't take full block width */
+    display: block; /* Ensure it doesn't take full block width */
+    font-weight: bold;
 }
 
 .featured-collection-carousel-section .product-card-btn:hover {
     background-color: #fff !important;
-    color: #D95D39 !important;
+    color: #A3CA6D !important;
+    border-color: #A3CA6D !important;
 }
 
 /* Navigation Arrow Styling - Keeping recent updates */

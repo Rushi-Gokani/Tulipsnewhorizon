@@ -213,6 +213,8 @@ function registerEventListeners() {
   if (initialized) return;
   initialized = true;
 
+  console.log('[Component Event System] Registering event listeners');
+
   const events = ['click', 'change', 'select', 'focus', 'blur', 'submit', 'input', 'keydown', 'keyup', 'toggle'];
   const shouldBubble = ['focus', 'blur'];
   const expensiveEvents = ['pointerenter', 'pointerleave'];
@@ -226,6 +228,15 @@ function registerEventListeners() {
         const element = getElement(event);
 
         if (!element) return;
+
+        // Debug logging for click and submit events
+        if (eventName === 'click' || eventName === 'submit') {
+          console.log(`[Component Event System] ${eventName} event caught`, {
+            element: element.tagName,
+            attribute: element.getAttribute(attribute),
+            instance: element.closest('component')?.tagName || 'N/A'
+          });
+        }
 
         const proxiedEvent =
           event.target !== element
@@ -256,7 +267,16 @@ function registerEventListeners() {
             : element.closest(selector)
           : getClosestComponent(element);
 
-        if (!(instance instanceof Component) || !method) return;
+        if (!(instance instanceof Component) || !method) {
+          if (eventName === 'click' || eventName === 'submit') {
+            console.warn(`[Component Event System] No valid handler found for ${eventName}`, {
+              element: element.tagName,
+              instance: instance?.tagName,
+              method
+            });
+          }
+          return;
+        }
 
         method = method.replace(/\?.*/, '');
 
@@ -264,14 +284,26 @@ function registerEventListeners() {
 
         if (typeof callback === 'function') {
           try {
+            if (eventName === 'click' || eventName === 'submit') {
+              console.log(`[Component Event System] Calling handler for ${eventName}`, {
+                instance: instance.tagName.toLowerCase(),
+                method,
+                hasData: !!data
+              });
+            }
+
             /** @type {(Event | Data)[]} */
             const args = [proxiedEvent];
 
             if (data) args.unshift(parseData(data));
 
             callback.call(instance, ...args);
+
+            if (eventName === 'click' || eventName === 'submit') {
+              console.log(`[Component Event System] Handler completed for ${eventName}`);
+            }
           } catch (error) {
-            console.error(error);
+            console.error(`[Component Event System] Error in ${eventName} handler:`, error);
           }
         }
       },
@@ -291,6 +323,12 @@ function registerEventListeners() {
 
     if (expensiveEvents.includes(event.type)) {
       return null;
+    }
+
+    // For submit events, we need to use closest() even though they don't bubble
+    // because we're in capture mode and the event listener is on the document
+    if (event.type === 'submit') {
+      return target.closest(`[on\\:submit]`);
     }
 
     return event.bubbles || shouldBubble.includes(event.type) ? target.closest(`[on\\:${event.type}]`) : null;

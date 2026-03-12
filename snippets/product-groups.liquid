@@ -1,9 +1,4 @@
 {%- liquid
-  assign product_image_width = 64
-  if where == 'product-card'
-    assign product_image_width = 24
-  endif
-
   assign product_groups_metaobject = shop.metaobjects[settings.metaobject_for_product_groups]
   assign product_options_thumbnails_metaobject = shop.metaobjects[settings.metaobject_for_product_options_thumbnails]
   # echo product_groups_metaobject.values | json

@@ -1,13 +1,6 @@
 {%- render 'css', css: 'section-page-banner.css' -%}
 
 {%- liquid
-  # set heading tag based on section index
-  if section.index == 1
-    assign heading_tag = 'h1'
-  else
-    assign heading_tag = 'h2'
-  endif
-
   assign default_description = ''
   if section.settings.show_default_description
     case template.name

@@ -2297,14 +2297,15 @@
      "type": "header",
      "content": "Select environment"
    },
-   {
-     "type": "select",
-     "id": "envType",
-     "options": [
-       { "value": "qa", "label": "QA" },
-       { "value": "sandbox", "label": "Sandbox" },
-       { "value": "production", "label": "Production" }
-     ]
+    {
+      "type": "select",
+      "id": "envType",
+      "label": "Environment",
+      "options": [
+        { "value": "qa", "label": "QA" },
+        { "value": "sandbox", "label": "Sandbox" },
+        { "value": "production", "label": "Production" }
+      ]
    },
    {
      "type": "checkbox",

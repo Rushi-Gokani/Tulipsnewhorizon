@@ -14,7 +14,7 @@
   endunless
 %}
 
-<div class="product-card-button-container" {{ block.shopify_attributes }}>
+<div class="product-card-button-container" {{ block.shopify_attributes }} style="display: flex; justify-content: center;">
   {% if sold_out %}
     <button
       type="button"
@@ -24,7 +24,7 @@
       NOTIFY ME
     </button>
   {% else %}
-    <form method="post" action="/cart/add" class="product-card-btn-form">
+    <form method="post" action="{{ routes.cart_add_url }}" class="product-card-btn-form" style="width: 100%; display: flex; justify-content: center;">
       <input type="hidden" name="id" value="{{ variant.id }}">
       <button
         type="submit"
@@ -43,12 +43,14 @@
   }
   
   .product-card-btn {
-    width: 100%;
-    padding: 10px;
+    width: fit-content;
+    min-width: 160px;
+    margin: 0 auto;
+    padding: 10px 20px;
     border: 1px solid transparent;
-    border-radius: 4px; /* Rounded corners as per image */
+    border-radius: 50px; /* Pill shape as requested elsewhere */
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px; /* Increased +2px from 14px */
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -66,19 +68,24 @@
     opacity: 1; /* Make sure it looks solid */
   }
 
-  /* Add to Cart - Same Theme */
+  /* Add to Cart - Green Theme */
   .product-card-btn--add-to-cart {
-    background-color: #D95D39;
+    background-color: #A3CA6D;
     color: #ffffff;
-    border-color: #D95D39;
+    border-color: #A3CA6D;
   }
 
   /* Hover Effects */
-  .product-card-btn--sold-out:hover,
-  .product-card-btn--add-to-cart:hover {
+  .product-card-btn--sold-out:hover {
     background-color: #ffffff;
     color: #D95D39;
     border-color: #D95D39;
+  }
+
+  .product-card-btn--add-to-cart:hover {
+    background-color: #ffffff;
+    color: #A3CA6D;
+    border-color: #A3CA6D;
   }
 </style>
 

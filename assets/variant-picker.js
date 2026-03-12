@@ -31,16 +31,32 @@ export default class VariantPicker extends Component {
 
   connectedCallback() {
     super.connectedCallback();
-    const fieldsets = /** @type {HTMLFieldSetElement[]} */ (this.refs.fieldsets || []);
+    console.log('[VariantPicker] Component connected');
 
-    fieldsets.forEach((fieldset) => {
+    const fieldsets = /** @type {HTMLFieldSetElement[]} */ (this.refs.fieldsets || []);
+    console.log('[VariantPicker] Fieldsets found:', fieldsets.length);
+
+    fieldsets.forEach((fieldset, index) => {
       const radios = Array.from(fieldset?.querySelectorAll('input') ?? []);
       this.#radios.push(radios);
 
+      console.log('[VariantPicker] Fieldset', index, 'radios:', radios.length);
+
       const initialCheckedIndex = radios.findIndex((radio) => radio.dataset.currentChecked === 'true');
+      console.log('[VariantPicker] Fieldset', index, 'initialCheckedIndex:', initialCheckedIndex);
+
       if (initialCheckedIndex !== -1) {
         this.#checkedIndices.push([initialCheckedIndex]);
       }
+    });
+
+    // Check if we have a selected variant on page load
+    const currentlyChecked = this.querySelector('fieldset input:checked');
+    console.log('[VariantPicker] Currently checked on load:', {
+      exists: !!currentlyChecked,
+      value: currentlyChecked?.value,
+      optionValueId: currentlyChecked?.dataset.optionValueId,
+      variantId: currentlyChecked?.dataset.variantId
     });
 
     this.addEventListener('change', this.variantChanged.bind(this));
@@ -57,20 +73,39 @@ export default class VariantPicker extends Component {
    * @param {Event} event - The variant change event.
    */
   variantChanged(event) {
+    console.log('[VariantPicker] variantChanged called', {
+      target: event.target?.tagName,
+      type: event.target?.type,
+      checked: event.target?.checked,
+      value: event.target?.value
+    });
+
     if (!(event.target instanceof HTMLElement)) return;
 
     const selectedOption =
       event.target instanceof HTMLSelectElement ? event.target.options[event.target.selectedIndex] : event.target;
 
-    if (!selectedOption) return;
+    if (!selectedOption) {
+      console.warn('[VariantPicker] No selected option found');
+      return;
+    }
+
+    console.log('[VariantPicker] Selected option found', {
+      optionValueId: selectedOption.dataset.optionValueId,
+      variantId: selectedOption.dataset.variantId
+    });
 
     this.updateSelectedOption(event.target);
+
+    console.log('[VariantPicker] Dispatching VariantSelectedEvent');
     this.dispatchEvent(new VariantSelectedEvent({ id: selectedOption.dataset.optionValueId ?? '' }));
 
     const isOnProductPage =
       this.dataset.templateProductMatch === 'true' &&
       !event.target.closest('product-card') &&
       !event.target.closest('quick-add-dialog');
+
+    console.log('[VariantPicker] isOnProductPage:', isOnProductPage);
 
     // Morph the entire main content for combined listings child products, because changing the product
     // might also change other sections depending on recommendations, metafields, etc.
@@ -85,7 +120,10 @@ export default class VariantPicker extends Component {
       ? 'featured-product-information'
       : undefined;
 
-    this.fetchUpdatedSection(this.buildRequestUrl(selectedOption), morphElementSelector);
+    const requestUrl = this.buildRequestUrl(selectedOption);
+    console.log('[VariantPicker] Fetching updated section', { requestUrl, morphElementSelector });
+
+    this.fetchUpdatedSection(requestUrl, morphElementSelector);
 
     const url = new URL(window.location.href);
 
@@ -302,20 +340,32 @@ export default class VariantPicker extends Component {
    * @param {string} [morphElementSelector] - The selector of the element to be morphed. By default, only the variant picker is morphed.
    */
   fetchUpdatedSection(requestUrl, morphElementSelector) {
+    console.log('[VariantPicker] fetchUpdatedSection called', { requestUrl, morphElementSelector });
+
     // We use this to abort the previous fetch request if it's still pending.
     this.#abortController?.abort();
     this.#abortController = new AbortController();
 
     fetch(requestUrl, { signal: this.#abortController.signal })
-      .then((response) => response.text())
+      .then((response) => {
+        console.log('[VariantPicker] Fetch response received', { status: response.status, ok: response.ok });
+        return response.text();
+      })
       .then((responseText) => {
+        console.log('[VariantPicker] Response text parsed');
         this.#pendingRequestUrl = undefined;
         const html = new DOMParser().parseFromString(responseText, 'text/html');
         // Defer is only useful for the initial rendering of the page. Remove it here.
         html.querySelector('overflow-list[defer]')?.removeAttribute('defer');
 
         const textContent = html.querySelector(`variant-picker script[type="application/json"]`)?.textContent;
-        if (!textContent) return;
+        if (!textContent) {
+          console.error('[VariantPicker] No variant data found in response');
+          return;
+        }
+
+        const variantData = JSON.parse(textContent);
+        console.log('[VariantPicker] Variant data parsed', variantData);
 
         if (morphElementSelector === 'main') {
           this.updateMain(html);
@@ -324,23 +374,28 @@ export default class VariantPicker extends Component {
         } else {
           const newProduct = this.updateVariantPicker(html);
 
+          console.log('[VariantPicker] selectedOptionId:', this.selectedOptionId);
+
           // We grab the variant object from the response and dispatch an event with it.
           if (this.selectedOptionId) {
+            console.log('[VariantPicker] Dispatching VariantUpdateEvent');
             this.dispatchEvent(
-              new VariantUpdateEvent(JSON.parse(textContent), this.selectedOptionId, {
+              new VariantUpdateEvent(variantData, this.selectedOptionId, {
                 html,
                 productId: this.dataset.productId ?? '',
                 newProduct,
               })
             );
+          } else {
+            console.warn('[VariantPicker] No selected option ID, cannot dispatch VariantUpdateEvent');
           }
         }
       })
       .catch((error) => {
         if (error.name === 'AbortError') {
-          console.warn('Fetch aborted by user');
+          console.warn('[VariantPicker] Fetch aborted by user');
         } else {
-          console.error(error);
+          console.error('[VariantPicker] Fetch error:', error);
         }
       });
   }

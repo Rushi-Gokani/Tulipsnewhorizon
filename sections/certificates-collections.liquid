@@ -45,6 +45,8 @@
                 <img
                   src="{{ image | image_url: width: 1400 }}"
                   alt="Certificate Image"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
                   loading="lazy"
                   decoding="async"
                 >
@@ -62,7 +64,7 @@
 <!-- Image Modal -->
 <div id="image-modal" class="image-modal">
   <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modal-img">
+  <img class="modal-content" id="modal-img" alt="Certificate" width="1200" height="1200">
 </div>
 
 <style>

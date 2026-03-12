@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -144,6 +135,49 @@
         "padding-block-end": 84
       }
     },
+<<<<<<< HEAD
+=======
+    "form_contact_TpgeEg": {
+      "type": "form-contact-v2",
+      "blocks": {
+        "field_LTMxPk": {
+          "type": "field",
+          "disabled": true,
+          "settings": {
+            "column_factor": "6",
+            "heading": "Phone",
+            "type": "tel",
+            "required": false,
+            "checked": false,
+            "placeholder": "",
+            "binding": "phone",
+            "label_description": "",
+            "option_1": "",
+            "option_2": "",
+            "option_3": "",
+            "option_4": ""
+          }
+        }
+      },
+      "block_order": [
+        "field_LTMxPk"
+      ],
+      "disabled": true,
+      "name": "t:sections.form-contact.name",
+      "settings": {
+        "section_width": "max-w-page",
+        "color_scheme": "",
+        "subject_label": "SELECT THE SUBJECT",
+        "subject_placeholder": "Select an option",
+        "subject_options": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
+        "subject_required": true,
+        "message_label": "MESSAGE",
+        "message_placeholder": "Your message",
+        "spacing_top": "2",
+        "spacing_bottom": "2"
+      }
+    },
+>>>>>>> 98d466dcb6e05db6a9caf8d233cbd572e07b7bea
     "contact_boxes_YVghPV": {
       "type": "contact-boxes",
       "name": "Contact Boxes",

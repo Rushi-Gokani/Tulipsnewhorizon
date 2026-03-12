@@ -6,7 +6,6 @@
   @param {object} product - The product object
   @param {object} children - The children of the product card
   @param {object} [block] - The block object
-  @param {number} [product_card_gap] - The gap between the product card children (overrides block settings)
 {%- enddoc -%}
 
 {% assign block_settings = block.settings %}
@@ -32,7 +31,6 @@
   endif
 
   assign product_card_id = 'product-card-link-' | append: block.id | append: '-' | append: product.id
-  assign product_card_gap_value = product_card_gap | default: block_settings.product_card_gap
 
   # Logic to determine which variant URL to use (matching swatch selection logic)
   assign variant_to_link = product.selected_or_first_available_variant

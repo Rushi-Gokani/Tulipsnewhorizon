@@ -212,13 +212,12 @@
 
 {% schema %}
 {
-  "name": "t:sections.form-contact.name",
+  "name": "Contact Form",
   "tag": "section",
   "settings": [
     {
       "type": "header",
-      "content": "t:sections.global.header.settings.content",
-      "info": "t:sections.global.header.settings.info"
+      "content": "Global Settings"
     },
     {
       "type": "select",
@@ -226,25 +225,25 @@
       "options": [
         {
           "value": "max-w-page",
-          "label": "t:sections.global.settings.section_width.options__1.label"
+          "label": "Page Width"
         },
         {
           "value": "max-w-narrower",
-          "label": "t:sections.global.settings.section_width.options__5.label"
+          "label": "Narrower"
         },
         {
           "value": "max-w-fluid",
-          "label": "t:sections.global.settings.section_width.options__2.label"
+          "label": "Fluid"
         }
       ],
       "default": "max-w-narrower",
-      "label": "t:sections.global.settings.section_width.label"
+      "label": "Section Width"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "default": "scheme-1",
-      "label": "t:sections.global.color_scheme.label"
+      "label": "Color Scheme"
     },
     {
       "type": "header",
@@ -253,7 +252,7 @@
     {
       "type": "select",
       "id": "spacing_top",
-      "label": "t:sections.global.settings.spacing.settings.spacing_top.label",
+      "label": "Spacing Top",
       "options": [
         {
           "value": "0",
@@ -281,7 +280,7 @@
     {
       "type": "select",
       "id": "spacing_bottom",
-      "label": "t:sections.global.settings.spacing.settings.spacing_bottom.label",
+      "label": "Spacing Bottom",
       "options": [
         {
           "value": "0",
@@ -305,12 +304,56 @@
         }
       ],
       "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Subject Field Settings"
+    },
+    {
+      "type": "text",
+      "id": "subject_label",
+      "label": "Subject Label",
+      "default": "SELECT THE SUBJECT"
+    },
+    {
+      "type": "text",
+      "id": "subject_placeholder",
+      "label": "Subject Placeholder",
+      "default": "Select an option"
+    },
+    {
+      "type": "textarea",
+      "id": "subject_options",
+      "label": "Subject Options",
+      "default": "General Inquiry,Order Issue,Product Information,Technical Support,Other"
+    },
+    {
+      "type": "checkbox",
+      "id": "subject_required",
+      "label": "Subject Required",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Message Field Settings"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message Label",
+      "default": "MESSAGE"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Placeholder",
+      "default": "Your message"
     }
   ],
   "blocks": [
     {
       "type": "field",
-      "name": "t:sections.global.settings.form.field.name",
+      "name": "Form Field",
       "settings": [
         {
           "type": "select",
@@ -318,62 +361,54 @@
           "options": [
             {
               "value": "6",
-              "label": "t:sections.global.settings.column_factor.options__6.label"
+              "label": "Full Width"
             },
             {
               "value": "3",
-              "label": "t:sections.global.settings.column_factor.options__3.label_text"
+              "label": "Half Width"
             }
           ],
           "default": "6",
-          "label": "t:sections.global.settings.column_factor.label"
+          "label": "Column Width"
         },
         {
           "type": "text",
           "id": "heading",
-          "label": "t:sections.global.settings.form.heading.label",
-          "info": "t:sections.global.settings.form.heading.info",
+          "label": "Field Heading",
           "default": "Label"
         },
         {
           "type": "select",
           "id": "type",
-          "label": "t:sections.global.settings.form.type.label",
+          "label": "Field Type",
           "options": [
             {
               "value": "text",
-              "label": "t:sections.global.settings.form.type.options.text.label",
-              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+              "label": "Text"
             },
             {
               "value": "email",
-              "label": "t:sections.global.settings.form.type.options.email.label",
-              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+              "label": "Email"
             },
             {
               "value": "tel",
-              "label": "t:sections.global.settings.form.type.options.tel.label",
-              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+              "label": "Phone"
             },
             {
               "value": "select",
-              "label": "Dropdown",
-              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+              "label": "Dropdown"
             },
             {
               "value": "textarea",
-              "label": "Textarea",
-              "group": "t:sections.global.settings.form.type.groups.group__1.label"
+              "label": "Textarea"
             },
             {
               "value": "checkbox",
-              "label": "t:sections.global.settings.form.type.options.checkbox.label",
-              "group": "t:sections.global.settings.form.type.groups.group__2.label"
+              "label": "Checkbox"
             },
             {
               "value": "radio",
-              "label": "t:sections.global.settings.form.type.options.radio.label",
-              "group": "t:sections.global.settings.form.type.groups.group__2.label"
+              "label": "Radio"
             }
           ],
           "default": "text"
@@ -381,21 +416,19 @@
         {
           "type": "checkbox",
           "id": "required",
-          "label": "t:sections.global.settings.form.settings.required.label",
-          "info": "t:sections.global.settings.form.settings.required.info",
+          "label": "Required",
           "default": false
         },
         {
           "type": "checkbox",
           "id": "checked",
-          "label": "t:sections.global.settings.form.settings.checked.label",
-          "info": "t:sections.global.settings.form.settings.checked.info",
+          "label": "Checked by Default",
           "default": false
         },
         {
           "type": "text",
           "id": "placeholder",
-          "label": "t:sections.global.settings.form.placeholder.label"
+          "label": "Placeholder"
         },
         {
           "type": "textarea",
@@ -407,81 +440,78 @@
         {
           "type": "select",
           "id": "binding",
-          "label": "t:sections.global.settings.form.binding.label",
-          "info": "t:sections.global.settings.form.binding.info",
+          "label": "Field Binding",
           "options": [
             {
               "value": "custom",
-              "label": "t:sections.global.settings.form.binding.options.custom.label"
+              "label": "Custom"
             },
             {
               "value": "email",
-              "label": "t:sections.global.settings.form.binding.options.email.label"
+              "label": "Email"
             },
             {
               "value": "name",
-              "label": "t:sections.global.settings.form.binding.options.name.label"
+              "label": "Name"
             },
             {
               "value": "first_name",
-              "label": "t:sections.global.settings.form.binding.options.first_name.label"
+              "label": "First Name"
             },
             {
               "value": "last_name",
-              "label": "t:sections.global.settings.form.binding.options.last_name.label"
+              "label": "Last Name"
             },
             {
               "value": "id",
-              "label": "t:sections.global.settings.form.binding.options.id.label"
+              "label": "ID"
             },
             {
               "value": "phone",
-              "label": "t:sections.global.settings.form.binding.options.phone.label"
+              "label": "Phone"
             },
             {
               "value": "last_order",
-              "label": "t:sections.global.settings.form.binding.options.last_order.label"
+              "label": "Last Order"
             }
           ],
           "default": "custom"
         },
         {
           "type": "header",
-          "content": "t:sections.global.header.options.for__form.content",
-          "info": "t:sections.global.header.options.for__form.info"
+          "content": "Options Settings"
         },
         {
           "type": "text",
           "id": "label_description",
-          "label": "t:sections.global.settings.form.label_description.label",
-          "info": "t:sections.global.settings.form.label_description.info"
+          "label": "Label Description"
         },
         {
           "type": "text",
           "id": "option_1",
-          "label": "t:sections.global.settings.form.option_1.label"
+          "label": "Option 1"
         },
         {
           "type": "text",
           "id": "option_2",
-          "label": "t:sections.global.settings.form.option_2.label"
+          "label": "Option 2"
         },
         {
           "type": "text",
           "id": "option_3",
-          "label": "t:sections.global.settings.form.option_3.label"
+          "label": "Option 3"
         },
         {
           "type": "text",
           "id": "option_4",
-          "label": "t:sections.global.settings.form.option_4.label"
+          "label": "Option 4"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "t:sections.form-contact.name",
+      "name": "Contact Form",
       "blocks": []
     }
   ]

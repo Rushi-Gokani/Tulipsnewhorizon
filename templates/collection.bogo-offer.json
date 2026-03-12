@@ -54,7 +54,11 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
+<<<<<<< HEAD
             "text": "<h1>ADULT DIAPER PANTS</h1>",
+=======
+            "text": "<h1>ADULT DIAPERS</h1>",
+>>>>>>> 98d466dcb6e05db6a9caf8d233cbd572e07b7bea
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -359,7 +363,7 @@
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 16,
-            "width": "fill",
+            "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
@@ -391,7 +395,7 @@
               "type": "icon",
               "settings": {
                 "icon": "eye",
-                "image_upload": "shopify://shop_images/Untitled-1-2.png",
+                "image_upload": "shopify://shop_images/aloevera.png",
                 "width": 200,
                 "link": "",
                 "open_in_new_tab": false
@@ -511,7 +515,7 @@
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 16,
-            "width": "fill",
+            "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
@@ -543,7 +547,7 @@
               "type": "icon",
               "settings": {
                 "icon": "heart",
-                "image_upload": "shopify://shop_images/absorption-protection.png",
+                "image_upload": "shopify://shop_images/absorption-protection_41143fe2-fef2-4cd1-8791-5864d20728df.png",
                 "width": 200,
                 "link": "",
                 "open_in_new_tab": false
@@ -663,7 +667,7 @@
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 16,
-            "width": "fill",
+            "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
@@ -695,7 +699,7 @@
               "type": "icon",
               "settings": {
                 "icon": "silhouette",
-                "image_upload": "shopify://shop_images/Untitled-1-1.png",
+                "image_upload": "shopify://shop_images/wetness.png",
                 "width": 200,
                 "link": "",
                 "open_in_new_tab": false
@@ -815,7 +819,7 @@
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 16,
-            "width": "fill",
+            "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
@@ -847,7 +851,7 @@
               "type": "icon",
               "settings": {
                 "icon": "silhouette",
-                "image_upload": "shopify://shop_images/Untitled-1-3.png",
+                "image_upload": "shopify://shop_images/aquation.png",
                 "width": 200,
                 "link": "",
                 "open_in_new_tab": false
@@ -967,12 +971,16 @@
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
+        "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
+        "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
+<<<<<<< HEAD
         "gap": 0,
+=======
+        "gap": 60,
+>>>>>>> 98d466dcb6e05db6a9caf8d233cbd572e07b7bea
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -990,6 +998,95 @@
         "gradient_direction": "to top",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "section_cjKz3g": {
+      "type": "section",
+      "blocks": {
+        "text_9CpjMR": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h2>Buy Adult Diapers Online for Men and Women</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_QhDgQc": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>TULIPS Adult Diaper Pants offer effective control for person suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors in old age and mobility impairment.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_9CpjMR",
+        "text_QhDgQc"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "custom",
+        "section_height_custom": 18,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "image_slider_ABDgbk": {
@@ -1122,7 +1219,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h3>Frequently asked questions</h3>",
+            "text": "<h3>Frequently Asked Questions</h3>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
@@ -1258,7 +1355,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Common causes include: Ageing, Diabetes, Neurological disorders, post-surgery recovery.  Due to age or any medical condition, urine leakages can happen in elders even upon coughing, laughing or sneezing. Sudden intense urge to urinate or bladder not emptying fully can also be reasons for UI.</p><p><br/>Women face Urinary Incontinence problems more than men due to various gender related issues like pregnancy & childbirth, Menopause, being more prone to urinary tract infections & weaker pelvic floor muscles.</p><p><br/>Men also have gender specific issues like prostate enlargement which weaken bladder control.<br/></p>",
+                    "text": "<p>Common causes include: Ageing, Diabetes, Neurological disorders, post-surgery recovery. Due to age or any<br/>medical condition, urine leakages can happen in elders even upon coughing, laughing or sneezing. Sudden<br/>intense urge to urinate or bladder not emptying fully can also be reasons for UI.<br/>Women face Urinary Incontinence problems more than men due to various gender related issues like<br/>pregnancy & childbirth, Menopause, being more prone to urinary tract infections & weaker pelvic floor<br/>muscles.<br/>Men also have gender specific issues like prostate enlargement which weaken bladder control.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1300,7 +1397,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>They are made from soft, breathable non-woven fabric inner layers, PE barrier films to prevent leakage and Super Absorbent Polymer (SAP) that instantly converts liquid into gel within minutes, thereby giving the person a dry feel even when a diaper is used.</p>",
+                    "text": "<p>They are made from soft, breathable non-woven fabric inner layers, PE barrier films to prevent leakage and<br/>Super Absorbent Polymer (SAP) that instantly converts liquid into gel within minutes, thereby giving the<br/>person a dry feel even when a diaper is used.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1342,7 +1439,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Adult diapers are mainly available in two types: Pants style Adult Diaper (Pull-Up) & Adult Diaper Tape Style Diapers. Each type of adult diapers caters to different mobility and bed-ridden care requirements. </p><p>Pull Up pants, as suggested by the name, can simply be pulled up the legs like wearing any normal underwear.  </p><p>But Tape Style Diapers come with side tapes. </p><p>These are mostly used for bed-ridden patients & are mostly made to wea, by the care-givers</p>",
+                    "text": "<p>Adult diapers are mainly available in two types: Pants style Adult Diaper (Pull-Up) & Adult Diaper Tape Style<br/>Diapers. Each type of adult diapers caters to different mobility and bed-ridden care requirements. Pull Up<br/>pants, as suggested by the name, can simply be pulled up the legs like wearing any normal underwear. But<br/>Tape Style Diapers come with side tapes. These are mostly used for bed-ridden patients & are mostly made<br/>to wea, by the care-givers.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1384,7 +1481,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Tape style is primarily used for bedridden patients, while Pant style is more used for active, mobile users affected by a weak urine bladder.</p><p> But mostly these are the patients who can pull up a diaper easily, by themselves</p>",
+                    "text": "<p>Tape style is primarily used for bedridden patients, while Pant style is more used for active, mobile users<br/>affected by a weak urine bladder. But mostly these are the patients who can pull up a diaper easily, by themselves.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1426,7 +1523,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Choosing the correct size is the most important aspect from leak protection & comfort perspective.</p><p> Measure your waist size and refer to the size chart provided on the pack. </p><p>A snug fit works best. It is important to ensure that the diaper is hugging the thighs well. </p><p><br/>If the diaper is slightly loose on the thighs, then a smaller size should be used. <br/></p>",
+                    "text": "<p>Choosing the correct size is the most important aspect from leak protection & comfort perspective. Measure<br/>your waist size and refer to the size chart provided on the pack. A snug fit works best. It is important to<br/>ensure that the diaper is hugging the thighs well.<br/>If the diaper is slightly loose on the thighs, then a smaller size should be used.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1468,7 +1565,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Yes. ‘Odour Lock’ molecules present in Super Absorbent Polymer (SAP) helps neutralize unpleasant urine smell and keeps you feeling fresh and confident. </p><p>TULIPS adult diaper pants are designed to neutralize odour-causing bacteria giving extended freshness to the wearer. </p>",
+                    "text": "<p>Yes. ‘Odour Lock’ molecules present in Super Absorbent Polymer (SAP) helps neutralize unpleasant urine<br/>smell and keeps you feeling fresh and confident. TULIPS adult diaper pants are designed to neutralize odour-<br/>causing bacteria giving extended freshness to the wearer.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1510,7 +1607,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>These are single use diapers in which the user can urinate number of times depending on its absorbency capacity. </p><p>Once it is taken off, the used diaper should be wrapped and disposed-off, in a dry waste bin.</p><p> Do not flush adult diapers in the toilet.</p>",
+                    "text": "<p>These are single use diapers in which the user can urinate number of times depending on its absorbency<br/>capacity. Once it is taken off, the used diaper should be wrapped and disposed-off, in a dry waste bin. Do not<br/>flush adult diapers in the toilet.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1551,7 +1648,7 @@
                 "text_LpM8z4": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>AdultDiaper Pants are designed in the shape of an underwear, to give a feel to the userthat they are wearing something like a normal underwear only.</p><p> It is worn likeany other regular underwear. </p>",
+                    "text": "<p>Adult Diaper Pants are designed in the shape of an underwear, to give a feel to the user that they are<br/>wearing something like a normal underwear only. It is worn like any other regular underwear.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1592,7 +1689,7 @@
                 "text_CNzrr6": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>TULIPS Adult Diaper pants have a 1000 ml absorption power. </p><p>Based on this absorption capacity, it has a tentative absorption protection of up-to 10 hours.</p><p> This high absorption capacity with its other supporting features gives a super confidence that the diaper would not leak when one is out in travel/ public place. </p>",
+                    "text": "<p>A TULIPS Adult Diaper pants have a 1000 ml absorption power. Based on this absorption capacity, it has a<br/>tentative absorption protection of up-to 10 hours. This high absorption capacity with its other supporting<br/>features gives a super confidence that the diaper would not leak when one is out in travel/ public place.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1633,7 +1730,7 @@
                 "text_44UbDR": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Yes, TULIPS diaper pants are designed with high-absorbency cores and side leak guards specifically to ensure uninterrupted, dry sleep all night long.</p><p> But in case a patient has frequent high quantity leaks often, then TULIPS OVERNIGHT Adult Diaper Pants is recommended, which gives more than 12 hours of absorption protection.</p>",
+                    "text": "<p>A Yes, TULIPS diaper pants are designed with high-absorbency cores and side leak guards specifically to<br/>ensure uninterrupted, dry sleep all night long. But in case a patient has frequent high quantity leaks often,<br/>then TULIPS OVERNIGHT Adult Diaper Pants is recommended, which gives more than 12 hours of absorption<br/>protection.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1715,7 +1812,7 @@
                 "text_ChRiRk": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Yes, long & continuous usage of diapers can cause rashes or skin irritation.</p><p> <br/>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin friendly. </p><p>But this aloe-vera coating is not a guarantee against rashes or skin irritation. </p><p><br/>For best results: TULIPS recommends that user should change regularly. </p><p>Keep skin clean and dry. </p><p>And when wearing diapers on daily basis, it is important to air the groin area on regular basis.<br/></p>",
+                    "text": "<p>A Yes, long & continuous usage of diapers can cause rashes or skin irritation.<br/>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin<br/>friendly. But this aloe-vera coating is not a guarantee against rashes or skin irritation.<br/>For best results: TULIPS recommends that user should change regularly. Keep skin clean and dry. And when<br/>wearing diapers on daily basis, it is important to air the groin area on regular basis.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1797,7 +1894,7 @@
                 "text_htzaEU": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>A Leakages in Diaper mostly happen due to diaper not fitting well. </p><p>It is important that the diaper should cup your thighs very well. </p><p>If someone has very weak thighs, smaller waist size should be tried to ensure that the diaper side guards are snugly fit on your thighs.<br/></p>",
+                    "text": "<p>A Leakages in Diaper mostly happen due to diaper not fitting well. It is important that the diaper<br/>should cup your thighs very well. If someone has very weak thighs, smaller waist size should be tried<br/>to ensure that the diaper side guards are snugly fit on your thighs.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2044,6 +2141,7 @@
     "main",
     "section_R74iyB",
     "section_bgqA6D",
+    "section_cjKz3g",
     "image_slider_ABDgbk",
     "image_slider_ByC8YP",
     "image_slider_CN34G4",

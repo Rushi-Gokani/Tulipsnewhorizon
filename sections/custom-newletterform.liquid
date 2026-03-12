@@ -2,18 +2,14 @@
   <div class="subscribe">
     <p>Subscribe to <span>our newsletter</span> and get updates on <span>new arrival</span></p>
 
-    <!-- 🛠 Cleaned-up and working subscription form -->
-    <form method="post" action="/contact#subscribe-success" class="subscribe-box">
-      <input type="hidden" name="form_type" value="customer">
-      <input type="hidden" name="utf8" value="✓">
+    {% form 'customer', class: 'subscribe-box' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
       <input name="contact[email]" type="email" placeholder="your email address" required>
       <button type="submit">Subscribe</button>
-    </form>
-
-    <!-- ✅ Optional success message -->
-    {% if form.posted_successfully? %}
-      <p id="subscribe-success" class="success-message">Thank you for subscribing!</p>
-    {% endif %}
+      {% if form.posted_successfully? %}
+        <p id="subscribe-success" class="success-message">Thank you for subscribing!</p>
+      {% endif %}
+    {% endform %}
   </div>
 
   <!-- Divider Line -->
@@ -28,7 +24,12 @@
         {% if section.settings[image_id] != blank %}
           <div class="insta-img">
             <a href="{{ section.settings[link_id] }}" target="_blank" rel="noopener noreferrer">
-              <img src="{{ section.settings[image_id] | img_url: '200x200' }}" alt="Instagram Post">
+              <img
+                src="{{ section.settings[image_id] | image_url: width: 200 }}"
+                alt="Instagram Post"
+                width="{{ section.settings[image_id].width }}"
+                height="{{ section.settings[image_id].height }}"
+              >
             </a>
           </div>
         {% endif %}
@@ -92,10 +93,12 @@
 {% endschema %}
 
 <style>
-    .success-message {
+.success-message {
     color: green;
     font-weight: bold;
     margin-top: 10px;
+    width: 100%;
+    flex-basis: 100%;
   }
 
       /* Parent Container */

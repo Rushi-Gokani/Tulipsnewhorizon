@@ -163,9 +163,38 @@ class StickyAddToCartComponent extends Component {
    * Handles the add to cart button click in the sticky bar
    */
   handleAddToCartClick = async () => {
-    if (!this.#targetAddToCartButton) return;
-    this.#targetAddToCartButton.dataset.puppet = 'true';
-    this.#targetAddToCartButton.click();
+    // Get the product form to submit directly instead of clicking a button
+    // This prevents duplicate submissions and avoids finding the wrong button
+    const productForm = this.#getProductForm();
+    if (!productForm) {
+      console.warn('[StickyAddToCart] Product form not found');
+      return;
+    }
+
+    // Find the form within the product form component
+    const form = productForm.querySelector('form');
+    if (!form) {
+      console.warn('[StickyAddToCart] Form not found');
+      return;
+    }
+
+    // Check if the form is valid before submitting
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Check if any add-to-cart button is disabled
+    const addToCartButton = form.querySelector('[name="add"]');
+    if (addToCartButton?.disabled) {
+      console.warn('[StickyAddToCart] Add to cart button is disabled');
+      return;
+    }
+
+    // Create and dispatch submit event to trigger the form's submit handler
+    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+    form.dispatchEvent(submitEvent);
+
     const cartIcon = document.querySelector('.header-actions__cart-icon');
 
     if (this.refs.addToCartButton.dataset.added !== 'true') {
@@ -266,6 +295,25 @@ class StickyAddToCartComponent extends Component {
     if (!selectedOptions) return;
     variantTitleElement.textContent = selectedOptions;
   };
+
+  /**
+   * Handles the click event on the add to cart button.
+   * This is used to report validation errors if the form is invalid.
+   * @param {PointerEvent | MouseEvent} event - The click event.
+   */
+  handleClick(event) {
+    // If the target add to cart button is disabled, prevent the click
+    if (this.#targetAddToCartButton?.disabled) {
+      event.preventDefault();
+      return;
+    }
+
+    // If the target add to cart button is present, "puppet" its click
+    if (this.#targetAddToCartButton) {
+      this.#targetAddToCartButton.dataset.puppet = 'true';
+      this.#targetAddToCartButton.click();
+    }
+  }
 
   /**
    * Handles cart add complete (success or error) - resets puppet flag
