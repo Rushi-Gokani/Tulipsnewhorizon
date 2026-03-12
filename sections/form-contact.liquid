@@ -42,7 +42,6 @@
             <div class="color-red">
               {{- form.errors | default_errors -}}
             </div>
-            </div>
           {%- endif -%}
 
           {%- assign field_type_list = '' -%}
@@ -153,7 +152,7 @@
                       assign required_attr = 'required'
                     endif
                     echo '<label class="field__label" for="' | append: id | append: '">' | append: label | append: '</label>'
-                    echo '<select name="' | append: name | append: '" id="' | append: id | append: '" class="form-control" ' | append: required_attr | append '>'
+                    echo '<select name="' | append: name | append: '" id="' | append: id | append: '" class="form-control" ' | append: required_attr | append: '>'
                     echo '<option value="" disabled selected>' | append: select_placeholder | append: '</option>'
                     for option in options
                       echo '<option value="' | append: option | append: '">' | append: option | append: '</option>'
@@ -167,7 +166,7 @@
                       assign required_attr = 'required'
                     endif
                     echo '<label class="field__label" for="' | append: id | append: '">' | append: label | append: '</label>'
-                    echo '<textarea id="' | append: id | append: '" name="' | append: name | append: '" placeholder="' | append: textarea_placeholder | append: '" ' | append: required_attr | append ' rows="5" class="field__input field__textarea">' | append: form[label_handle] | append: '</textarea>'
+                    echo '<textarea id="' | append: id | append: '" name="' | append: name | append: '" placeholder="' | append: textarea_placeholder | append: '" ' | append: required_attr | append: ' rows="5" class="field__input field__textarea">' | append: form[label_handle] | append: '</textarea>'
 
                   else
                     if block.settings.binding != 'custom'

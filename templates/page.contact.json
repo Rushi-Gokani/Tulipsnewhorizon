@@ -144,46 +144,6 @@
         "padding-block-end": 84
       }
     },
-    "form_contact_TpgeEg": {
-      "type": "form-contact",
-      "blocks": {
-        "field_LTMxPk": {
-          "type": "field",
-          "disabled": true,
-          "settings": {
-            "column_factor": "6",
-            "heading": "Phone",
-            "type": "tel",
-            "required": false,
-            "checked": false,
-            "placeholder": "",
-            "binding": "phone",
-            "label_description": "",
-            "option_1": "",
-            "option_2": "",
-            "option_3": "",
-            "option_4": ""
-          }
-        }
-      },
-      "block_order": [
-        "field_LTMxPk"
-      ],
-      "disabled": true,
-      "name": "t:sections.form-contact.name",
-      "settings": {
-        "section_width": "max-w-page",
-        "color_scheme": "",
-        "subject_label": "SELECT THE SUBJECT",
-        "subject_placeholder": "Select an option",
-        "subject_options": "General Inquiry,Order Issue,Product Information,Technical Support,Other",
-        "subject_required": true,
-        "message_label": "MESSAGE",
-        "message_placeholder": "Your message",
-        "spacing_top": "2",
-        "spacing_bottom": "2"
-      }
-    },
     "contact_boxes_YVghPV": {
       "type": "contact-boxes",
       "name": "Contact Boxes",
@@ -203,7 +163,6 @@
   "order": [
     "main",
     "form",
-    "form_contact_TpgeEg",
     "contact_boxes_YVghPV"
   ]
 }
