@@ -127,7 +127,7 @@
         "tab_text_color": "#000000",
         "tab_active_color": "#a3ca6d",
         "collection": "cotton",
-        "products_to_show": 8,
+        "products_to_show": 20,
         "desktop_columns": 4,
         "autoplay_speed": 5,
         "show_arrows": true,
