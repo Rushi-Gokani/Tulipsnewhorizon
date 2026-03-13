@@ -54,11 +54,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-<<<<<<< HEAD
-            "text": "<h1>ADULT DIAPER PANTS</h1>",
-=======
             "text": "<h1>ADULT DIAPERS</h1>",
->>>>>>> 98d466dcb6e05db6a9caf8d233cbd572e07b7bea
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -976,11 +972,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-<<<<<<< HEAD
-        "gap": 0,
-=======
         "gap": 60,
->>>>>>> 98d466dcb6e05db6a9caf8d233cbd572e07b7bea
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -1022,7 +1014,7 @@
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 0,
+            "padding-block-start": 34,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
@@ -1033,7 +1025,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants offer effective control for person suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors in old age and mobility impairment.</p>",
+            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. This Quality tested Adult Diapers for Men & Women, are available in various sizes.</p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "center",
@@ -1048,8 +1040,8 @@
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
+            "padding-block-start": 12,
+            "padding-block-end": 95,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
