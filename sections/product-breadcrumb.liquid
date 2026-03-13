@@ -130,8 +130,43 @@
         <a href="{{ routes.root_url }}" title="Home">Home</a>
         
         {%- if collection -%}
+          {%- liquid
+            assign parent_handle = ""
+            assign current_handle = collection.handle
+            
+            # Check for parent mapping in blocks
+            for block in section.blocks
+              if block.type == 'parent_map'
+                assign child_handles = block.settings.child_collections | split: ','
+                for handle in child_handles
+                  assign h = handle | strip
+                  if h == current_handle
+                    assign parent_handle = block.settings.parent_collection
+                    break
+                  endif
+                endfor
+              endif
+              if parent_handle != ""
+                break
+              endif
+            endfor
+
+            assign collection_title = collection.title
+            if section.settings.title_override != blank and section.settings.collection_to_override == collection.handle
+              assign collection_title = section.settings.title_override
+            endif
+          -%}
+
+          {%- if parent_handle != blank -%}
+             {%- assign parent_col = collections[parent_handle] -%}
+             {%- if parent_col != blank -%}
+                <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
+                <a href="{{ parent_col.url }}" title="{{ parent_col.title | escape }}">{{ parent_col.title | escape }}</a>
+             {%- endif -%}
+          {%- endif -%}
+
           <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
-          <a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title | escape }}</a>
+          <a href="{{ collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
         {%- elsif product.collections.size > 0 -%}
           {%- assign first_collection = product.collections.first -%}
           <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
@@ -178,6 +213,21 @@
     },
     {
       "type": "header",
+      "content": "Title Overrides"
+    },
+    {
+      "type": "collection",
+      "id": "collection_to_override",
+      "label": "Collection to override"
+    },
+    {
+      "type": "text",
+      "id": "title_override",
+      "label": "New title",
+      "info": "Display this title instead of the original collection title"
+    },
+    {
+      "type": "header",
       "content": "Arrow Styling"
     },
     {
@@ -217,9 +267,37 @@
       "default": 12
     }
   ],
+  "blocks": [
+    {
+      "type": "parent_map",
+      "name": "Parent Collection Map",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "parent_collection",
+          "label": "Parent Collection"
+        },
+        {
+          "type": "textarea",
+          "id": "child_collections",
+          "label": "Child Collection Handles",
+          "info": "Comma-separated list of child collection handles"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Product Breadcrumb"
+      "name": "Product Breadcrumb",
+      "blocks": [
+        {
+          "type": "parent_map",
+          "settings": {
+            "parent_collection": "our-products",
+            "child_collections": "adult-diaper-pants,baby-range,bathing-range,cotton,kitchen-dining,makeup-remover-range,toilet-rolls,wipes-tissues"
+          }
+        }
+      ]
     }
   ]
 }

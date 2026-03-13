@@ -193,7 +193,7 @@
                   assign img_ratio = product.featured_image.aspect_ratio | default: 1
                 %}
                 <div class="pc-tabs__product" style="--pc-img-ratio: {{ img_ratio }};">
-                  <a href="{{ product.url }}" class="pc-tabs__product-link">
+                  <a href="{{ product.url | within: sub_col }}" class="pc-tabs__product-link">
                     <div class="pc-tabs__product-media">
                       {% if product.featured_image != blank %}
                         {{

@@ -361,13 +361,13 @@
   </script>
 {%- endcapture -%}
 
-{%- assign product_link_with_variant = product_ref.url
+{%- assign product_link_with_variant = product_ref.url | within: collection
   | append: '?variant='
   | append: product_ref.selected_or_first_available_variant.id
 -%}
 
 {%- if search_product -%}
-  {%- assign product_link_with_variant = product_ref.url -%}
+  {%- assign product_link_with_variant = product_ref.url | within: collection -%}
 {%- endif -%}
 
 <product-card class="product-card{% if is_small %} product-card--small{% endif %}{% unless product_ref.available %} product-card__sold-out{% endunless %}">

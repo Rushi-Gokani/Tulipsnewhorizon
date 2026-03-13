@@ -233,7 +233,7 @@
                     {% render 'card-gallery', product: product, children: gallery_children %}
                     <div class="card-info" style="padding: 15px;">
                       <h3 class="card-title h5" style="margin: 0 0 5px;">
-                        <a href="{{ product.url }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
                           {{ product.title }}
                         </a>
                       </h3>
@@ -307,7 +307,7 @@
                 {% render 'card-gallery', product: product, children: gallery_children %}
                 <div class="card-info" style="padding: 15px;">
                   <h3 class="card-title h5" style="margin: 0 0 5px;">
-                    <a href="{{ product.url }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
                       {{ product.title }}
                     </a>
                   </h3>
