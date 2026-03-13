@@ -11,6 +11,7 @@
   "sections": {
     "product_breadcrumb_EE9abR": {
       "type": "product-breadcrumb",
+      "disabled": true,
       "name": "Product Breadcrumb",
       "settings": {
         "background_color": "#fffbeb",
