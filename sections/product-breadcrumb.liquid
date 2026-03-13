@@ -116,15 +116,17 @@
 <div class="product-breadcrumb section-{{ section.id }}-padding">
   <div class="page-width">
     <div class="product-breadcrumb__inner">
-      <div class="product-breadcrumb__nav product-breadcrumb__nav--prev">
-        {%- if collection.previous_product -%}
-          <a href="{{ collection.previous_product.url }}" class="product-breadcrumb__arrow" aria-label="{{ 'products.product.prev_product' | t | default: 'Previous product' }}">
-            <span class="product-breadcrumb__arrow-circle">
-              {% render 'icon', icon: 'caret' %}
-            </span>
-          </a>
-        {%- endif -%}
-      </div>
+      {%- if section.settings.show_nav_arrows -%}
+        <div class="product-breadcrumb__nav product-breadcrumb__nav--prev">
+          {%- if collection.previous_product -%}
+            <a href="{{ collection.previous_product.url }}" class="product-breadcrumb__arrow" aria-label="{{ 'products.product.prev_product' | t | default: 'Previous product' }}">
+              <span class="product-breadcrumb__arrow-circle">
+                {% render 'icon', icon: 'caret' %}
+              </span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
 
       <nav class="product-breadcrumb__links" role="navigation" aria-label="breadcrumbs">
         <a href="{{ routes.root_url }}" title="Home">Home</a>
@@ -177,15 +179,17 @@
         <span class="product-breadcrumb__current">{{ product.title | escape }}</span>
       </nav>
 
-      <div class="product-breadcrumb__nav product-breadcrumb__nav--next">
-        {%- if collection.next_product -%}
-          <a href="{{ collection.next_product.url }}" class="product-breadcrumb__arrow" aria-label="{{ 'products.product.next_product' | t | default: 'Next product' }}">
-            <span class="product-breadcrumb__arrow-circle">
-              {% render 'icon', icon: 'caret' %}
-            </span>
-          </a>
-        {%- endif -%}
-      </div>
+      {%- if section.settings.show_nav_arrows -%}
+        <div class="product-breadcrumb__nav product-breadcrumb__nav--next">
+          {%- if collection.next_product -%}
+            <a href="{{ collection.next_product.url }}" class="product-breadcrumb__arrow" aria-label="{{ 'products.product.next_product' | t | default: 'Next product' }}">
+              <span class="product-breadcrumb__arrow-circle">
+                {% render 'icon', icon: 'caret' %}
+              </span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -210,6 +214,12 @@
       "id": "text_color",
       "label": "Text color",
       "default": "#3730a3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav_arrows",
+      "label": "Show navigation arrows",
+      "default": false
     },
     {
       "type": "header",
