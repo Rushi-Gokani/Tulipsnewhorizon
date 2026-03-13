@@ -20,7 +20,7 @@
   .product-breadcrumb__inner {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: {{ section.settings.alignment | default: 'center' }};
     gap: 1.5rem;
     max-width: 100%;
     margin: 0 auto;
@@ -245,6 +245,26 @@
     {
       "type": "header",
       "content": "Padding"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
     },
     {
       "type": "range",
