@@ -11,10 +11,10 @@
   "sections": {
     "product-breadcrumb": {
       "type": "product-breadcrumb",
-      "disabled": true,
       "settings": {
         "background_color": "#ffffff",
         "text_color": "#000000",
+        "show_nav_arrows": false,
         "collection_to_override": "",
         "title_override": "",
         "arrow_bg_color": "",
