@@ -3024,7 +3024,9 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   position: absolute;
   transition: top var(--animation-speed) ease, font-size var(--animation-speed) ease;
 }
-
+shopify-policy__title{
+  text-transform: capitalizen !important;
+}
 /* RTE styles */
 .rte,
 .shopify-policy__title {
