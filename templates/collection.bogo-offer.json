@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "product_breadcrumb_EE9abR": {
+      "type": "product-breadcrumb",
+      "name": "Product Breadcrumb",
+      "settings": {
+        "background_color": "#fffbeb",
+        "text_color": "#3730a3",
+        "arrow_bg_color": "",
+        "arrow_icon_color": "",
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
     "image_slider_gehmzT": {
       "type": "image-slider",
       "blocks": {
@@ -2128,6 +2140,7 @@
     }
   },
   "order": [
+    "product_breadcrumb_EE9abR",
     "image_slider_gehmzT",
     "section_xCG4ew",
     "main",
