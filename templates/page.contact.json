@@ -135,8 +135,6 @@
         "padding-block-end": 84
       }
     },
-<<<<<<< HEAD
-=======
     "form_contact_TpgeEg": {
       "type": "form-contact-v2",
       "blocks": {
@@ -177,7 +175,6 @@
         "spacing_bottom": "2"
       }
     },
->>>>>>> 98d466dcb6e05db6a9caf8d233cbd572e07b7bea
     "contact_boxes_YVghPV": {
       "type": "contact-boxes",
       "name": "Contact Boxes",
@@ -197,6 +194,7 @@
   "order": [
     "main",
     "form",
+    "form_contact_TpgeEg",
     "contact_boxes_YVghPV"
   ]
 }

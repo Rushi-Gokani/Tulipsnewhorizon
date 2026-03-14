@@ -71,44 +71,46 @@
   .product-breadcrumb__links {
     display: flex;
     align-items: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    flex-wrap: wrap;
+    line-height: 1.4;
   }
 
   .product-breadcrumb__links a {
     text-decoration: none;
     color: inherit;
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
   }
 
   .product-breadcrumb__links a:hover {
     opacity: 1;
+    border-bottom-color: currentColor;
   }
 
   .product-breadcrumb__divider {
-    margin: 0 12px;
-    opacity: 0.5;
+    margin: 0 10px;
+    opacity: 0.4;
+    font-weight: 300;
   }
 
   .product-breadcrumb__current {
     font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: {{ section.settings.text_color }};
   }
 
   @media screen and (max-width: 749px) {
     .product-breadcrumb__inner {
-      gap: 1rem;
+      gap: 0.5rem;
+      padding: 0 1rem;
     }
     .product-breadcrumb__links {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
     .product-breadcrumb__divider {
-      margin: 0 8px;
+      margin: 0 6px;
     }
   }
 {%- endstyle -%}
@@ -131,10 +133,29 @@
       <nav class="product-breadcrumb__links" role="navigation" aria-label="breadcrumbs">
         <a href="{{ routes.root_url }}" title="Home">Home</a>
         
-        {%- if collection -%}
+        {%- liquid
+          assign target_collection = collection
+          
+          if target_collection == blank and product.collections.size > 0
+            for col in product.collections
+              assign first_char = col.title | slice: 0
+              assign digits = "0123456789"
+              unless digits contains first_char
+                assign target_collection = col
+                break
+              endunless
+            endfor
+            
+            if target_collection == blank
+              assign target_collection = product.collections.first
+            endif
+          endif
+        -%}
+
+        {%- if target_collection -%}
           {%- liquid
             assign parent_handle = ""
-            assign current_handle = collection.handle
+            assign current_handle = target_collection.handle
             
             # Check for parent mapping in blocks
             for block in section.blocks
@@ -153,8 +174,8 @@
               endif
             endfor
 
-            assign collection_title = collection.title
-            if section.settings.title_override != blank and section.settings.collection_to_override == collection.handle
+            assign collection_title = target_collection.title
+            if section.settings.title_override != blank and section.settings.collection_to_override == target_collection.handle
               assign collection_title = section.settings.title_override
             endif
           -%}
@@ -162,20 +183,16 @@
           {%- if parent_handle != blank -%}
              {%- assign parent_col = collections[parent_handle] -%}
              {%- if parent_col != blank -%}
-                <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
+                <span class="product-breadcrumb__divider" aria-hidden="true">></span>
                 <a href="{{ parent_col.url }}" title="{{ parent_col.title | escape }}">{{ parent_col.title | escape }}</a>
              {%- endif -%}
           {%- endif -%}
 
-          <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
-          <a href="{{ collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
-        {%- elsif product.collections.size > 0 -%}
-          {%- assign first_collection = product.collections.first -%}
-          <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
-          <a href="{{ first_collection.url }}" title="{{ first_collection.title | escape }}">{{ first_collection.title | escape }}</a>
+          <span class="product-breadcrumb__divider" aria-hidden="true">></span>
+          <a href="{{ target_collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
         {%- endif -%}
 
-        <span class="product-breadcrumb__divider" aria-hidden="true">/</span>
+        <span class="product-breadcrumb__divider" aria-hidden="true">></span>
         <span class="product-breadcrumb__current">{{ product.title | escape }}</span>
       </nav>
 

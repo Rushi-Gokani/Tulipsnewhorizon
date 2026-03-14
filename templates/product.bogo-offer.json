@@ -1,14 +1,20 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
+    "product-breadcrumb": {
+      "type": "product-breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "show_nav_arrows": false,
+        "collection_to_override": "",
+        "title_override": "",
+        "arrow_bg_color": "",
+        "arrow_icon_color": "",
+        "alignment": "flex-start",
+        "padding_top": 52,
+        "padding_bottom": 12
+      }
+    },
     "main": {
       "type": "product-information",
       "blocks": {
@@ -1179,6 +1185,7 @@
     }
   },
   "order": [
+    "product-breadcrumb",
     "main",
     "blocks_BtWGU8",
     "blocks_9rzGGp",
