@@ -136,9 +136,16 @@
         
         {%- liquid
           assign target_collection = collection
+          if target_collection.handle == 'all'
+            assign target_collection = blank
+          endif
           
           if target_collection == blank and product.collections.size > 0
             for col in product.collections
+              if col.handle == 'all'
+                continue
+              endif
+              
               assign first_char = col.title | slice: 0
               assign digits = "0123456789"
               unless digits contains first_char
@@ -148,7 +155,12 @@
             endfor
             
             if target_collection == blank
-              assign target_collection = product.collections.first
+              for col in product.collections
+                if col.handle != 'all'
+                  assign target_collection = col
+                  break
+                endif
+              endfor
             endif
           endif
         -%}
