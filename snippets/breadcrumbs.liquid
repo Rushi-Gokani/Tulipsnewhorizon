@@ -19,14 +19,34 @@
 
     <li class="breadcrumbs__separator">/</li>
 
-    {%- if product and collection -%}
-      <li>
-        <a href="{{- collection.url -}}" class="breadcrumbs__link">
-          {{- collection.title | escape -}}
-        </a>
-      </li>
-
-      <li class="breadcrumbs__separator">/</li>
+    {%- if product -%}
+      {%- liquid
+        assign target_collection = blank
+        if collection and collection.handle != blank and collection.handle != 'all'
+          assign col_handle = collection.handle | downcase
+          unless col_handle contains 'all-products' or col_handle contains '18-gst' or col_handle == '5' or col_handle contains '12-gst'
+            assign target_collection = collection
+          endunless
+        elsif product.collections.size > 0
+          for col in product.collections
+            if col.handle != blank and col.handle != 'all'
+              assign col_handle = col.handle | downcase
+              unless col_handle contains 'all-products' or col_handle contains '18-gst' or col_handle == '5' or col_handle contains '12-gst'
+                assign target_collection = col
+                break
+              endunless
+            endif
+          endfor
+        endif
+      -%}
+      {%- if target_collection -%}
+        <li>
+          <a href="{{- target_collection.url -}}" class="breadcrumbs__link">
+            {{- target_collection.title | escape -}}
+          </a>
+        </li>
+        <li class="breadcrumbs__separator">/</li>
+      {%- endif -%}
     {%- endif -%}
 
     {%- if product_collection -%}

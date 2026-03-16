@@ -135,55 +135,80 @@
         <a href="{{ routes.root_url }}" title="Home">Home</a>
         
         {%- liquid
-          assign target_collection = collection
-          if target_collection.handle == 'all'
-            assign target_collection = blank
-          endif
+          assign target_collection = blank
+          assign excluded_handles = 'all-products,best-seller,all,our-products,bathroom-essentials,bathing-bar-soap'
           
-          if target_collection == blank and product.collections.size > 0
-            for col in product.collections
-              if col.handle == 'all'
-                continue
-              endif
-              
-              assign first_char = col.title | slice: 0
-              assign digits = "0123456789"
-              unless digits contains first_char
-                assign target_collection = col
-                break
-              endunless
-            endfor
+          if product.collections.size > 0
+            assign min_count = 9999999
             
-            if target_collection == blank
-              for col in product.collections
-                if col.handle != 'all'
-                  assign target_collection = col
-                  break
-                endif
-              endfor
-            endif
+            for col in product.collections
+              if col.handle != blank
+                assign col_handle = col.handle | downcase
+                
+                unless excluded_handles contains col_handle or col_handle contains 'gst' or col_handle contains 'tax'
+                  
+                  assign is_parent_with_child = false
+                  for block in section.blocks
+                    if block.type == 'parent_map'
+                      assign block_parent = block.settings.parent_collection | handleize
+                      if col_handle == block_parent
+                        assign child_handles = block.settings.child_collections | split: ','
+                        for c_handle in child_handles
+                          assign cleaned_child = c_handle | strip | handleize
+                          for prod_col in product.collections
+                            assign prod_col_handle = prod_col.handle | downcase
+                            if prod_col_handle == cleaned_child
+                              assign is_parent_with_child = true
+                              break
+                            endif
+                          endfor
+                          if is_parent_with_child
+                            break
+                          endif
+                        endfor
+                      endif
+                    endif
+                    if is_parent_with_child
+                      break
+                    endif
+                  endfor
+
+                  if is_parent_with_child == false
+                    if col.all_products_count < min_count
+                      assign target_collection = col
+                      assign min_count = col.all_products_count
+                    endif
+                  endif
+                  
+                endunless
+              endif
+            endfor
           endif
         -%}
 
         {%- if target_collection -%}
           {%- liquid
-            assign parent_handle = ""
-            assign current_handle = target_collection.handle
+            assign current_handle = target_collection.handle | downcase
             
-            # Check for parent mapping in blocks
             for block in section.blocks
               if block.type == 'parent_map'
-                assign child_handles = block.settings.child_collections | split: ','
-                for handle in child_handles
-                  assign h = handle | strip
-                  if h == current_handle
-                    assign parent_handle = block.settings.parent_collection
-                    break
-                  endif
-                endfor
-              endif
-              if parent_handle != ""
-                break
+                assign parent_h = block.settings.parent_collection | handleize
+                
+                if current_handle == parent_h
+                  for child_col in product.collections
+                    assign child_h = child_col.handle | downcase
+                    if child_h != current_h
+                      assign child_handles = block.settings.child_collections | split: ','
+                      for handle in child_handles
+                        assign h = handle | strip | handleize
+                        if h == child_h
+                          assign target_collection = child_col
+                          break
+                        endif
+                      endfor
+                    endif
+                  endfor
+                endif
               endif
             endfor
 
@@ -192,14 +217,6 @@
               assign collection_title = section.settings.title_override
             endif
           -%}
-
-          {%- if parent_handle != blank -%}
-             {%- assign parent_col = collections[parent_handle] -%}
-             {%- if parent_col != blank -%}
-                <span class="product-breadcrumb__divider" aria-hidden="true">></span>
-                <a href="{{ parent_col.url }}" title="{{ parent_col.title | escape }}">{{ parent_col.title | escape }}</a>
-             {%- endif -%}
-          {%- endif -%}
 
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
           <a href="{{ target_collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
