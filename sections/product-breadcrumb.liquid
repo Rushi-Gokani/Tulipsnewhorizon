@@ -213,6 +213,26 @@
             endfor
 
             assign collection_title = target_collection.title
+
+            assign target_col_handle = target_collection.handle | downcase
+            assign target_col_title_lower = collection_title | downcase
+            assign is_soap = false
+            
+            if target_col_handle contains 'soap' or target_col_handle contains 'bathing' or target_col_title_lower contains 'soap' or target_col_title_lower contains 'bathing'
+              assign is_soap = true
+            endif
+            
+            if product.type != blank
+              assign prod_type_lower = product.type | downcase
+              if prod_type_lower contains 'soap' or prod_type_lower contains 'bathing'
+                assign is_soap = true
+              endif
+            endif
+            
+            if is_soap
+              assign collection_title = 'Handmade Soaps'
+            endif
+
             if section.settings.title_override != blank and section.settings.collection_to_override == target_collection.handle
               assign collection_title = section.settings.title_override
             endif
