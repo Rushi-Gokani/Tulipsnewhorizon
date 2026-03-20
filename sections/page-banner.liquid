@@ -61,7 +61,7 @@
   #shopify-section-{{ section.id }} > div {
     padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }} + {{ extra_padding_for_breadcrumb }});
     padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
-    --section-height: {{ section.settings.section_height_mobile }};
+    --section-height: 35vh;
     --section-content-alignment: {{ section.settings.content_alignment }};
     --section-content-position: {{ section.settings.content_position }};
     {%- if section.settings.section_height_mobile == 'auto' and section.settings.media_position == 'background' and has_media -%}
@@ -81,7 +81,7 @@
   }
   @media screen and (min-width: 750px) {
     #shopify-section-{{ section.id }} > div {
-      --section-height: {{ section.settings.section_height }};
+      --section-height: 35vh;
       {%- if section.settings.section_height == 'auto' and section.settings.media_position == 'background' and has_media -%}
         aspect-ratio: {{ section_video_external.aspect_ratio | default: section_video.aspect_ratio | default: section_image.aspect_ratio | default: '16/9' }};
       {%- endif -%}
