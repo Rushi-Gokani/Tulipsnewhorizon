@@ -81,7 +81,7 @@
   }
   @media screen and (min-width: 750px) {
     #shopify-section-{{ section.id }} > div {
-      --section-height: 30vh;
+      --section-height: 25vh;
       {%- if section.settings.section_height == 'auto' and section.settings.media_position == 'background' and has_media -%}
         aspect-ratio: {{ section_video_external.aspect_ratio | default: section_video.aspect_ratio | default: section_image.aspect_ratio | default: '16/9' }};
       {%- endif -%}
