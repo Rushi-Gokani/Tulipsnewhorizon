@@ -36,7 +36,7 @@
         "media_position": "background",
         "page_menu": "",
         "enable_breadcrumbs": false,
-        "section_height": "50svh",
+        "section_height": "auto",
         "video_external": "",
         "show_controls_on_video": false,
         "section_height_mobile": "50svh",
