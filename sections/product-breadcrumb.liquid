@@ -229,8 +229,10 @@
               endif
             endif
             
+            assign collection_url = target_collection.url
             if is_soap
               assign collection_title = 'Handmade Soaps'
+              assign collection_url = '/collections/handmade-soaps'
             endif
 
             if section.settings.title_override != blank and section.settings.collection_to_override == target_collection.handle
@@ -239,7 +241,7 @@
           -%}
 
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
-          <a href="{{ target_collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
+          <a href="{{ collection_url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
         {%- endif -%}
 
         <span class="product-breadcrumb__divider" aria-hidden="true">></span>
