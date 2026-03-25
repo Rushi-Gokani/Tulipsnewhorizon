@@ -263,17 +263,13 @@
           -%}
 
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
-<<<<<<< HEAD
           <a href="{{ collection_url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
-=======
-          <a href="{{ target_collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
         {%- elsif product.type != blank -%}
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
           <a href="{{ routes.collections_url }}/all?filter.p.product_type={{ product.type | url_encode }}" title="{{ product.type | escape }}">{{ product.type | escape }}</a>
         {%- else -%}
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
           <a href="{{ routes.all_products_collection_url }}" title="{{ 'Products' | escape }}">{{ 'Products' | escape }}</a>
->>>>>>> a4fba4f0ddc326d7d5f2d09970f63a8261634f8f
         {%- endif -%}
 
         <span class="product-breadcrumb__divider" aria-hidden="true">></span>
