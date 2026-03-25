@@ -136,7 +136,7 @@
         
         {%- liquid
           assign target_collection = blank
-          assign excluded_handles = 'all-products,best-seller,all,our-products,bathroom-essentials,bathing-bar-soap'
+          assign excluded_handles = 'all-products,best-seller,all,our-products,bathroom-essentials,bathing-bar-soap,home,home-page,frontpage'
           
           if product.collections.size > 0
             assign min_count = 9999999
@@ -144,8 +144,13 @@
             for col in product.collections
               if col.handle != blank
                 assign col_handle = col.handle | downcase
+                assign is_numeric = false
+                assign string_to_check = col.title | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '.' | remove: ',' | remove: ' ' | remove: '-'
+                if string_to_check == blank
+                  assign is_numeric = true
+                endif
                 
-                unless excluded_handles contains col_handle or col_handle contains 'gst' or col_handle contains 'tax'
+                unless excluded_handles contains col_handle or col_handle contains 'gst' or col_handle contains 'tax' or is_numeric
                   
                   assign is_parent_with_child = false
                   for block in section.blocks
@@ -184,9 +189,26 @@
               endif
             endfor
           endif
+          
+          if target_collection == blank
+            if product.collections.size > 0
+              for col in product.collections
+                assign col_handle = col.handle | downcase
+                assign is_numeric = false
+                assign string_to_check = col.title | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '.' | remove: ',' | remove: ' ' | remove: '-'
+                if string_to_check == blank
+                  assign is_numeric = true
+                endif
+                unless col_handle == 'home' or col_handle == 'home-page' or col_handle == 'frontpage' or col_handle == 'all' or col_handle == 'all-products' or is_numeric
+                  assign target_collection = col
+                  break
+                endunless
+              endfor
+            endif
+          endif
         -%}
 
-        {%- if target_collection -%}
+        {%- if target_collection != blank -%}
           {%- liquid
             assign current_handle = target_collection.handle | downcase
             
@@ -241,7 +263,17 @@
           -%}
 
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
+<<<<<<< HEAD
           <a href="{{ collection_url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
+=======
+          <a href="{{ target_collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
+        {%- elsif product.type != blank -%}
+          <span class="product-breadcrumb__divider" aria-hidden="true">></span>
+          <a href="{{ routes.collections_url }}/all?filter.p.product_type={{ product.type | url_encode }}" title="{{ product.type | escape }}">{{ product.type | escape }}</a>
+        {%- else -%}
+          <span class="product-breadcrumb__divider" aria-hidden="true">></span>
+          <a href="{{ routes.all_products_collection_url }}" title="{{ 'Products' | escape }}">{{ 'Products' | escape }}</a>
+>>>>>>> a4fba4f0ddc326d7d5f2d09970f63a8261634f8f
         {%- endif -%}
 
         <span class="product-breadcrumb__divider" aria-hidden="true">></span>
