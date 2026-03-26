@@ -256,7 +256,10 @@
                 "quantity": {
                   "type": "quantity",
                   "static": true,
-                  "settings": {},
+                  "settings": {
+                    "enable_quantity_limit": true,
+                    "quantity_limit": 2
+                  },
                   "blocks": {}
                 },
                 "add-to-cart": {
