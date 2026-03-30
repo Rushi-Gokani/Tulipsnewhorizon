@@ -16,8 +16,12 @@
       "settings": {
         "background_color": "#fffbeb",
         "text_color": "#3730a3",
+        "show_nav_arrows": false,
+        "collection_to_override": "",
+        "title_override": "",
         "arrow_bg_color": "",
         "arrow_icon_color": "",
+        "alignment": "center",
         "padding_top": 12,
         "padding_bottom": 12
       }
@@ -97,7 +101,7 @@
             "width": "fit-content",
             "max_width": "none",
             "alignment": "left",
-            "type_preset": "rte",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
