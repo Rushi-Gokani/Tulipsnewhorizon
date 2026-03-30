@@ -40,9 +40,17 @@
         endif
       -%}
       {%- if target_collection -%}
+        {%- liquid
+          assign collection_title = target_collection.title
+          assign collection_url = target_collection.url
+          if product.title contains 'Adult' and product.title contains 'Diaper'
+            assign collection_title = 'Adult Diapers'
+            assign collection_url = '/collections/adult-diaper-pants'
+          endif
+        -%}
         <li>
-          <a href="{{- target_collection.url -}}" class="breadcrumbs__link">
-            {{- target_collection.title | escape -}}
+          <a href="{{- collection_url -}}" class="breadcrumbs__link">
+            {{- collection_title | escape -}}
           </a>
         </li>
         <li class="breadcrumbs__separator">/</li>
