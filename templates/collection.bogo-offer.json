@@ -2071,6 +2071,39 @@
     "custom_testimonials_zccwXX": {
       "type": "custom-testimonials",
       "blocks": {
+        "testimonial_CDAnPY": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Fully Absorbent with wetness indicator for a leak proof experience. 100% Reliable product.",
+            "author": "Mansi Arora",
+            "city": "Delhi",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_D7DQDk": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Was fully satisfied with the product.",
+            "author": "C. Rego",
+            "city": "Mumbai",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_UYyMet": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "I feel fully comfortable & no rashes or infection with Tulips Adult Diaper.",
+            "author": "Maltee Indoria",
+            "city": "Bhopal",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
         "testimonial_VjL4CK": {
           "type": "testimonial",
           "settings": {
@@ -2106,6 +2139,9 @@
         }
       },
       "block_order": [
+        "testimonial_CDAnPY",
+        "testimonial_D7DQDk",
+        "testimonial_UYyMet",
         "testimonial_VjL4CK",
         "testimonial_f8Y7M6",
         "testimonial_zTKJxX"
