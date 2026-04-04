@@ -1042,10 +1042,10 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. This Quality tested Adult Diapers for Men & Women, are available in various sizes.</p>",
+            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. Adult Diapers Pant Style (pull-ups pants) are primarily for urinary leakage and person with no mobility issues, whereases Pant style are designed for bedridden patients with incontinence management, post-surgery, or elderly care. TULIPS Hygiene, offer both Pant and Tape style Adult Diapers to ensure 100% leakage protection. This Quality tested Adult Diapers for Men & Women, are available in Medium, Large & Extra Large (XL) sizes.</p>",
             "width": "100%",
             "max_width": "none",
-            "alignment": "center",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
@@ -1058,7 +1058,7 @@
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 12,
-            "padding-block-end": 95,
+            "padding-block-end": 62,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
