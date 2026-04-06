@@ -1,0 +1,218 @@
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="section page-width-content color-{{ section.settings.color_scheme }}">
+  <div
+    class="
+      spacing-style
+      layout-panel-flex
+      layout-panel-flex--column
+      section-content-wrapper
+      mobile-column
+    "
+    style="
+      {% render 'layout-panel-style', settings: section.settings %}
+      {% render 'spacing-style', settings: section.settings %}
+    "
+  >
+    {% if section.settings.heading != blank %}
+      <h2 
+        class="section-heading"
+        style="
+          text-align: {{ section.settings.text_alignment }};
+          max-width: {{ section.settings.max_width }};
+        "
+      >
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+    
+    {% if section.settings.text != blank %}
+      <div 
+        class="section-text"
+        style="
+          text-align: {{ section.settings.text_alignment }};
+          max-width: {{ section.settings.max_width }};
+        "
+      >
+        {{ section.settings.text }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Simple Text Section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Text Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "justify",
+          "label": "Justify"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "max_width",
+      "label": "Maximum Width",
+      "options": [
+        {
+          "value": "100%",
+          "label": "Full Width"
+        },
+        {
+          "value": "800px",
+          "label": "Medium"
+        },
+        {
+          "value": "600px",
+          "label": "Small"
+        },
+        {
+          "value": "400px",
+          "label": "Extra Small"
+        }
+      ],
+      "default": "800px"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between elements",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left Padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right Padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Text Section",
+      "category": "Text",
+      "settings": {
+        "heading": "Welcome to our store",
+        "text": "<p>Use this text to share information about your brand with your customers.</p>",
+        "text_alignment": "center",
+        "max_width": "800px",
+        "gap": 20,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "padding-inline-start": 20,
+        "padding-inline-end": 20
+      }
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .section-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .section-text p {
+    margin: 0;
+  }
+</style>
