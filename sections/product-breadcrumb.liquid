@@ -260,6 +260,11 @@
             if section.settings.title_override != blank and section.settings.collection_to_override == target_collection.handle
               assign collection_title = section.settings.title_override
             endif
+
+            if product.title contains 'Adult' and product.title contains 'Diaper'
+              assign collection_title = 'Adult Diapers'
+              assign collection_url = '/collections/adult-diaper-pants'
+            endif
           -%}
 
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>

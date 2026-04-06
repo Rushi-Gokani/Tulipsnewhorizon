@@ -16,8 +16,12 @@
       "settings": {
         "background_color": "#fffbeb",
         "text_color": "#3730a3",
+        "show_nav_arrows": false,
+        "collection_to_override": "",
+        "title_override": "",
         "arrow_bg_color": "",
         "arrow_icon_color": "",
+        "alignment": "center",
         "padding_top": 12,
         "padding_bottom": 12
       }
@@ -97,7 +101,7 @@
             "width": "fit-content",
             "max_width": "none",
             "alignment": "left",
-            "type_preset": "rte",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -1038,11 +1042,11 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. This Quality tested Adult Diapers for Men & Women, are available in various sizes.</p>",
+            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. Adult Diapers Pant Style (pull-ups pants) are primarily for urinary leakage and person with no mobility issues, whereases Pant style are designed for bedridden patients with incontinence management, post-surgery, or elderly care. TULIPS Hygiene, offer both Pant and Tape style Adult Diapers to ensure 100% leakage protection. This Quality tested Adult Diapers for Men & Women, are available in Medium, Large & Extra Large (XL) sizes.</p>",
             "width": "100%",
             "max_width": "none",
-            "alignment": "center",
-            "type_preset": "rte",
+            "alignment": "left",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -1054,7 +1058,7 @@
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 12,
-            "padding-block-end": 95,
+            "padding-block-end": 62,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
@@ -2067,7 +2071,29 @@
     "custom_testimonials_zccwXX": {
       "type": "custom-testimonials",
       "blocks": {
-        "testimonial_VjL4CK": {
+        "testimonial_CDAnPY": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Fully Absorbent with wetness indicator for a leak proof experience. 100% Reliable product.",
+            "author": "Mansi Arora",
+            "city": "Delhi",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_D7DQDk": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Was fully satisfied with the product.",
+            "author": "C. Rego",
+            "city": "Mumbai",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_UYyMet": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
@@ -2078,13 +2104,24 @@
             "show_avatar": true
           }
         },
+        "testimonial_VjL4CK": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "100% Reliable Product with soft, breathable, and designed to keep you dry all day.",
+            "author": "Loretta D'Souza",
+            "city": "Mumbai",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
         "testimonial_f8Y7M6": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Was fully satisfied with the product.",
-            "author": "C.Rego",
-            "city": "Mumbai",
+            "text": "I am fully satisfied with this product. Highly Absorbent & offering comfort without irritation.",
+            "author": "Rakesh Sharma",
+            "city": "Noida",
             "verified": true,
             "show_avatar": true
           }
@@ -2093,8 +2130,8 @@
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Fully Absorbent with wetness indicator for a leak proof experience. 100% Reliable product.",
-            "author": "Mansi Arora",
+            "text": "Experience Total Leak Protection from Urinary Incontinence with TULIPS Adult Diaper.",
+            "author": "Arvind Bhardwaj",
             "city": "Delhi",
             "verified": true,
             "show_avatar": true
@@ -2102,6 +2139,9 @@
         }
       },
       "block_order": [
+        "testimonial_CDAnPY",
+        "testimonial_D7DQDk",
+        "testimonial_UYyMet",
         "testimonial_VjL4CK",
         "testimonial_f8Y7M6",
         "testimonial_zTKJxX"
