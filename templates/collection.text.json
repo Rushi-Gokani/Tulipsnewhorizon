@@ -69,7 +69,6 @@
         "text_tqQTNE",
         "text_twGGkJ"
       ],
-      "disabled": true,
       "name": "Collection heading",
       "settings": {
         "content_direction": "column",
@@ -212,7 +211,6 @@
           ]
         }
       },
-      "disabled": true,
       "custom_css": [
         ".text-block {text-transform: uppercase;}"
       ],

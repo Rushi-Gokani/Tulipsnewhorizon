@@ -177,7 +177,6 @@
           "blocks": {}
         }
       },
-      "disabled": true,
       "settings": {
         "logo_position": "left",
         "menu_position": "center",
@@ -209,28 +208,11 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
-    },
-    "simple_text_section_3KrmGb": {
-      "type": "simple-text-section",
-      "name": "Simple Text Section",
-      "settings": {
-        "heading": "Welcome to our store",
-        "text": "<p>Use this text to share information about your brand with your customers.</p>",
-        "text_alignment": "center",
-        "max_width": "800px",
-        "gap": 20,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 40,
-        "padding-block-end": 40,
-        "padding-inline-start": 20,
-        "padding-inline-end": 20
-      }
     }
   },
   "order": [
     "announcement_bar_custom",
     "header_announcements_9jGBFp",
-    "header_section",
-    "simple_text_section_3KrmGb"
+    "header_section"
   ]
 }
