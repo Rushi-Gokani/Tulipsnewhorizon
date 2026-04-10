@@ -1104,22 +1104,23 @@
         "feature_crfVGn": {
           "type": "feature",
           "settings": {
-            "title": "Leak Proof Comfort",
-            "description": "Leak Proof Comfort for Bedridden patients."
+            "title": "Buy 1 Get 1 Free (Limited Time)",
+            "description": ""
           }
         },
         "feature_i39eeR": {
           "type": "feature",
           "settings": {
-            "title": "Easy to Change",
-            "description": "Easy to change for caregivers."
+            "title": "Delivery in 2-4 Days",
+            "description": ""
           }
         },
         "feature_pCjAMp": {
           "type": "feature",
+          "disabled": true,
           "settings": {
-            "title": "Secure Fit & Hygiene",
-            "description": "Secure fit and hygiene for bedridden patients."
+            "title": "",
+            "description": ""
           }
         }
       },
@@ -1128,13 +1129,58 @@
         "feature_i39eeR",
         "feature_pCjAMp"
       ],
-      "disabled": true,
       "name": "Product Features Banner",
       "settings": {
-        "badge_text": "Buy 1 Get 1 Free (Limited Time)",
-        "delivery_text": "Free Delivery on Orders Above ₹499",
+        "badge_text": "",
+        "delivery_text": "",
         "main_heading": "Ensure Leak-Free Comfort from Urinary Incontinence",
-        "sub_text": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India.",
+        "sub_text": "",
+        "button_link": "",
+        "button_text": "",
+        "heading_color": "#333333",
+        "accent_color": "#a3ca6d",
+        "spacing_top": "4",
+        "spacing_bottom": "4",
+        "color_scheme": ""
+      }
+    },
+    "product_features_banner_6BEkfk": {
+      "type": "product-features-banner",
+      "blocks": {
+        "feature_FMRwwm": {
+          "type": "feature",
+          "settings": {
+            "title": "Easy to change for caregivers.",
+            "description": ""
+          }
+        },
+        "feature_HNbNJV": {
+          "type": "feature",
+          "settings": {
+            "title": "Secure fit and hygiene for bedridden patients.",
+            "description": ""
+          }
+        },
+        "feature_B8mpLm": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_FMRwwm",
+        "feature_HNbNJV",
+        "feature_B8mpLm"
+      ],
+      "name": "Product Features Banner",
+      "settings": {
+        "badge_text": "",
+        "delivery_text": "",
+        "main_heading": "Leak Proof Comfort for Bedridden patients",
+        "sub_text": "",
         "button_link": "",
         "button_text": "",
         "heading_color": "#333333",
@@ -2235,6 +2281,7 @@
     "section_bgqA6D",
     "section_cjKz3g",
     "product_features_banner_TGL7da",
+    "product_features_banner_6BEkfk",
     "image_slider_ABDgbk",
     "image_slider_ByC8YP",
     "image_slider_CN34G4",
