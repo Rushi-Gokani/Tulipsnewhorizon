@@ -1,0 +1,535 @@
+{% schema %}
+{
+  "name": "Product Features Banner",
+  "tag": "section",
+  "class": "section-product-features-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Buy 1 Get 1 Free (Limited Time)"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Delivery Text",
+      "default": "Free Delivery on Orders Above ₹499"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Ensure Leak-Free Comfort from Urinary Incontinence"
+    },
+    {
+      "type": "textarea",
+      "id": "sub_text",
+      "label": "Sub Text",
+      "default": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India."
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fff8f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a2e"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#F0652F"
+    },
+    {
+      "type": "color",
+      "id": "bullet_bg_color",
+      "label": "Bullet Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "select",
+      "id": "spacing_top",
+      "label": "Top Spacing",
+      "options": [
+        { "value": "0", "label": "None" },
+        { "value": "1", "label": "S" },
+        { "value": "2", "label": "M" },
+        { "value": "4", "label": "L" },
+        { "value": "6", "label": "XL" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "spacing_bottom",
+      "label": "Bottom Spacing",
+      "options": [
+        { "value": "0", "label": "None" },
+        { "value": "1", "label": "S" },
+        { "value": "2", "label": "M" },
+        { "value": "4", "label": "L" },
+        { "value": "6", "label": "XL" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.global.color_scheme.label",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Point",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Short description of this feature."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Features Banner",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Leak Proof Comfort",
+            "description": "Leak Proof Comfort for Bedridden patients. Ultra-absorbent core locks moisture away instantly."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Easy to Change",
+            "description": "Easy to change for caregivers. Quick-release tabs make changes fast and hassle-free."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Secure Fit & Hygiene",
+            "description": "Secure fit and hygiene for bedridden patients. Anti-bacterial layer keeps skin safe and dry."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} > div {
+    padding-block-start: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_top }});
+    padding-block-end: calc(var(--section-spacing-unit-size) * {{ section.settings.spacing_bottom }});
+  }
+{%- endstyle -%}
+
+<div class="pfb-wrapper color-{{ section.settings.color_scheme }}" style="--pfb-bg: {{ section.settings.bg_color }}; --pfb-heading: {{ section.settings.heading_color }}; --pfb-accent: {{ section.settings.accent_color }}; --pfb-card-bg: {{ section.settings.bullet_bg_color }};">
+  <div class="pfb-container page-width">
+
+    {%- if section.settings.badge_text != blank -%}
+      <div class="pfb-top-bar">
+        <span class="pfb-badge">{{ section.settings.badge_text }}</span>
+        {%- if section.settings.delivery_text != blank -%}
+          <span class="pfb-delivery">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            {{ section.settings.delivery_text }}
+          </span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="pfb-grid">
+      <div class="pfb-content">
+        {%- if section.settings.main_heading != blank -%}
+          <h2 class="pfb-heading">{{ section.settings.main_heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.sub_text != blank -%}
+          <p class="pfb-subtext">{{ section.settings.sub_text }}</p>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="pfb-features">
+            {%- for block in section.blocks -%}
+              <div class="pfb-feature-card" {{ block.shopify_attributes }}>
+                <div class="pfb-feature-icon">
+                  {%- if block.settings.icon != blank -%}
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 60 }}"
+                      alt="{{ block.settings.title }}"
+                      width="30"
+                      height="30"
+                      loading="lazy"
+                      decoding="async"
+                    >
+                  {%- else -%}
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  {%- endif -%}
+                </div>
+                <div class="pfb-feature-text">
+                  {%- if block.settings.title != blank -%}
+                    <h4 class="pfb-feature-title">{{ block.settings.title }}</h4>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="pfb-feature-desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank -%}
+          <div class="pfb-cta">
+            <a href="{{ section.settings.button_link | default: '#' }}" class="pfb-btn">
+              {{ section.settings.button_text }}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="pfb-image">
+        {%- if section.settings.feature_image != blank -%}
+          {{
+            section.settings.feature_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'pfb-img',
+              widths: '400, 600, 800, 1000, 1200',
+              sizes: '(max-width: 749px) 100vw, 45vw',
+              loading: 'lazy',
+              decoding: 'async',
+              alt: section.settings.main_heading
+          }}
+        {%- else -%}
+          <div class="pfb-placeholder">
+            {{ 'product-1' | placeholder_svg_tag: 'pfb-placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pfb-wrapper {
+    background-color: var(--pfb-bg);
+  }
+
+  .pfb-container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .pfb-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    padding-block-end: 2.4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    margin-block-end: 3.2rem;
+  }
+
+  .pfb-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--pfb-accent);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1.8rem;
+    border-radius: 5rem;
+    text-transform: uppercase;
+    animation: pfb-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pfb-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240, 101, 47, 0.35); }
+    50% { box-shadow: 0 0 0 10px rgba(240, 101, 47, 0); }
+  }
+
+  .pfb-delivery {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--pfb-heading);
+    opacity: 0.75;
+  }
+
+  .pfb-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+    align-items: center;
+  }
+
+  .pfb-content {
+    order: 2;
+  }
+
+  .pfb-image {
+    order: 1;
+  }
+
+  .pfb-heading {
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--pfb-heading);
+    margin-block-end: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .pfb-subtext {
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.6);
+    margin-block-end: 2.8rem;
+    max-width: 56rem;
+  }
+
+  .pfb-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    margin-block-end: 3.2rem;
+  }
+
+  .pfb-feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.4rem;
+    padding: 1.6rem 2rem;
+    background: var(--pfb-card-bg);
+    border-radius: 1.4rem;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .pfb-feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(240, 101, 47, 0.1);
+    border-color: rgba(240, 101, 47, 0.2);
+  }
+
+  .pfb-feature-icon {
+    flex: 0 0 4.2rem;
+    width: 4.2rem;
+    height: 4.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--pfb-accent), #ff8a5c);
+    border-radius: 1rem;
+    color: #fff;
+  }
+
+  .pfb-feature-icon img {
+    width: 2.4rem;
+    height: 2.4rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .pfb-feature-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pfb-feature-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--pfb-heading);
+    margin-block-end: 0.3rem;
+  }
+
+  .pfb-feature-desc {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0;
+  }
+
+  .pfb-cta {
+    display: flex;
+  }
+
+  .pfb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--pfb-accent);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 1.4rem 3.2rem;
+    border-radius: 5rem;
+    text-decoration: none;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .pfb-btn:hover {
+    background: #d4551f;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(240, 101, 47, 0.3);
+  }
+
+  .pfb-btn svg {
+    transition: transform 0.2s ease;
+  }
+
+  .pfb-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  .pfb-img {
+    width: 100%;
+    height: auto;
+    border-radius: 2rem;
+    display: block;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  }
+
+  .pfb-placeholder {
+    background: rgba(240, 101, 47, 0.08);
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  .pfb-placeholder-svg {
+    width: 60%;
+    opacity: 0.3;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pfb-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .pfb-content {
+      order: 1;
+    }
+
+    .pfb-image {
+      order: 2;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pfb-grid {
+      grid-template-columns: 55fr 45fr;
+      gap: 6rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .pfb-top-bar {
+      gap: 1rem;
+      padding-block-end: 1.6rem;
+      margin-block-end: 2rem;
+    }
+
+    .pfb-badge {
+      font-size: 1.1rem;
+      padding: 0.5rem 1.4rem;
+    }
+
+    .pfb-delivery {
+      font-size: 1.2rem;
+    }
+
+    .pfb-feature-card {
+      padding: 1.2rem 1.4rem;
+      gap: 1.2rem;
+    }
+
+    .pfb-feature-icon {
+      flex: 0 0 3.6rem;
+      width: 3.6rem;
+      height: 3.6rem;
+      border-radius: 0.8rem;
+    }
+
+    .pfb-feature-title {
+      font-size: 1.4rem;
+    }
+
+    .pfb-feature-desc {
+      font-size: 1.3rem;
+    }
+
+    .pfb-btn {
+      width: 100%;
+      justify-content: center;
+      font-size: 1.4rem;
+      padding: 1.2rem 2.4rem;
+    }
+
+    .pfb-img {
+      border-radius: 1.4rem;
+    }
+  }
+{% endstylesheet %}
