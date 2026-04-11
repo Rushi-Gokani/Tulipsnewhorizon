@@ -137,6 +137,24 @@
   ],
   "blocks": [
     {
+      "type": "feature",
+      "name": "Feature Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Short description of this feature."
+        }
+      ]
+    },
+    {
       "type": "feature_left",
       "name": "Feature (Left)",
       "settings": [
@@ -235,6 +253,7 @@
 
 {%- assign left_blocks = section.blocks | where: 'type', 'feature_left' -%}
 {%- assign right_blocks = section.blocks | where: 'type', 'feature_right' -%}
+{%- assign legacy_blocks = section.blocks | where: 'type', 'feature' -%}
 
 <div class="pfb color-{{ section.settings.color_scheme }}" style="--pfb-heading: {{ section.settings.heading_color }}; --pfb-accent: {{ section.settings.accent_color }};">
   <div class="pfb__inner page-width">
@@ -260,8 +279,23 @@
           <p class="pfb__subtext">{{ section.settings.sub_text }}</p>
         {%- endif -%}
 
-        {%- if left_blocks.size > 0 -%}
+        {%- if left_blocks.size > 0 or legacy_blocks.size > 0 -%}
           <ul class="pfb__list">
+            {%- for block in legacy_blocks -%}
+              <li class="pfb__item" {{ block.shopify_attributes }}>
+                <span class="pfb__check">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  {%- if block.settings.title != blank -%}
+                    <strong class="pfb__item-title">{{ block.settings.title }}</strong>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <span class="pfb__item-desc">{{ block.settings.description }}</span>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
             {%- for block in left_blocks -%}
               <li class="pfb__item" {{ block.shopify_attributes }}>
                 <span class="pfb__check">
