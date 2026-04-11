@@ -1129,6 +1129,7 @@
         "feature_i39eeR",
         "feature_pCjAMp"
       ],
+      "disabled": true,
       "custom_css": [
         ".pfb__item-title {font-size: 20px;}",
         ".pfb__check {width: 20px; height: 20px;}"
@@ -1141,6 +1142,12 @@
         "sub_text": "",
         "button_link": "",
         "button_text": "",
+        "badge_text_right": "Buy 1 Get 1 Free (Limited Time)",
+        "delivery_text_right": "Free Delivery on Orders Above ₹499",
+        "main_heading_right": "Ensure Leak-Free Comfort from Urinary Incontinence",
+        "sub_text_right": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India.",
+        "button_link_right": "",
+        "button_text_right": "Shop Now",
         "heading_color": "#333333",
         "accent_color": "#a3ca6d",
         "spacing_top": "2",
@@ -1191,6 +1198,12 @@
         "sub_text": "",
         "button_link": "",
         "button_text": "",
+        "badge_text_right": "Buy 1 Get 1 Free (Limited Time)",
+        "delivery_text_right": "Free Delivery on Orders Above ₹499",
+        "main_heading_right": "Ensure Leak-Free Comfort from Urinary Incontinence",
+        "sub_text_right": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India.",
+        "button_link_right": "",
+        "button_text_right": "Shop Now",
         "heading_color": "#333333",
         "accent_color": "#a3ca6d",
         "spacing_top": "2",
