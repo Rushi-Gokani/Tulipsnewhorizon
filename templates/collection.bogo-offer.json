@@ -1158,6 +1158,20 @@
     "product_features_banner_6BEkfk": {
       "type": "product-features-banner",
       "blocks": {
+        "feature_right_9cwxLQ": {
+          "type": "feature_right",
+          "settings": {
+            "title": "Easy to change for caregivers.",
+            "description": ""
+          }
+        },
+        "feature_right_YmTgak": {
+          "type": "feature_right",
+          "settings": {
+            "title": "Secure fit and hygiene for bedridden patients",
+            "description": ""
+          }
+        },
         "feature_FMRwwm": {
           "type": "feature",
           "settings": {
@@ -1182,32 +1196,35 @@
         }
       },
       "block_order": [
+        "feature_right_9cwxLQ",
+        "feature_right_YmTgak",
         "feature_FMRwwm",
         "feature_HNbNJV",
         "feature_B8mpLm"
       ],
       "custom_css": [
-        ".pfb__item-title {font-size: 20px;}",
-        ".pfb__check {width: 20px; height: 20px;}"
+        ".pfb__item-title {font-size: 15px;}",
+        ".pfb__check {width: 20px; height: 20px; margin-left: 70px;}",
+        ".pfb__badge {font-size: 16px;}"
       ],
       "name": "Product Features Banner",
       "settings": {
-        "badge_text": "Leak Proof Comfort for Bedridden patients",
+        "badge_text": "Ensure Leak-Free Comfort from Urinary Incontinence",
         "delivery_text": "",
         "main_heading": "",
         "sub_text": "",
         "button_link": "",
         "button_text": "",
-        "badge_text_right": "Buy 1 Get 1 Free (Limited Time)",
-        "delivery_text_right": "Free Delivery on Orders Above ₹499",
-        "main_heading_right": "Ensure Leak-Free Comfort from Urinary Incontinence",
-        "sub_text_right": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India.",
+        "badge_text_right": "Leak Proof Comfort for Bedridden patients.",
+        "delivery_text_right": "",
+        "main_heading_right": "",
+        "sub_text_right": "",
         "button_link_right": "",
-        "button_text_right": "Shop Now",
+        "button_text_right": "",
         "heading_color": "#333333",
         "accent_color": "#a3ca6d",
-        "spacing_top": "2",
-        "spacing_bottom": "1",
+        "spacing_top": "0",
+        "spacing_bottom": "0",
         "color_scheme": ""
       }
     },
