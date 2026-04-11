@@ -1202,6 +1202,7 @@
         "feature_HNbNJV",
         "feature_B8mpLm"
       ],
+      "disabled": true,
       "custom_css": [
         ".pfb__item-title {font-size: 15px;}",
         ".pfb__check {width: 20px; height: 20px; margin-left: 70px;}",
