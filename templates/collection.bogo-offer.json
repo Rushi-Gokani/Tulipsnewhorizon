@@ -1129,18 +1129,22 @@
         "feature_i39eeR",
         "feature_pCjAMp"
       ],
+      "custom_css": [
+        ".pfb__item-title {font-size: 20px;}",
+        ".pfb__check {width: 20px; height: 20px;}"
+      ],
       "name": "Product Features Banner",
       "settings": {
-        "badge_text": "",
+        "badge_text": "Ensure Leak-Free Comfort from Urinary Incontinence",
         "delivery_text": "",
-        "main_heading": "Ensure Leak-Free Comfort from Urinary Incontinence",
+        "main_heading": "",
         "sub_text": "",
         "button_link": "",
         "button_text": "",
         "heading_color": "#333333",
         "accent_color": "#a3ca6d",
-        "spacing_top": "4",
-        "spacing_bottom": "4",
+        "spacing_top": "2",
+        "spacing_bottom": "1",
         "color_scheme": ""
       }
     },
@@ -1175,18 +1179,22 @@
         "feature_HNbNJV",
         "feature_B8mpLm"
       ],
+      "custom_css": [
+        ".pfb__item-title {font-size: 20px;}",
+        ".pfb__check {width: 20px; height: 20px;}"
+      ],
       "name": "Product Features Banner",
       "settings": {
-        "badge_text": "",
+        "badge_text": "Leak Proof Comfort for Bedridden patients",
         "delivery_text": "",
-        "main_heading": "Leak Proof Comfort for Bedridden patients",
+        "main_heading": "",
         "sub_text": "",
         "button_link": "",
         "button_text": "",
         "heading_color": "#333333",
         "accent_color": "#a3ca6d",
-        "spacing_top": "4",
-        "spacing_bottom": "4",
+        "spacing_top": "2",
+        "spacing_bottom": "1",
         "color_scheme": ""
       }
     },
