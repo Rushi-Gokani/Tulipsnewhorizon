@@ -5,38 +5,81 @@
   "class": "section-product-features-banner",
   "settings": [
     {
+      "type": "header",
+      "content": "Left Column"
+    },
+    {
       "type": "text",
       "id": "badge_text",
-      "label": "Badge Text",
+      "label": "Left Badge Text",
       "default": "Buy 1 Get 1 Free (Limited Time)"
     },
     {
       "type": "text",
       "id": "delivery_text",
-      "label": "Delivery Text",
+      "label": "Left Delivery Text",
       "default": "Free Delivery on Orders Above ₹499"
     },
     {
       "type": "text",
       "id": "main_heading",
-      "label": "Main Heading",
+      "label": "Left Heading",
       "default": "Ensure Leak-Free Comfort from Urinary Incontinence"
     },
     {
       "type": "textarea",
       "id": "sub_text",
-      "label": "Sub Text",
+      "label": "Left Sub Text",
       "default": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India."
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button Link"
+      "label": "Left Button Link"
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button Text",
+      "label": "Left Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Right Column"
+    },
+    {
+      "type": "text",
+      "id": "badge_text_right",
+      "label": "Right Badge Text",
+      "default": "Buy 1 Get 1 Free (Limited Time)"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text_right",
+      "label": "Right Delivery Text",
+      "default": "Free Delivery on Orders Above ₹499"
+    },
+    {
+      "type": "text",
+      "id": "main_heading_right",
+      "label": "Right Heading",
+      "default": "Ensure Leak-Free Comfort from Urinary Incontinence"
+    },
+    {
+      "type": "textarea",
+      "id": "sub_text_right",
+      "label": "Right Sub Text",
+      "default": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India."
+    },
+    {
+      "type": "url",
+      "id": "button_link_right",
+      "label": "Right Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text_right",
+      "label": "Right Button Text",
       "default": "Shop Now"
     },
     {
@@ -94,8 +137,26 @@
   ],
   "blocks": [
     {
-      "type": "feature",
-      "name": "Feature Point",
+      "type": "feature_left",
+      "name": "Feature (Left)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Short description of this feature."
+        }
+      ]
+    },
+    {
+      "type": "feature_right",
+      "name": "Feature (Right)",
       "settings": [
         {
           "type": "text",
@@ -118,21 +179,42 @@
       "category": "Custom",
       "blocks": [
         {
-          "type": "feature",
+          "type": "feature_left",
           "settings": {
             "title": "Leak Proof Comfort",
             "description": "Leak Proof Comfort for Bedridden patients."
           }
         },
         {
-          "type": "feature",
+          "type": "feature_left",
           "settings": {
             "title": "Easy to Change",
             "description": "Easy to change for caregivers."
           }
         },
         {
-          "type": "feature",
+          "type": "feature_left",
+          "settings": {
+            "title": "Secure Fit & Hygiene",
+            "description": "Secure fit and hygiene for bedridden patients."
+          }
+        },
+        {
+          "type": "feature_right",
+          "settings": {
+            "title": "Leak Proof Comfort",
+            "description": "Leak Proof Comfort for Bedridden patients."
+          }
+        },
+        {
+          "type": "feature_right",
+          "settings": {
+            "title": "Easy to Change",
+            "description": "Easy to change for caregivers."
+          }
+        },
+        {
+          "type": "feature_right",
           "settings": {
             "title": "Secure Fit & Hygiene",
             "description": "Secure fit and hygiene for bedridden patients."
@@ -151,65 +233,133 @@
   }
 {%- endstyle -%}
 
+{%- assign left_blocks = section.blocks | where: 'type', 'feature_left' -%}
+{%- assign right_blocks = section.blocks | where: 'type', 'feature_right' -%}
+
 <div class="pfb color-{{ section.settings.color_scheme }}" style="--pfb-heading: {{ section.settings.heading_color }}; --pfb-accent: {{ section.settings.accent_color }};">
   <div class="pfb__inner page-width">
+    <div class="pfb__grid">
 
-    {%- if section.settings.badge_text != blank or section.settings.delivery_text != blank -%}
-      <div class="pfb__bar">
-        {%- if section.settings.badge_text != blank -%}
-          <span class="pfb__badge">{{ section.settings.badge_text }}</span>
+      <div class="pfb__col">
+        {%- if section.settings.badge_text != blank or section.settings.delivery_text != blank -%}
+          <div class="pfb__bar">
+            {%- if section.settings.badge_text != blank -%}
+              <span class="pfb__badge">{{ section.settings.badge_text }}</span>
+            {%- endif -%}
+            {%- if section.settings.delivery_text != blank -%}
+              <span class="pfb__delivery">{{ section.settings.delivery_text }}</span>
+            {%- endif -%}
+          </div>
         {%- endif -%}
-        {%- if section.settings.delivery_text != blank -%}
-          <span class="pfb__delivery">{{ section.settings.delivery_text }}</span>
+
+        {%- if section.settings.main_heading != blank -%}
+          <h2 class="pfb__heading">{{ section.settings.main_heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.sub_text != blank -%}
+          <p class="pfb__subtext">{{ section.settings.sub_text }}</p>
+        {%- endif -%}
+
+        {%- if left_blocks.size > 0 -%}
+          <ul class="pfb__list">
+            {%- for block in left_blocks -%}
+              <li class="pfb__item" {{ block.shopify_attributes }}>
+                <span class="pfb__check">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  {%- if block.settings.title != blank -%}
+                    <strong class="pfb__item-title">{{ block.settings.title }}</strong>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <span class="pfb__item-desc">{{ block.settings.description }}</span>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank -%}
+          <div class="pfb__cta">
+            <a href="{{ section.settings.button_link | default: '#' }}" class="pfb__btn">
+              {{ section.settings.button_text }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
         {%- endif -%}
       </div>
-    {%- endif -%}
 
-    {%- if section.settings.main_heading != blank -%}
-      <h2 class="pfb__heading">{{ section.settings.main_heading }}</h2>
-    {%- endif -%}
+      <div class="pfb__col">
+        {%- if section.settings.badge_text_right != blank or section.settings.delivery_text_right != blank -%}
+          <div class="pfb__bar">
+            {%- if section.settings.badge_text_right != blank -%}
+              <span class="pfb__badge">{{ section.settings.badge_text_right }}</span>
+            {%- endif -%}
+            {%- if section.settings.delivery_text_right != blank -%}
+              <span class="pfb__delivery">{{ section.settings.delivery_text_right }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
-    {%- if section.settings.sub_text != blank -%}
-      <p class="pfb__subtext">{{ section.settings.sub_text }}</p>
-    {%- endif -%}
+        {%- if section.settings.main_heading_right != blank -%}
+          <h2 class="pfb__heading">{{ section.settings.main_heading_right }}</h2>
+        {%- endif -%}
 
-    {%- if section.blocks.size > 0 -%}
-      <ul class="pfb__list">
-        {%- for block in section.blocks -%}
-          <li class="pfb__item" {{ block.shopify_attributes }}>
-            <span class="pfb__check">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <div>
-              {%- if block.settings.title != blank -%}
-                <strong class="pfb__item-title">{{ block.settings.title }}</strong>
-              {%- endif -%}
-              {%- if block.settings.description != blank -%}
-                <span class="pfb__item-desc">{{ block.settings.description }}</span>
-              {%- endif -%}
-            </div>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
+        {%- if section.settings.sub_text_right != blank -%}
+          <p class="pfb__subtext">{{ section.settings.sub_text_right }}</p>
+        {%- endif -%}
 
-    {%- if section.settings.button_text != blank -%}
-      <div class="pfb__cta">
-        <a href="{{ section.settings.button_link | default: '#' }}" class="pfb__btn">
-          {{ section.settings.button_text }}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        {%- if right_blocks.size > 0 -%}
+          <ul class="pfb__list">
+            {%- for block in right_blocks -%}
+              <li class="pfb__item" {{ block.shopify_attributes }}>
+                <span class="pfb__check">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  {%- if block.settings.title != blank -%}
+                    <strong class="pfb__item-title">{{ block.settings.title }}</strong>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <span class="pfb__item-desc">{{ block.settings.description }}</span>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_text_right != blank -%}
+          <div class="pfb__cta">
+            <a href="{{ section.settings.button_link_right | default: '#' }}" class="pfb__btn">
+              {{ section.settings.button_text_right }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        {%- endif -%}
       </div>
-    {%- endif -%}
 
+    </div>
   </div>
 </div>
 
 {% stylesheet %}
   .pfb__inner {
-    max-width: 800px;
     margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .pfb__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .pfb__col {
     text-align: center;
+    padding: 2rem;
   }
 
   .pfb__bar {
@@ -227,7 +377,7 @@
     color: #fff;
     font-size: 1.2rem;
     font-weight: 700;
-    padding: 0.4rem 1.4rem;
+    padding: 0.3rem 1rem;
     border-radius: 5rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -241,7 +391,7 @@
 
   .pfb__heading {
     color: var(--pfb-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1rem;
@@ -249,36 +399,32 @@
   }
 
   .pfb__subtext {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.6;
     opacity: 0.6;
-    margin-bottom: 3rem;
-    max-width: 60rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 2.4rem;
   }
 
   .pfb__list {
     list-style: none;
     padding: 0;
-    margin: 0 auto 3rem;
-    max-width: 40rem;
+    margin: 0 auto 2.4rem;
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1.2rem;
   }
 
   .pfb__item {
     display: flex;
     align-items: flex-start;
-    gap: 1.2rem;
+    gap: 1rem;
   }
 
   .pfb__check {
     flex-shrink: 0;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 2.6rem;
+    height: 2.6rem;
     border-radius: 50%;
     background: var(--pfb-accent);
     color: #fff;
@@ -289,7 +435,7 @@
   }
 
   .pfb__item-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--pfb-heading);
     display: block;
@@ -297,7 +443,7 @@
   }
 
   .pfb__item-desc {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     line-height: 1.5;
     opacity: 0.6;
     display: block;
@@ -327,6 +473,19 @@
   }
 
   @media screen and (max-width: 749px) {
+    .pfb__inner {
+      padding: 3rem 1rem;
+    }
+
+    .pfb__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .pfb__col {
+      padding: 1.5rem;
+    }
+
     .pfb__bar {
       gap: 0.8rem;
     }
@@ -343,21 +502,21 @@
     }
 
     .pfb__heading {
-      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
     }
 
     .pfb__subtext {
       font-size: 1.3rem;
-      margin-bottom: 2.4rem;
+      margin-bottom: 2rem;
     }
 
     .pfb__list {
-      gap: 1.2rem;
+      gap: 1rem;
     }
 
     .pfb__check {
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2.2rem;
+      height: 2.2rem;
     }
 
     .pfb__check svg {
@@ -366,11 +525,11 @@
     }
 
     .pfb__item-title {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
 
     .pfb__item-desc {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
 
     .pfb__btn {
