@@ -1,40 +1,38 @@
 {% stylesheet %}
   .cart-drawer-reviews {
-    padding: var(--padding-lg) var(--padding-xl);
+    padding: 16px 12px 12px;
     border-top: 1px solid var(--color-border);
     background-color: var(--color-background);
     flex-shrink: 0;
-
-    @media screen and (min-width: 750px) {
-      padding: var(--padding-xl) var(--padding-2xl);
-    }
   }
 
   .cart-drawer-reviews__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--margin-md);
+    margin-bottom: 12px;
+    padding: 0 4px;
   }
 
   .cart-drawer-reviews__heading {
-    font-size: var(--font-size--sm);
+    font-size: 13px;
     font-weight: var(--font-weight-bold);
     color: var(--color-foreground);
     margin: 0;
+    letter-spacing: 0.02em;
   }
 
   .cart-drawer-reviews__nav {
     display: flex;
-    gap: var(--gap-xs);
+    gap: 6px;
   }
 
   .cart-drawer-reviews__nav-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     border: 1px solid var(--color-border);
     background: var(--color-background);
@@ -63,12 +61,12 @@
 
   .cart-drawer-reviews__track {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: var(--padding-sm);
+    padding: 4px 2px 8px;
     scrollbar-width: none;
   }
 
@@ -77,23 +75,23 @@
   }
 
   .cart-drawer-reviews__card {
-    flex: 0 0 calc(100% - 16px);
-    min-width: 220px;
+    flex: 0 0 calc(100% - 20px);
+    min-width: 230px;
     max-width: 280px;
     scroll-snap-align: start;
-    background: rgb(var(--color-foreground-rgb) / 0.03);
-    border: 1px solid rgb(var(--color-border-rgb) / 0.5);
-    border-radius: 10px;
-    padding: 14px;
+    background: rgb(var(--color-foreground-rgb) / 0.025);
+    border: 1px solid rgb(var(--color-border-rgb) / 0.4);
+    border-radius: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .cart-drawer-reviews__card:hover {
     border-color: rgb(var(--color-border-rgb));
-    box-shadow: 0 2px 8px rgb(var(--color-shadow-rgb) / 0.08);
+    box-shadow: 0 2px 12px rgb(var(--color-shadow-rgb) / 0.06);
   }
 
   .cart-drawer-reviews__stars {
@@ -102,7 +100,7 @@
   }
 
   .cart-drawer-reviews__star {
-    fill: rgb(var(--color-border-rgb) / 0.3);
+    fill: rgb(var(--color-border-rgb) / 0.25);
     transition: fill 0.2s ease;
   }
 
@@ -111,9 +109,9 @@
   }
 
   .cart-drawer-reviews__text {
-    font-size: 12px;
-    line-height: 1.5;
-    color: rgb(var(--color-foreground-rgb) / 0.75);
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgb(var(--color-foreground-rgb) / 0.8);
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -124,12 +122,13 @@
   .cart-drawer-reviews__meta {
     display: flex;
     align-items: center;
-    gap: var(--gap-xs);
+    gap: 8px;
     margin-top: auto;
+    padding-top: 6px;
   }
 
   .cart-drawer-reviews__author {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: var(--font-weight-bold);
     color: var(--color-foreground);
   }
@@ -140,7 +139,7 @@
     gap: 3px;
     font-size: 10px;
     color: #22c55e;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .cart-drawer-reviews__verified svg {
@@ -151,21 +150,21 @@
     display: flex;
     justify-content: center;
     gap: 4px;
-    margin-top: var(--margin-sm);
+    margin-top: 10px;
   }
 
   .cart-drawer-reviews__scroll-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgb(var(--color-border-rgb) / 0.5);
+    background: rgb(var(--color-border-rgb) / 0.4);
     transition: all 0.3s ease;
     cursor: pointer;
   }
 
   .cart-drawer-reviews__scroll-dot--active {
     background: var(--color-foreground);
-    width: 16px;
+    width: 18px;
     border-radius: 3px;
   }
 {% endstylesheet %}
