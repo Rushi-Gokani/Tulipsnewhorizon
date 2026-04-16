@@ -1,19 +1,19 @@
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div class="section page-width-content color-{{ section.settings.color_scheme }}">
-  <div
-    class="
-      spacing-style
-      layout-panel-flex
-      layout-panel-flex--column
-      section-content-wrapper
-      mobile-column
-    "
-    style="
-      {% render 'layout-panel-style', settings: section.settings %}
-      {% render 'spacing-style', settings: section.settings %}
-    "
-  >
+<div class="section page-width-wide color-{{ section.settings.color_scheme }}">
+    <div
+      class="
+        spacing-style
+        layout-panel-flex
+        layout-panel-flex--column
+        section-content-wrapper
+        mobile-column
+      "
+      style="
+        {% render 'layout-panel-style', settings: section.settings %}
+        {% render 'spacing-style', settings: section.settings %}
+      "
+    >
     {% if section.settings.heading != blank %}
       <h2 
         class="section-heading"
@@ -111,7 +111,7 @@
           "label": "Extra Small"
         }
       ],
-      "default": "800px"
+      "default": "100%"
     },
     {
       "type": "header",
@@ -186,7 +186,7 @@
         "heading": "Welcome to our store",
         "text": "<p>Use this text to share information about your brand with your customers.</p>",
         "text_alignment": "center",
-        "max_width": "800px",
+        "max_width": "100%",
         "gap": 20,
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
