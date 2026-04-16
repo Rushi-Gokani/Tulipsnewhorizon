@@ -2266,6 +2266,28 @@
             "verified": true,
             "show_avatar": true
           }
+        },
+        "testimonial_ypVXMn": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Excellent product. Very reliable for elderly care.",
+            "author": "Lucy Joseph",
+            "city": "Tamil Nadu.",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_dX4BVM": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Using for 3 months, fully satisfied.",
+            "author": "THANGAKUMAR N",
+            "city": "Namakkal (Tamil Nadu)",
+            "verified": true,
+            "show_avatar": true
+          }
         }
       },
       "block_order": [
@@ -2274,7 +2296,9 @@
         "testimonial_UYyMet",
         "testimonial_VjL4CK",
         "testimonial_f8Y7M6",
-        "testimonial_zTKJxX"
+        "testimonial_zTKJxX",
+        "testimonial_ypVXMn",
+        "testimonial_dX4BVM"
       ],
       "name": "Custom Testimonials",
       "settings": {
