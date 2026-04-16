@@ -243,8 +243,8 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 0,
-        "padding-inline-start": 46,
-        "padding-inline-end": 78
+        "padding-inline-start": 100,
+        "padding-inline-end": 100
       }
     }
   },
