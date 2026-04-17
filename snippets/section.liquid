@@ -147,13 +147,20 @@
             margin: 0 auto !important;
             width: 100%;
           }
-          .section-content-wrapper.overlap-badge-layout > :nth-child(3) * {
+          .section-content-wrapper.overlap-badge-layout > :nth-child(3) *:not(.read-more-toggle) {
              color: #666666 !important;
              font-size: 1.4rem !important;
              line-height: 1.6 !important;
              font-weight: 400 !important;
              max-width: 800px;
              margin: 0 auto;
+          }
+          
+          .section-content-wrapper.overlap-badge-layout > :nth-child(3) .read-more-toggle {
+             color: #A3CA6D !important;
+             font-weight: 700 !important;
+             text-decoration: none !important;
+             cursor: pointer !important;
           }
 
           /* Fallback handling if no icon is provided (2 children) */
