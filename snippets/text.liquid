@@ -89,7 +89,31 @@
   </div>
 {% elsif plain_text != blank %}
   <{{ element }} {{ attributes | strip_newlines | strip }}>
-    {{ block.settings.text }}
+    {% if block_settings.enable_read_more %}
+      {% assign word_count = visible_text | split: ' ' | size %}
+      {% if word_count > 25 %}
+        <read-more-text data-limit="25" style="display: contents;">
+          <div class="read-more-content" data-full-text>{{ block.settings.text }}</div>
+        </read-more-text>
+        <style>
+          .read-more-toggle.inline-toggle {
+            color: #A3CA6D;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 4px;
+          }
+          .read-more-toggle.inline-toggle:hover {
+            opacity: 0.8;
+          }
+        </style>
+        <script src="{{ 'read-more-text.js' | asset_url }}" defer="defer"></script>
+      {% else %}
+        {{ block.settings.text }}
+      {% endif %}
+    {% else %}
+      {{ block.settings.text }}
+    {% endif %}
   </{{ element }}>
 {% endif %}
 

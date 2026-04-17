@@ -61,6 +61,63 @@
       data-testid="section-content"
     >
       {{ children }}
+      {% if section.settings.overlap_badge_layout %}
+        <style>
+          .overlap-badge-pill {
+            background: #ffffff;
+            border-radius: 999px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Matches uploaded image */
+            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+            margin-block-end: -25px;
+            margin-inline: auto;
+          }
+          .overlap-badge-pill > * {
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          .overlap-badge-bg {
+            background: #F8F7EE; /* Matches default pale card background from image */
+            border-radius: 20px;
+            padding: 45px 30px 25px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(0,0,0,0.05);
+          }
+        </style>
+        <script>
+          (function() {
+            var script = document.currentScript;
+            var wrapper = script.parentElement;
+            var children = Array.from(wrapper.children).filter(function(c) {
+              return c.tagName !== 'SCRIPT' && c.tagName !== 'STYLE' && (c.className || '').indexOf('overlap-badge') === -1;
+            });
+            if (children.length >= 2) {
+               var pill = document.createElement('div');
+               pill.className = 'overlap-badge-pill';
+               wrapper.insertBefore(pill, children[0]);
+               pill.appendChild(children[0]);
+               pill.appendChild(children[1]);
+               
+               var bg = document.createElement('div');
+               bg.className = 'overlap-badge-bg';
+               wrapper.insertBefore(bg, pill.nextSibling);
+               var rest = Array.from(wrapper.children).filter(function(c) {
+                 return c !== script && c.tagName !== 'STYLE' && c !== pill && c !== bg;
+               });
+               rest.forEach(function(el) {
+                  bg.appendChild(el);
+               });
+            }
+          })();
+        </script>
+      {% endif %}
     </div>
   </div>
 </div>
