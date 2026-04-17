@@ -70,6 +70,7 @@
         "icon_ynm48A": {
           "type": "icon",
           "name": "t:names.icon",
+          "disabled": true,
           "settings": {
             "icon": "box",
             "image_upload": "shopify://shop_images/Screenshot_2026-04-17_181400.png",
