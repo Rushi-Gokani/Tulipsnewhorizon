@@ -1,0 +1,183 @@
+{%- style -%}
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background-color: transparent;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .badge-card__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 25px; /* Space for ascending badge */
+  }
+
+  .badge-card__pill {
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Matches image */
+    padding: 12px 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: -25px; /* Overlaps lower content exactly */
+  }
+
+  .badge-card__pill h2, .badge-card__pill h3 {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-foreground-heading, #333);
+  }
+
+  .badge-card__pill-icon {
+    display: flex;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+  }
+
+  .badge-card__pill-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .badge-card__pill-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .badge-card__content {
+    background: #F8F7EE; /* Exact pale card background from image */
+    border-radius: 20px;
+    padding: 55px 40px 35px; /* large top padding to accommodate overlap */
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  .badge-card__content p {
+    margin: 0 auto;
+    font-size: 1.6rem;
+    color: var(--color-foreground, #444);
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+{%- endstyle -%}
+
+<div class="custom-badge-card section-{{ section.id }} page-width">
+  <div class="badge-card__container">
+    
+    <!-- Top Floating Pill -->
+    <div class="badge-card__pill">
+      {%- if section.settings.icon != blank -%}
+        <div class="badge-card__pill-icon">
+          {{ section.settings.icon | image_url: width: 64 | image_tag: loading: 'lazy' }}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2>{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+
+    <!-- Bottom Content Card -->
+    <div class="badge-card__content">
+      {%- if section.settings.description != blank -%}
+        <read-more-text data-limit="25" style="display: contents;">
+          <div class="read-more-content rte" data-full-text>
+             {{ section.settings.description }}
+          </div>
+        </read-more-text>
+        <script src="{{ 'read-more-text.js' | asset_url }}" defer="defer"></script>
+        <style>
+          .read-more-toggle.inline-toggle {
+            color: #A3CA6D;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 4px;
+          }
+          .read-more-toggle.inline-toggle:hover {
+            opacity: 0.8;
+          }
+        </style>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Overlapping Badge Card",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Badge Icon/Logo"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Badge Title",
+      "default": "Pant Style Diapers"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Card Description",
+      "default": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Overlapping Badge Card",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

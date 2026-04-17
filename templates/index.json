@@ -355,6 +355,17 @@
         "bg_color": "#ffffff"
       }
     },
+    "custom_badge_demo": {
+      "type": "custom-badge-card",
+      "settings": {
+        "title": "ADULT DIAPERS",
+        "description": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of soft fabrics, they provide a very comfortable and dry experience throughout the day.</p>"
+      }
+    },
+    "custom_logo_demo": {
+      "type": "custom-logo",
+      "settings": {}
+    },
     "happy_customers_EY4kXP": {
       "type": "happy-customers",
       "blocks": {
@@ -456,6 +467,8 @@
     "featured_collection_carousel_idX97k",
     "featured_collection_carousel_tVtqtU",
     "featured_collection_carousel_tz4NCz",
+    "custom_badge_demo",
+    "custom_logo_demo",
     "happy_customers_EY4kXP",
     "featured_blog_T7YGqW"
   ]

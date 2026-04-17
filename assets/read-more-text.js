@@ -44,7 +44,7 @@ class ReadMoreText extends HTMLElement {
           break;
        }
     }
-    target.appendChild(document.createTextNode('\u00A0...'));
+    target.appendChild(document.createTextNode('\u00A0'));
     target.appendChild(el);
   }
 
