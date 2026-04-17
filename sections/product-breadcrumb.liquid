@@ -251,17 +251,43 @@
               endif
             endif
             
+            assign collection_url = target_collection.url
             if is_soap
               assign collection_title = 'Handmade Soaps'
+              assign collection_url = '/collections/handmade-soaps'
+            endif
+
+            assign is_facial_tissue = false
+            assign prod_title_lower = product.title | downcase
+            if prod_title_lower contains 'facial tissue' or prod_type_lower contains 'facial tissue'
+              assign is_facial_tissue = true
+            endif
+            
+            for tag in product.tags
+              assign tag_lower = tag | downcase
+              if tag_lower contains 'facial tissue'
+                assign is_facial_tissue = true
+                break
+              endif
+            endfor
+
+            if is_facial_tissue
+              assign collection_title = 'Facial Tissues'
+              assign collection_url = '/collections/facial-tissues'
             endif
 
             if section.settings.title_override != blank and section.settings.collection_to_override == target_collection.handle
               assign collection_title = section.settings.title_override
             endif
+
+            if product.title contains 'Adult' and product.title contains 'Diaper'
+              assign collection_title = 'Adult Diapers'
+              assign collection_url = '/collections/adult-diaper-pants'
+            endif
           -%}
 
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
-          <a href="{{ target_collection.url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
+          <a href="{{ collection_url }}" title="{{ collection_title | escape }}">{{ collection_title | escape }}</a>
         {%- elsif product.type != blank -%}
           <span class="product-breadcrumb__divider" aria-hidden="true">></span>
           <a href="{{ routes.collections_url }}/all?filter.p.product_type={{ product.type | url_encode }}" title="{{ product.type | escape }}">{{ product.type | escape }}</a>

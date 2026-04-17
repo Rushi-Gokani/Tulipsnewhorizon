@@ -233,18 +233,19 @@
     },
     "simple_text_section_7VMJWU": {
       "type": "simple-text-section",
+      "disabled": true,
       "name": "Simple Text Section",
       "settings": {
         "heading": "",
-        "text": "<p>{{ collection.metafields.custom.text | metafield_tag }}</p>",
+        "text": "<p>Tulips Cotton Pads are a reliable, gentle choice for skincare routines, made from 100% pure cotton and appreciated for their softness and durability. Their textured surface makes them effective for removing makeup and applying toner or lotion without irritating the skin. These cotton pas are affordable and offer value for money to customer in comparison with other brands.<br/>Order Online 100% Pure Cotton Pads for Removing Makeup, Nail Polish and Cleansing Face.</p>",
         "text_alignment": "justify",
         "max_width": "100%",
         "gap": 20,
         "color_scheme": "scheme-1",
-        "padding-block-start": 0,
-        "padding-block-end": 0,
-        "padding-inline-start": 100,
-        "padding-inline-end": 100
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "padding-inline-start": 20,
+        "padding-inline-end": 20
       }
     }
   },

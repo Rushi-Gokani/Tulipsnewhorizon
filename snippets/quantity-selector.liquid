@@ -9,6 +9,7 @@
   @param {string} [class] - custom class for the quantity selector, optional
   @param {boolean} [can_update_quantity] - whether the quantity can be updated, defaults to true
   @param {number} [min] - override the minimum quantity (e.g., 0 for quick order list)
+  @param {number} [custom_max] - custom maximum quantity limit (overrides variant.quantity_rule.max)
 {%- enddoc -%}
 
 {% liquid
@@ -26,6 +27,15 @@
     assign min_quantity = min
   else
     assign min_quantity = variant.quantity_rule.min | default: 1
+  endif
+
+  # Determine the maximum quantity to use
+  if custom_max != null
+    assign max_quantity = custom_max
+  elsif variant.quantity_rule.max
+    assign max_quantity = variant.quantity_rule.max
+  else
+    assign max_quantity = null
   endif
 %}
 
@@ -72,8 +82,8 @@
       {% if line_index %}
         data-cart-line="{{ line_index | plus: 1 }}"
       {% endif %}
-      {% if variant.quantity_rule.max %}
-        max="{{ variant.quantity_rule.max }}"
+      {% if max_quantity %}
+        max="{{ max_quantity }}"
       {% endif %}
       step="{{ variant.quantity_rule.increment | default: 1 }}"
       {% if can_update_quantity == false or variant.available == false %}

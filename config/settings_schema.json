@@ -2409,13 +2409,212 @@
      "id": "enableIntlFlow",
      "label": "Enable International Flow"
    },
-   {
-     "type": "checkbox",
-     "id": "enableBannertext",
-     "label": "Enable Banner Text"
-   }
+    {
+      "type": "checkbox",
+      "id": "enableBannertext",
+      "label": "Enable Banner Text"
+    }
+  ]
+ },
+ {
+  "name": "Cart Drawer Reviews",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_reviews_enabled",
+      "label": "Show reviews in cart drawer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_heading",
+      "label": "Reviews heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "header",
+      "content": "Review 1"
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_1_author",
+      "label": "Author name",
+      "default": "Priya S."
+    },
+    {
+      "type": "range",
+      "id": "cart_drawer_review_1_rating",
+      "label": "Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_1_text",
+      "label": "Review text",
+      "default": "Amazing quality! The fabric is so soft and comfortable. Will definitely order again."
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_review_1_verified",
+      "label": "Verified purchase",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Review 2"
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_2_author",
+      "label": "Author name",
+      "default": "Rahul M."
+    },
+    {
+      "type": "range",
+      "id": "cart_drawer_review_2_rating",
+      "label": "Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_2_text",
+      "label": "Review text",
+      "default": "Perfect fit and fast delivery. The colors are exactly as shown. Highly recommend!"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_review_2_verified",
+      "label": "Verified purchase",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Review 3"
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_3_author",
+      "label": "Author name",
+      "default": "Ananya K."
+    },
+    {
+      "type": "range",
+      "id": "cart_drawer_review_3_rating",
+      "label": "Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_3_text",
+      "label": "Review text",
+      "default": "Love the design and feel. Great value for money. My go-to brand now!"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_review_3_verified",
+      "label": "Verified purchase",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Review 4"
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_4_author",
+      "label": "Author name",
+      "default": "Vikram T."
+    },
+    {
+      "type": "range",
+      "id": "cart_drawer_review_4_rating",
+      "label": "Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_4_text",
+      "label": "Review text",
+      "default": "Superior quality cotton. Very breathable for summer. Exceeded my expectations!"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_review_4_verified",
+      "label": "Verified purchase",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Review 5"
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_5_author",
+      "label": "Author name"
+    },
+    {
+      "type": "range",
+      "id": "cart_drawer_review_5_rating",
+      "label": "Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_5_text",
+      "label": "Review text"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_review_5_verified",
+      "label": "Verified purchase",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Review 6"
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_6_author",
+      "label": "Author name"
+    },
+    {
+      "type": "range",
+      "id": "cart_drawer_review_6_rating",
+      "label": "Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "cart_drawer_review_6_text",
+      "label": "Review text"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_review_6_verified",
+      "label": "Verified purchase",
+      "default": false
+    }
+  ]
+ }
+
+
  ]
-}
-
-
-]

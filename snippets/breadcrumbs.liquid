@@ -40,9 +40,39 @@
         endif
       -%}
       {%- if target_collection -%}
+        {%- liquid
+          assign collection_title = target_collection.title
+          assign collection_url = target_collection.url
+          
+          assign prod_title_lower = product.title | downcase
+          assign prod_type_lower = product.type | downcase
+          assign is_facial_tissue = false
+          
+          if prod_title_lower contains 'facial tissue' or prod_type_lower contains 'facial tissue'
+            assign is_facial_tissue = true
+          endif
+          
+          for tag in product.tags
+            assign tag_lower = tag | downcase
+            if tag_lower contains 'facial tissue'
+              assign is_facial_tissue = true
+              break
+            endif
+          endfor
+          
+          if is_facial_tissue
+            assign collection_title = 'Facial Tissues'
+            assign collection_url = '/collections/facial-tissues'
+          endif
+
+          if product.title contains 'Adult' and product.title contains 'Diaper'
+            assign collection_title = 'Adult Diapers'
+            assign collection_url = '/collections/adult-diaper-pants'
+          endif
+        -%}
         <li>
-          <a href="{{- target_collection.url -}}" class="breadcrumbs__link">
-            {{- target_collection.title | escape -}}
+          <a href="{{- collection_url -}}" class="breadcrumbs__link">
+            {{- collection_title | escape -}}
           </a>
         </li>
         <li class="breadcrumbs__separator">/</li>

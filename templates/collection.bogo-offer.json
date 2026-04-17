@@ -16,8 +16,12 @@
       "settings": {
         "background_color": "#fffbeb",
         "text_color": "#3730a3",
+        "show_nav_arrows": false,
+        "collection_to_override": "",
+        "title_override": "",
         "arrow_bg_color": "",
         "arrow_icon_color": "",
+        "alignment": "center",
         "padding_top": 12,
         "padding_bottom": 12
       }
@@ -63,6 +67,18 @@
     "section_xCG4ew": {
       "type": "section",
       "blocks": {
+        "icon_ynm48A": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "box",
+            "image_upload": "shopify://shop_images/Screenshot_2026-04-17_181400.png",
+            "width": 60,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
         "text_fih4WR": {
           "type": "text",
           "name": "t:names.heading",
@@ -93,11 +109,11 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of a soft and breathable fabric that features quick absorption, proper distribution of fluid and odour control technology to ensure a comfortable and dry experience throughout the day. Available in 3 sizes.</p>",
+            "text": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of a soft and breathable fabric that features quick absorption, proper distribution of fluid and odour control technology to ensure a comfortable and dry experience throughout the day. Available in Medium, Large & Extra Large (XL) sizes to manage urinary leakage.</p>",
             "width": "fit-content",
             "max_width": "none",
             "alignment": "left",
-            "type_preset": "rte",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -133,6 +149,7 @@
         }
       },
       "block_order": [
+        "icon_ynm48A",
         "text_fih4WR",
         "text_JMcMD7",
         "button_Y3CYyk"
@@ -294,6 +311,137 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 32
+      }
+    },
+    "section_gPXKTr": {
+      "type": "section",
+      "blocks": {
+        "text_cpNpX9": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h1>ADULT DIAPERS TAPE</h1>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_qQpRKB": {
+          "type": "text",
+          "name": "t:names.text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of a soft and breathable fabric that features quick absorption, proper distribution of fluid and odour control technology to ensure a comfortable and dry experience throughout the day. Available in Medium, Large & Extra Large (XL) sizes to manage urinary leakage.</p>",
+            "width": "fit-content",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_mgtYQC": {
+          "type": "button",
+          "name": "t:names.button",
+          "disabled": true,
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_cpNpX9",
+        "text_qQpRKB",
+        "button_mgtYQC"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 50,
+        "padding-block-end": 50
+      }
+    },
+    "featured_collection_carousel_pethJU": {
+      "type": "featured-collection-carousel",
+      "name": "Featured Collection Slide",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "first": "",
+        "second": "",
+        "third": "",
+        "fourth": "",
+        "fifth": "",
+        "tab_text_color": "#000000",
+        "tab_active_color": "#a3ca6d",
+        "collection": "adult-diaper-tape-style",
+        "products_to_show": 8,
+        "show_all_products": false,
+        "desktop_columns": 4,
+        "autoplay_speed": 3,
+        "show_arrows": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#ffffff"
       }
     },
     "section_R74iyB": {
@@ -1038,11 +1186,11 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. This Quality tested Adult Diapers for Men & Women, are available in various sizes.</p>",
+            "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. Adult Diapers Pant Style (pull-ups pants) are primarily for urinary leakage and person with no mobility issues, whereases Pant style are designed for bedridden patients with incontinence management, post-surgery, or elderly care. TULIPS Hygiene, offer both Pant and Tape style Adult Diapers to ensure 100% leakage protection. This Quality tested Adult Diapers for Men & Women, are available in Medium, Large & Extra Large (XL) sizes.</p>",
             "width": "100%",
             "max_width": "none",
-            "alignment": "center",
-            "type_preset": "rte",
+            "alignment": "left",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -1054,7 +1202,7 @@
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 12,
-            "padding-block-end": 95,
+            "padding-block-end": 62,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
@@ -1092,6 +1240,136 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "product_features_banner_TGL7da": {
+      "type": "product-features-banner",
+      "blocks": {
+        "feature_crfVGn": {
+          "type": "feature",
+          "settings": {
+            "title": "Buy 1 Get 1 Free (Limited Time)",
+            "description": ""
+          }
+        },
+        "feature_i39eeR": {
+          "type": "feature",
+          "settings": {
+            "title": "Delivery in 2-4 Days",
+            "description": ""
+          }
+        },
+        "feature_pCjAMp": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_crfVGn",
+        "feature_i39eeR",
+        "feature_pCjAMp"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".pfb__item-title {font-size: 20px;}",
+        ".pfb__check {width: 20px; height: 20px;}"
+      ],
+      "name": "Product Features Banner",
+      "settings": {
+        "badge_text": "Ensure Leak-Free Comfort from Urinary Incontinence",
+        "delivery_text": "",
+        "main_heading": "",
+        "sub_text": "",
+        "button_link": "",
+        "button_text": "",
+        "badge_text_right": "Buy 1 Get 1 Free (Limited Time)",
+        "delivery_text_right": "Free Delivery on Orders Above ₹499",
+        "main_heading_right": "Ensure Leak-Free Comfort from Urinary Incontinence",
+        "sub_text_right": "Designed for maximum protection, comfort, and dignity. Trusted by caregivers and patients across India.",
+        "button_link_right": "",
+        "button_text_right": "Shop Now",
+        "heading_color": "#333333",
+        "accent_color": "#a3ca6d",
+        "spacing_top": "2",
+        "spacing_bottom": "1",
+        "color_scheme": ""
+      }
+    },
+    "product_features_banner_6BEkfk": {
+      "type": "product-features-banner",
+      "blocks": {
+        "feature_right_9cwxLQ": {
+          "type": "feature_right",
+          "settings": {
+            "title": "Easy to change for caregivers.",
+            "description": ""
+          }
+        },
+        "feature_right_YmTgak": {
+          "type": "feature_right",
+          "settings": {
+            "title": "Secure fit and hygiene for bedridden patients",
+            "description": ""
+          }
+        },
+        "feature_FMRwwm": {
+          "type": "feature",
+          "settings": {
+            "title": "Buy 1 Get 1 Free (Limited Time)",
+            "description": ""
+          }
+        },
+        "feature_HNbNJV": {
+          "type": "feature",
+          "settings": {
+            "title": "Delivery in 2 - 4 Days",
+            "description": ""
+          }
+        },
+        "feature_B8mpLm": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_right_9cwxLQ",
+        "feature_right_YmTgak",
+        "feature_FMRwwm",
+        "feature_HNbNJV",
+        "feature_B8mpLm"
+      ],
+      "custom_css": [
+        ".pfb__item-title {font-size: 15px;}",
+        ".pfb__check {width: 20px; height: 20px; margin-left: 70px;}",
+        ".pfb__badge {font-size: 16px;}"
+      ],
+      "name": "Product Features Banner",
+      "settings": {
+        "badge_text": "Ensure Leak-Free Comfort from Urinary Incontinence",
+        "delivery_text": "",
+        "main_heading": "",
+        "sub_text": "",
+        "button_link": "",
+        "button_text": "",
+        "badge_text_right": "Leak Proof Comfort for Bedridden patients.",
+        "delivery_text_right": "",
+        "main_heading_right": "",
+        "sub_text_right": "",
+        "button_link_right": "",
+        "button_text_right": "",
+        "heading_color": "#333333",
+        "accent_color": "#a3ca6d",
+        "spacing_top": "0",
+        "spacing_bottom": "0",
+        "color_scheme": ""
       }
     },
     "image_slider_ABDgbk": {
@@ -2067,7 +2345,29 @@
     "custom_testimonials_zccwXX": {
       "type": "custom-testimonials",
       "blocks": {
-        "testimonial_VjL4CK": {
+        "testimonial_CDAnPY": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Fully Absorbent with wetness indicator for a leak proof experience. 100% Reliable product.",
+            "author": "Mansi Arora",
+            "city": "Delhi",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_D7DQDk": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Was fully satisfied with the product.",
+            "author": "C. Rego",
+            "city": "Mumbai",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_UYyMet": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
@@ -2078,13 +2378,24 @@
             "show_avatar": true
           }
         },
+        "testimonial_VjL4CK": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "100% Reliable Product with soft, breathable, and designed to keep you dry all day.",
+            "author": "Loretta D'Souza",
+            "city": "Mumbai",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
         "testimonial_f8Y7M6": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Was fully satisfied with the product.",
-            "author": "C.Rego",
-            "city": "Mumbai",
+            "text": "I am fully satisfied with this product. Highly Absorbent & offering comfort without irritation.",
+            "author": "Rakesh Sharma",
+            "city": "Noida",
             "verified": true,
             "show_avatar": true
           }
@@ -2093,18 +2404,45 @@
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Fully Absorbent with wetness indicator for a leak proof experience. 100% Reliable product.",
-            "author": "Mansi Arora",
+            "text": "Experience Total Leak Protection from Urinary Incontinence with TULIPS Adult Diaper.",
+            "author": "Arvind Bhardwaj",
             "city": "Delhi",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_ypVXMn": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Excellent product. Very reliable for elderly care.",
+            "author": "Lucy Joseph",
+            "city": "Tamil Nadu.",
+            "verified": true,
+            "show_avatar": true
+          }
+        },
+        "testimonial_dX4BVM": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Using for 3 months, fully satisfied.",
+            "author": "THANGAKUMAR N",
+            "city": "Namakkal (Tamil Nadu)",
             "verified": true,
             "show_avatar": true
           }
         }
       },
       "block_order": [
+        "testimonial_CDAnPY",
+        "testimonial_D7DQDk",
+        "testimonial_UYyMet",
         "testimonial_VjL4CK",
         "testimonial_f8Y7M6",
-        "testimonial_zTKJxX"
+        "testimonial_zTKJxX",
+        "testimonial_ypVXMn",
+        "testimonial_dX4BVM"
       ],
       "name": "Custom Testimonials",
       "settings": {
@@ -2145,9 +2483,13 @@
     "image_slider_gehmzT",
     "section_xCG4ew",
     "main",
+    "section_gPXKTr",
+    "featured_collection_carousel_pethJU",
     "section_R74iyB",
     "section_bgqA6D",
     "section_cjKz3g",
+    "product_features_banner_TGL7da",
+    "product_features_banner_6BEkfk",
     "image_slider_ABDgbk",
     "image_slider_ByC8YP",
     "image_slider_CN34G4",
