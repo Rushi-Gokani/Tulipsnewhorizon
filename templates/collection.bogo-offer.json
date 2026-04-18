@@ -1278,6 +1278,98 @@
         "padding-block-end": 0
       }
     },
+    "section_KNhegj": {
+      "type": "section",
+      "blocks": {
+        "text_mQrXR4": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h2>Leak Free Comfort with Tulips Adult Diapers </h2>",
+            "enable_read_more": false,
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 34,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_9dWTjq": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Experience leak-free comfort and dignity with Tulips Adult Diapers, thoughtfully designed for elders managing urinary incontinence. Whether you choose convenient pant-style diapers or adjustable tape-style options, each product ensures a secure fit, high absorbency, and all-day dryness. The soft, breathable fabric enhances comfort while preventing skin irritation, allowing users to stay active and confident. With advanced leak-lock technology, Tulips Adult Diapers provide reliable protection, so your loved ones can enjoy restful nights and worry-free days with complete peace of mind.</p>",
+            "enable_read_more": false,
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 12,
+            "padding-block-end": 62,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_mQrXR4",
+        "text_9dWTjq"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "overlap_badge_layout": false,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "custom",
+        "section_height_custom": 18,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "product_features_banner_TGL7da": {
       "type": "product-features-banner",
       "blocks": {
@@ -2544,6 +2636,7 @@
     "section_R74iyB",
     "section_bgqA6D",
     "section_cjKz3g",
+    "section_KNhegj",
     "product_features_banner_TGL7da",
     "product_features_banner_6BEkfk",
     "image_slider_ABDgbk",
