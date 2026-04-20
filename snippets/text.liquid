@@ -89,31 +89,19 @@
   </div>
 {% elsif plain_text != blank %}
   <{{ element }} {{ attributes | strip_newlines | strip }}>
-    {% if block_settings.enable_read_more %}
-      {% assign word_count = visible_text | split: ' ' | size %}
-      {% if word_count > 25 %}
-        <read-more-text data-limit="25" style="display: contents;">
-          <div class="read-more-content" data-full-text>{{ block.settings.text }}</div>
-        </read-more-text>
-        <style>
-          .read-more-toggle.inline-toggle {
-            color: #A3CA6D;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-            margin-left: 4px;
-          }
-          .read-more-toggle.inline-toggle:hover {
-            opacity: 0.8;
-          }
-        </style>
-        <script src="{{ 'read-more-text.js' | asset_url }}" defer="defer"></script>
-      {% else %}
+    {%- if is_rte -%}
+      <span class="text-block__content text-block__content--truncated" data-text-content>
         {{ block.settings.text }}
-      {% endif %}
-    {% else %}
+      </span>
+      <button type="button" class="text-block__read-more hidden" data-read-more-toggle>
+        <span data-read-more-label>Read more</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    {%- else -%}
       {{ block.settings.text }}
-    {% endif %}
+    {%- endif -%}
   </{{ element }}>
 {% endif %}
 
@@ -241,4 +229,89 @@
   .custom-color > :is(h1, h2, h3, h4, h5, h6, p, *) {
     color: var(--color);
   }
+
+  .text-block__content--truncated {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .text-block__content--truncated.expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+
+  .text-block__read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 4px 0;
+    border: none;
+    background: none;
+    color: var(--color-primary);
+    font-size: inherit;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .text-block__read-more:hover {
+    opacity: 0.7;
+  }
+
+  .text-block__read-more svg {
+    transition: transform 0.3s ease;
+  }
+
+  .text-block__read-more.expanded svg {
+    transform: rotate(180deg);
+  }
+
+  .text-block__read-more.hidden {
+    display: none;
+  }
 {% endstylesheet %}
+
+<script>
+  (() => {
+    const WORD_THRESHOLD = 30;
+
+    function getWordCount(el) {
+      const text = (el.textContent || el.innerText || '').trim();
+      if (!text) return 0;
+      return text.split(/\s+/).filter(Boolean).length;
+    }
+
+    function initReadMore(root = document) {
+      const contents = root.querySelectorAll('.text-block__content--truncated:not([data-read-more-init])');
+
+      contents.forEach((content) => {
+        content.setAttribute('data-read-more-init', 'true');
+
+        const wordCount = getWordCount(content);
+        if (wordCount <= WORD_THRESHOLD) return;
+
+        const toggle = content.parentElement?.querySelector('[data-read-more-toggle]');
+        if (!toggle) return;
+
+        toggle.classList.remove('hidden');
+
+        toggle.addEventListener('click', () => {
+          const isExpanded = content.classList.toggle('expanded');
+          toggle.classList.toggle('expanded', isExpanded);
+          toggle.querySelector('[data-read-more-label]').textContent = isExpanded ? 'Read less' : 'Read more';
+        });
+      });
+    }
+
+    initReadMore();
+
+    if (window.Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:block:select', () => setTimeout(initReadMore, 100));
+      document.addEventListener('shopify:section:load', () => setTimeout(initReadMore, 100));
+    }
+  })();
+</script>

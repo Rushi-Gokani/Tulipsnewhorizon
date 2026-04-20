@@ -53,7 +53,6 @@
         layout-panel-flex--{{ section.settings.content_direction }}
         section-content-wrapper
         {% if section.settings.vertical_on_mobile %} mobile-column{% endif %}
-        {% if section.settings.overlap_badge_layout %} overlap-badge-layout{% endif %}
       "
       style="
         {% render 'layout-panel-style', settings: section.settings %}
@@ -62,128 +61,6 @@
       data-testid="section-content"
     >
       {{ children }}
-      {% if section.settings.overlap_badge_layout %}
-        <style>
-          .section-content-wrapper.overlap-badge-layout {
-            display: grid !important;
-            grid-template-columns: 1fr auto auto 1fr !important;
-            grid-template-rows: auto auto !important;
-            align-items: center !important;
-            gap: 0 !important;
-            max-width: 1200px !important;
-            margin: 0 auto !important;
-            padding-bottom: 20px;
-          }
-
-          /* Beige Card Background */
-          .section-content-wrapper.overlap-badge-layout::before {
-            content: "";
-            grid-column: 1 / 5;
-            grid-row: 2 / 3;
-            background: #FAFAF5;
-            border-radius: 12px;
-            width: 100%;
-            height: 100%;
-            border: 1px solid rgba(0,0,0,0.03);
-          }
-
-          /* White Pill Background */
-          .section-content-wrapper.overlap-badge-layout::after {
-            content: "";
-            grid-column: 2 / 4;
-            grid-row: 1 / 2;
-            background: #ffffff;
-            border-radius: 999px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.02);
-            width: calc(100% + 50px);
-            margin-left: -25px;
-            height: calc(100% + 20px);
-            margin-top: -10px;
-            z-index: 2;
-            transform: translateY(35px);
-          }
-
-          /* Row 1 Content: Icon (child 1) */
-          .section-content-wrapper.overlap-badge-layout > :nth-child(1) {
-            grid-column: 2 / 3;
-            grid-row: 1 / 2;
-            z-index: 3;
-            transform: translateY(35px);
-            padding-right: 16px;
-            margin: 0 !important;
-          }
-          .section-content-wrapper.overlap-badge-layout > :nth-child(1) img,
-          .section-content-wrapper.overlap-badge-layout > :nth-child(1) svg {
-            width: 44px;
-            height: 44px;
-            object-fit: contain;
-          }
-
-          /* Row 1 Content: Title (child 2) */
-          .section-content-wrapper.overlap-badge-layout > :nth-child(2) {
-            grid-column: 3 / 4;
-            grid-row: 1 / 2;
-            z-index: 3;
-            transform: translateY(35px);
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-          .section-content-wrapper.overlap-badge-layout > :nth-child(2) * {
-             font-weight: 300 !important;
-             font-size: 2.8rem !important;
-             color: #333333 !important;
-             letter-spacing: 0.5px;
-             margin: 0 !important;
-          }
-
-          /* Row 2 Content: Description (child 3) */
-          .section-content-wrapper.overlap-badge-layout > :nth-child(3) {
-            grid-column: 1 / 5;
-            grid-row: 2 / 3;
-            z-index: 2;
-            padding: 75px 30px 30px; 
-            text-align: center;
-            margin: 0 auto !important;
-            width: 100%;
-          }
-          .section-content-wrapper.overlap-badge-layout > :nth-child(3) *:not(.read-more-toggle) {
-             color: #666666 !important;
-             font-size: 1.4rem !important;
-             line-height: 1.6 !important;
-             font-weight: 400 !important;
-             max-width: 800px;
-             margin: 0 auto;
-          }
-          
-          .section-content-wrapper.overlap-badge-layout > :nth-child(3) .read-more-toggle {
-             color: #A3CA6D !important;
-             font-weight: 700 !important;
-             text-decoration: none !important;
-             cursor: pointer !important;
-          }
-
-          /* Fallback handling if no icon is provided (2 children) */
-          .section-content-wrapper.overlap-badge-layout:not(:has(> :nth-child(3))) > :nth-child(1) {
-            grid-column: 2 / 4; /* Title takes full pill */
-            padding-right: 0;
-            text-align: center;
-          }
-          .section-content-wrapper.overlap-badge-layout:not(:has(> :nth-child(3)))::after {
-            margin-left: -50px;
-            width: calc(100% + 100px);
-          }
-          .section-content-wrapper.overlap-badge-layout:not(:has(> :nth-child(3))) > :nth-child(2) {
-            grid-column: 1 / 5; /* Description */
-            grid-row: 2 / 3;
-            padding: 75px 30px 30px; 
-          }
-          
-          .section-content-wrapper.overlap-badge-layout > :nth-child(n+4) {
-             display: none !important;
-          }
-        </style>
-      {% endif %}
     </div>
   </div>
 </div>

@@ -191,14 +191,14 @@
                     {% render 'cart-products', drawer_context: 'drawer' %}
                   </scroll-hint>
 
+                  {% render 'cart-drawer-reviews' %}
+
                   <div
                     class="cart-drawer__summary"
                   >
                     {% render 'cart-summary', section_id: section.id %}
                   </div>
                 </scroll-hint>
-
-                {% comment %}{% render 'cart-drawer-reviews' %}{% endcomment %}
               </div>
             {%- endif -%}
           </cart-items-component>

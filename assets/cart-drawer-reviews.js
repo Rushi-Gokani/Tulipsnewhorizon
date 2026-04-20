@@ -10,8 +10,8 @@ class CartDrawerReviews extends HTMLElement {
     this.cards = this.querySelectorAll('[data-review-card]');
     this.cardCount = this.cards.length;
 
-    this.prevBtn.addEventListener('click', () => this.scroll(-1));
-    this.nextBtn.addEventListener('click', () => this.scroll(1));
+    this.prevBtn.addEventListener('click', () => this.scrollToCard(-1));
+    this.nextBtn.addEventListener('click', () => this.scrollToCard(1));
 
     this.track.addEventListener('scroll', () => {
       this.updateNavState();
@@ -26,11 +26,20 @@ class CartDrawerReviews extends HTMLElement {
     }
   }
 
-  scroll(direction) {
-    const cardWidth = this.cards[0]?.offsetWidth || 240;
-    const gap = 12;
-    const scrollAmount = (cardWidth + gap) * direction;
-    this.track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  getSlideWidth() {
+    const card = this.cards[0];
+    if (!card) return this.track.clientWidth;
+    const style = getComputedStyle(this.track);
+    const gap = parseFloat(style.gap) || 12;
+    return card.offsetWidth + gap;
+  }
+
+  scrollToCard(direction) {
+    const { scrollLeft } = this.track;
+    const slideWidth = this.getSlideWidth();
+    const targetIndex = Math.round(scrollLeft / slideWidth) + direction;
+    const clampedIndex = Math.max(0, Math.min(targetIndex, this.cardCount - 1));
+    this.track.scrollTo({ left: clampedIndex * slideWidth, behavior: 'smooth' });
   }
 
   updateNavState() {
@@ -49,9 +58,8 @@ class CartDrawerReviews extends HTMLElement {
       dot.className = 'cart-drawer-reviews__scroll-dot';
       if (i === 0) dot.classList.add('cart-drawer-reviews__scroll-dot--active');
       dot.addEventListener('click', () => {
-        const cardWidth = this.cards[i]?.offsetWidth || 240;
-        const gap = 12;
-        this.track.scrollTo({ left: i * (cardWidth + gap), behavior: 'smooth' });
+        const slideWidth = this.getSlideWidth();
+        this.track.scrollTo({ left: i * slideWidth, behavior: 'smooth' });
       });
       this.indicatorContainer.appendChild(dot);
     }
@@ -63,9 +71,8 @@ class CartDrawerReviews extends HTMLElement {
     if (dots.length === 0 || this.cards.length === 0) return;
 
     const { scrollLeft } = this.track;
-    const cardWidth = this.cards[0]?.offsetWidth || 240;
-    const gap = 12;
-    const activeIndex = Math.round(scrollLeft / (cardWidth + gap));
+    const slideWidth = this.getSlideWidth();
+    const activeIndex = Math.round(scrollLeft / slideWidth);
 
     dots.forEach((dot, index) => {
       dot.classList.toggle('cart-drawer-reviews__scroll-dot--active', index === activeIndex);
