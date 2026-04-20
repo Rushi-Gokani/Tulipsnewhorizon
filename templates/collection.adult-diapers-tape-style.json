@@ -17,6 +17,7 @@
           "name": "Title",
           "settings": {
             "text": "<h1>{{ closest.collection.title }}</h1>",
+            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -41,8 +42,10 @@
         "text_twGGkJ": {
           "type": "text",
           "name": "Description",
+          "disabled": true,
           "settings": {
             "text": "{{ closest.collection.description }}",
+            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
