@@ -2626,6 +2626,7 @@
     },
     "custom_liquid_mGnnU6": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "t:names.custom_liquid",
       "settings": {
         "custom_liquid": "<div style=\"height:100px;\"></div>",
