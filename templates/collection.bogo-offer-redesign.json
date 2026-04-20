@@ -520,7 +520,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Why Choose TULIPS Adult Diaper for Weak Bladder ?</h2>",
+            "text": "<h3>Why Choose TULIPS Adult Diaper for Weak Bladder ?</h3>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -1229,7 +1229,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Buy Adult Diapers Online for Men and Women</h2>",
+            "text": "<h3>Buy Adult Diapers Online for Men and Women</h3>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
