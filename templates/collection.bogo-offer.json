@@ -67,25 +67,11 @@
     "section_xCG4ew": {
       "type": "section",
       "blocks": {
-        "icon_ynm48A": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "disabled": true,
-          "settings": {
-            "icon": "box",
-            "image_upload": "shopify://shop_images/Screenshot_2026-04-17_181400.png",
-            "width": 60,
-            "link": "",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
         "text_fih4WR": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
             "text": "<h1>ADULT DIAPERS</h1>",
-            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -112,8 +98,7 @@
           "name": "t:names.text",
           "settings": {
             "text": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of a soft and breathable fabric that features quick absorption, proper distribution of fluid and odour control technology to ensure a comfortable and dry experience throughout the day. Available in Medium, Large & Extra Large (XL) sizes to manage urinary leakage.</p>",
-            "enable_read_more": false,
-            "width": "100%",
+            "width": "fit-content",
             "max_width": "none",
             "alignment": "left",
             "type_preset": "custom",
@@ -152,7 +137,6 @@
         }
       },
       "block_order": [
-        "icon_ynm48A",
         "text_fih4WR",
         "text_JMcMD7",
         "button_Y3CYyk"
@@ -160,8 +144,7 @@
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
-        "vertical_on_mobile": false,
-        "overlap_badge_layout": false,
+        "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
@@ -317,155 +300,6 @@
         "padding-block-end": 32
       }
     },
-    "section_gPXKTr": {
-      "type": "section",
-      "blocks": {
-        "icon_hchGtP": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "box",
-            "image_upload": "shopify://shop_images/Screenshot_2026-04-17_181400.png",
-            "width": 60,
-            "link": "",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "text_cpNpX9": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<h1>ADULT DIAPERS TAPE</h1>",
-            "enable_read_more": false,
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_qQpRKB": {
-          "type": "text",
-          "name": "t:names.text",
-          "disabled": true,
-          "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of a soft and breathable fabric that features quick absorption, proper distribution of fluid and odour control technology to ensure a comfortable and dry experience throughout the day. Available in Medium, Large & Extra Large (XL) sizes to manage urinary leakage.</p>",
-            "enable_read_more": false,
-            "width": "fit-content",
-            "max_width": "none",
-            "alignment": "left",
-            "type_preset": "custom",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_mgtYQC": {
-          "type": "button",
-          "name": "t:names.button",
-          "disabled": true,
-          "settings": {
-            "label": "Shop now",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "icon_hchGtP",
-        "text_cpNpX9",
-        "text_qQpRKB",
-        "button_mgtYQC"
-      ],
-      "disabled": true,
-      "name": "t:names.rich_text_section",
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "overlap_badge_layout": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 25,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 50,
-        "padding-block-end": 50
-      }
-    },
-    "featured_collection_carousel_pethJU": {
-      "type": "featured-collection-carousel",
-      "disabled": true,
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "first": "",
-        "second": "",
-        "third": "",
-        "fourth": "",
-        "fifth": "",
-        "tab_text_color": "#000000",
-        "tab_active_color": "#a3ca6d",
-        "collection": "adult-diaper-tape-style",
-        "products_to_show": 8,
-        "show_all_products": false,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#ffffff"
-      }
-    },
     "section_R74iyB": {
       "type": "section",
       "blocks": {
@@ -474,7 +308,6 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Why Choose TULIPS Adult Diaper for Weak Bladder ?</h2>",
-            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -504,7 +337,6 @@
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
-        "overlap_badge_layout": false,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
@@ -627,7 +459,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<h2>Intentional design</h2>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -653,7 +484,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Everything we do starts with why</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -781,7 +611,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<h2>Made with care</h2>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -807,7 +636,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>We believe in building better</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -935,7 +763,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<h2>A team with a goal</h2>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -961,7 +788,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Real people making great products</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1089,7 +915,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<h2>A team with a goal</h2>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1115,7 +940,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Real people making great products</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1160,7 +984,6 @@
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
-        "overlap_badge_layout": false,
         "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
@@ -1194,7 +1017,6 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Buy Adult Diapers Online for Men and Women</h2>",
-            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -1221,7 +1043,6 @@
           "name": "t:names.text",
           "settings": {
             "text": "<p>TULIPS Adult Diaper Pants offer effective control for men and women suffering from frequent urination. Greater absorption capacity offered by TULIPS Adult Diapers for seniors ensure comfortable and reliable feel while wearing them. Adult Diapers Pant Style (pull-ups pants) are primarily for urinary leakage and person with no mobility issues, whereases Pant style are designed for bedridden patients with incontinence management, post-surgery, or elderly care. TULIPS Hygiene, offer both Pant and Tape style Adult Diapers to ensure 100% leakage protection. This Quality tested Adult Diapers for Men & Women, are available in Medium, Large & Extra Large (XL) sizes.</p>",
-            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -1252,99 +1073,6 @@
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
-        "overlap_badge_layout": false,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "custom",
-        "section_height_custom": 18,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "section_KNhegj": {
-      "type": "section",
-      "blocks": {
-        "text_mQrXR4": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<h2>Leak Free Comfort with Tulips Adult Diapers </h2>",
-            "enable_read_more": false,
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 34,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_9dWTjq": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Experience leak-free comfort and dignity with Tulips Adult Diapers, thoughtfully designed for elders managing urinary incontinence. Whether you choose convenient pant-style diapers or adjustable tape-style options, each product ensures a secure fit, high absorbency, and all-day dryness. The soft, breathable fabric enhances comfort while preventing skin irritation, allowing users to stay active and confident. With advanced leak-lock technology, Tulips Adult Diapers provide reliable protection, so your loved ones can enjoy restful nights and worry-free days with complete peace of mind.</p>",
-            "enable_read_more": false,
-            "width": "100%",
-            "max_width": "none",
-            "alignment": "left",
-            "type_preset": "custom",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 12,
-            "padding-block-end": 62,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_mQrXR4",
-        "text_9dWTjq"
-      ],
-      "name": "t:names.custom_section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "overlap_badge_layout": false,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
@@ -1631,7 +1359,6 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h3>Frequently Asked Questions</h3>",
-            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
@@ -1686,7 +1413,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Adult Diaper is an absorbent hygiene product designed to manage urinary or bowel incontinence in adults. </p><p>Adult diapers are designed for both men and women who are not able to control urine movement due to any medical or age-related issue.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1727,7 +1453,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Urinary Incontinence is the loss of control over the bladder or bowel that makes the person need to urinate frequently, have sudden urges or leak accidentally.<br/></p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1770,7 +1495,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>Common causes include: Ageing, Diabetes, Neurological disorders, post-surgery recovery. Due to age or any<br/>medical condition, urine leakages can happen in elders even upon coughing, laughing or sneezing. Sudden<br/>intense urge to urinate or bladder not emptying fully can also be reasons for UI.<br/>Women face Urinary Incontinence problems more than men due to various gender related issues like<br/>pregnancy & childbirth, Menopause, being more prone to urinary tract infections & weaker pelvic floor<br/>muscles.<br/>Men also have gender specific issues like prostate enlargement which weaken bladder control.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1813,7 +1537,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>They are made from soft, breathable non-woven fabric inner layers, PE barrier films to prevent leakage and<br/>Super Absorbent Polymer (SAP) that instantly converts liquid into gel within minutes, thereby giving the<br/>person a dry feel even when a diaper is used.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1856,7 +1579,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>Adult diapers are mainly available in two types: Pants style Adult Diaper (Pull-Up) & Adult Diaper Tape Style<br/>Diapers. Each type of adult diapers caters to different mobility and bed-ridden care requirements. Pull Up<br/>pants, as suggested by the name, can simply be pulled up the legs like wearing any normal underwear. But<br/>Tape Style Diapers come with side tapes. These are mostly used for bed-ridden patients & are mostly made<br/>to wea, by the care-givers.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1899,7 +1621,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>Tape style is primarily used for bedridden patients, while Pant style is more used for active, mobile users<br/>affected by a weak urine bladder. But mostly these are the patients who can pull up a diaper easily, by themselves.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1942,7 +1663,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>Choosing the correct size is the most important aspect from leak protection & comfort perspective. Measure<br/>your waist size and refer to the size chart provided on the pack. A snug fit works best. It is important to<br/>ensure that the diaper is hugging the thighs well.<br/>If the diaper is slightly loose on the thighs, then a smaller size should be used.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1985,7 +1705,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>Yes. ‘Odour Lock’ molecules present in Super Absorbent Polymer (SAP) helps neutralize unpleasant urine<br/>smell and keeps you feeling fresh and confident. TULIPS adult diaper pants are designed to neutralize odour-<br/>causing bacteria giving extended freshness to the wearer.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2028,7 +1747,6 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>These are single use diapers in which the user can urinate number of times depending on its absorbency<br/>capacity. Once it is taken off, the used diaper should be wrapped and disposed-off, in a dry waste bin. Do not<br/>flush adult diapers in the toilet.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2070,7 +1788,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Adult Diaper Pants are designed in the shape of an underwear, to give a feel to the user that they are<br/>wearing something like a normal underwear only. It is worn like any other regular underwear.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2112,7 +1829,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>A TULIPS Adult Diaper pants have a 1000 ml absorption power. Based on this absorption capacity, it has a<br/>tentative absorption protection of up-to 10 hours. This high absorption capacity with its other supporting<br/>features gives a super confidence that the diaper would not leak when one is out in travel/ public place.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2154,7 +1870,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>A Yes, TULIPS diaper pants are designed with high-absorbency cores and side leak guards specifically to<br/>ensure uninterrupted, dry sleep all night long. But in case a patient has frequent high quantity leaks often,<br/>then TULIPS OVERNIGHT Adult Diaper Pants is recommended, which gives more than 12 hours of absorption<br/>protection.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2196,7 +1911,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>The adult diapers being very close to normal underwear design, do not show beneath the trousers, ladies’ suits, sarees or even pair of jeans.<br/></p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2238,7 +1952,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>A Yes, long & continuous usage of diapers can cause rashes or skin irritation.<br/>TULIPS adult diaper pants have an aloe vera sheet coating on the inner sheet, to keep the diaper skin<br/>friendly. But this aloe-vera coating is not a guarantee against rashes or skin irritation.<br/>For best results: TULIPS recommends that user should change regularly. Keep skin clean and dry. And when<br/>wearing diapers on daily basis, it is important to air the groin area on regular basis.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2280,7 +1993,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>A- TULIPS Adult diaper pants come with an embedded ADL (Acquisition Deposition Layer) which immediately distributes urine to other parts of the diaper core, ensuring that the diaper does not leak & neither does it sag from one point. </p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2322,7 +2034,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>A Leakages in Diaper mostly happen due to diaper not fitting well. It is important that the diaper<br/>should cup your thighs very well. If someone has very weak thighs, smaller waist size should be tried<br/>to ensure that the diaper side guards are snugly fit on your thighs.</p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2364,7 +2075,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Yes, TULIPS Adult Diapers are available for Pan-India delivery through our website and major e-commerce platforms like Amazon, Flipkart & Blinkit.<br/></p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2406,7 +2116,6 @@
                   "type": "text",
                   "settings": {
                     "text": "<p>Indeed, monthly subscription plans are available for you on Amazon or our website that you can use to ensure a steady supply and cost savings.<br/></p>",
-                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -2464,7 +2173,6 @@
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
-        "overlap_badge_layout": false,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
@@ -2631,12 +2339,9 @@
     "image_slider_gehmzT",
     "section_xCG4ew",
     "main",
-    "section_gPXKTr",
-    "featured_collection_carousel_pethJU",
     "section_R74iyB",
     "section_bgqA6D",
     "section_cjKz3g",
-    "section_KNhegj",
     "product_features_banner_TGL7da",
     "product_features_banner_6BEkfk",
     "image_slider_ABDgbk",
