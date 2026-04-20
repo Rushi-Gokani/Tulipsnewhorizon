@@ -33,7 +33,7 @@
             "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
-            "alignment": "center",
+            "alignment": "left",
             "type_preset": "paragraph",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
