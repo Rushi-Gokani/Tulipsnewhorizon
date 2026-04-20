@@ -105,57 +105,12 @@
             "padding-inline-end": 0
           },
           "blocks": {}
-        },
-        "text_JMcMD7": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of a soft and breathable fabric that features quick absorption, proper distribution of fluid and odour control technology to ensure a comfortable and dry experience throughout the day. Available in Medium, Large & Extra Large (XL) sizes to manage urinary leakage.</p>",
-            "width": "100%",
-            "max_width": "none",
-            "alignment": "left",
-            "type_preset": "custom",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_Y3CYyk": {
-          "type": "button",
-          "name": "t:names.button",
-          "disabled": true,
-          "settings": {
-            "label": "Shop now",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
         }
       },
       "block_order": [
         "icon_ynm48A",
-        "text_fih4WR",
-        "text_JMcMD7",
-        "button_Y3CYyk"
+        "text_fih4WR"
       ],
-      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
@@ -194,7 +149,7 @@
         "card_bg_color": "#fafaf5",
         "link_color": "#a3ca6d",
         "read_more_limit": 25,
-        "padding_top": 40,
+        "padding_top": 0,
         "padding_bottom": 40
       }
     },
@@ -520,9 +475,9 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Why Choose TULIPS Adult Diaper for Weak Bladder ?</h2>",
+            "text": "<h2><strong>Why Choose TULIPS Adult Diaper for Weak Bladder ?</strong></h2>",
             "width": "100%",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "center",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
@@ -556,7 +511,7 @@
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 12,
-        "section_width": "page-width",
+        "section_width": "full-width",
         "section_height": "custom",
         "section_height_custom": 11,
         "color_scheme": "",
@@ -1231,7 +1186,7 @@
           "settings": {
             "text": "<h2>Buy Adult Diapers Online for Men and Women</h2>",
             "width": "100%",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "center",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
@@ -1320,7 +1275,7 @@
           "settings": {
             "text": "<h2>Leak Free Comfort with Tulips Adult Diapers </h2>",
             "width": "100%",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "center",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
