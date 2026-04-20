@@ -22,6 +22,22 @@
         "padding-block-end": 0
       }
     },
+    "simple_text_section_Qrdapx": {
+      "type": "simple-text-section",
+      "name": "Simple Text Section",
+      "settings": {
+        "heading": "",
+        "text": "<p>Tulips tape style diapers for adults are specially designed for individuals with limited mobility who require caregiver assistance. These open-style diapers feature adjustable resealable tapes that allow a customised, secure fit for enhanced comfort. The super-absorbent core locks in moisture to keep the skin dry, while soft, breathable materials help prevent irritation. Easy to fasten and refasten, Tulips tape style adult diapers ensure reliable leakage protection, making them ideal for extended use, bedridden users, and those needing dependable, round-the-clock care.</p>",
+        "text_alignment": "center",
+        "max_width": "100%",
+        "gap": 20,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "padding-inline-start": 20,
+        "padding-inline-end": 20
+      }
+    },
     "section_YkBUmk": {
       "type": "section",
       "blocks": {
@@ -51,57 +67,12 @@
             "padding-inline-end": 0
           },
           "blocks": {}
-        },
-        "text_N9xPjk": {
-          "type": "text",
-          "name": "t:names.heading",
-          "disabled": true,
-          "settings": {
-            "text": "<h2>New arrivals</h2>",
-            "enable_read_more": false,
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_q39xHf": {
-          "type": "button",
-          "name": "t:names.button",
-          "disabled": true,
-          "settings": {
-            "label": "Shop now",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
         }
       },
       "block_order": [
-        "text_ifghWF",
-        "text_N9xPjk",
-        "button_q39xHf"
+        "text_ifghWF"
       ],
+      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
@@ -377,6 +348,7 @@
   },
   "order": [
     "custom_liquid_73ppkT",
+    "simple_text_section_Qrdapx",
     "section_YkBUmk",
     "wave_transition_KLdbUU",
     "custom_footer_WeUwWP",
