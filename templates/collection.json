@@ -236,8 +236,8 @@
       "name": "Simple Text Section",
       "settings": {
         "heading": "",
-        "text": "<p>TULIPS Baby wipes are perfectly designed for regular cleaning of baby’s skin during anytime usage. These Soft Baby Wipes are suitable for wiping hands, faces, and bodies, as well as cleaning up dedicate skin of new born babies.</p>",
-        "text_alignment": "left",
+        "text": "<p>{{ collection.metafields.custom.text | metafield_tag }}</p>",
+        "text_alignment": "justify",
         "max_width": "100%",
         "gap": 20,
         "color_scheme": "scheme-1",
