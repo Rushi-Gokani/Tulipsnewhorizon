@@ -29,11 +29,12 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Tulips Cotton Pads are a reliable, gentle choice for skincare routines, made from 100% pure cotton and appreciated for their softness and durability. Their textured surface makes them effective for removing makeup and applying toner or lotion without irritating the skin. These cotton pas are affordable and offer value for money to customer in comparison with other brands.<br/><br/>Order Online 100% Pure Cotton Pads for Removing Makeup, Nail Polish and Cleansing Face.</p>",
+            "text": "<p>Tulips tape style diapers for adults are specially designed for individuals with limited mobility who require caregiver assistance. These open-style diapers feature adjustable resealable tapes that allow a customised, secure fit for enhanced comfort. The super-absorbent core locks in moisture to keep the skin dry, while soft, breathable materials help prevent irritation. Easy to fasten and refasten, Tulips tape style adult diapers ensure reliable leakage protection, making them ideal for extended use, bedridden users, and those needing dependable, round-the-clock care.</p>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
-            "alignment": "left",
-            "type_preset": "rte",
+            "alignment": "center",
+            "type_preset": "paragraph",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -57,6 +58,7 @@
           "disabled": true,
           "settings": {
             "text": "<h2>New arrivals</h2>",
+            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -100,7 +102,6 @@
         "text_N9xPjk",
         "button_q39xHf"
       ],
-      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
@@ -222,6 +223,7 @@
               "type": "text",
               "settings": {
                 "text": "<h2>Join our email list</h2>",
+                "enable_read_more": false,
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -247,6 +249,7 @@
               "type": "text",
               "settings": {
                 "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "enable_read_more": false,
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
