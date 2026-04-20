@@ -189,8 +189,8 @@
       "type": "overlap-badge-card",
       "settings": {
         "icon": "shopify://shop_images/2_7.png",
-        "title": "ADULT DIAPERS",
-        "description": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of soft fabrics...</p>",
+        "title": "Pant Style Adult Diapers",
+        "description": "<p>Tulips pant style adult diapers are designed like regular underwear, offering ease, comfort, and discretion for individuals managing urinary incontinence. Ideal for active elders or those with limited assistance, these pull-up diapers are simple to wear and remove. With a snug fit, soft breathable fabric, and high absorbency core, they ensure dryness and prevent leaks throughout the day. Tulips pant style adult diapers provide dependable protection, enabling users to move freely and carry-on daily activities with confidence and dignity.</p>",
         "card_bg_color": "#fafaf5",
         "link_color": "#a3ca6d",
         "read_more_limit": 25,
@@ -479,11 +479,11 @@
       "type": "overlap-badge-card",
       "name": "Overlap Badge Card",
       "settings": {
-        "title": "Adult Diapers",
-        "description": "<p>TULIPS Adult Diaper Pants & Tape style are an effective option for both men and women who are experiencing incontinence and bladder issues. Composed of soft fabrics...</p>",
-        "card_bg_color": "#FAFAF5",
-        "link_color": "#A3CA6D",
-        "read_more_limit": 30,
+        "title": "Tape Style Adult Diapers",
+        "description": "<p>Tulips tape style diapers for adults are specially designed for individuals with limited mobility who require caregiver assistance. These open-style diapers feature adjustable resealable tapes that allow a customised, secure fit for enhanced comfort. The super-absorbent core locks in moisture to keep the skin dry, while soft, breathable materials help prevent irritation. Easy to fasten and refasten, Tulips tape style adult diapers ensure reliable leakage protection, making them ideal for extended use, bedridden users, and those needing dependable, round-the-clock care.</p>",
+        "card_bg_color": "#fafaf5",
+        "link_color": "#a3ca6d",
+        "read_more_limit": 25,
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -492,7 +492,7 @@
       "type": "featured-collection-carousel",
       "name": "Featured Collection Slide",
       "settings": {
-        "title": "Bathroom Essential",
+        "title": "Tape Style Adult Diapers",
         "heading_size": "h1",
         "first": "",
         "second": "",
