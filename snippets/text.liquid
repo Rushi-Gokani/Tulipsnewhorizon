@@ -90,15 +90,17 @@
 {% elsif plain_text != blank %}
   <{{ element }} {{ attributes | strip_newlines | strip }}>
     {%- if is_rte -%}
-      <span class="text-block__content text-block__content--truncated" data-text-content>
+      <span class="text-block__content {% if enable_read_more %}text-block__content--truncated{% endif %}" data-text-content>
         {{ block.settings.text }}
       </span>
+      {%- if enable_read_more -%}
       <button type="button" class="text-block__read-more hidden" data-read-more-toggle>
         <span data-read-more-label>Read more</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+      {%- endif -%}
     {%- else -%}
       {{ block.settings.text }}
     {%- endif -%}

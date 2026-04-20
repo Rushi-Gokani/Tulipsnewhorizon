@@ -1,6 +1,6 @@
 
 
-{% render 'text', block: block %}
+{% render 'text', block: block, enable_read_more: block.settings.enable_read_more %}
 
 {% schema %}
 {
@@ -11,6 +11,12 @@
       "type": "richtext",
       "id": "text",
       "label": "t:settings.text"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_read_more",
+      "label": "Enable Read More",
+      "default": false
     },
     {
       "type": "header",
