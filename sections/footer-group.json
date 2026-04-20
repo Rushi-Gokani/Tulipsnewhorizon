@@ -24,6 +24,7 @@
     },
     "simple_text_section_Qrdapx": {
       "type": "simple-text-section",
+      "disabled": true,
       "name": "Simple Text Section",
       "settings": {
         "heading": "",
