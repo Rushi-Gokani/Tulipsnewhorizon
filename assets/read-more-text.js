@@ -3,15 +3,20 @@ class ReadMoreText extends HTMLElement {
     super();
     this.limit = parseInt(this.dataset.limit) || 25;
     this.content = this.querySelector('.read-more-content');
-    if (!this.content) return;
-
     this.expanded = false;
-    
-    // Create truncated version without an extra wrapping div
+    this._initialized = false;
+  }
+
+  connectedCallback() {
+    if (this._initialized || !this.content) return;
+    this._initialized = true;
+    this.init();
+  }
+
+  init() {
     this.truncatedContent = this.truncateNode(this.content, this.limit);
     this.truncatedContent.classList.add('read-more-truncated');
 
-    // Create inline toggles
     this.toggleMore = document.createElement('a');
     this.toggleMore.className = 'read-more-toggle inline-toggle';
     this.toggleMore.textContent = 'read more';
@@ -24,14 +29,10 @@ class ReadMoreText extends HTMLElement {
     this.toggleLess.href = '#';
     this.toggleLess.addEventListener('click', this.toggle.bind(this));
 
-    // Append toggles
     this.appendToLastElement(this.truncatedContent, this.toggleMore);
     this.appendToLastElement(this.content, this.toggleLess);
 
-    // Hide full content initially
     this.content.style.display = 'none';
-    
-    // Insert truncated content
     this.insertBefore(this.truncatedContent, this.content);
   }
 
