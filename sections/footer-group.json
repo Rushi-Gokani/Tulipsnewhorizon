@@ -39,6 +39,23 @@
         "padding-inline-end": 20
       }
     },
+    "simple_text_section_4FwJR4": {
+      "type": "simple-text-section",
+      "disabled": true,
+      "name": "Simple Text Section",
+      "settings": {
+        "heading": "",
+        "text": "<p>Tulips tape style diapers for adults are specially designed for individuals with limited mobility who require caregiver assistance. These open-style diapers feature adjustable resealable tapes that allow a customised, secure fit for enhanced comfort. The super-absorbent core locks in moisture to keep the skin dry, while soft, breathable materials help prevent irritation. Easy to fasten and refasten, Tulips tape style adult diapers ensure reliable leakage protection, making them ideal for extended use, bedridden users, and those needing dependable, round-the-clock care.</p>",
+        "text_alignment": "left",
+        "max_width": "100%",
+        "gap": 20,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "padding-inline-start": 20,
+        "padding-inline-end": 20
+      }
+    },
     "section_YkBUmk": {
       "type": "section",
       "blocks": {
@@ -350,6 +367,7 @@
   "order": [
     "custom_liquid_73ppkT",
     "simple_text_section_Qrdapx",
+    "simple_text_section_4FwJR4",
     "section_YkBUmk",
     "wave_transition_KLdbUU",
     "custom_footer_WeUwWP",
