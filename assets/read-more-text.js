@@ -2,18 +2,20 @@ class ReadMoreText extends HTMLElement {
   constructor() {
     super();
     this.limit = parseInt(this.dataset.limit) || 25;
-    this.content = this.querySelector('.read-more-content');
     this.expanded = false;
     this._initialized = false;
   }
 
   connectedCallback() {
-    if (this._initialized || !this.content) return;
+    if (this._initialized) return;
     this._initialized = true;
-    this.init();
+    setTimeout(() => this.init(), 0);
   }
 
   init() {
+    this.content = this.querySelector('.read-more-content');
+    if (!this.content) return;
+
     this.truncatedContent = this.truncateNode(this.content, this.limit);
     this.truncatedContent.classList.add('read-more-truncated');
 
@@ -64,7 +66,7 @@ class ReadMoreText extends HTMLElement {
   truncateNode(node, maxWords) {
     let wordsCount = 0;
     const clone = node.cloneNode(true);
-    
+
     function walk(n) {
       if (wordsCount >= maxWords) {
         if (n.nodeType === 3) {
@@ -74,16 +76,15 @@ class ReadMoreText extends HTMLElement {
         }
         return;
       }
-      
-      if (n.nodeType === 3) { // Text node
+
+      if (n.nodeType === 3) {
         const text = n.textContent;
-        // Split by whitespace properly, accounting for spaces
         const matches = text.match(/\S+|\s+/g);
         if (!matches) return;
-        
+
         let newText = '';
         for (const token of matches) {
-          if (/\S/.test(token)) { // it's a word
+          if (/\S/.test(token)) {
             if (wordsCount < maxWords) {
               newText += token;
               wordsCount++;
@@ -92,14 +93,14 @@ class ReadMoreText extends HTMLElement {
                 break;
               }
             }
-          } else { // it's whitespace
+          } else {
              if (wordsCount < maxWords) {
                 newText += token;
              }
           }
         }
         n.textContent = newText;
-      } else if (n.nodeType === 1) { // Element node
+      } else if (n.nodeType === 1) {
         const children = Array.from(n.childNodes);
         for (const child of children) {
            if (wordsCount >= maxWords) {
@@ -110,7 +111,7 @@ class ReadMoreText extends HTMLElement {
         }
       }
     }
-    
+
     walk(clone);
     return clone;
   }
