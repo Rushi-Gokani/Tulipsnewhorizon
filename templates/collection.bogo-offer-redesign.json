@@ -1660,7 +1660,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h3>Frequently Asked Questions</h3>",
+            "text": "<h4>Frequently Asked  Questions</h4>",
             "enable_read_more": false,
             "width": "fit-content",
             "max_width": "narrow",
