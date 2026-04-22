@@ -128,6 +128,7 @@
                   "name": "Product title",
                   "settings": {
                     "text": "<h1>{{ closest.product.title }}</h1>",
+                    "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -256,7 +257,10 @@
                 "quantity": {
                   "type": "quantity",
                   "static": true,
-                  "settings": {},
+                  "settings": {
+                    "enable_quantity_limit": false,
+                    "quantity_limit": 10
+                  },
                   "blocks": {}
                 },
                 "add-to-cart": {
@@ -281,9 +285,10 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>✔ Free Shipping for Orders Above 399<br/>✔ Secure online payment</p>",
+                "text": "<p>✔ Free Shipping for Orders Above 399<br/>✔ Secure online payment</p><p><strong>✔ Cash on delivery available. </strong></p>",
+                "enable_read_more": false,
                 "width": "fit-content",
-                "max_width": "normal",
+                "max_width": "narrow",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -308,6 +313,7 @@
               "name": "t:names.text",
               "settings": {
                 "text": "<p>Secure online payment</p>",
+                "enable_read_more": false,
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -496,6 +502,7 @@
               "disabled": true,
               "settings": {
                 "text": "{{ closest.product.description }}",
+                "enable_read_more": false,
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -705,6 +712,7 @@
           "name": "t:names.header",
           "settings": {
             "text": "<h3>You may also like </h3>",
+            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
