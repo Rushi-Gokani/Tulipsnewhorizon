@@ -363,7 +363,7 @@
           spaceBetween: 10,
           loop: false,
           rewind: true,
-          centeredSlides: false,
+          centeredSlides: {{ section.settings.centralize_products | json }},
           autoplay: isActive ? {
             delay: autoplayDelay,
             disableOnInteraction: false,
@@ -578,6 +578,12 @@
         "id": "show_arrows",
         "label": "Show navigation arrows",
         "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "centralize_products",
+      "label": "Centralize products",
+      "default": false
     },
     {
       "type": "header",

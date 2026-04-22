@@ -82,8 +82,12 @@
 
     @media screen and (min-width: 750px) {
       grid-column: var(--grid-column--desktop);
-      padding-left: 52px !important;
+      padding-left: 70px!important;
     }
+  }
+
+  .product-grid--centralized {
+    justify-content: center;
   }
 {% endstylesheet %}
 
@@ -186,6 +190,12 @@
         }
       ],
       "default": "centered"
+    },
+    {
+      "type": "checkbox",
+      "id": "centralize_products",
+      "label": "Centralize products",
+      "default": false
     },
     {
       "type": "checkbox",
