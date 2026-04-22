@@ -19,7 +19,7 @@
     {% case section.settings.layout_type %}
       {% when 'grid' %}
         .product-grid--{{ section.id }}:is(.product-grid--grid) {
-          --product-grid-columns-desktop: repeat({% if section.settings.centralize_products %}auto-fit{% else %}auto-fill{% endif %}, minmax({{ product_card_size }}, 1fr));
+          --product-grid-columns-desktop: repeat({% if section.settings.centralize_products %}auto-fit{% else %}auto-fill{% endif %}, {% if section.settings.centralize_products %}{{ product_card_size }}{% else %}minmax({{ product_card_size }}, 1fr){% endif %});
           {% if section.settings.centralize_products %}
             justify-content: center;
           {% endif %}

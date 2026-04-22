@@ -93,9 +93,11 @@
 {%- style -%}
   @media screen and (min-width: 750px) {
     .main-collection-grid {
-      {% unless section.settings.centralize_products %}
+      {% if section.settings.centralize_products %}
+        grid-column: 1 / -1 !important;
+      {% else %}
         padding-left: 52px !important;
-      {% endunless %}
+      {% endif %}
     }
   }
 {%- endstyle -%}

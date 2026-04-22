@@ -85,14 +85,6 @@
       text-align: center;
     }
   }
-
-  .featured-collection-carousel-slider--centralized .swiper-wrapper {
-    justify-content: center;
-  }
-
-  .featured-collection-carousel-slider--centralized .swiper-slide {
-    flex-shrink: 0;
-  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -371,7 +363,8 @@
           spaceBetween: 10,
           loop: false,
           rewind: true,
-          centeredSlides: {{ section.settings.centralize_products | json }},
+          centeredSlides: false,
+          centerInsufficientSlides: {{ section.settings.centralize_products | json }},
           autoplay: isActive ? {
             delay: autoplayDelay,
             disableOnInteraction: false,
