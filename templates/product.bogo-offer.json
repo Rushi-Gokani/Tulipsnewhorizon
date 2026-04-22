@@ -285,10 +285,10 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>✔ Free Shipping for Orders Above 399<br/>✔ Secure online payment</p><p><strong>✔ Cash on delivery available. </strong></p>",
+                "text": "<p>✔ Free Shipping for Orders Above 399<br/>✔ Secure online payment</p><p></p>",
                 "enable_read_more": false,
                 "width": "fit-content",
-                "max_width": "narrow",
+                "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
