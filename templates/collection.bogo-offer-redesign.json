@@ -182,30 +182,6 @@
         "padding_bottom": 40
       }
     },
-    "featured_collection_carousel_bXAUCM": {
-      "type": "featured-collection-carousel",
-      "name": "Featured Collection Slide",
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "first": "",
-        "second": "",
-        "third": "",
-        "fourth": "",
-        "fifth": "",
-        "tab_text_color": "#000000",
-        "tab_active_color": "#a3ca6d",
-        "collection": "adult-diapers",
-        "products_to_show": 8,
-        "show_all_products": false,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
-        "show_arrows": false,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#ffffff"
-      }
-    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -320,7 +296,6 @@
           ]
         }
       },
-      "disabled": true,
       "settings": {
         "layout_type": "grid",
         "product_card_size": "medium",
@@ -331,7 +306,7 @@
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
         "columns_gap_vertical": 24,
-        "padding-inline-start": 16,
+        "padding-inline-start": 0,
         "padding-inline-end": 0,
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
@@ -2686,7 +2661,6 @@
     "image_slider_gehmzT",
     "section_xCG4ew",
     "overlap_badge_card_new",
-    "featured_collection_carousel_bXAUCM",
     "main",
     "section_gPXKTr",
     "featured_collection_carousel_pethJU",
