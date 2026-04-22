@@ -85,6 +85,14 @@
       text-align: center;
     }
   }
+
+  .featured-collection-carousel-slider--centralized .swiper-wrapper {
+    justify-content: center;
+  }
+
+  .featured-collection-carousel-slider--centralized .swiper-slide {
+    flex-shrink: 0;
+  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -205,7 +213,7 @@
 
           <!-- DEBUG: Inside tab-{{ section.id }}-{{ i }}, showing {{ tab_collection.products_count }} products -->
 
-          <div class="featured-collection-carousel-slider swiper">
+          <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
             <div class="swiper-wrapper">
               {%- assign limit = section.settings.products_to_show -%}
               {%- if section.settings.show_all_products -%}
@@ -279,7 +287,7 @@
 
     <!-- Fallback: Single collection if no tabs -->
     {% if show_tabs == false and section.settings.collection != blank %}
-      <div class="featured-collection-carousel-slider swiper">
+      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
