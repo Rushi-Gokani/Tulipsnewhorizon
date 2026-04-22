@@ -35,6 +35,13 @@
             "icon": "none"
           }
         },
+        "marquee_slide_kTmMCc": {
+          "type": "marquee_slide",
+          "settings": {
+            "content": "CASH ON DELIVERY (COD) AVAILABLE.",
+            "icon": "none"
+          }
+        },
         "static_link": {
           "type": "link",
           "settings": {
@@ -48,6 +55,7 @@
         "marquee_text_1",
         "marquee_text_2",
         "marquee_text_3",
+        "marquee_slide_kTmMCc",
         "static_link"
       ],
       "settings": {
