@@ -258,6 +258,14 @@
                         </div>
                       {%- endif -%}
 
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'custom_liquid' -%}
+                          <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                            {{ block.settings.custom_liquid }}
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+
 
                       <div style="margin-bottom: 15px;">
                         {% render 'price', product_resource: product, show_compare_price: true %}
@@ -344,6 +352,14 @@
                       </div>
                     </div>
                   {%- endif -%}
+
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'custom_liquid' -%}
+                      <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                        {{ block.settings.custom_liquid }}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
                   <div style="margin-bottom: 15px;">
                     {% render 'price', product_resource: product, show_compare_price: true %}
                   </div>
@@ -670,6 +686,17 @@
           "id": "show_text",
           "label": "Show review text",
           "default": true
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
         }
       ]
     },
