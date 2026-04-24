@@ -115,6 +115,17 @@
     },
     "featured_collection_carousel_k3teGq": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_xrrBEP": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_xrrBEP"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Cotton Collection",
@@ -132,6 +143,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 5,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -139,6 +151,17 @@
     },
     "featured_collection_carousel_xRzp7B": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_jYCz3c": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_jYCz3c"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Wet Wipes & Dry Tissues",
@@ -156,6 +179,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -163,6 +187,17 @@
     },
     "featured_collection_carousel_dMDhck": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_eQ3Phf": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_eQ3Phf"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Baby Range",
@@ -180,6 +215,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -187,6 +223,17 @@
     },
     "featured_collection_carousel_LX3r7y": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_YNPDVc": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_YNPDVc"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Bathing Range",
@@ -204,6 +251,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -211,6 +259,17 @@
     },
     "featured_collection_carousel_LQjqCA": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_L6WJQY": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_L6WJQY"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Kitchen & Dining",
@@ -228,6 +287,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -235,6 +295,17 @@
     },
     "featured_collection_carousel_QMdUwV": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_6Rp7Tt": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_6Rp7Tt"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Adult Diaper",
@@ -252,6 +323,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -259,6 +331,17 @@
     },
     "featured_collection_carousel_MWJUEP": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_8AenPq": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_8AenPq"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Makeup Remover Range",
@@ -276,6 +359,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -283,6 +367,17 @@
     },
     "featured_collection_carousel_idX97k": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_KRgrPa": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_KRgrPa"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Bathroom Essential",
@@ -300,6 +395,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -325,6 +421,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
@@ -350,6 +447,7 @@
         "desktop_columns": 4,
         "autoplay_speed": 3,
         "show_arrows": true,
+        "centralize_products": false,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
