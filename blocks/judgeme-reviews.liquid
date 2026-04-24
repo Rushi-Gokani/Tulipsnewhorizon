@@ -1,0 +1,36 @@
+{% liquid
+  assign product = closest.product
+%}
+
+<div class="product-judgeme-reviews" {{ block.shopify_attributes }}>
+  {% comment %} Judge.me Preview Badge {% endcomment %}
+  <div class='jdgm-widget jdgm-preview-badge' 
+       data-id='{{ product.id }}'
+       {% unless block.settings.show_text %}data-nometa='true'{% endunless %}>
+    {{ product.metafields.judgeme.badge }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Judge.me Reviews",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_text",
+      "label": "Show review text",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "Ensure Judge.me app is installed to display review stars."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Judge.me Reviews"
+    }
+  ]
+}
+{% endschema %}

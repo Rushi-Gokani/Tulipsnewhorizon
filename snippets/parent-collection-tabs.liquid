@@ -211,6 +211,10 @@
                     </div>
                     <div class="pc-tabs__product-info">
                       <p class="pc-tabs__product-title">{{ product.title }}</p>
+                      {% comment %} Judge.me Preview Badge {% endcomment %}
+                      <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+                        {{ product.metafields.judgeme.badge }}
+                      </div>
                       {% render 'price', product_resource: product, show_sale_price_first: true %}
                     </div>
                   </a>
