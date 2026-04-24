@@ -479,6 +479,17 @@
     },
     "featured_collection_carousel_gjDH7t": {
       "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_dDQ9pF": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_dDQ9pF"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "",
