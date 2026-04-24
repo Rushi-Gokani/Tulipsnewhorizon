@@ -104,6 +104,7 @@
         </h2>
       </div>
     {%- endif -%}
+    
 
     <!-- Tabs Navigation -->
     {%- assign source_collection = collections[section.settings.collection] -%}
@@ -245,7 +246,7 @@
                           {{ product.title }}
                         </a>
                       </h3>
-                      {%- assign review_block = section.blocks | where: 'type', 'review' | first -%}
+                      {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                       {%- if review_block -%}
                         <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
                           {% comment %} Judge.me Preview Badge {% endcomment %}
@@ -256,6 +257,8 @@
                           </div>
                         </div>
                       {%- endif -%}
+
+
                       <div style="margin-bottom: 15px;">
                         {% render 'price', product_resource: product, show_compare_price: true %}
                       </div>
@@ -330,7 +333,7 @@
                       {{ product.title }}
                     </a>
                   </h3>
-                  {%- assign review_block = section.blocks | where: 'type', 'review' | first -%}
+                  {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                   {%- if review_block -%}
                     <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
                       {% comment %} Judge.me Preview Badge {% endcomment %}
@@ -654,19 +657,7 @@
   ],
   "blocks": [
     {
-      "type": "product",
-      "name": "Product",
-      "limit": 20,
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        }
-      ]
-    },
-    {
-      "type": "review",
+      "type": "judgeme_reviews",
       "name": "Judge.me Reviews",
       "limit": 1,
       "settings": [
@@ -679,6 +670,18 @@
           "id": "show_text",
           "label": "Show review text",
           "default": true
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
         }
       ]
     }
