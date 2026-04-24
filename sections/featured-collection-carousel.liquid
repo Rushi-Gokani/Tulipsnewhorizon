@@ -85,6 +85,14 @@
       text-align: center;
     }
   }
+  .product-judgeme-reviews {
+    margin-bottom: 10px;
+    min-height: 20px;
+  }
+
+  .featured-collection-carousel-slider--centralized .jdgm-widget {
+    text-align: center;
+  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -237,6 +245,17 @@
                           {{ product.title }}
                         </a>
                       </h3>
+                      {%- assign review_block = section.blocks | where: 'type', 'review' | first -%}
+                      {%- if review_block -%}
+                        <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                          {% comment %} Judge.me Preview Badge {% endcomment %}
+                          <div class='jdgm-widget jdgm-preview-badge' 
+                               data-id='{{ product.id }}'
+                               {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
+                            {{ product.metafields.judgeme.badge }}
+                          </div>
+                        </div>
+                      {%- endif -%}
                       <div style="margin-bottom: 15px;">
                         {% render 'price', product_resource: product, show_compare_price: true %}
                       </div>
@@ -311,6 +330,17 @@
                       {{ product.title }}
                     </a>
                   </h3>
+                  {%- assign review_block = section.blocks | where: 'type', 'review' | first -%}
+                  {%- if review_block -%}
+                    <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                      {% comment %} Judge.me Preview Badge {% endcomment %}
+                      <div class='jdgm-widget jdgm-preview-badge' 
+                           data-id='{{ product.id }}'
+                           {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
+                        {{ product.metafields.judgeme.badge }}
+                      </div>
+                    </div>
+                  {%- endif -%}
                   <div style="margin-bottom: 15px;">
                     {% render 'price', product_resource: product, show_compare_price: true %}
                   </div>
@@ -632,6 +662,23 @@
           "type": "product",
           "id": "product",
           "label": "Product"
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Judge.me Reviews",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block will show Judge.me review stars and text for each product. Best practices: Ensure Judge.me app is installed."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_text",
+          "label": "Show review text",
+          "default": true
         }
       ]
     }
