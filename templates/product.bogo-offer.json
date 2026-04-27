@@ -258,8 +258,8 @@
                   "type": "quantity",
                   "static": true,
                   "settings": {
-                    "enable_quantity_limit": false,
-                    "quantity_limit": 10
+                    "enable_quantity_limit": true,
+                    "quantity_limit": 6
                   },
                   "blocks": {}
                 },
