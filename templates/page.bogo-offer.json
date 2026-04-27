@@ -671,7 +671,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<ul><li>Offer valid while stocks last.</li><li>Tulips reserves the right to cancel, modify, or revoke the offer at any time without prior notice.</li><li>In case of any dispute, the decision of Tulips shall be final and binding.</li><li>A customer can maximum add up to 6 units of adult diapers in their cart to claim Buy 1 Get 1 Offer.<br/></li></ul>",
+            "text": "<ul><li>A customer can maximum add up to 6 units of adult diapers in their cart to claim Buy 1 Get 1 Offer.</li><li>Offer valid while stocks last.</li><li>Tulips reserves the right to cancel, modify, or revoke the offer at any time without prior notice.</li><li>In case of any dispute, the decision of Tulips shall be final and binding.<br/></li></ul>",
             "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
