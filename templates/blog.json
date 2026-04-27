@@ -11,6 +11,18 @@
   "sections": {
     "main": {
       "type": "main-blog",
+      "blocks": {
+        "featured_post_QQyqcF": {
+          "type": "featured-post",
+          "disabled": true,
+          "settings": {
+            "article": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_post_QQyqcF"
+      ],
       "settings": {
         "color_scheme": "",
         "padding-block-start": 0,
