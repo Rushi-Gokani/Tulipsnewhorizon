@@ -17,6 +17,7 @@
           "name": "Title",
           "settings": {
             "text": "<h1>{{ closest.page.title }}</h1>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -103,6 +104,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<p>To avail the Buy 1 Get 1 offer, make sure to add quantity 2 of the same product to your cart.</p>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -130,6 +132,7 @@
           "disabled": true,
           "settings": {
             "text": "<p><strong>To avail the Buy 1 Get 1 offer, make sure to add quantity 2 of the same product to your cart.</strong></p>",
+            "enable_read_more": false,
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -210,6 +213,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Offer Eligibility</h2>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -236,6 +240,7 @@
           "name": "t:names.text",
           "settings": {
             "text": "<p>This Buy 1 Get 1 Free (BOGO) offer is valid only on selected and eligible products listed under the campaign section on the Tulips website.</p><ul><li><strong>To avail the Buy 1 Get 1 offer, make sure to add quantity 2 of the same product to your cart.</strong></li></ul>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -316,6 +321,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Offer Details:</h2>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -342,6 +348,7 @@
           "name": "t:names.text",
           "settings": {
             "text": "<ul><li>Customers purchasing one eligible product will receive one additional unit of the same product free of cost.</li><li>The free product will be automatically added to the cart once the qualifying purchase is made.</li><li>No separate coupon code is required to avail of this offer. And no other offer or coupon can be clubbed with this offer.<br/></li></ul>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -422,6 +429,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Validity Period:</h2>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -448,6 +456,7 @@
           "name": "t:names.text",
           "settings": {
             "text": "<p>The offer is valid for a limited time only and may be withdrawn or modified by Tulips at any time without prior notice.</p>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -528,6 +537,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Shipping & Charges:</h2>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -554,6 +564,7 @@
           "name": "t:names.text",
           "settings": {
             "text": "<ul><li>Standard shipping charges, taxes, and other applicable fees will continue to apply as per Tulips’ existing policies.</li><li>No additional discounts, cashback, or promotional offers can be clubbed with this offer.<br/></li></ul>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -634,6 +645,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>General Conditions:</h2>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
@@ -659,7 +671,8 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<ul><li>Offer valid while stocks last.</li><li>Tulips reserves the right to cancel, modify, or revoke the offer at any time without prior notice.</li><li>In case of any dispute, the decision of Tulips shall be final and binding.<br/></li></ul>",
+            "text": "<ul><li>Offer valid while stocks last.</li><li>Tulips reserves the right to cancel, modify, or revoke the offer at any time without prior notice.</li><li>In case of any dispute, the decision of Tulips shall be final and binding.</li><li>A customer can maximum add up to 6 units of adult diapers in their cart to claim Buy 1 Get 1 Offer.<br/></li></ul>",
+            "enable_read_more": false,
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
