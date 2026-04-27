@@ -245,7 +245,7 @@
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
-                "stacking": false,
+                "stacking": true,
                 "show_pickup_availability": false,
                 "gift_card_form": true,
                 "padding-block-start": 0,
