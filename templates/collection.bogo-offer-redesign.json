@@ -43,11 +43,11 @@
             "button_style_2": "button--outlined",
             "content_position": "center",
             "content_alignment": "center",
-            "image": "shopify://shop_images/tulips-adult-diapers-d_ef992781-d89b-454a-9736-2211126e1811.webp",
+            "image": "shopify://shop_images/desktop_jpg.webp",
             "link": "",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/tulips-adult-diapers-m_eacedb30-acb8-479e-906e-cd15b6ccb511.webp"
+            "image_mobile": "shopify://shop_images/phone_view_800x1519_jpg.webp"
           }
         }
       },
