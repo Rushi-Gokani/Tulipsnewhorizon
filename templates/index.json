@@ -26,11 +26,11 @@
             "button_style_2": "button--outlined",
             "content_position": "center",
             "content_alignment": "center",
-            "image": "shopify://shop_images/desktop_jpg.jpg",
+            "image": "shopify://shop_images/desktop_jpg.webp",
             "link": "shopify://collections/adult-diaper-pants",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/phone_view_800x1519_jpg.jpg"
+            "image_mobile": "shopify://shop_images/phone_view_800x1519_jpg.webp"
           }
         },
         "slide_ELtNhH": {
