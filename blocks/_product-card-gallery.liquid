@@ -4,11 +4,18 @@
 
 {% capture children %}
   {% unless product == blank %}
+    {% assign show_collection_badge = false %}
     {% if collection and collection.metafields.custom.badges != blank %}
+      {% assign badge_text = collection.metafields.custom.badges | downcase %}
+      {% unless badge_text contains 'b1g1' %}
+        {% assign show_collection_badge = true %}
+      {% endunless %}
+    {% endif %}
+    {% if show_collection_badge %}
       <span class="collection-metafield-badge">{{ collection.metafields.custom.badges }}</span>
     {% endif %}
     <div
-      class="product-badges {% if collection and collection.metafields.custom.badges != blank %}product-badges--top-right{% else %}product-badges--top-left{% endif %}"
+      class="product-badges {% if show_collection_badge %}product-badges--top-right{% else %}product-badges--top-left{% endif %}"
       style="
         --badge-border-radius: 4px;
         --badge-font-family: var(--font-body-family); 

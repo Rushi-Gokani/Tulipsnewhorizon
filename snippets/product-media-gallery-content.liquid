@@ -29,12 +29,18 @@
 
   assign product_collection_badge = ''
   if collection and collection.metafields.custom.badges != blank
-    assign product_collection_badge = collection.metafields.custom.badges
+    assign badge_text = collection.metafields.custom.badges | downcase
+    unless badge_text contains 'b1g1'
+      assign product_collection_badge = collection.metafields.custom.badges
+    endunless
   elsif selected_product.collections and selected_product.collections.size > 0
     for product_collection in selected_product.collections
       if product_collection.metafields.custom.badges != blank
-        assign product_collection_badge = product_collection.metafields.custom.badges
-        break
+        assign badge_text = product_collection.metafields.custom.badges | downcase
+        unless badge_text contains 'b1g1'
+          assign product_collection_badge = product_collection.metafields.custom.badges
+          break
+        endunless
       endif
     endfor
   endif

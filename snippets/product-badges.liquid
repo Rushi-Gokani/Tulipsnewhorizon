@@ -56,7 +56,10 @@
       for tag in product.tags
         if tag contains 'badge:'
           assign badge = tag | remove: 'badge:' | strip
-          assign badges = badges | append: badge | append: ','
+          assign badge_lower = badge | downcase
+          unless badge_lower == 'b1g1' or badge_lower == 'b1g1 free'
+            assign badges = badges | append: badge | append: ','
+          endunless
         endif
       endfor
     endif

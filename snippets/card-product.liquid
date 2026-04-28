@@ -67,7 +67,10 @@
     data-update-media="{% if product_ref.first_available_variant == product_ref.selected_variant %}true{% else %}false{% endif %}"
   >
     {% if collection and collection.metafields.custom.badges != blank %}
-      <span class="collection-badge">{{ collection.metafields.custom.badges }}</span>
+      {% assign badge_text = collection.metafields.custom.badges | downcase %}
+      {% unless badge_text contains 'b1g1' %}
+        <span class="collection-badge">{{ collection.metafields.custom.badges }}</span>
+      {% endunless %}
     {% endif %}
     {% liquid
       assign hover_media = product_ref.media[1]
