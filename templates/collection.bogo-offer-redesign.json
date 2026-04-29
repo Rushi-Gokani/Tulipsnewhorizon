@@ -1494,6 +1494,7 @@
         },
         "feature_FMRwwm": {
           "type": "feature",
+          "disabled": true,
           "settings": {
             "title": "Buy 1 Get 1 Free (Limited Time)",
             "description": ""
