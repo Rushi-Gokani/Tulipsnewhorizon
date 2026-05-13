@@ -5124,7 +5124,10 @@ button.swiper-button.image-slider__swiper-button{
   background: #fff; 
   cursor:pointer;
 }
-featured-collection-carousel-section{ padding: 0px 0px !important}
+featured-collection-carousel-section{
+  padding-top: 0 !important;
+        padding-bottom: 0 !important;
+}
 
 
 
