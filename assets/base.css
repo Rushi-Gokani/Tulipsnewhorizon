@@ -5119,10 +5119,12 @@ h2 {
 }
 
 /* CUSTOM CSS BY TANGENCE TEAM */
-.swiper-button{
+button.swiper-button.image-slider__swiper-button{
   border: 1px solid #fff;
   background: #fff;
 }
+
+
 
 /* CUSTOM CSS BY TANGENCE TEAM */
 
