@@ -5131,7 +5131,30 @@ button.swiper-button.image-slider__swiper-button{
   padding-top: 15px !important;
   padding-bottom: 15px !important;
 }
-.priceContainer{display:flex}
+
+
+/* Mobile: keep compare price and sale price in one line */
+@media (max-width: 767px) {
+
+  div[ref="priceContainer"] {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  div[ref="priceContainer"] > span[role="group"] {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  div[ref="priceContainer"] .compare-at-price,
+  div[ref="priceContainer"] .price {
+    display: inline-block;
+    white-space: nowrap;
+  }
+}
 
 
 
