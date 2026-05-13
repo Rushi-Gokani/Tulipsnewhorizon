@@ -105,7 +105,7 @@
       ],
       "name": "Image Slider",
       "settings": {
-        "slideshow_autoplay_interval": 6,
+        "slideshow_autoplay_interval": 4,
         "show_slideshow_navigation": true,
         "slideshow_navigation_position": "image-slider__swiper-buttons--start",
         "color_scheme_arrows": "",
