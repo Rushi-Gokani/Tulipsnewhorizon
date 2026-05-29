@@ -13,7 +13,7 @@
       "type": "custom-liquid",
       "name": "t:names.custom_liquid",
       "settings": {
-        "custom_liquid": "{% if collection.image %}\n<div class=\"collection-featured-image\">\n    <img\n        src=\"{{ collection.image | image_url: width: 2000 }}\"\n        alt=\"{{ collection.image.alt | escape | default: collection.title }}\"\n        width=\"{{ collection.image.width }}\"\n        height=\"{{ collection.image.height }}\"\n        loading=\"lazy\">\n</div>\n{% endif %}",
+        "custom_liquid": "{% assign mobile_banner = collection.metafields.custom.mobile_banner %}\n\n<div class=\"collection-banner\">\n  \n  {% if collection.image %}\n    <img\n      class=\"banner-desktop\"\n      src=\"{{ collection.image | image_url: width: 2000 }}\"\n      alt=\"{{ collection.title }}\"\n      loading=\"lazy\">\n  {% endif %}\n\n  {% if mobile_banner %}\n    <img\n      class=\"banner-mobile\"\n      src=\"{{ mobile_banner | image_url: width: 1000 }}\"\n      alt=\"{{ collection.title }}\"\n      loading=\"lazy\">\n  {% elsif collection.image %}\n    <img\n      class=\"banner-mobile\"\n      src=\"{{ collection.image | image_url: width: 1000 }}\"\n      alt=\"{{ collection.title }}\"\n      loading=\"lazy\">\n  {% endif %}\n\n</div>",
         "color_scheme": "",
         "section_width": "page-width",
         "padding-block-start": 0,
