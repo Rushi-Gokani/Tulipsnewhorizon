@@ -21,45 +21,6 @@
         "padding-block-end": 0
       }
     },
-    "image_slider_kQXygE": {
-      "type": "image-slider",
-      "blocks": {
-        "slide_CddQVh": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-1",
-            "heading": "",
-            "text": "",
-            "button_link_1": "/",
-            "button_label_1": "View more",
-            "button_style_1": "button--filled",
-            "button_link_2": "/",
-            "button_label_2": "Learn more",
-            "button_style_2": "button--outlined",
-            "content_position": "center",
-            "content_alignment": "center",
-            "image": "shopify://shop_images/tulips-refreshing-wet-wipes-cocktail2_1.jpg",
-            "link": "",
-            "content_position_mobile": "center",
-            "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/refreshing-wet-wipes-cocktail2-mobile_3248f628-65f8-4d94-9c20-b9bc71682082.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "slide_CddQVh"
-      ],
-      "disabled": true,
-      "name": "Image Slider",
-      "settings": {
-        "slideshow_autoplay_interval": 6,
-        "show_slideshow_navigation": true,
-        "slideshow_navigation_position": "image-slider__swiper-buttons--start",
-        "color_scheme_arrows": "",
-        "show_slideshow_pagination": true,
-        "slideshow_pagination_style": "style-1"
-      }
-    },
     "section_RGhhQj": {
       "type": "section",
       "blocks": {
@@ -123,6 +84,7 @@
         "text_Lrxi4C",
         "text_AgU768"
       ],
+      "custom_css": [],
       "name": "Collection heading",
       "settings": {
         "content_direction": "column",
@@ -316,7 +278,6 @@
   },
   "order": [
     "custom_liquid_WLXi8i",
-    "image_slider_kQXygE",
     "section_RGhhQj",
     "main",
     "simple_text_section_7VMJWU"
