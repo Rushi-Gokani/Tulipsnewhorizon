@@ -565,12 +565,15 @@ window.addEventListener('load', function(){
     }
 
     // Initialize on DOMContentLoaded
-    if (document.readyState === 'loading') {
+    {% comment %} if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initCarousel);
     } else {
       initCarousel();
     }
-  })();
+  })(); {% endcomment %}
+  window.addEventListener('load', function () {
+  initCarousel();
+});
 </script>
 
 {% schema %}
