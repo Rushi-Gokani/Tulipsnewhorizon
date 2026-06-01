@@ -62,6 +62,19 @@
   .tab-content {
     display: none;
   }
+  .featured-collection-carousel-slider .card-gallery{
+    width:100%;
+}
+
+.featured-collection-carousel-slider img{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.featured-collection-carousel-slider .swiper-slide{
+    height:auto;
+}
 
   .tab-content.active {
     display: block;
@@ -408,7 +421,7 @@
         var tabContent = slider.closest('.tab-content');
         var isActive = tabContent && tabContent.classList.contains('active');
 
-        var swiperInstance = new Swiper(slider, {
+        {% comment %} var swiperInstance = new Swiper(slider, {
           slidesPerView: 2.1,
           spaceBetween: 10,
           loop: false,
@@ -442,9 +455,69 @@
               }
             }
           }
-        });
-      });
+        }); {% endcomment %}
+        on: {
+  init: function() {
 
+    if (tabContent) {
+      swiperInstances[tabContent.id] = this;
+    }
+
+    const swiper = this;
+
+    setTimeout(function () {
+      swiper.update();
+      swiper.updateSize();
+      swiper.updateSlides();
+    }, 300);
+
+    slider.querySelectorAll('img').forEach(function(img){
+
+      if(!img.complete){
+
+        img.addEventListener('load', function(){
+
+          swiper.update();
+          swiper.updateSize();
+          swiper.updateSlides();
+
+        });
+
+      }
+
+    });
+
+  }
+}
+        var swiperInstance = new Swiper(slider, {
+
+  observer: true,
+  observeParents: true,
+  resizeObserver: true,
+  watchOverflow: true,
+
+  slidesPerView: 2.1,
+  spaceBetween: 10,
+  loop: false,
+  rewind: true,
+  centeredSlides: false,
+  centerInsufficientSlides: {{ section.settings.centralize_products | json }},
+      });
+window.addEventListener('load', function(){
+
+  Object.values(swiperInstances).forEach(function(swiper){
+
+    if(swiper){
+
+      swiper.update();
+      swiper.updateSize();
+      swiper.updateSlides();
+
+    }
+
+  });
+
+});
       // Tab functionality with proper swiper management
       document.querySelectorAll('.collection-tab').forEach(function(tab) {
         tab.addEventListener('click', function() {
