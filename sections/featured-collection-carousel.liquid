@@ -95,8 +95,28 @@
     text-align: left;
   }
 
-  .featured-collection-carousel-slider:not(.swiper-initialized) {
-    visibility: hidden;
+  .featured-collection-carousel-slider {
+    overflow: hidden;
+  }
+
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+    flex: 0 0 calc((100% / 2.1) - 10px);
+    min-width: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+      gap: 20px;
+    }
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% / 2.5) - 20px);
+    }
   }
 {%- endstyle -%}
 
