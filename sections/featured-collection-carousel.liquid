@@ -94,6 +94,7 @@
   .featured-collection-carousel-slider--centralized .card-info {
     text-align: left;
   }
+  .product-media {max-width:338px}
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -492,14 +493,11 @@
     }
 
     // Initialize on DOMContentLoaded
-    {% comment %} if (document.readyState === 'loading') {
+    if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initCarousel);
     } else {
       initCarousel();
-    } {% endcomment %}
-    window.addEventListener('load', function () {
-    initCarousel();
-});
+    }
   })();
 </script>
 
