@@ -181,7 +181,8 @@
         "judgeme_reviews_nrK34p"
       ],
       "custom_css": [
-        "h2.title.h1.center {margin-top: 60px;}"
+        "h2.title.h1.center {margin-top: 60px;}",
+        "ul.collection-tabs {display: none;}"
       ],
       "name": "Featured Collection Slide",
       "settings": {
