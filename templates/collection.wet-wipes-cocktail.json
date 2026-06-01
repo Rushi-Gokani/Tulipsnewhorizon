@@ -191,14 +191,14 @@
         "fifth": "",
         "tab_text_color": "#000000",
         "tab_active_color": "#a3ca6d",
-        "collection": "cotton",
+        "collection": "",
         "products_to_show": 20,
         "show_all_products": true,
         "desktop_columns": 2,
         "autoplay_speed": 5,
         "show_arrows": false,
         "centralize_products": true,
-        "padding_top": 68,
+        "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
       }
