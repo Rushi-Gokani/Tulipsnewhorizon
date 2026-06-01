@@ -77,17 +77,34 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     padding: 20px;
-    gap: 10px;
-    pointer-events: none;
+    gap: 12px;
+    cursor: pointer;
   }
 
-  .tulip-promo-countdown {
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1;
+  .tulip-promo-play-btn {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .tulip-promo-placeholder:hover .tulip-promo-play-btn {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.08);
+  }
+
+  .tulip-promo-play-label {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
   }
 
   .product-judgeme-reviews {
@@ -140,16 +157,11 @@
                   {{ promo_product.title }}
                 </a>
               </h3>
-              {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
-              {%- if review_block -%}
-                <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
-                  <div class='jdgm-widget jdgm-preview-badge'
-                       data-id='{{ promo_product.id }}'
-                       {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
-                    {{ promo_product.metafields.judgeme.badge }}
-                  </div>
+              <div class="product-judgeme-reviews">
+                <div class='jdgm-widget jdgm-preview-badge' data-id='{{ promo_product.id }}'>
+                  {{ promo_product.metafields.judgeme.badge }}
                 </div>
-              {%- endif -%}
+              </div>
               <div style="margin-bottom: 15px;">
                 {% render 'price', product_resource: promo_product, show_compare_price: true %}
               </div>
@@ -164,8 +176,12 @@
       <div class="tulip-promo-video-col">
         <div class="tulip-promo-video-wrapper" id="tulip-promo-wrapper-{{ section.id }}">
           <div class="tulip-promo-placeholder" id="tulip-promo-placeholder-{{ section.id }}">
-            <div class="tulip-promo-countdown" id="tulip-promo-countdown-{{ section.id }}">{{ section.settings.autoplay_delay }}</div>
-            <div>Video plays soon</div>
+            <div class="tulip-promo-play-btn">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <div class="tulip-promo-play-label">Tap to play now</div>
           </div>
           <iframe
             id="tulip-promo-iframe-{{ section.id }}"
@@ -188,46 +204,36 @@
     var sid = '{{ section.id }}';
     var iframe = document.getElementById('tulip-promo-iframe-' + sid);
     var placeholder = document.getElementById('tulip-promo-placeholder-' + sid);
-    var countdownEl = document.getElementById('tulip-promo-countdown-' + sid);
     var wrapper = document.getElementById('tulip-promo-wrapper-' + sid);
     if (!iframe || !wrapper) return;
 
     var videoId = iframe.getAttribute('data-video-id');
     var totalMs = parseInt(iframe.getAttribute('data-delay'), 10);
-    var secondsLeft = Math.round(totalMs / 1000);
-    var timer = null;
-    var countdownInterval = null;
     var played = false;
 
     function playVideo() {
       if (played) return;
       played = true;
-      clearInterval(countdownInterval);
       if (placeholder) placeholder.style.display = 'none';
       iframe.src = 'https://www.youtube.com/embed/' + videoId
         + '?autoplay=1&mute=1&loop=1&playlist=' + videoId + '&playsinline=1&rel=0';
       iframe.classList.add('is-playing');
     }
 
-    function startCountdown() {
-      if (timer || played) return;
-      countdownInterval = setInterval(function() {
-        secondsLeft = Math.max(0, secondsLeft - 1);
-        if (countdownEl) countdownEl.textContent = secondsLeft;
-      }, 1000);
-      timer = setTimeout(playVideo, totalMs);
-    }
+    // Click play button to start instantly
+    if (placeholder) placeholder.addEventListener('click', playVideo);
 
+    // Auto-play after delay once section is in view
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function(entries) {
         if (entries[0].isIntersecting) {
-          startCountdown();
+          setTimeout(playVideo, totalMs);
           observer.disconnect();
         }
       }, { threshold: 0.3 });
       observer.observe(wrapper);
     } else {
-      startCountdown();
+      setTimeout(playVideo, totalMs);
     }
   })();
 </script>
