@@ -180,6 +180,9 @@
       "block_order": [
         "judgeme_reviews_nrK34p"
       ],
+      "custom_css": [
+        "h2.title.h1.center {margin-top: 60px;}"
+      ],
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Tulips Wet Wipes X Cocktail 2 Promotion",
