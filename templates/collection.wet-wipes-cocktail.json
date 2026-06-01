@@ -185,6 +185,9 @@
     },
     "featured_collection_slide_v2_Yc8Cy4": {
       "type": "Featured-Collection-Slide-V2",
+      "custom_css": [
+        "h2.title.h1.center {font-weight: 300; letter-spacing: .02em; text-align: center;}"
+      ],
       "name": "Collection Slide V2",
       "settings": {
         "heading": "Tulips Wet Wipes X Cocktail 2 Promotion",
