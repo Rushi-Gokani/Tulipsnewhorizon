@@ -94,7 +94,6 @@
   .featured-collection-carousel-slider--centralized .card-info {
     text-align: left;
   }
-  .product-media {max-width:338px}
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -405,15 +404,11 @@
       var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
 
       // Initialize Swipers - only autoplay for active tab
-      {% comment %} document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) { {% endcomment %}
-        .querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
         var tabContent = slider.closest('.tab-content');
         var isActive = tabContent && tabContent.classList.contains('active');
 
         var swiperInstance = new Swiper(slider, {
-          observeParents: true,
-resizeObserver: true,
-watchOverflow: true,
           slidesPerView: 2.1,
           spaceBetween: 10,
           loop: false,
@@ -439,7 +434,7 @@ watchOverflow: true,
               spaceBetween: 30,
             }
           },
-          {% comment %} on: {
+          on: {
             init: function() {
               // Store reference
               if (tabContent) {
@@ -447,40 +442,7 @@ watchOverflow: true,
               }
             }
           }
-        }); {% endcomment %}
-        on: {
-    init: function() {
-
-        if (tabContent) {
-            swiperInstances[tabContent.id] = this;
-        }
-
-        const swiper = this;
-
-        setTimeout(function () {
-            swiper.update();
-            swiper.updateSize();
-            swiper.updateSlides();
-        }, 300);
-
-        slider.querySelectorAll('img').forEach(function(img){
-
-            if(!img.complete){
-
-                img.addEventListener('load', function(){
-
-                    swiper.update();
-                    swiper.updateSize();
-                    swiper.updateSlides();
-
-                });
-
-            }
-
         });
-
-    }
-}
       });
 
       // Tab functionality with proper swiper management
