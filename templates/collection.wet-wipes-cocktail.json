@@ -183,22 +183,11 @@
         "padding-inline-end": 100
       }
     },
-    "featured_collection_carousel_X7aX3j": {
-      "type": "featured-collection-carousel",
-      "blocks": {
-        "judgeme_reviews_tez7Ve": {
-          "type": "judgeme_reviews",
-          "settings": {
-            "show_text": true
-          }
-        }
-      },
-      "block_order": [
-        "judgeme_reviews_tez7Ve"
-      ],
-      "name": "Featured Collection Slide",
+    "featured_collection_slide_v2_Yc8Cy4": {
+      "type": "Featured-Collection-Slide-V2",
+      "name": "Collection Slide V2",
       "settings": {
-        "title": "Wet Wipes & Dry Tissues",
+        "title": "Tulips Wet Wipes X Cocktail 2 Promotion",
         "heading_size": "h1",
         "first": "",
         "second": "",
@@ -208,15 +197,15 @@
         "tab_text_color": "#000000",
         "tab_active_color": "#a3ca6d",
         "collection": "tulips-refreshing-wet-wipes-x-cocktail-2",
-        "products_to_show": 20,
-        "show_all_products": true,
-        "desktop_columns": 4,
-        "autoplay_speed": 3,
+        "products_to_show": 8,
+        "show_all_products": false,
+        "desktop_columns": 3,
+        "autoplay_speed": 5,
         "show_arrows": false,
-        "centralize_products": false,
+        "centralize_products": true,
         "padding_top": 36,
         "padding_bottom": 36,
-        "bg_color": "#ffffff"
+        "bg_color": "#FFFFFF"
       }
     }
   },
@@ -224,6 +213,6 @@
     "custom_liquid_WLXi8i",
     "main",
     "simple_text_section_7VMJWU",
-    "featured_collection_carousel_X7aX3j"
+    "featured_collection_slide_v2_Yc8Cy4"
   ]
 }
