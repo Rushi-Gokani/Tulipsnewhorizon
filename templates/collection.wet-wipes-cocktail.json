@@ -167,6 +167,42 @@
         "padding-block-end": 100
       }
     },
+    "featured_collection_carousel_BXi6DJ": {
+      "type": "featured-collection-carousel",
+      "blocks": {
+        "judgeme_reviews_nrK34p": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_reviews_nrK34p"
+      ],
+      "name": "Featured Collection Slide",
+      "settings": {
+        "title": "TULIPS WET WIPES X COCKTAIL 2 PROMOTION",
+        "heading_size": "h1",
+        "first": "tulips-refreshing-wet-wipes-x-cocktail-2",
+        "second": "",
+        "third": "",
+        "fourth": "",
+        "fifth": "",
+        "tab_text_color": "#000000",
+        "tab_active_color": "#a3ca6d",
+        "collection": "cotton",
+        "products_to_show": 20,
+        "show_all_products": true,
+        "desktop_columns": 4,
+        "autoplay_speed": 5,
+        "show_arrows": true,
+        "centralize_products": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#ffffff"
+      }
+    },
     "simple_text_section_7VMJWU": {
       "type": "simple-text-section",
       "name": "Simple Text Section",
@@ -187,6 +223,7 @@
   "order": [
     "custom_liquid_WLXi8i",
     "main",
+    "featured_collection_carousel_BXi6DJ",
     "simple_text_section_7VMJWU"
   ]
 }
