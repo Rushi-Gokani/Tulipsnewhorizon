@@ -1,0 +1,753 @@
+{{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .featured-collection-carousel-section {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  /* Tabs Styles - Capsule/Pill Button */
+  .collection-tabs-wrapper {
+    margin-bottom: 30px;
+  }
+
+  .collection-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .collection-tab {
+    border: 2px solid #e0e0e0;
+    background: #ffffff;
+    padding: 12px 28px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: {{ section.settings.tab_text_color }};
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .collection-tab:hover {
+    border-color: {{ section.settings.tab_active_color }};
+    color: {{ section.settings.tab_active_color }};
+    background: #f8f8f8;
+  }
+
+  .collection-tab.active {
+    background: {{ section.settings.tab_active_color }};
+    color: #ffffff;
+    border-color: {{ section.settings.tab_active_color }};
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-tabs {
+      gap: 8px;
+    }
+
+    .collection-tab {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    .featured-collection-carousel-section .title-wrapper-with-link {
+      text-align: center;
+    }
+
+    .featured-collection-carousel-section .title {
+      text-align: center;
+    }
+  }
+  .product-judgeme-reviews {
+    margin-bottom: 10px;
+    min-height: 20px;
+  }
+
+  .featured-collection-carousel-slider--centralized .jdgm-widget,
+  .featured-collection-carousel-slider--centralized .card-info {
+    text-align: left;
+  }
+
+  .featured-collection-carousel-slider {
+    overflow: hidden;
+  }
+
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+    flex: 0 0 calc((100% / 2.1) - 10px);
+    min-width: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+      gap: 20px;
+    }
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% / 2.5) - 20px);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+      gap: 30px;
+    }
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% / {{ section.settings.desktop_columns }}) - 30px);
+    }
+  }
+{%- endstyle -%}
+
+<div class="featured-collection-carousel-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin centered">
+        <h2 class="title {{ section.settings.heading_size }} center">
+          {{ section.settings.title | escape }}
+        </h2>
+      </div>
+    {%- endif -%}
+    
+
+    <!-- Tabs Navigation -->
+    {%- assign source_collection = collections[section.settings.collection] -%}
+    {%- if source_collection == blank -%}
+      {%- assign source_collection = collection -%}
+    {%- endif -%}
+
+    <!-- DEBUG: source_collection = {{ source_collection.title | default: 'blank' }} -->
+    <!-- DEBUG: section.settings.collection = {{ section.settings.collection | default: 'blank' }} -->
+
+    {% assign show_tabs = false %}
+    {% for i in (1..5) %}
+      {% case i %}
+        {% when 1 %}{% assign setting_key = 'first' %}
+        {% when 2 %}{% assign setting_key = 'second' %}
+        {% when 3 %}{% assign setting_key = 'third' %}
+        {% when 4 %}{% assign setting_key = 'fourth' %}
+        {% when 5 %}{% assign setting_key = 'fifth' %}
+      {% endcase %}
+
+      {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+      {%- if tab_collection == blank and source_collection != blank -%}
+        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
+        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
+        {%- if tab_collection.title == blank -%}
+          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
+          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      <!-- DEBUG: {{ setting_key }} metafield exists = {{ source_collection.metafields.custom[setting_key] | default: 'NO' }} -->
+      <!-- DEBUG: {{ setting_key }} tab_collection.title = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG: {{ setting_key }} tab_collection.type = {{ tab_collection.object_type | default: 'blank' }} -->
+
+      {% if tab_collection != blank %}
+        {% assign show_tabs = true %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- DEBUG: show_tabs = {{ show_tabs }} -->
+
+    {% if show_tabs %}
+      <div class="collection-tabs-wrapper">
+        <ul class="collection-tabs" role="tablist">
+          {% assign tab_index = 0 %}
+          {% for i in (1..5) %}
+            {% case i %}
+              {% when 1 %}{% assign setting_key = 'first' %}
+              {% when 2 %}{% assign setting_key = 'second' %}
+              {% when 3 %}{% assign setting_key = 'third' %}
+              {% when 4 %}{% assign setting_key = 'fourth' %}
+              {% when 5 %}{% assign setting_key = 'fifth' %}
+            {% endcase %}
+
+            {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+            {%- if tab_collection == blank and source_collection != blank -%}
+              {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+            {%- endif -%}
+
+            {% if tab_collection != blank %}
+              {% assign tab_index = tab_index | plus: 1 %}
+              <li class="collection-tab {% if tab_index == 1 %}active{% endif %}"
+                  role="tab"
+                  data-tab="tab-{{ section.id }}-{{ i }}"
+                  data-collection="{{ tab_collection.id }}">
+                {{ tab_collection.title }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- Tab Contents -->
+    {% assign tab_content_index = 0 %}
+    {% for i in (1..5) %}
+      {% case i %}
+        {% when 1 %}{% assign setting_key = 'first' %}
+        {% when 2 %}{% assign setting_key = 'second' %}
+        {% when 3 %}{% assign setting_key = 'third' %}
+        {% when 4 %}{% assign setting_key = 'fourth' %}
+        {% when 5 %}{% assign setting_key = 'fifth' %}
+      {% endcase %}
+
+      {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+      {%- if tab_collection == blank and source_collection != blank -%}
+        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
+        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
+        {%- if tab_collection.title == blank -%}
+          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
+          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      <!-- DEBUG CONTENT: {{ setting_key }} collection = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG CONTENT: {{ setting_key }} products count = {{ tab_collection.products_count | default: 0 }} -->
+
+      {% if tab_collection != blank %}
+        {% assign tab_content_index = tab_content_index | plus: 1 %}
+        <!-- DEBUG CONTENT: Creating tab content #{{ tab_content_index }} with class active = {% if tab_content_index == 1 %}true{% else %}false{% endif %} -->
+
+        <div class="tab-content {% if tab_content_index == 1 %}active{% endif %}"
+             id="tab-{{ section.id }}-{{ i }}"
+             data-tab-content="tab-{{ section.id }}-{{ i }}">
+
+          <!-- DEBUG: Inside tab-{{ section.id }}-{{ i }}, showing {{ tab_collection.products_count }} products -->
+
+          <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
+            <div class="swiper-wrapper">
+              {%- assign limit = section.settings.products_to_show -%}
+              {%- if section.settings.show_all_products -%}
+                {%- assign limit = 50 -%}
+              {%- endif -%}
+              {%- for product in tab_collection.products limit: limit -%}
+                <div class="swiper-slide">
+                  {% capture product_card_content %}
+                    {% capture gallery_children %}
+                      <div class="product-badges product-badges--top-left">
+                        {%- if product.compare_at_price > product.price -%}
+                          {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                          <div class="product-badges__badge product-badges__badge--custom">
+                            {{ discount }}% OFF
+                          </div>
+                        {%- endif -%}
+                        {%- if product.available == false -%}
+                          <div class="product-badges__badge product-badges__badge--custom">
+                            SOLD OUT
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {% endcapture %}
+
+                    {% render 'card-gallery', product: product, children: gallery_children %}
+                    <div class="card-info" style="padding: 15px;">
+                      <h3 class="card-title h5" style="margin: 0 0 5px;">
+                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                          {{ product.title }}
+                        </a>
+                      </h3>
+                      {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
+                      {%- if review_block -%}
+                        <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                          {% comment %} Judge.me Preview Badge {% endcomment %}
+                          <div class='jdgm-widget jdgm-preview-badge' 
+                               data-id='{{ product.id }}'
+                               {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
+                            {{ product.metafields.judgeme.badge }}
+                          </div>
+                        </div>
+                      {%- endif -%}
+
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'custom_liquid' -%}
+                          <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                            {{ block.settings.custom_liquid }}
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+
+
+                      <div style="margin-bottom: 15px;">
+                        {% render 'price', product_resource: product, show_compare_price: true %}
+                      </div>
+                      {% render 'product-card-button', product: product %}
+                    </div>
+                  {% endcapture %}
+
+                  {% render 'product-card',
+                    product: product,
+                    children: product_card_content
+                  %}
+                </div>
+              {%- else -%}
+                <!-- DEBUG: No products found in {{ tab_collection.title }} -->
+                <div class="swiper-slide" style="text-align: center; padding: 40px;">
+                  <p>No products found in this collection.</p>
+                  <!-- DEBUG: Collection {{ tab_collection.title }} has {{ tab_collection.products_count }} products -->
+                </div>
+              {%- endfor -%}
+            </div>
+
+            {% if section.settings.show_arrows %}
+              <div class="featured-collection-controls">
+                <div class="swiper-button-prev">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="swiper-button-next">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Fallback: Single collection if no tabs -->
+    {% if show_tabs == false and section.settings.collection != blank %}
+      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
+        <div class="swiper-wrapper">
+          {%- assign limit = section.settings.products_to_show -%}
+          {%- if section.settings.show_all_products -%}
+            {%- assign limit = 50 -%}
+          {%- endif -%}
+          {%- for product in section.settings.collection.products limit: limit -%}
+            <div class="swiper-slide">
+              {% capture product_card_content %}
+                {% capture gallery_children %}
+                  <div class="product-badges product-badges--top-left">
+                    {%- if product.compare_at_price > product.price -%}
+                      {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        {{ discount }}% OFF
+                      </div>
+                    {%- endif -%}
+                    {%- if product.available == false -%}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        SOLD OUT
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {% endcapture %}
+
+                {% render 'card-gallery', product: product, children: gallery_children %}
+                <div class="card-info" style="padding: 15px;">
+                  <h3 class="card-title h5" style="margin: 0 0 5px;">
+                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                      {{ product.title }}
+                    </a>
+                  </h3>
+                  {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
+                  {%- if review_block -%}
+                    <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                      {% comment %} Judge.me Preview Badge {% endcomment %}
+                      <div class='jdgm-widget jdgm-preview-badge' 
+                           data-id='{{ product.id }}'
+                           {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
+                        {{ product.metafields.judgeme.badge }}
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'custom_liquid' -%}
+                      <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                        {{ block.settings.custom_liquid }}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <div style="margin-bottom: 15px;">
+                    {% render 'price', product_resource: product, show_compare_price: true %}
+                  </div>
+                  {% render 'product-card-button', product: product %}
+                </div>
+              {% endcapture %}
+
+              {% render 'product-card',
+                product: product,
+                children: product_card_content
+              %}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {% if section.settings.show_arrows %}
+          <div class="featured-collection-controls">
+            <div class="swiper-button-prev">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="swiper-button-next">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Wait for DOM to be ready
+    function initCarousel() {
+      // Store swiper instances with their tab content
+      var swiperInstances = {};
+      var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
+
+      // Initialize Swipers - only autoplay for active tab
+      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+        var tabContent = slider.closest('.tab-content');
+        var isActive = tabContent && tabContent.classList.contains('active');
+
+        var swiperInstance = new Swiper(slider, {
+          slidesPerView: 2.1,
+          spaceBetween: 10,
+          loop: false,
+          rewind: true,
+          centeredSlides: false,
+          centerInsufficientSlides: {{ section.settings.centralize_products | json }},
+          autoplay: isActive ? {
+            delay: autoplayDelay,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          } : false,
+          navigation: {
+            nextEl: slider.querySelector('.swiper-button-next'),
+            prevEl: slider.querySelector('.swiper-button-prev'),
+          },
+          breakpoints: {
+            750: {
+              slidesPerView: 2.5,
+              spaceBetween: 20,
+            },
+            990: {
+              slidesPerView: {{ section.settings.desktop_columns }},
+              spaceBetween: 30,
+            }
+          },
+          on: {
+            init: function() {
+              // Store reference
+              if (tabContent) {
+                swiperInstances[tabContent.id] = this;
+              }
+            }
+          }
+        });
+      });
+
+      // Tab functionality with proper swiper management
+      document.querySelectorAll('.collection-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var tabId = this.getAttribute('data-tab');
+          var section = this.closest('.featured-collection-carousel-section');
+
+          // Stop autoplay on all swipers in this section
+          section.querySelectorAll('.tab-content').forEach(function(content) {
+            var swiper = swiperInstances[content.id];
+            if (swiper && swiper.autoplay) {
+              swiper.autoplay.stop();
+            }
+          });
+
+          // Remove active class from all tabs
+          section.querySelectorAll('.collection-tab').forEach(function(t) {
+            t.classList.remove('active');
+          });
+
+          // Remove active class from all tab contents
+          section.querySelectorAll('.tab-content').forEach(function(content) {
+            content.classList.remove('active');
+          });
+
+          // Add active class to clicked tab
+          tab.classList.add('active');
+
+          // Show corresponding tab content
+          var tabContent = section.querySelector('[data-tab-content="' + tabId + '"]');
+          if (tabContent) {
+            tabContent.classList.add('active');
+
+            // Start autoplay on the new active tab's swiper
+            var swiper = swiperInstances[tabId];
+            if (swiper) {
+              // Update swiper first to ensure proper sizing
+              setTimeout(function() {
+                swiper.update();
+                swiper.autoplay.start();
+              }, 100);
+            }
+          }
+        });
+      });
+    }
+
+    // Initialize on DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCarousel);
+    } else {
+      initCarousel();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Featured Collection Slide",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Featured collection",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Tab Collections"
+    },
+    {
+      "type": "collection",
+      "id": "first",
+      "label": "First Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "second",
+      "label": "Second Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "third",
+      "label": "Third Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "fourth",
+      "label": "Fourth Tab Collection"
+    },
+    {
+      "type": "collection",
+      "id": "fifth",
+      "label": "Fifth Tab Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab Styling"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Tab Active Color",
+      "default": "#a3ca6d"
+    },
+    {
+      "type": "header",
+      "content": "Fallback Collection (no tabs)"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "label": "Maximum products to show per tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_products",
+      "label": "Show all products (max 50)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 30,
+      "step": 1,
+      "default": 5,
+      "unit": "s",
+      "label": "Autoplay speed (slide duration)"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_arrows",
+        "label": "Show navigation arrows",
+        "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "centralize_products",
+      "label": "Centralize products",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection Slide"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "judgeme_reviews",
+      "name": "Judge.me Reviews",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block will show Judge.me review stars and text for each product. Best practices: Ensure Judge.me app is installed."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_text",
+          "label": "Show review text",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
