@@ -405,11 +405,15 @@
       var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
 
       // Initialize Swipers - only autoplay for active tab
-      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+      {% comment %} document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) { {% endcomment %}
+        .querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
         var tabContent = slider.closest('.tab-content');
         var isActive = tabContent && tabContent.classList.contains('active');
 
         var swiperInstance = new Swiper(slider, {
+          observeParents: true,
+resizeObserver: true,
+watchOverflow: true,
           slidesPerView: 2.1,
           spaceBetween: 10,
           loop: false,
@@ -435,7 +439,7 @@
               spaceBetween: 30,
             }
           },
-          on: {
+          {% comment %} on: {
             init: function() {
               // Store reference
               if (tabContent) {
@@ -443,7 +447,40 @@
               }
             }
           }
+        }); {% endcomment %}
+        on: {
+    init: function() {
+
+        if (tabContent) {
+            swiperInstances[tabContent.id] = this;
+        }
+
+        const swiper = this;
+
+        setTimeout(function () {
+            swiper.update();
+            swiper.updateSize();
+            swiper.updateSlides();
+        }, 300);
+
+        slider.querySelectorAll('img').forEach(function(img){
+
+            if(!img.complete){
+
+                img.addEventListener('load', function(){
+
+                    swiper.update();
+                    swiper.updateSize();
+                    swiper.updateSlides();
+
+                });
+
+            }
+
         });
+
+    }
+}
       });
 
       // Tab functionality with proper swiper management
