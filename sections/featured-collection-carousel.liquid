@@ -118,6 +118,15 @@
       flex: 0 0 calc((100% / 2.5) - 20px);
     }
   }
+
+  @media screen and (min-width: 990px) {
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+      gap: 30px;
+    }
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% / {{ section.settings.desktop_columns }}) - 30px);
+    }
+  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
