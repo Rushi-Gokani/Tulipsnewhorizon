@@ -94,6 +94,10 @@
   .featured-collection-carousel-slider--centralized .card-info {
     text-align: left;
   }
+
+  .featured-collection-carousel-slider:not(.swiper-initialized) {
+    visibility: hidden;
+  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
