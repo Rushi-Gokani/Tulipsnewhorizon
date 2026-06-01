@@ -187,11 +187,11 @@
       "type": "Featured-Collection-Slide-V2",
       "name": "Collection Slide V2",
       "settings": {
-        "heading": "TULIPS WET WIPES X COKTAIL 2 PROMOTION",
+        "heading": "Tulips Wet Wipes X Cocktail 2 Promotion",
         "heading_size": "h1",
         "product": "refreshing-wet-wipes-combo-pack-offer-free-npr",
         "video_url": "https://youtube.com/shorts/wQU0dRie-Js",
-        "autoplay_delay": 25,
+        "autoplay_delay": 10,
         "padding_top": 36,
         "padding_bottom": 36,
         "bg_color": "#ffffff"
