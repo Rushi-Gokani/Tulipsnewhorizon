@@ -82,9 +82,23 @@
     padding: 20px;
     gap: 12px;
     cursor: pointer;
+    background-image: var(--thumb-url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .tulip-promo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 0;
   }
 
   .tulip-promo-play-btn {
+    position: relative;
+    z-index: 1;
     width: 68px;
     height: 68px;
     border-radius: 50%;
@@ -103,8 +117,11 @@
   }
 
   .tulip-promo-play-label {
-    color: rgba(255,255,255,0.85);
+    position: relative;
+    z-index: 1;
+    color: rgba(255,255,255,0.9);
     font-size: 13px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
   }
 
   .product-judgeme-reviews {
@@ -175,7 +192,8 @@
       <!-- Video (9:16 — autoplays after delay when in view) -->
       <div class="tulip-promo-video-col">
         <div class="tulip-promo-video-wrapper" id="tulip-promo-wrapper-{{ section.id }}">
-          <div class="tulip-promo-placeholder" id="tulip-promo-placeholder-{{ section.id }}">
+          <div class="tulip-promo-placeholder" id="tulip-promo-placeholder-{{ section.id }}"
+               style="--thumb-url: url('https://img.youtube.com/vi/{{ promo_video_id }}/hqdefault.jpg')">
             <div class="tulip-promo-play-btn">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 5v14l11-7z"/>
