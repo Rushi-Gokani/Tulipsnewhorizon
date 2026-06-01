@@ -187,25 +187,14 @@
       "type": "Featured-Collection-Slide-V2",
       "name": "Collection Slide V2",
       "settings": {
-        "title": "Tulips Wet Wipes X Cocktail 2 Promotion",
+        "heading": "TULIPS WET WIPES X COKTAIL 2 PROMOTION",
         "heading_size": "h1",
-        "first": "",
-        "second": "",
-        "third": "",
-        "fourth": "",
-        "fifth": "",
-        "tab_text_color": "#000000",
-        "tab_active_color": "#a3ca6d",
-        "collection": "tulips-refreshing-wet-wipes-x-cocktail-2",
-        "products_to_show": 8,
-        "show_all_products": false,
-        "desktop_columns": 3,
-        "autoplay_speed": 5,
-        "show_arrows": false,
-        "centralize_products": true,
+        "product": "refreshing-wet-wipes-combo-pack-offer-free-npr",
+        "video_url": "https://youtube.com/shorts/wQU0dRie-Js",
+        "autoplay_delay": 25,
         "padding_top": 36,
         "padding_bottom": 36,
-        "bg_color": "#FFFFFF"
+        "bg_color": "#ffffff"
       }
     }
   },
