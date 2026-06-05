@@ -573,7 +573,7 @@ p:empty {
   .section--mobile-full-width > * {
     grid-column: 1 / -1;
   }
-.product-card .contents p {   min-height: 60px;   }
+.product-card .contents p {   min-height: 70px;   }
   /* Ensure all interactive elements are clickable on mobile */
   .product-information section,
   .product-information button,
