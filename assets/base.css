@@ -3002,34 +3002,16 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   }
 }
 
-.field__input:is(:focus, :hover) {
-  box-shadow: var(--input-box-shadow-focus);
-  background-color: var(--color-input-hover-background);
-}
+.field__input:is(:focus, :hover) { box-shadow: var(--input-box-shadow-focus); background-color: var(--color-input-hover-background);}
 
-.field__input--button-radius {
-  border-radius: var(--style-border-radius-buttons-primary);
-}
+.field__input--button-radius { border-radius: var(--style-border-radius-buttons-primary);}
 
-.field__input--button-padding {
-  padding-inline: var(--padding-3xl);
-}
+.field__input--button-padding { padding-inline: var(--padding-3xl);}
 
-.field__label {
-  color: rgb(var(--color-input-text-rgb) / var(--opacity-80));
-  font-size: var(--font-paragraph--size);
-  left: var(--input-padding-x);
-  top: 50%;
-  transform: translateY(-50%);
-  margin-bottom: 0;
-  pointer-events: none;
-  position: absolute;
-  transition: top var(--animation-speed) ease, font-size var(--animation-speed) ease;
-}
+.field__label {color: rgb(var(--color-input-text-rgb) / var(--opacity-80)); font-size: var(--font-paragraph--size); left: var(--input-padding-x);  top: 50%;  transform: translateY(-50%);
+  margin-bottom: 0;  pointer-events: none;  position: absolute; transition: top var(--animation-speed) ease, font-size var(--animation-speed) ease;}
 .product-card .contents p {min-height: 50px!important;}
-.shopify-policy__title h1{
- text-transform: capitalize !important;
-}
+.shopify-policy__title h1{ text-transform: capitalize !important;}
 /* RTE styles */
 .rte,
 .shopify-policy__title {
