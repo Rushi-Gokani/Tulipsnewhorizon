@@ -568,7 +568,7 @@ p:empty {
 .section--full-width > * {
   grid-column: 1 / -1;
 }
-.product-card .contents div p {min-height: 50px;}
+.product-card .contents p {min-height: 50px;}
 
 
 @media screen and (max-width: 749px) {
