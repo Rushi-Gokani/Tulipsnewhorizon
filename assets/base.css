@@ -569,6 +569,10 @@ p:empty {
   grid-column: 1 / -1;
 }
 
+@media screen and (max-width: 990px) {
+.product-card-btn {padding: 10px 14px; font-size: 12px;}
+}
+
 
 
 @media screen and (max-width: 749px) {
