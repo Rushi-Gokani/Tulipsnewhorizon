@@ -3026,7 +3026,7 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   position: absolute;
   transition: top var(--animation-speed) ease, font-size var(--animation-speed) ease;
 }
- p {min-height: 50px!important;}
+.product-card .contents p {min-height: 50px!important;}
 .shopify-policy__title h1{
  text-transform: capitalize !important;
 }
