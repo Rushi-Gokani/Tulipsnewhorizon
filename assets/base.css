@@ -570,7 +570,7 @@ p:empty {
 }
 
 @media screen and (max-width: 990px) {
-.product-card-btn {padding: 10px 14px; font-size: 12px;}
+.product-card-button-container .product-card-btn {padding: 10px 14px; font-size: 12px;}
 }
 
 
