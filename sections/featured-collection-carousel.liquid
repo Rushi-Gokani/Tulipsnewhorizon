@@ -1,9 +1,8 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
-
-<!-- Performance Optimized Swiper Loading -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer="defer"></script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -88,7 +87,6 @@
       text-align: center;
     }
   }
-
   .product-judgeme-reviews {
     margin-bottom: 10px;
     min-height: 20px;
@@ -101,12 +99,6 @@
 
   .featured-collection-carousel-slider {
     overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .featured-collection-carousel-slider.swiper-initialized {
-    opacity: 1;
   }
 
   .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
@@ -137,16 +129,6 @@
       flex: 0 0 calc((100% / {{ section.settings.desktop_columns }}) - 30px);
     }
   }
-
-  /* Performance optimizations */
-  .featured-collection-carousel-section img {
-    content-visibility: auto;
-    contain: paint;
-  }
-
-  .featured-collection-carousel-section .swiper-slide {
-    will-change: transform;
-  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding">
@@ -166,6 +148,9 @@
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
+    <!-- DEBUG: source_collection = {{ source_collection.title | default: 'blank' }} -->
+    <!-- DEBUG: section.settings.collection = {{ section.settings.collection | default: 'blank' }} -->
+
     {% assign show_tabs = false %}
     {% for i in (1..5) %}
       {% case i %}
@@ -178,13 +163,25 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
+        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
+        {%- if tab_collection.title == blank -%}
+          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
+          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- endif -%}
       {%- endif -%}
+
+      <!-- DEBUG: {{ setting_key }} metafield exists = {{ source_collection.metafields.custom[setting_key] | default: 'NO' }} -->
+      <!-- DEBUG: {{ setting_key }} tab_collection.title = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG: {{ setting_key }} tab_collection.type = {{ tab_collection.object_type | default: 'blank' }} -->
 
       {% if tab_collection != blank %}
         {% assign show_tabs = true %}
       {% endif %}
     {% endfor %}
+
+    <!-- DEBUG: show_tabs = {{ show_tabs }} -->
 
     {% if show_tabs %}
       <div class="collection-tabs-wrapper">
@@ -231,21 +228,29 @@
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
+        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
+        {%- if tab_collection.title == blank -%}
+          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
+          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
+        {%- endif -%}
       {%- endif -%}
+
+      <!-- DEBUG CONTENT: {{ setting_key }} collection = {{ tab_collection.title | default: 'blank' }} -->
+      <!-- DEBUG CONTENT: {{ setting_key }} products count = {{ tab_collection.products_count | default: 0 }} -->
 
       {% if tab_collection != blank %}
         {% assign tab_content_index = tab_content_index | plus: 1 %}
+        <!-- DEBUG CONTENT: Creating tab content #{{ tab_content_index }} with class active = {% if tab_content_index == 1 %}true{% else %}false{% endif %} -->
 
         <div class="tab-content {% if tab_content_index == 1 %}active{% endif %}"
              id="tab-{{ section.id }}-{{ i }}"
              data-tab-content="tab-{{ section.id }}-{{ i }}">
 
-          <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
-               data-tab-id="tab-{{ section.id }}-{{ i }}"
-               data-autoplay-delay="{{ section.settings.autoplay_speed | times: 1000 }}"
-               data-desktop-columns="{{ section.settings.desktop_columns }}"
-               data-centralize="{{ section.settings.centralize_products | json }}">
+          <!-- DEBUG: Inside tab-{{ section.id }}-{{ i }}, showing {{ tab_collection.products_count }} products -->
+
+          <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
             <div class="swiper-wrapper">
               {%- assign limit = section.settings.products_to_show -%}
               {%- if section.settings.show_all_products -%}
@@ -280,6 +285,7 @@
                       {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                       {%- if review_block -%}
                         <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                          {% comment %} Judge.me Preview Badge {% endcomment %}
                           <div class='jdgm-widget jdgm-preview-badge' 
                                data-id='{{ product.id }}'
                                {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
@@ -296,6 +302,7 @@
                         {%- endif -%}
                       {%- endfor -%}
 
+
                       <div style="margin-bottom: 15px;">
                         {% render 'price', product_resource: product, show_compare_price: true %}
                       </div>
@@ -309,8 +316,10 @@
                   %}
                 </div>
               {%- else -%}
+                <!-- DEBUG: No products found in {{ tab_collection.title }} -->
                 <div class="swiper-slide" style="text-align: center; padding: 40px;">
                   <p>No products found in this collection.</p>
+                  <!-- DEBUG: Collection {{ tab_collection.title }} has {{ tab_collection.products_count }} products -->
                 </div>
               {%- endfor -%}
             </div>
@@ -336,10 +345,7 @@
 
     <!-- Fallback: Single collection if no tabs -->
     {% if show_tabs == false and section.settings.collection != blank %}
-      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
-           data-autoplay-delay="{{ section.settings.autoplay_speed | times: 1000 }}"
-           data-desktop-columns="{{ section.settings.desktop_columns }}"
-           data-centralize="{{ section.settings.centralize_products | json }}">
+      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -374,6 +380,7 @@
                   {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                   {%- if review_block -%}
                     <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                      {% comment %} Judge.me Preview Badge {% endcomment %}
                       <div class='jdgm-widget jdgm-preview-badge' 
                            data-id='{{ product.id }}'
                            {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
@@ -423,248 +430,167 @@
   </div>
 </div>
 
-<!-- Optimized JavaScript -->
 <script>
-(function() {
-  'use strict';
-  
-  var swiperInstances = {};
-  var pendingInitializations = [];
-  var isSwiperLoading = false;
-  var swiperLoaded = false;
-  var swiperCallbacks = [];
-  
-  // Load Swiper asynchronously
-  function loadSwiper(callback) {
-    if (swiperLoaded && typeof Swiper !== 'undefined') {
-      callback();
-      return;
-    }
-    
-    swiperCallbacks.push(callback);
-    
-    if (isSwiperLoading) return;
-    isSwiperLoading = true;
-    
-    var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-    script.async = true;
-    script.defer = true;
-    script.onload = function() {
-      swiperLoaded = true;
-      isSwiperLoading = false;
-      swiperCallbacks.forEach(function(cb) { cb(); });
-      swiperCallbacks = [];
-    };
-    script.onerror = function() {
-      isSwiperLoading = false;
-      console.warn('Failed to load Swiper, retrying...');
-      setTimeout(function() {
-        loadSwiper(swiperCallbacks[0]);
-      }, 1000);
-    };
-    document.body.appendChild(script);
-  }
-  
-  // Initialize a single Swiper instance
-  function initSwiper(slider, isActive) {
-    if (!slider || slider.swiperInitialized) return null;
-    
-    var autoplayDelay = parseInt(slider.dataset.autoplayDelay) || 5000;
-    var desktopColumns = parseFloat(slider.dataset.desktopColumns) || 4;
-    var centralize = slider.dataset.centralize === 'true';
-    
-    var swiperConfig = {
-      slidesPerView: 2.1,
-      spaceBetween: 10,
-      loop: false,
-      rewind: true,
-      centeredSlides: false,
-      observer: true,
-      observeParents: true,
-      updateOnWindowResize: true,
-      centerInsufficientSlides: centralize,
-      navigation: {
-        nextEl: slider.querySelector('.swiper-button-next'),
-        prevEl: slider.querySelector('.swiper-button-prev'),
-      },
-      breakpoints: {
-        750: {
-          slidesPerView: 2.5,
-          spaceBetween: 20,
-        },
-        990: {
-          slidesPerView: desktopColumns,
-          spaceBetween: 30,
-        }
-      },
-      on: {
-        init: function() {
-          slider.swiperInitialized = true;
-          slider.style.opacity = '1';
-        }
-      }
-    };
-    
-    // Only add autoplay for active tabs
-    if (isActive && autoplayDelay > 0) {
-      swiperConfig.autoplay = {
-        delay: autoplayDelay,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      };
-    }
-    
-    try {
-      return new Swiper(slider, swiperConfig);
-    } catch(e) {
-      console.warn('Failed to initialize Swiper:', e);
-      return null;
-    }
-  }
-  
-  // Initialize visible carousels with staggered timing
-  function initVisibleCarousels() {
-    var sliders = document.querySelectorAll('.featured-collection-carousel-slider');
-    var activeSliders = [];
-    var inactiveSliders = [];
-    
-    sliders.forEach(function(slider) {
+(function () {
+ 
+  function initCarousel() {
+ 
+    var swiperInstances = {};
+    var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
+ 
+    document.querySelectorAll('.featured-collection-carousel-slider').forEach(function (slider) {
+ 
       var tabContent = slider.closest('.tab-content');
       var isActive = tabContent && tabContent.classList.contains('active');
-      
-      if (isActive) {
-        activeSliders.push(slider);
-      } else {
-        inactiveSliders.push(slider);
-      }
-    });
-    
-    // Initialize active sliders first with small delays
-    activeSliders.forEach(function(slider, index) {
-      setTimeout(function() {
-        var tabContent = slider.closest('.tab-content');
-        var isActive = tabContent && tabContent.classList.contains('active');
-        var tabId = tabContent ? tabContent.id : 'default';
-        
-        if (!swiperInstances[tabId]) {
-          swiperInstances[tabId] = initSwiper(slider, isActive);
+ 
+      var swiperInstance = new Swiper(slider, {
+        slidesPerView: 2.1,
+        spaceBetween: 10,
+        loop: false,
+        rewind: true,
+        centeredSlides: false,
+        observer: true,
+        observeParents: true,
+        updateOnWindowResize: true,
+        centerInsufficientSlides: {{ section.settings.centralize_products | json }},
+ 
+        autoplay: isActive
+          ? {
+              delay: autoplayDelay,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }
+          : false,
+ 
+        navigation: {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev'),
+        },
+ 
+        breakpoints: {
+          750: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+          },
+          990: {
+            slidesPerView: {{ section.settings.desktop_columns }},
+            spaceBetween: 30,
+          }
+        },
+ 
+        on: {
+          init: function () {
+            if (tabContent) {
+              swiperInstances[tabContent.id] = this;
+            }
+          }
         }
-      }, index * 50);
+      });
     });
-    
-    // Mark inactive sliders for lazy initialization
-    inactiveSliders.forEach(function(slider) {
-      var tabContent = slider.closest('.tab-content');
-      if (tabContent) {
-        tabContent.dataset.needsInit = 'true';
-      }
+ 
+    // Fix iPhone/Safari rendering issue
+    setTimeout(function () {
+      Object.values(swiperInstances).forEach(function (swiper) {
+        if (swiper) {
+          swiper.updateSize();
+          swiper.updateSlides();
+          swiper.updateProgress();
+          swiper.update();
+        }
+      });
+    }, 300);
+ 
+    // Additional Safari fix
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        Object.values(swiperInstances).forEach(function (swiper) {
+          if (swiper) {
+            swiper.update();
+          }
+        });
+      }, 500);
     });
-  }
-  
-  // Tab click handler with lazy initialization
-  function initTabs() {
-    var tabs = document.querySelectorAll('.collection-tab');
-    
-    tabs.forEach(function(tab) {
-      tab.removeEventListener('click', tab._clickHandler);
-      
-      tab._clickHandler = function(e) {
+ 
+    // Tab functionality
+    document.querySelectorAll('.collection-tab').forEach(function (tab) {
+ 
+      tab.addEventListener('click', function () {
+ 
         var tabId = this.getAttribute('data-tab');
         var section = this.closest('.featured-collection-carousel-section');
-        
-        if (!section) return;
-        
-        // Stop all autoplay
-        section.querySelectorAll('.tab-content').forEach(function(content) {
+ 
+        section.querySelectorAll('.tab-content').forEach(function (content) {
           var swiper = swiperInstances[content.id];
-          if (swiper && swiper.autoplay && swiper.autoplay.stop) {
+ 
+          if (swiper && swiper.autoplay) {
             swiper.autoplay.stop();
           }
         });
-        
-        // Update active classes
-        section.querySelectorAll('.collection-tab').forEach(function(t) {
+ 
+        section.querySelectorAll('.collection-tab').forEach(function (t) {
           t.classList.remove('active');
         });
-        section.querySelectorAll('.tab-content').forEach(function(content) {
+ 
+        section.querySelectorAll('.tab-content').forEach(function (content) {
           content.classList.remove('active');
         });
-        
+ 
         this.classList.add('active');
-        var tabContent = section.querySelector('[data-tab-content="' + tabId + '"]');
-        
+ 
+        var tabContent = section.querySelector(
+          '[data-tab-content="' + tabId + '"]'
+        );
+ 
         if (tabContent) {
+ 
           tabContent.classList.add('active');
-          
+ 
           var swiper = swiperInstances[tabId];
-          var slider = tabContent.querySelector('.featured-collection-carousel-slider');
-          
-          // Initialize Swiper if not already done
-          if (!swiper && slider) {
-            loadSwiper(function() {
-              setTimeout(function() {
-                swiperInstances[tabId] = initSwiper(slider, true);
-              }, 10);
-            });
-          } else if (swiper && swiper.update) {
-            requestAnimationFrame(function() {
+ 
+          if (swiper) {
+ 
+            setTimeout(function () {
+              swiper.updateSize();
+              swiper.updateSlides();
+              swiper.updateProgress();
               swiper.update();
-              if (swiper.autoplay && swiper.autoplay.start) {
+ 
+              if (swiper.autoplay) {
                 swiper.autoplay.start();
               }
-            });
+            }, 100);
           }
         }
-      };
-      
-      tab.addEventListener('click', tab._clickHandler);
+      });
     });
-  }
-  
-  // Debounced resize handler
-  var resizeTimeout;
-  function handleResize() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function() {
-      Object.values(swiperInstances).forEach(function(swiper) {
-        if (swiper && swiper.update && typeof swiper.update === 'function') {
+ 
+    // Orientation change fix for iPhone
+    window.addEventListener('orientationchange', function () {
+      setTimeout(function () {
+        Object.values(swiperInstances).forEach(function (swiper) {
+          if (swiper) {
+            swiper.update();
+          }
+        });
+      }, 300);
+    });
+ 
+    // Resize fix
+    window.addEventListener('resize', function () {
+      Object.values(swiperInstances).forEach(function (swiper) {
+        if (swiper) {
           swiper.update();
         }
       });
-    }, 150);
-  }
-  
-  // Handle orientation change
-  function handleOrientationChange() {
-    setTimeout(function() {
-      Object.values(swiperInstances).forEach(function(swiper) {
-        if (swiper && swiper.update) {
-          swiper.update();
-        }
-      });
-    }, 100);
-  }
-  
-  // Initialize everything
-  function initialize() {
-    loadSwiper(function() {
-      // Small delay to ensure DOM is ready
-      setTimeout(function() {
-        initVisibleCarousels();
-        initTabs();
-        window.addEventListener('resize', handleResize);
-        window.addEventListener('orientationchange', handleOrientationChange);
-      }, 50);
     });
   }
-  
-  // Start initialization when ready
+ 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize);
+    document.addEventListener('DOMContentLoaded', initCarousel);
   } else {
-    initialize();
+    initCarousel();
   }
+ 
 })();
 </script>
 
