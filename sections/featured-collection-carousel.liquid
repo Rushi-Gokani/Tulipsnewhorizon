@@ -431,108 +431,167 @@
 </div>
 
 <script>
-  (function() {
-    // Wait for DOM to be ready
-    function initCarousel() {
-      // Store swiper instances with their tab content
-      var swiperInstances = {};
-      var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
-
-      // Initialize Swipers - only autoplay for active tab
-      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
-        var tabContent = slider.closest('.tab-content');
-        var isActive = tabContent && tabContent.classList.contains('active');
-
-        var swiperInstance = new Swiper(slider, {
-          slidesPerView: 2.1,
-          spaceBetween: 10,
-          loop: false,
-          rewind: true,
-          centeredSlides: false,
-          centerInsufficientSlides: {{ section.settings.centralize_products | json }},
-          autoplay: isActive ? {
-            delay: autoplayDelay,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          } : false,
-          navigation: {
-            nextEl: slider.querySelector('.swiper-button-next'),
-            prevEl: slider.querySelector('.swiper-button-prev'),
-          },
-          breakpoints: {
-            750: {
-              slidesPerView: 2.5,
-              spaceBetween: 20,
-            },
-            990: {
-              slidesPerView: {{ section.settings.desktop_columns }},
-              spaceBetween: 30,
+(function () {
+ 
+  function initCarousel() {
+ 
+    var swiperInstances = {};
+    var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
+ 
+    document.querySelectorAll('.featured-collection-carousel-slider').forEach(function (slider) {
+ 
+      var tabContent = slider.closest('.tab-content');
+      var isActive = tabContent && tabContent.classList.contains('active');
+ 
+      var swiperInstance = new Swiper(slider, {
+        slidesPerView: 2.1,
+        spaceBetween: 10,
+        loop: false,
+        rewind: true,
+        centeredSlides: false,
+        observer: true,
+        observeParents: true,
+        updateOnWindowResize: true,
+        centerInsufficientSlides: {{ section.settings.centralize_products | json }},
+ 
+        autoplay: isActive
+          ? {
+              delay: autoplayDelay,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }
+          : false,
+ 
+        navigation: {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev'),
+        },
+ 
+        breakpoints: {
+          750: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
           },
-          on: {
-            init: function() {
-              // Store reference
-              if (tabContent) {
-                swiperInstances[tabContent.id] = this;
-              }
+          990: {
+            slidesPerView: {{ section.settings.desktop_columns }},
+            spaceBetween: 30,
+          }
+        },
+ 
+        on: {
+          init: function () {
+            if (tabContent) {
+              swiperInstances[tabContent.id] = this;
             }
           }
-        });
+        }
       });
-
-      // Tab functionality with proper swiper management
-      document.querySelectorAll('.collection-tab').forEach(function(tab) {
-        tab.addEventListener('click', function() {
-          var tabId = this.getAttribute('data-tab');
-          var section = this.closest('.featured-collection-carousel-section');
-
-          // Stop autoplay on all swipers in this section
-          section.querySelectorAll('.tab-content').forEach(function(content) {
-            var swiper = swiperInstances[content.id];
-            if (swiper && swiper.autoplay) {
-              swiper.autoplay.stop();
-            }
-          });
-
-          // Remove active class from all tabs
-          section.querySelectorAll('.collection-tab').forEach(function(t) {
-            t.classList.remove('active');
-          });
-
-          // Remove active class from all tab contents
-          section.querySelectorAll('.tab-content').forEach(function(content) {
-            content.classList.remove('active');
-          });
-
-          // Add active class to clicked tab
-          tab.classList.add('active');
-
-          // Show corresponding tab content
-          var tabContent = section.querySelector('[data-tab-content="' + tabId + '"]');
-          if (tabContent) {
-            tabContent.classList.add('active');
-
-            // Start autoplay on the new active tab's swiper
-            var swiper = swiperInstances[tabId];
-            if (swiper) {
-              // Update swiper first to ensure proper sizing
-              setTimeout(function() {
-                swiper.update();
+    });
+ 
+    // Fix iPhone/Safari rendering issue
+    setTimeout(function () {
+      Object.values(swiperInstances).forEach(function (swiper) {
+        if (swiper) {
+          swiper.updateSize();
+          swiper.updateSlides();
+          swiper.updateProgress();
+          swiper.update();
+        }
+      });
+    }, 300);
+ 
+    // Additional Safari fix
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        Object.values(swiperInstances).forEach(function (swiper) {
+          if (swiper) {
+            swiper.update();
+          }
+        });
+      }, 500);
+    });
+ 
+    // Tab functionality
+    document.querySelectorAll('.collection-tab').forEach(function (tab) {
+ 
+      tab.addEventListener('click', function () {
+ 
+        var tabId = this.getAttribute('data-tab');
+        var section = this.closest('.featured-collection-carousel-section');
+ 
+        section.querySelectorAll('.tab-content').forEach(function (content) {
+          var swiper = swiperInstances[content.id];
+ 
+          if (swiper && swiper.autoplay) {
+            swiper.autoplay.stop();
+          }
+        });
+ 
+        section.querySelectorAll('.collection-tab').forEach(function (t) {
+          t.classList.remove('active');
+        });
+ 
+        section.querySelectorAll('.tab-content').forEach(function (content) {
+          content.classList.remove('active');
+        });
+ 
+        this.classList.add('active');
+ 
+        var tabContent = section.querySelector(
+          '[data-tab-content="' + tabId + '"]'
+        );
+ 
+        if (tabContent) {
+ 
+          tabContent.classList.add('active');
+ 
+          var swiper = swiperInstances[tabId];
+ 
+          if (swiper) {
+ 
+            setTimeout(function () {
+              swiper.updateSize();
+              swiper.updateSlides();
+              swiper.updateProgress();
+              swiper.update();
+ 
+              if (swiper.autoplay) {
                 swiper.autoplay.start();
-              }, 100);
-            }
+              }
+            }, 100);
+          }
+        }
+      });
+    });
+ 
+    // Orientation change fix for iPhone
+    window.addEventListener('orientationchange', function () {
+      setTimeout(function () {
+        Object.values(swiperInstances).forEach(function (swiper) {
+          if (swiper) {
+            swiper.update();
           }
         });
+      }, 300);
+    });
+ 
+    // Resize fix
+    window.addEventListener('resize', function () {
+      Object.values(swiperInstances).forEach(function (swiper) {
+        if (swiper) {
+          swiper.update();
+        }
       });
-    }
-
-    // Initialize on DOMContentLoaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCarousel);
-    } else {
-      initCarousel();
-    }
-  })();
+    });
+  }
+ 
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarousel);
+  } else {
+    initCarousel();
+  }
+ 
+})();
 </script>
 
 {% schema %}
