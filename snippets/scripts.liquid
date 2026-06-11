@@ -30,14 +30,22 @@
   }
 </script>
 
-<script
-  src="{{ 'view-transitions.js' | asset_url }}"
-  async
-  {% if settings.page_transition_enabled or settings.transition_to_main_product %}
+{% comment %} CRITICAL: Only block render if transitions enabled {% endcomment %}
+{% if settings.page_transition_enabled or settings.transition_to_main_product %}
+  <script
+    src="{{ 'view-transitions.js' | asset_url }}"
+    async
     blocking="render"
-  {% endif %}
-></script>
+  ></script>
+{% else %}
+  <script
+    src="{{ 'view-transitions.js' | asset_url }}"
+    async
+    fetchpriority="low"
+  ></script>
+{% endif %}
 
+{% comment %} Only preload critical modules {% endcomment %}
 <link
   rel="modulepreload"
   href="{{ 'utilities.js' | asset_url }}"
@@ -75,7 +83,6 @@
     href="{{ 'paginated-list.js' | asset_url }}"
     fetchpriority="low"
   >
-
   <link
     rel="modulepreload"
     href="{{ 'product-title-truncation.js' | asset_url }}"
@@ -103,186 +110,110 @@
   href="{{ 'events.js' | asset_url }}"
   fetchpriority="low"
 >
-<script
-  src="{{ 'popover-polyfill.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'overflow-list.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'quick-add.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-{% if settings.show_add_discount_code %}
-  <script
-    src="{{ 'cart-discount.js' | asset_url }}"
-    type="module"
-    fetchpriority="low"
-  ></script>
-{% endif %}
 
-<script
-  src="{{ 'dialog.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'variant-picker.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'product-card.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+{% comment %} CORE SCRIPTS - Load these first but still deferred {% endcomment %}
+<script type="module" fetchpriority="low">
+  // Dynamically import only what's needed immediately
+  const modulesToLoad = [
+    import('{{ "popover-polyfill.js" | asset_url }}'),
+    import('{{ "overflow-list.js" | asset_url }}'),
+    import('{{ "dialog.js" | asset_url }}'),
+    import('{{ "component-quantity-selector.js" | asset_url }}')
+  ];
+
+  // Load product-form early as it's critical
+  import('{{ "product-form.js" | asset_url }}');
+  
+  {% if template == 'product' or template.name == 'product' or request.page_type == 'product' %}
+    import('{{ "variant-picker.js" | asset_url }}');
+    import('{{ "media-gallery.js" | asset_url }}');
+    {% if settings.transition_to_main_product %}
+      import('{{ "product-card-link.js" | asset_url }}');
+    {% endif %}
+  {% endif %}
+</script>
+
+{% comment %} DEFERRED NON-CRITICAL SCRIPTS {% endcomment %}
+<script type="module" fetchpriority="low">
+  // Load after page is interactive
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => {
+      loadDeferredModules();
+    }, { timeout: 3000 });
+  } else {
+    setTimeout(loadDeferredModules, 3000);
+  }
+  
+  function loadDeferredModules() {
+    {% if settings.quick_add or settings.mobile_quick_add %}
+      import('{{ "quick-add.js" | asset_url }}');
+    {% endif %}
+    
+    {% if settings.show_add_discount_code %}
+      import('{{ "cart-discount.js" | asset_url }}');
+    {% endif %}
+    
+    import('{{ "product-card.js" | asset_url }}');
+    import('{{ "product-price.js" | asset_url }}');
+    import('{{ "product-title-truncation.js" | asset_url }}');
+    import('{{ "accordion-custom.js" | asset_url }}');
+    import('{{ "media.js" | asset_url }}');
+    import('{{ "show-more.js" | asset_url }}');
+    import('{{ "floating-panel.js" | asset_url }}');
+    import('{{ "anchored-popover.js" | asset_url }}');
+    import('{{ "rte-formatter.js" | asset_url }}');
+    
+    {% if template == 'product' or template.name == 'product' or request.page_type == 'product' %}
+      import('{{ "product-sku.js" | asset_url }}');
+      import('{{ "product-inventory.js" | asset_url }}');
+      import('{{ "volume-pricing.js" | asset_url }}');
+      import('{{ "price-per-item.js" | asset_url }}');
+      import('{{ "volume-pricing-info.js" | asset_url }}');
+      
+      // Load heavy product page scripts last
+      requestIdleCallback(() => {
+        import('{{ "sticky-add-to-cart.js" | asset_url }}');
+        import('{{ "fly-to-cart.js" | asset_url }}');
+      }, { timeout: 5000 });
+    {% endif %}
+    
+    // Load slideshows only if they exist on page
+    if (document.querySelector('slideshow-component, layered-slideshow')) {
+      import('{{ "slideshow.js" | asset_url }}');
+      import('{{ "layered-slideshow.js" | asset_url }}');
+    }
+    
+    // Load video background only if present
+    if (document.querySelector('video-background')) {
+      import('{{ "video-background.js" | asset_url }}');
+    }
+    
+    {% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}
+      import('{{ "localization.js" | asset_url }}');
+    {% endif %}
+  }
+</script>
+
+{% comment %} NON-MODULE SCRIPTS - Keep deferred {% endcomment %}
 <script
   src="{{ 'simple-product-card.js' | asset_url }}"
   defer="defer"
 ></script>
 <script
-  src="{{ 'product-form.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'fly-to-cart.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'accordion-custom.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'media.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'product-price.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'product-sku.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'product-title-truncation.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'product-inventory.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'show-more.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'slideshow.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'layered-slideshow.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'anchored-popover.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'floating-panel.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'video-background.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'component-quantity-selector.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'media-gallery.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'rte-formatter.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'volume-pricing.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'price-per-item.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'volume-pricing-info.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-
-{% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}
-  <script
-    src="{{ 'localization.js' | asset_url }}"
-    type="module"
-    fetchpriority="low"
-  ></script>
-{% endif %}
-
-{% if template == 'product' or template.name == 'product' or request.page_type == 'product' %}
-  <script
-    src="{{ 'fly-to-cart.js' | asset_url }}"
-    type="module"
-    fetchpriority="low"
-  ></script>
-  <script
-    src="{{ 'sticky-add-to-cart.js' | asset_url }}"
-    type="module"
-    fetchpriority="low"
-  ></script>
-  <script type="module">
-    import { RecentlyViewed } from '@theme/recently-viewed-products';
-    RecentlyViewed.addProduct('{{ product.id }}');
-  </script>
-{% endif %}
-
-{% if settings.transition_to_main_product %}
-  <script
-    src="{{ 'product-card-link.js' | asset_url }}"
-    type="module"
-    fetchpriority="low"
-  ></script>
-{% endif %}
-
-<script
   src="{{ 'auto-close-details.js' | asset_url }}"
   defer="defer"
 ></script>
+
+{% if template == 'product' or template.name == 'product' or request.page_type == 'product' %}
+  <script type="module">
+    // Delay recently viewed to not block product rendering
+    requestIdleCallback(() => {
+      import('@theme/recently-viewed-products').then(({ RecentlyViewed }) => {
+        RecentlyViewed.addProduct('{{ product.id }}');
+      });
+    }, { timeout: 4000 });
+  </script>
+{% endif %}
 
 <script>
   const Theme = {
