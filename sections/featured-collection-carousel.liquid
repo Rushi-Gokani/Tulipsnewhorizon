@@ -1,9 +1,11 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
 
-<!-- Optimized Swiper - Critical CSS inlined, JS deferred -->
+<!-- Optimized Swiper - Loaded only once -->
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+<!-- Load Swiper JS only once -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <!-- Critical CSS for above the fold content -->
 <style>
@@ -247,7 +249,7 @@
       </div>
     {%- endif -%}
 
-    <!-- Tab Contents - Only render active tab content for speed -->
+    <!-- Tab Contents -->
     {%- assign tab_index = 0 -%}
     {%- for i in (1..5) -%}
       {%- case i -%}
@@ -421,37 +423,56 @@
   </div>
 </div>
 
-<!-- Optimized JavaScript - Minimal and fast -->
+<!-- Optimized JavaScript - Single instance, no duplicates -->
 <script>
 (function() {
+  // Check if Swiper is already loaded
+  if (typeof Swiper === 'undefined') {
+    console.warn('Swiper not loaded');
+    return;
+  }
+
   // Configuration
+  const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
+  const autoplaySpeed = {{ section.settings.autoplay_speed }};
+  
   const config = {
-    slidesPerView: {{ section.settings.desktop_columns | default: 4 }},
+    slidesPerView: desktopCols,
     spaceBetween: 20,
     loop: false,
-    autoplay: {{ section.settings.autoplay_speed }} > 0 ? {
-      delay: {{ section.settings.autoplay_speed | times: 1000 }},
+    autoplay: autoplaySpeed > 0 ? {
+      delay: autoplaySpeed * 1000,
       disableOnInteraction: false
     } : false,
     breakpoints: {
       0: { slidesPerView: 2, spaceBetween: 10 },
       640: { slidesPerView: 2.5, spaceBetween: 15 },
       768: { slidesPerView: 3, spaceBetween: 20 },
-      1024: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 25 },
-      1200: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 30 }
+      1024: { slidesPerView: desktopCols, spaceBetween: 25 },
+      1200: { slidesPerView: desktopCols, spaceBetween: 30 }
     }
   };
 
-  // Initialize all sliders
-  function initSliders() {
-    document.querySelectorAll('.featured-collection-carousel-slider').forEach(slider => {
-      if (!slider.classList.contains('swiper-initialized')) {
-        const nav = {
-          nextEl: slider.querySelector('.swiper-button-next'),
-          prevEl: slider.querySelector('.swiper-button-prev')
-        };
-        new Swiper(slider, { ...config, navigation: nav });
-      }
+  // Store initialized sliders
+  const initializedSliders = new Set();
+
+  // Initialize a single slider
+  function initSlider(slider) {
+    if (!slider || initializedSliders.has(slider)) return;
+    
+    const nav = {
+      nextEl: slider.querySelector('.swiper-button-next'),
+      prevEl: slider.querySelector('.swiper-button-prev')
+    };
+    
+    new Swiper(slider, { ...config, navigation: nav });
+    initializedSliders.add(slider);
+  }
+
+  // Initialize all sliders in active tabs
+  function initActiveSliders() {
+    document.querySelectorAll('.tab-content.active .featured-collection-carousel-slider').forEach(slider => {
+      initSlider(slider);
     });
   }
 
@@ -477,15 +498,11 @@
         section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         newContent.classList.add('active');
 
-        // Initialize slider in new tab after a brief delay
+        // Initialize slider in new tab
         setTimeout(() => {
           const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
-          if (newSlider && !newSlider.classList.contains('swiper-initialized')) {
-            const nav = {
-              nextEl: newSlider.querySelector('.swiper-button-next'),
-              prevEl: newSlider.querySelector('.swiper-button-prev')
-            };
-            new Swiper(newSlider, { ...config, navigation: nav });
+          if (newSlider && !initializedSliders.has(newSlider)) {
+            initSlider(newSlider);
           }
         }, 50);
       });
@@ -495,11 +512,11 @@
   // Run when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      initSliders();
+      initActiveSliders();
       initTabs();
     });
   } else {
-    initSliders();
+    initActiveSliders();
     initTabs();
   }
 })();
