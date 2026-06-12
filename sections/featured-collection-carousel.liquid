@@ -69,6 +69,11 @@
     display: block;
   }
 
+  /* Performance: Hide non-active tab contents completely */
+  .tab-content:not(.active) {
+    display: none !important;
+  }
+
   @media screen and (max-width: 749px) {
     .collection-tabs {
       gap: 8px;
@@ -87,6 +92,7 @@
       text-align: center;
     }
   }
+
   .product-judgeme-reviews {
     margin-bottom: 10px;
     min-height: 20px;
@@ -99,8 +105,15 @@
 
   .featured-collection-carousel-slider {
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
 
+  .featured-collection-carousel-slider.swiper-initialized {
+    opacity: 1;
+  }
+
+  /* Fallback styles before Swiper initializes */
   .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
     display: flex;
     flex-wrap: nowrap;
@@ -131,7 +144,7 @@
   }
 {%- endstyle -%}
 
-<div class="featured-collection-carousel-section demo section-{{ section.id }}-padding">
+<div class="featured-collection-carousel-section section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin centered">
@@ -140,212 +153,207 @@
         </h2>
       </div>
     {%- endif -%}
-    
 
-    <!-- Tabs Navigation -->
     {%- assign source_collection = collections[section.settings.collection] -%}
     {%- if source_collection == blank -%}
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
-    <!-- DEBUG: source_collection = {{ source_collection.title | default: 'blank' }} -->
-    <!-- DEBUG: section.settings.collection = {{ section.settings.collection | default: 'blank' }} -->
+    <!-- Build tabs data -->
+    {%- capture tab_list -%}
+      {%- for i in (1..5) -%}
+        {%- case i -%}
+          {%- when 1 -%}{%- assign setting_key = 'first' -%}
+          {%- when 2 -%}{%- assign setting_key = 'second' -%}
+          {%- when 3 -%}{%- assign setting_key = 'third' -%}
+          {%- when 4 -%}{%- assign setting_key = 'fourth' -%}
+          {%- when 5 -%}{%- assign setting_key = 'fifth' -%}
+        {%- endcase -%}
 
-    {% assign show_tabs = false %}
-    {% for i in (1..5) %}
-      {% case i %}
-        {% when 1 %}{% assign setting_key = 'first' %}
-        {% when 2 %}{% assign setting_key = 'second' %}
-        {% when 3 %}{% assign setting_key = 'third' %}
-        {% when 4 %}{% assign setting_key = 'fourth' %}
-        {% when 5 %}{% assign setting_key = 'fifth' %}
-      {% endcase %}
-
-      {%- assign tab_collection = collections[section.settings[setting_key]] -%}
-      {%- if tab_collection == blank and source_collection != blank -%}
-        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
-        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
-        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
-        {%- if tab_collection.title == blank -%}
-          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
+        {%- assign tab_collection = collections[section.settings[setting_key]] -%}
+        {%- if tab_collection == blank and source_collection != blank -%}
           {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
         {%- endif -%}
-      {%- endif -%}
 
-      <!-- DEBUG: {{ setting_key }} metafield exists = {{ source_collection.metafields.custom[setting_key] | default: 'NO' }} -->
-      <!-- DEBUG: {{ setting_key }} tab_collection.title = {{ tab_collection.title | default: 'blank' }} -->
-      <!-- DEBUG: {{ setting_key }} tab_collection.type = {{ tab_collection.object_type | default: 'blank' }} -->
+        {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
+          <li class="collection-tab {% if forloop.index == 1 %}active{% endif %}"
+              role="tab"
+              data-tab-index="{{ forloop.index }}"
+              data-tab-id="tab-{{ section.id }}-{{ i }}"
+              data-collection-id="{{ tab_collection.id }}">
+            {{ tab_collection.title | escape }}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
 
-      {% if tab_collection != blank %}
-        {% assign show_tabs = true %}
-      {% endif %}
-    {% endfor %}
-
-    <!-- DEBUG: show_tabs = {{ show_tabs }} -->
-
-    {% if show_tabs %}
+    <!-- Tab Navigation -->
+    {%- if tab_list != blank -%}
       <div class="collection-tabs-wrapper">
         <ul class="collection-tabs" role="tablist">
-          {% assign tab_index = 0 %}
-          {% for i in (1..5) %}
-            {% case i %}
-              {% when 1 %}{% assign setting_key = 'first' %}
-              {% when 2 %}{% assign setting_key = 'second' %}
-              {% when 3 %}{% assign setting_key = 'third' %}
-              {% when 4 %}{% assign setting_key = 'fourth' %}
-              {% when 5 %}{% assign setting_key = 'fifth' %}
-            {% endcase %}
-
-            {%- assign tab_collection = collections[section.settings[setting_key]] -%}
-            {%- if tab_collection == blank and source_collection != blank -%}
-              {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
-            {%- endif -%}
-
-            {% if tab_collection != blank %}
-              {% assign tab_index = tab_index | plus: 1 %}
-              <li class="collection-tab {% if tab_index == 1 %}active{% endif %}"
-                  role="tab"
-                  data-tab="tab-{{ section.id }}-{{ i }}"
-                  data-collection="{{ tab_collection.id }}">
-                {{ tab_collection.title }}
-              </li>
-            {% endif %}
-          {% endfor %}
+          {{ tab_list }}
         </ul>
       </div>
-    {% endif %}
+    {%- endif -%}
 
-    <!-- Tab Contents -->
-    {% assign tab_content_index = 0 %}
-    {% for i in (1..5) %}
-      {% case i %}
-        {% when 1 %}{% assign setting_key = 'first' %}
-        {% when 2 %}{% assign setting_key = 'second' %}
-        {% when 3 %}{% assign setting_key = 'third' %}
-        {% when 4 %}{% assign setting_key = 'fourth' %}
-        {% when 5 %}{% assign setting_key = 'fifth' %}
-      {% endcase %}
+    <!-- Tab Contents - Only first tab has product markup, others lazy load via JS -->
+    {%- assign tab_index = 0 -%}
+    {%- for i in (1..5) -%}
+      {%- case i -%}
+        {%- when 1 -%}{%- assign setting_key = 'first' -%}
+        {%- when 2 -%}{%- assign setting_key = 'second' -%}
+        {%- when 3 -%}{%- assign setting_key = 'third' -%}
+        {%- when 4 -%}{%- assign setting_key = 'fourth' -%}
+        {%- when 5 -%}{%- assign setting_key = 'fifth' -%}
+      {%- endcase -%}
 
       {%- assign tab_collection = collections[section.settings[setting_key]] -%}
       {%- if tab_collection == blank and source_collection != blank -%}
-        {%- comment -%} Try as collection reference metafield {%- endcomment -%}
-        {%- assign tab_collection = source_collection.metafields.custom[setting_key] -%}
-        {%- comment -%} Check if it has a title (valid collection object) {%- endcomment -%}
-        {%- if tab_collection.title == blank -%}
-          {%- comment -%} Try with .value for different metafield syntax {%- endcomment -%}
-          {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
-        {%- endif -%}
+        {%- assign tab_collection = source_collection.metafields.custom[setting_key].value -%}
       {%- endif -%}
 
-      <!-- DEBUG CONTENT: {{ setting_key }} collection = {{ tab_collection.title | default: 'blank' }} -->
-      <!-- DEBUG CONTENT: {{ setting_key }} products count = {{ tab_collection.products_count | default: 0 }} -->
+      {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
+        {%- assign tab_index = tab_index | plus: 1 -%}
+        {%- assign is_active = false -%}
+        {%- if tab_index == 1 -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+        {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: i -%}
 
-      {% if tab_collection != blank %}
-        {% assign tab_content_index = tab_content_index | plus: 1 %}
-        <!-- DEBUG CONTENT: Creating tab content #{{ tab_content_index }} with class active = {% if tab_content_index == 1 %}true{% else %}false{% endif %} -->
+        <div class="tab-content {% if is_active %}active{% endif %}"
+             id="{{ tab_id }}"
+             data-tab-id="{{ tab_id }}"
+             data-collection-handle="{{ tab_collection.handle }}"
+             {% unless is_active %}data-lazy="true"{% endunless %}>
 
-        <div class="tab-content {% if tab_content_index == 1 %}active{% endif %}"
-             id="tab-{{ section.id }}-{{ i }}"
-             data-tab-content="tab-{{ section.id }}-{{ i }}">
+          {%- if is_active -%}
+            <!-- Pre-render first tab content for immediate display -->
+            <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
+                 data-slider-container="true">
+              <div class="swiper-wrapper">
+                {%- assign limit = section.settings.products_to_show -%}
+                {%- if section.settings.show_all_products -%}
+                  {%- assign limit = 50 -%}
+                {%- endif -%}
+                {%- for product in tab_collection.products limit: limit -%}
+                  <div class="swiper-slide">
+                    {% capture product_content %}
+                      {% capture gallery_children %}
+                        <div class="product-badges product-badges--top-left">
+                          {%- if product.compare_at_price > product.price -%}
+                            {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                            <div class="product-badges__badge product-badges__badge--custom">
+                              {{ discount }}% OFF
+                            </div>
+                          {%- endif -%}
+                          {%- if product.available == false -%}
+                            <div class="product-badges__badge product-badges__badge--custom">
+                              SOLD OUT
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {% endcapture %}
 
-          <!-- DEBUG: Inside tab-{{ section.id }}-{{ i }}, showing {{ tab_collection.products_count }} products -->
-
-          <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
-            <div class="swiper-wrapper">
-              {%- assign limit = section.settings.products_to_show -%}
-              {%- if section.settings.show_all_products -%}
-                {%- assign limit = 50 -%}
-              {%- endif -%}
-              {%- for product in tab_collection.products limit: limit -%}
-                <div class="swiper-slide">
-                  {% capture product_card_content %}
-                    {% capture gallery_children %}
-                      <div class="product-badges product-badges--top-left">
-                        {%- if product.compare_at_price > product.price -%}
-                          {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
-                          <div class="product-badges__badge product-badges__badge--custom">
-                            {{ discount }}% OFF
+                      {% render 'card-gallery', product: product, children: gallery_children %}
+                      <div class="card-info" style="padding: 15px;">
+                        <h3 class="card-title h5" style="margin: 0 0 5px;">
+                          <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                            {{ product.title }}
+                          </a>
+                        </h3>
+                        {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
+                        {%- if review_block -%}
+                          <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                            <div class='jdgm-widget jdgm-preview-badge' 
+                                 data-id='{{ product.id }}'
+                                 {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
+                              {{ product.metafields.judgeme.badge }}
+                            </div>
                           </div>
                         {%- endif -%}
-                        {%- if product.available == false -%}
-                          <div class="product-badges__badge product-badges__badge--custom">
-                            SOLD OUT
-                          </div>
-                        {%- endif -%}
+
+                        {%- for block in section.blocks -%}
+                          {%- if block.type == 'custom_liquid' -%}
+                            <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                              {{ block.settings.custom_liquid }}
+                            </div>
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        <div style="margin-bottom: 15px;">
+                          {% render 'price', product_resource: product, show_compare_price: true %}
+                        </div>
+                        {% render 'product-card-button', product: product %}
                       </div>
                     {% endcapture %}
 
-                    {% render 'card-gallery', product: product, children: gallery_children %}
-                    <div class="card-info" style="padding: 15px;">
-                      <h3 class="card-title h5" style="margin: 0 0 5px;">
-                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
-                          {{ product.title }}
-                        </a>
-                      </h3>
-                      {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
-                      {%- if review_block -%}
-                        <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
-                          {% comment %} Judge.me Preview Badge {% endcomment %}
-                          <div class='jdgm-widget jdgm-preview-badge' 
-                               data-id='{{ product.id }}'
-                               {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
-                            {{ product.metafields.judgeme.badge }}
-                          </div>
-                        </div>
-                      {%- endif -%}
+                    {% render 'product-card',
+                      product: product,
+                      children: product_content
+                    %}
+                  </div>
+                {%- else -%}
+                  <div class="swiper-slide" style="text-align: center; padding: 40px;">
+                    <p>{{ 'sections.featured_collection.no_products' | t }}</p>
+                  </div>
+                {%- endfor -%}
+              </div>
 
-                      {%- for block in section.blocks -%}
-                        {%- if block.type == 'custom_liquid' -%}
-                          <div class="product-custom-liquid" {{ block.shopify_attributes }}>
-                            {{ block.settings.custom_liquid }}
-                          </div>
-                        {%- endif -%}
-                      {%- endfor -%}
-
-
-                      <div style="margin-bottom: 15px;">
-                        {% render 'price', product_resource: product, show_compare_price: true %}
-                      </div>
-                      {% render 'product-card-button', product: product %}
-                    </div>
-                  {% endcapture %}
-
-                  {% render 'product-card',
-                    product: product,
-                    children: product_card_content
-                  %}
+              {%- if section.settings.show_arrows -%}
+                <div class="featured-collection-controls">
+                  <div class="swiper-button-prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="swiper-button-next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
                 </div>
-              {%- else -%}
-                <!-- DEBUG: No products found in {{ tab_collection.title }} -->
-                <div class="swiper-slide" style="text-align: center; padding: 40px;">
-                  <p>No products found in this collection.</p>
-                  <!-- DEBUG: Collection {{ tab_collection.title }} has {{ tab_collection.products_count }} products -->
-                </div>
-              {%- endfor -%}
+              {%- endif -%}
             </div>
-
-            {% if section.settings.show_arrows %}
-              <div class="featured-collection-controls">
-                <div class="swiper-button-prev">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="swiper-button-next">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+          {%- else -%}
+            <!-- Lazy loaded tabs - empty container, will be populated on demand -->
+            <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
+                 data-slider-container="true"
+                 data-lazy-load="true">
+              <div class="swiper-wrapper">
+                <!-- Products will be loaded via AJAX when tab becomes active -->
+                <div class="swiper-slide" style="text-align: center; padding: 40px;">
+                  <div class="loading-spinner" style="display: flex; justify-content: center; align-items: center; min-height: 200px;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            {% endif %}
-          </div>
+              {%- if section.settings.show_arrows -%}
+                <div class="featured-collection-controls">
+                  <div class="swiper-button-prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="swiper-button-next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         </div>
-      {% endif %}
-    {% endfor %}
+      {%- endif -%}
+    {%- endfor -%}
 
     <!-- Fallback: Single collection if no tabs -->
-    {% if show_tabs == false and section.settings.collection != blank %}
-      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
+    {%- if tab_list == blank and section.settings.collection != blank -%}
+      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
+           data-slider-container="true"
+           data-fallback="true">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -353,7 +361,7 @@
           {%- endif -%}
           {%- for product in section.settings.collection.products limit: limit -%}
             <div class="swiper-slide">
-              {% capture product_card_content %}
+              {% capture product_content %}
                 {% capture gallery_children %}
                   <div class="product-badges product-badges--top-left">
                     {%- if product.compare_at_price > product.price -%}
@@ -380,7 +388,6 @@
                   {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                   {%- if review_block -%}
                     <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
-                      {% comment %} Judge.me Preview Badge {% endcomment %}
                       <div class='jdgm-widget jdgm-preview-badge' 
                            data-id='{{ product.id }}'
                            {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
@@ -405,13 +412,16 @@
 
               {% render 'product-card',
                 product: product,
-                children: product_card_content
+                children: product_content
               %}
+            </div>
+          {%- else -%}
+            <div class="swiper-slide" style="text-align: center; padding: 40px;">
+              <p>{{ 'sections.featured_collection.no_products' | t }}</p>
             </div>
           {%- endfor -%}
         </div>
-
-        {% if section.settings.show_arrows %}
+        {%- if section.settings.show_arrows -%}
           <div class="featured-collection-controls">
             <div class="swiper-button-prev">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -424,177 +434,13 @@
               </svg>
             </div>
           </div>
-        {% endif %}
+        {%- endif -%}
       </div>
-    {% endif %}
+    {%- endif -%}
   </div>
 </div>
 
-<script>
-(function () {
- 
-  function initCarousel() {
- 
-    var swiperInstances = {};
-    var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
- 
-    document.querySelectorAll('.featured-collection-carousel-slider').forEach(function (slider) {
- 
-      var tabContent = slider.closest('.tab-content');
-      var isActive = tabContent && tabContent.classList.contains('active');
- 
-      var swiperInstance = new Swiper(slider, {
-        slidesPerView: 2.1,
-        spaceBetween: 10,
-        loop: false,
-        rewind: true,
-        centeredSlides: false,
-        observer: true,
-        observeParents: true,
-        updateOnWindowResize: true,
-        centerInsufficientSlides: {{ section.settings.centralize_products | json }},
- 
-        autoplay: isActive
-          ? {
-              delay: autoplayDelay,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }
-          : false,
- 
-        navigation: {
-          nextEl: slider.querySelector('.swiper-button-next'),
-          prevEl: slider.querySelector('.swiper-button-prev'),
-        },
- 
-        breakpoints: {
-          750: {
-            slidesPerView: 2.5,
-            spaceBetween: 20,
-          },
-          990: {
-            slidesPerView: {{ section.settings.desktop_columns }},
-            spaceBetween: 30,
-          }
-        },
- 
-        on: {
-          init: function () {
-            if (tabContent) {
-              swiperInstances[tabContent.id] = this;
-            }
-          }
-        }
-      });
-    });
- 
-    // Fix iPhone/Safari rendering issue
-    setTimeout(function () {
-      Object.values(swiperInstances).forEach(function (swiper) {
-        if (swiper) {
-          swiper.updateSize();
-          swiper.updateSlides();
-          swiper.updateProgress();
-          swiper.update();
-        }
-      });
-    }, 300);
- 
-    // Additional Safari fix
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        Object.values(swiperInstances).forEach(function (swiper) {
-          if (swiper) {
-            swiper.update();
-          }
-        });
-      }, 500);
-    });
- 
-    // Tab functionality
-    document.querySelectorAll('.collection-tab').forEach(function (tab) {
- 
-      tab.addEventListener('click', function () {
- 
-        var tabId = this.getAttribute('data-tab');
-        var section = this.closest('.featured-collection-carousel-section');
- 
-        section.querySelectorAll('.tab-content').forEach(function (content) {
-          var swiper = swiperInstances[content.id];
- 
-          if (swiper && swiper.autoplay) {
-            swiper.autoplay.stop();
-          }
-        });
- 
-        section.querySelectorAll('.collection-tab').forEach(function (t) {
-          t.classList.remove('active');
-        });
- 
-        section.querySelectorAll('.tab-content').forEach(function (content) {
-          content.classList.remove('active');
-        });
- 
-        this.classList.add('active');
- 
-        var tabContent = section.querySelector(
-          '[data-tab-content="' + tabId + '"]'
-        );
- 
-        if (tabContent) {
- 
-          tabContent.classList.add('active');
- 
-          var swiper = swiperInstances[tabId];
- 
-          if (swiper) {
- 
-            setTimeout(function () {
-              swiper.updateSize();
-              swiper.updateSlides();
-              swiper.updateProgress();
-              swiper.update();
- 
-              if (swiper.autoplay) {
-                swiper.autoplay.start();
-              }
-            }, 100);
-          }
-        }
-      });
-    });
- 
-    // Orientation change fix for iPhone
-    window.addEventListener('orientationchange', function () {
-      setTimeout(function () {
-        Object.values(swiperInstances).forEach(function (swiper) {
-          if (swiper) {
-            swiper.update();
-          }
-        });
-      }, 300);
-    });
- 
-    // Resize fix
-    window.addEventListener('resize', function () {
-      Object.values(swiperInstances).forEach(function (swiper) {
-        if (swiper) {
-          swiper.update();
-        }
-      });
-    });
-  }
- 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCarousel);
-  } else {
-    initCarousel();
-  }
- 
-})();
-</script>
-
-{% schema %}
+{%- schema -%}
 {
   "name": "Featured Collection Slide",
   "tag": "section",
@@ -719,10 +565,10 @@
       "label": "Autoplay speed (slide duration)"
     },
     {
-        "type": "checkbox",
-        "id": "show_arrows",
-        "label": "Show navigation arrows",
-        "default": true
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
     },
     {
       "type": "checkbox",
@@ -794,19 +640,286 @@
           "label": "Custom Liquid"
         }
       ]
-    },
-    {
-      "type": "product",
-      "name": "Product",
-      "limit": 20,
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        }
-      ]
     }
   ]
 }
-{% endschema %}
+{%- endschema -%}
+
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
+  const desktopColumns = {{ section.settings.desktop_columns | json }};
+  const centralizeProducts = {{ section.settings.centralize_products | json }};
+  const showArrows = {{ section.settings.show_arrows | json }};
+
+  // Store Swiper instances
+  const swiperInstances = new Map();
+  // Track loaded lazy tabs
+  const loadedTabs = new Set();
+
+  // Helper: Initialize Swiper on a slider element
+  function initSwiper(sliderElement, startAutoplay = true) {
+    if (!sliderElement || sliderElement.classList.contains('swiper-initialized')) {
+      return null;
+    }
+
+    const swiperConfig = {
+      slidesPerView: 2.1,
+      spaceBetween: 10,
+      loop: false,
+      rewind: true,
+      centeredSlides: centralizeProducts,
+      observer: true,
+      observeParents: true,
+      updateOnWindowResize: true,
+      centerInsufficientSlides: centralizeProducts,
+      autoplay: startAutoplay ? {
+        delay: autoplayDelay,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      } : false,
+      breakpoints: {
+        750: {
+          slidesPerView: 2.5,
+          spaceBetween: 20,
+        },
+        990: {
+          slidesPerView: desktopColumns,
+          spaceBetween: 30,
+        }
+      }
+    };
+
+    // Only add navigation if arrows are enabled and buttons exist
+    if (showArrows) {
+      const nextBtn = sliderElement.querySelector('.swiper-button-next');
+      const prevBtn = sliderElement.querySelector('.swiper-button-prev');
+      if (nextBtn && prevBtn) {
+        swiperConfig.navigation = {
+          nextEl: nextBtn,
+          prevEl: prevBtn
+        };
+      }
+    }
+
+    try {
+      const swiper = new Swiper(sliderElement, swiperConfig);
+      sliderElement.style.opacity = '1';
+      return swiper;
+    } catch (e) {
+      console.warn('Swiper initialization failed:', e);
+      return null;
+    }
+  }
+
+  // Helper: Load products for a lazy tab via AJAX
+  async function loadTabProducts(tabContent, collectionHandle) {
+    if (!collectionHandle || loadedTabs.has(tabContent.id)) {
+      return;
+    }
+
+    const sliderContainer = tabContent.querySelector('[data-slider-container="true"]');
+    if (!sliderContainer) return;
+
+    // Show loading state
+    const wrapper = sliderContainer.querySelector('.swiper-wrapper');
+    if (wrapper) {
+      wrapper.innerHTML = `
+        <div class="swiper-slide" style="text-align: center; padding: 40px;">
+          <div class="loading-spinner" style="display: flex; justify-content: center; align-items: center; min-height: 200px;">
+            <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+      `;
+    }
+
+    try {
+      const limit = {{ section.settings.products_to_show | json }};
+      const response = await fetch(`/collections/${collectionHandle}/products.json?limit=${limit}`);
+      const data = await response.json();
+
+      if (data.products && data.products.length > 0) {
+        // Build product slides HTML
+        let slidesHtml = '';
+        for (const product of data.products) {
+          const comparePrice = product.variants[0]?.compare_at_price || product.compare_at_price;
+          const price = product.variants[0]?.price || product.price;
+          const discount = comparePrice && comparePrice > price ? Math.round(((comparePrice - price) / comparePrice) * 100) : null;
+          
+          slidesHtml += `
+            <div class="swiper-slide">
+              <div class="product-card-wrapper">
+                <div class="card-gallery-wrapper">
+                  <a href="/products/${product.handle}" class="card-gallery__link">
+                    <div class="card-gallery__media">
+                      <img src="${product.images[0]?.src || ''}" alt="${product.title.replace(/"/g, '&quot;')}" loading="lazy" width="300" height="300">
+                    </div>
+                  </a>
+                  ${discount ? `<div class="product-badges product-badges--top-left"><div class="product-badges__badge">${discount}% OFF</div></div>` : ''}
+                </div>
+                <div class="card-info" style="padding: 15px;">
+                  <h3 class="card-title h5" style="margin: 0 0 5px;">
+                    <a href="/products/${product.handle}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                      ${product.title}
+                    </a>
+                  </h3>
+                  <div style="margin-bottom: 15px;">
+                    <div class="price">
+                      <span class="price-item price-item--regular">${formatMoney(price)}</span>
+                      ${comparePrice && comparePrice > price ? `<span class="price-item price-item--sale price-item--compare">${formatMoney(comparePrice)}</span>` : ''}
+                    </div>
+                  </div>
+                  <button class="button button--primary button--add-to-cart" data-product-id="${product.variants[0]?.id}" data-product-handle="${product.handle}">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        if (wrapper) {
+          wrapper.innerHTML = slidesHtml;
+        }
+        loadedTabs.add(tabContent.id);
+      } else {
+        if (wrapper) {
+          wrapper.innerHTML = '<div class="swiper-slide" style="text-align: center; padding: 40px;"><p>No products found.</p></div>';
+        }
+      }
+
+      // Initialize Swiper after content load
+      setTimeout(() => {
+        const swiper = initSwiper(sliderContainer, true);
+        if (swiper) {
+          swiperInstances.set(tabContent.id, swiper);
+        }
+      }, 50);
+
+    } catch (error) {
+      console.warn('Failed to load tab products:', error);
+      if (wrapper) {
+        wrapper.innerHTML = '<div class="swiper-slide" style="text-align: center; padding: 40px;"><p>Error loading products. Please try again.</p></div>';
+      }
+    }
+  }
+
+  // Helper: Format money
+  function formatMoney(cents) {
+    if (typeof cents !== 'number') return '$0.00';
+    return '$' + (cents / 100).toFixed(2);
+  }
+
+  // Initialize all active sliders on page load
+  function initializeActiveSliders() {
+    const activeTab = document.querySelector('.tab-content.active');
+    if (activeTab) {
+      const activeSlider = activeTab.querySelector('[data-slider-container="true"]');
+      if (activeSlider && !activeSlider.classList.contains('swiper-initialized')) {
+        const swiper = initSwiper(activeSlider, true);
+        if (swiper) {
+          swiperInstances.set(activeTab.id, swiper);
+        }
+      }
+    }
+  }
+
+  // Tab click handler with lazy loading
+  function setupTabHandlers() {
+    const tabs = document.querySelectorAll('.collection-tab');
+    const section = document.querySelector(`.featured-collection-carousel-section[data-section-id="${sectionId}"]`);
+
+    if (!section) return;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        const tabId = this.getAttribute('data-tab-id');
+        if (!tabId) return;
+
+        const currentActiveTab = section.querySelector('.collection-tab.active');
+        const currentActiveContent = section.querySelector('.tab-content.active');
+        const newActiveContent = section.querySelector(`#${tabId}`);
+
+        if (currentActiveTab === this && newActiveContent === currentActiveContent) {
+          return;
+        }
+
+        // Stop autoplay on current slider
+        if (currentActiveContent && swiperInstances.has(currentActiveContent.id)) {
+          const currentSwiper = swiperInstances.get(currentActiveContent.id);
+          if (currentSwiper && currentSwiper.autoplay) {
+            currentSwiper.autoplay.stop();
+          }
+        }
+
+        // Update active classes
+        section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        section.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+
+        const targetContent = section.querySelector(`#${tabId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+
+          const slider = targetContent.querySelector('[data-slider-container="true"]');
+
+          // Check if this is a lazy-loaded tab
+          if (targetContent.dataset.lazy === 'true' && !loadedTabs.has(tabId)) {
+            const collectionHandle = targetContent.dataset.collectionHandle;
+            if (collectionHandle) {
+              await loadTabProducts(targetContent, collectionHandle);
+            }
+          } else if (slider && !slider.classList.contains('swiper-initialized')) {
+            // Initialize Swiper if not already done
+            const swiper = initSwiper(slider, true);
+            if (swiper) {
+              swiperInstances.set(tabId, swiper);
+            }
+          } else if (slider && swiperInstances.has(tabId)) {
+            // Restart autoplay for existing Swiper
+            const existingSwiper = swiperInstances.get(tabId);
+            if (existingSwiper && existingSwiper.autoplay) {
+              setTimeout(() => {
+                existingSwiper.autoplay.start();
+              }, 100);
+            }
+          }
+        }
+      });
+    });
+  }
+
+  // Initialize everything when DOM is ready
+  function init() {
+    initializeActiveSliders();
+    setupTabHandlers();
+
+    // Handle window resize and orientation change
+    const handleResize = () => {
+      setTimeout(() => {
+        swiperInstances.forEach(swiper => {
+          if (swiper && swiper.update) {
+            swiper.update();
+          }
+        });
+      }, 200);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
