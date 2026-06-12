@@ -1,3 +1,5 @@
+
+
 {% liquid
   assign order = 'logo,menu,localization,search,drawer_search,actions'
 
@@ -366,7 +368,7 @@
   body {
     --header-height: 60px;
     --header-group-height: var(--header-height);
-    --transparent-header-offset-boolean: 0;
+    --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
   }
 
   .header {
@@ -396,15 +398,84 @@
   .header[transparent] {
     --language-button-background-color: transparent;
     --language-button-border-color: transparent;
+
+    /* used to apply transparency to .header__row, will only ever be transparent or unset */
     --header-bg-color: transparent;
+
+    /* used to display the appropriate logo based on transparency state */
     --header-logo-display: none;
     --header-logo-inverse-display: block;
+
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+
+    /* transparent color scheme on .header should never apply its background color */
     background-color: transparent;
     z-index: var(--layer-overlay);
+
+    &[transparent='not-sticky'][data-sticky-state='active'],
+    /* Only show opaque background when hovering over menu items with children (mega menu)
+       Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
+    &:has(.mega-menu__list:hover),
+    &:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])),
+    &:has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])) {
+      --header-logo-display: unset;
+      --header-logo-inverse-display: unset;
+      --header-bg-color: unset;
+      --color-foreground: inherit;
+      --color-foreground-rgb: inherit;
+      --color-background: inherit;
+      --color-background-rgb: inherit;
+      --color-border: inherit;
+      --color-border-rgb: inherit;
+
+      .header__row {
+        /* Faster transition for "in" animation */
+        transition: color var(--animation-values-fast), border-color var(--animation-values-fast),
+          background-color var(--animation-values-fast);
+      }
+    }
+
+    .header__row {
+      /* Slower transition for "out" animation */
+      transition: color var(--animation-values-slow), border-color var(--animation-values-slow),
+        background-color var(--animation-values-slow);
+        
+    }
+  }
+
+  :is(.header[transparent]:not([data-sticky-state='active']), .header[transparent='always'][data-sticky-state='active'])
+    .header__row:not(
+      :has(
+          .mega-menu__list:hover,
+          .menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true']),
+          .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
+        )
+    ) {
+    /* while transparent, header-row ignores its color-scheme settings, pull from the header-component */
+    --color-foreground: inherit;
+    --color-foreground-rgb: inherit;
+    --color-border: inherit;
+    --color-border-rgb: inherit;
+    --color-primary-button-background: inherit;
+    --color-primary-button-text: inherit;
+  }
+
+  .header--inherit-color-scheme-on-menu-open:has(.mega-menu__list:hover) .header__row,
+  .header--inherit-color-scheme-on-menu-open:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true']))
+    .header__row,
+  .header--inherit-color-scheme-on-menu-open:has(
+      .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
+    )
+    .header__row {
+    --color-foreground: inherit;
+    --color-foreground-rgb: inherit;
+    --color-background: inherit;
+    --color-background-rgb: inherit;
+    --color-border: inherit;
+    --color-border-rgb: inherit;
   }
 
   .header-section {
@@ -412,6 +483,7 @@
     z-index: var(--layer-heightened);
   }
 
+  /* need default values for non-flash transitions on first overflow menu open */
   #header-component {
     --submenu-height: 0px;
     --submenu-max-height: 0px;
@@ -424,6 +496,8 @@
   .header-section:has(> #header-component[sticky='always']),
   .header-section:has(> #header-component[sticky='scroll-up'][data-sticky-state='active']) {
     position: sticky;
+
+    /* Use -1 instead of 0 so intersection observer can track sticky state */
     top: -1px;
     z-index: var(--layer-sticky);
   }
@@ -449,6 +523,8 @@
 
   .header__row {
     position: relative;
+
+    /* will default to bg from its color scheme unless --header-bg-color is transparent */
     background-color: var(--header-bg-color, var(--color-background));
     padding:10px 0px;
   }
@@ -483,6 +559,8 @@
   .header__column {
     display: flex;
     align-items: center;
+
+    /* on mobile, header__column nodes are ignored to create a new grid-template-area based on all visible content */
     @media screen and (max-width: 749px) {
       display: contents;
     }
@@ -497,6 +575,7 @@
   .header__column--center {
     justify-content: center;
     grid-area: center;
+
     header-menu:only-child .overflow-menu::part(list) {
       justify-content: center;
     }
@@ -506,37 +585,49 @@
     gap: var(--gap-xl);
     justify-content: flex-end;
     grid-area: right;
+
     .overflow-menu::part(list) {
       justify-content: flex-end;
     }
   }
 
   .header__columns {
+    /* Three column layout */
     --header-left: 1fr;
     --header-center: auto;
     --header-right: 1fr;
     --header-template-columns: var(--header-left) var(--header-center) var(--header-right);
+
+    /* Mobile layout */
     --header-mobile-bookend: 44px;
+
     display: grid;
     grid-template-areas: 'left center right';
     grid-gap: var(--gap-xl);
     grid-template-columns: var(--header-template-columns);
 
+    /* If menu is in center column */
     &:has(.header__column--center header-menu) {
       --header-center: auto;
       --header-left: minmax(max-content, 1fr);
       --header-right: minmax(max-content, 1fr);
     }
 
+    /* If there is no center column, make the column the menu is in grow eagerly */
     &:where(:not(:has(.header__column--center))) {
       @media screen and (min-width: 750px) {
         --header-template-columns: var(--header-left) var(--header-right);
+
         grid-template-areas: 'left right';
       }
+
+      /* If the header-menu is in the right column */
       &:has(.header__column--right header-menu) {
         --header-right: auto;
         --header-left: minmax(max-content, 1fr);
       }
+
+      /* If the header-menu is in the left column */
       &:has(.header__column--left header-menu) {
         --header-left: auto;
         --header-right: minmax(max-content, 1fr);
@@ -546,70 +637,94 @@
     @media screen and (max-width: 749px) {
       --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
         var(--header-mobile-bookend) var(--header-mobile-bookend);
+
       grid-template-areas: 'leftA leftB center rightA rightB';
       grid-column: span 3;
       column-gap: 0;
       align-items: center;
       padding-block: 0;
       padding-inline: 0 var(--padding-3xs);
+
       .header-logo {
         grid-area: center;
       }
+
       &:not(:has(header-actions)) .search-action {
         grid-area: leftB;
       }
+
       &:not(:has(.account-actions)) .search-action {
         grid-area: rightA;
       }
+
       .search-action {
         grid-area: leftB;
       }
+
       header-actions {
         grid-area: rightB;
       }
     }
   }
 
+  /* not ideal but we need to duplicate these styles for when touch comes into play
+  We could avoid the duplication using js to set the data-menu-style attribute on small screens instead of using @media queries */
   #header-component[data-menu-style='drawer'] .header__columns {
     --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
       var(--header-mobile-bookend) var(--header-mobile-bookend);
+
     grid-template-areas: 'leftA leftB center rightA rightB';
     grid-column: span 3;
     column-gap: 0;
     align-items: center;
     padding-block: 0;
     padding-inline: 0 var(--padding-3xs);
+
     .header-logo {
       grid-area: center;
     }
+
     &:not(:has(header-actions)) .search-action {
       grid-area: leftB;
     }
+
     &:not(:has(.account-actions)) .search-action {
       grid-area: rightA;
     }
+
     .search-action {
       grid-area: leftB;
     }
+
     header-actions {
       grid-area: rightB;
     }
   }
 
+  /* Single column layout if there are no columns within */
   .header__columns:not(:has(.header__column)) {
     grid-template-columns: 1fr;
   }
 
+  /* Check for hover support to avoid unnecessary expensive recalculations when tapping on mobile */
   @media (hover: hover) {
-    .header__column:has(header-menu:hover) header-menu:not(:hover),
-    .header__column:has(.header-actions__action:hover) .header-actions__action:not(:hover),
-    .header__column:has(.dropdown-localization__button:hover) .dropdown-localization__button:not(:hover),
-    .header__column:has(.header__icon--menu:hover) .header__icon--menu:not(:hover) {
-      opacity: var(--opacity-subdued-text);
-      transition: opacity var(--animation-speed) var(--animation-easing);
+    /* Column-specific dimming effect when any interactive element is hovered
+      Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
+    .header__column:has(header-menu:hover),
+    .header__column:has(.header-actions__action:hover),
+    .header__column:has(.dropdown-localization__button:hover),
+    .header__column:has(.header__icon--menu:hover) {
+      header-menu:not(:hover),
+      .header-actions__action:not(:hover),
+      .dropdown-localization__button:not(:hover),
+      .header__icon--menu:not(:hover) {
+        opacity: var(--opacity-subdued-text);
+        transition: opacity var(--animation-speed) var(--animation-easing);
+      }
     }
   }
 
+  /* Ensure smooth transitions for all interactive elements */
   header-menu,
   .header-actions__action,
   .dropdown-localization__button,
@@ -617,8 +732,10 @@
     transition: opacity var(--animation-speed) var(--animation-easing);
   }
 
+  /* Header action button styles */
   .header-actions__action {
     --button-color: var(--color-foreground);
+
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -634,6 +751,7 @@
     height: var(--icon-size-md);
   }
 
+  /* Set header paddings based on height setting */
   .header {
     --header-padding: var(--padding-sm);
     --font-paragraph--line-height: 1;
@@ -656,39 +774,52 @@
     .header__row--top .header__columns {
       --padding-block-end: 0px;
     }
+
     .header__row--bottom .header__columns {
       --padding-block-start: 0px;
     }
   }
 
+  /* When the header is transparent, add a margin to a potential header-section below it */
   .header-section:has(.header[transparent]) + .shopify-section {
     margin-top: var(--header-height);
   }
+
+  /* When the header is transparent, and when there is no header-section below it, offset the first main-section with
+   * the height of the header
+   */
 
   main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     &.spacing-style,
     .spacing-style {
       --section-top-offset: calc(var(--header-height) * var(--transparent-header-offset-boolean));
+
+      /* Any nested sections should not be offset */
       :is(.spacing-style, .inherit-spacing) {
         --section-top-offset: 0px;
       }
     }
+
+    /* Make sticky content immediately stick to the top of the page */
     .sticky-content {
       margin-top: calc(var(--header-height) * var(--transparent-header-offset-boolean) * -1);
     }
   }
 
+  /* Optimize layout performance for hidden menus */
   .header-menu .menu-list__submenu {
     content-visibility: auto;
     contain-intrinsic-size: 0px 500px;
   }
 
+  /* Force visibility when open/animating and in overflow submenu to prevent layout issues */
   .header-menu details[open] .menu-list__submenu,
   .header-menu .menu-list__submenu[data-active],
   .header-menu .menu-list__list-item[slot='overflow'] .menu-list__submenu {
     content-visibility: visible;
   }
 
+  /* Dropdown Localization Styles */
   .dropdown-localization__button {
     display: flex;
     position: relative;
@@ -713,7 +844,7 @@
   .dropdown-localization__button .icon-flag {
     width: var(--menu-localization-font-size, var(--icon-size-sm));
     height: var(--menu-localization-font-size, var(--icon-size-sm));
-    clip-path: circle(50%);
+    clip-path: circle(50%); /* stylelint-disable-line */
     background-position: center;
     background-size: cover;
     margin-inline-end: 4px;
@@ -806,6 +937,7 @@
     right: unset;
   }
 
+  /* Additional specificity due to dropdown-localization-component getting a low score */
   dropdown-localization-component .language-selector.language-selector {
     padding: 10px 8px 10px 16px;
   }
@@ -856,242 +988,6 @@
     hydrate('{{ section.id }}', url);
   </script>
 {% endunless %}
-
-<!-- ULTIMATE FIREFOX MENU FIX - Force close all details elements -->
-<script>
-  (function() {
-    // Detect Firefox
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-    
-    if (isFirefox) {
-      console.log('Firefox detected - applying ultimate menu fix');
-      
-      // Force close any open details elements
-      function forceCloseAllDetails() {
-        var allDetails = document.querySelectorAll('details');
-        for (var i = 0; i < allDetails.length; i++) {
-          if (allDetails[i].hasAttribute('open')) {
-            allDetails[i].removeAttribute('open');
-          }
-        }
-      }
-      
-      // Check every 50ms and close any details that shouldn't be open
-      setInterval(function() {
-        var allDetails = document.querySelectorAll('.header-menu details, .mega-menu details');
-        for (var i = 0; i < allDetails.length; i++) {
-          var details = allDetails[i];
-          var parentItem = details.closest('.menu-list__item, .mega-menu');
-          
-          // If the parent is not being hovered, force close
-          if (parentItem && !parentItem.matches(':hover')) {
-            if (details.hasAttribute('open')) {
-              details.removeAttribute('open');
-              // Update ARIA
-              var trigger = parentItem.querySelector('[aria-haspopup="true"]');
-              if (trigger) trigger.setAttribute('aria-expanded', 'false');
-            }
-          }
-        }
-      }, 50);
-      
-      // Also close all details when mouse moves anywhere (fallback)
-      function closeAllMenuDetails() {
-        var allDetails = document.querySelectorAll('.header-menu details[open], .mega-menu details[open]');
-        for (var i = 0; i < allDetails.length; i++) {
-          allDetails[i].removeAttribute('open');
-        }
-      }
-
-      document.addEventListener('mousemove', function(e) {
-        var target = e.target;
-        var isInMenu = target.closest('.menu-list__item, .mega-menu, .header-menu');
-
-        if (!isInMenu) {
-          closeAllMenuDetails();
-        }
-      });
-
-      // Listen for pointer leaving the whole menu container and close menus
-      var menus = document.querySelectorAll('.header-menu, .mega-menu');
-      for (var m = 0; m < menus.length; m++) {
-        (function(menu) {
-          menu.addEventListener('pointerleave', function(e) {
-            // When pointer leaves the menu entirely, close any open details
-            var related = e.relatedTarget;
-            if (!related || !menu.contains(related)) {
-              closeAllMenuDetails();
-            }
-          });
-        })(menus[m]);
-      }
-
-      // Add per-item handlers so leaving a specific menu item closes its details
-      var menuItems = document.querySelectorAll('.header-menu .menu-list__item, .mega-menu');
-      for (var i = 0; i < menuItems.length; i++) {
-        (function(item) {
-          // pointerleave: close details when pointer leaves the item entirely
-          item.addEventListener('pointerleave', function(e) {
-            var related = e.relatedTarget;
-            if (!related || !item.contains(related)) {
-              var details = item.querySelector('details[open]');
-              if (details) {
-                details.removeAttribute('open');
-                var trigger = item.querySelector('[aria-haspopup="true"]');
-                if (trigger) trigger.setAttribute('aria-expanded', 'false');
-              }
-            }
-          });
-
-          // focusout: keyboard users moving focus away should close menus
-          item.addEventListener('focusout', function(e) {
-            var related = e.relatedTarget;
-            if (!related || !item.contains(related)) {
-              var details = item.querySelector('details[open]');
-              if (details) {
-                details.removeAttribute('open');
-                var trigger = item.querySelector('[aria-haspopup="true"]');
-                if (trigger) trigger.setAttribute('aria-expanded', 'false');
-              }
-            }
-          });
-        })(menuItems[i]);
-      }
-
-      // Touch fallback: close menus when tapping outside
-      document.addEventListener('touchstart', function(e) {
-        var isInMenu = e.target.closest('.menu-list__item, .mega-menu, .header-menu');
-        if (!isInMenu) closeAllMenuDetails();
-      }, { passive: true });
-
-      // Track last pointer position to help determine whether newly opened details are actually under the pointer
-      var lastPointerPos = { x: -1, y: -1 };
-      document.addEventListener('pointermove', function(e) {
-        lastPointerPos.x = e.clientX;
-        lastPointerPos.y = e.clientY;
-      }, { passive: true });
-
-      // MutationObserver: when a details element opens, ensure pointer is inside its parent; otherwise close it
-      try {
-        var detailsObserver = new MutationObserver(function(mutations) {
-          mutations.forEach(function(m) {
-            var target = m.target;
-            if (target && target.tagName === 'DETAILS' && target.hasAttribute('open')) {
-              // delay slightly to allow layout/content-visibility to settle
-              setTimeout(function() {
-                var px = lastPointerPos.x;
-                var py = lastPointerPos.y;
-                var underPointer = null;
-                if (px >= 0 && py >= 0) {
-                  underPointer = document.elementFromPoint(px, py);
-                }
-
-                var parentItem = target.closest('.menu-list__item, .mega-menu');
-                var pointerInside = false;
-                if (underPointer && parentItem) pointerInside = parentItem.contains(underPointer);
-
-                if (!pointerInside) {
-                  // close it if pointer isn't inside
-                  if (target.hasAttribute('open')) {
-                    target.removeAttribute('open');
-                    var trigger = parentItem ? parentItem.querySelector('[aria-haspopup="true"]') : null;
-                    if (trigger) trigger.setAttribute('aria-expanded', 'false');
-                  }
-                }
-              }, 20);
-            }
-          });
-        });
-
-        // Observe attribute changes on the whole document subtree (filter inside callback)
-        detailsObserver.observe(document, { subtree: true, attributes: true, attributeFilter: ['open'] });
-      } catch (err) {
-        // If MutationObserver fails, silently ignore — fallback handlers still exist
-        console.warn('details observer unavailable', err);
-      }
-
-      // Per-`details` pointer handlers: schedule close after short delay to avoid Firefox race conditions
-      (function() {
-        var CLOSE_DELAY = 80;
-        var detailsList = document.querySelectorAll('.header-menu details, .mega-menu details');
-        for (var d = 0; d < detailsList.length; d++) {
-          (function(details) {
-            var closeTimer = null;
-            function scheduleClose() {
-              if (closeTimer) clearTimeout(closeTimer);
-              closeTimer = setTimeout(function() {
-                var parentItem = details.closest('.menu-list__item, .mega-menu');
-                var parentHovered = parentItem && parentItem.matches(':hover');
-                var detailsHovered = details.matches(':hover');
-                if (!parentHovered && !detailsHovered) {
-                  if (details.hasAttribute('open')) {
-                    details.removeAttribute('open');
-                    var trigger = parentItem ? parentItem.querySelector('[aria-haspopup="true"]') : null;
-                    if (trigger) trigger.setAttribute('aria-expanded', 'false');
-                  }
-                }
-              }, CLOSE_DELAY);
-            }
-            function cancelClose() { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } }
-
-            details.addEventListener('pointerenter', cancelClose);
-            details.addEventListener('pointerleave', scheduleClose);
-            details.addEventListener('focusin', cancelClose);
-            details.addEventListener('focusout', scheduleClose);
-
-            var parent = details.closest('.menu-list__item');
-            if (parent) {
-              parent.addEventListener('pointerenter', cancelClose);
-              parent.addEventListener('pointerleave', scheduleClose);
-              parent.addEventListener('focusin', cancelClose);
-              parent.addEventListener('focusout', scheduleClose);
-            }
-          })(detailsList[d]);
-        }
-      })();
-      
-      // Close on scroll
-      window.addEventListener('scroll', function() {
-        forceCloseAllDetails();
-      });
-      
-      // Close on click
-      document.addEventListener('click', function(e) {
-        var isInMenu = e.target.closest('.menu-list__item, .mega-menu, .header-menu');
-        if (!isInMenu) {
-          forceCloseAllDetails();
-        }
-      });
-    }
-  })();
-</script>
-
-<!-- CRITICAL CSS FOR FIREFOX -->
-<style>
-  @-moz-document url-prefix() {
-    /* Force all details elements to be position absolute so they don't affect layout */
-    .header-menu details,
-    .mega-menu details {
-      position: absolute !important;
-      top: 100% !important;
-      left: 0 !important;
-      background: var(--color-background) !important;
-      z-index: 10000 !important;
-    }
-    
-    /* Ensure menu items have proper positioning */
-    .menu-list__item,
-    .mega-menu {
-      position: relative !important;
-    }
-    
-    /* Force hide any open details whose parent isn't hovered */
-    .menu-list__item:not(:hover) details[open],
-    .mega-menu:not(:hover) details[open] {
-      display: none !important;
-    }
-  }
-</style>
 
 {% schema %}
 {
