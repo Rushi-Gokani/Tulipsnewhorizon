@@ -6,7 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
-  /* Prevent layout shift - critical */
+  /* Prevent layout shift */
   .featured-collection-carousel-slider {
     overflow: hidden;
     position: relative;
@@ -14,24 +14,13 @@
     min-height: 350px;
   }
   
-  .featured-collection-carousel-slider .swiper {
-    width: 100%;
-    height: 100%;
-  }
-  
   .featured-collection-carousel-slider .swiper-wrapper {
     display: flex;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .featured-collection-carousel-slider .swiper-slide {
     height: auto;
     flex-shrink: 0;
-    width: auto;
-  }
-  
-  /* Ensure consistent card sizing - ALL CARDS SAME WIDTH */
-  .featured-collection-carousel-slider .swiper-slide {
     width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 20px) !important;
     margin-right: 20px;
   }
@@ -42,19 +31,20 @@
   }
   
   .featured-collection-carousel-slider.single-item .swiper-slide {
-    width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 20px) !important;
-    max-width: none;
     margin: 0 auto;
   }
   
-  /* Responsive breakpoints for consistent card widths */
+  /* Hide navigation for single item only */
+  .featured-collection-carousel-slider.single-item .swiper-button-prev,
+  .featured-collection-carousel-slider.single-item .swiper-button-next {
+    display: none !important;
+  }
+  
+  /* Responsive breakpoints */
   @media screen and (max-width: 640px) {
     .featured-collection-carousel-slider .swiper-slide {
       width: calc((100% / 2) - 10px) !important;
       margin-right: 10px;
-    }
-    .featured-collection-carousel-slider.single-item .swiper-slide {
-      width: calc((100% / 2) - 10px) !important;
     }
   }
   
@@ -63,18 +53,12 @@
       width: calc((100% / 2.5) - 15px) !important;
       margin-right: 15px;
     }
-    .featured-collection-carousel-slider.single-item .swiper-slide {
-      width: calc((100% / 2.5) - 15px) !important;
-    }
   }
   
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     .featured-collection-carousel-slider .swiper-slide {
       width: calc((100% / 3) - 20px) !important;
       margin-right: 20px;
-    }
-    .featured-collection-carousel-slider.single-item .swiper-slide {
-      width: calc((100% / 3) - 20px) !important;
     }
   }
   
@@ -83,15 +67,6 @@
       width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 25px) !important;
       margin-right: 25px;
     }
-    .featured-collection-carousel-slider.single-item .swiper-slide {
-      width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 25px) !important;
-    }
-  }
-  
-  /* Hide navigation for single item only */
-  .featured-collection-carousel-slider.single-item .swiper-button-prev,
-  .featured-collection-carousel-slider.single-item .swiper-button-next {
-    display: none !important;
   }
   
   /* Ensure consistent card sizing */
@@ -116,6 +91,26 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  
+  /* Make sure buttons are clickable during loading */
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  /* Ensure all interactive elements are clickable */
+  .collection-tab,
+  .swiper-button-prev,
+  .swiper-button-next,
+  .button--add-to-cart,
+  .card-title a,
+  .card-gallery__media a {
+    cursor: pointer;
+    pointer-events: auto;
   }
 </style>
 
@@ -161,6 +156,7 @@
     border-radius: 50px;
     transition: all 0.3s ease;
     white-space: nowrap;
+    pointer-events: auto;
   }
 
   .collection-tab:hover {
@@ -173,14 +169,6 @@
     background: {{ section.settings.tab_active_color }};
     color: #ffffff;
     border-color: {{ section.settings.tab_active_color }};
-  }
-
-  .tab-content {
-    display: none;
-  }
-
-  .tab-content.active {
-    display: block;
   }
 
   @media screen and (max-width: 749px) {
@@ -212,6 +200,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    pointer-events: auto;
   }
 
   .featured-collection-carousel-slider .swiper-button-prev {
@@ -280,6 +269,12 @@
   .card-title a {
     text-decoration: none;
     color: inherit;
+    pointer-events: auto;
+  }
+  
+  .button--add-to-cart {
+    pointer-events: auto;
+    cursor: pointer;
   }
 {%- endstyle -%}
 
@@ -298,7 +293,7 @@
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
-    <!-- Build tabs -->
+    <!-- Build tabs - Only create tabs that have products -->
     {%- capture tab_list -%}
       {%- for i in (1..5) -%}
         {%- case i -%}
@@ -333,7 +328,7 @@
       </div>
     {%- endif -%}
 
-    <!-- Tab Contents -->
+    <!-- Tab Contents - All tabs rendered but only active shown -->
     {%- assign tab_index = 0 -%}
     {%- for i in (1..5) -%}
       {%- case i -%}
@@ -357,7 +352,6 @@
         {%- if tab_index == 1 -%}
           {%- assign is_active = true -%}
         {%- endif -%}
-        <!-- Only apply single-item class for exactly 1 product -->
         {%- assign single_class = '' -%}
         {%- if product_count == 1 -%}
           {%- assign single_class = 'single-item' -%}
@@ -431,7 +425,7 @@
                 </div>
               {%- else -%}
                 <div class="swiper-slide" style="text-align: center; padding: 40px;">
-                  <p>No products found.</p>
+                  <p>No products found in this collection.</p>
                 </div>
               {%- endfor -%}
             </div>
@@ -532,42 +526,6 @@
   const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
   const autoplaySpeed = {{ section.settings.autoplay_speed }};
   
-  // Configuration for multiple products (2 or more)
-  const multiConfig = {
-    slidesPerView: desktopCols,
-    spaceBetween: 25,
-    loop: false,
-    speed: 400,
-    autoplay: autoplaySpeed > 0 ? {
-      delay: autoplaySpeed * 1000,
-      disableOnInteraction: false
-    } : false,
-    breakpoints: {
-      0: { slidesPerView: 2, spaceBetween: 10 },
-      640: { slidesPerView: 2.5, spaceBetween: 15 },
-      768: { slidesPerView: 3, spaceBetween: 20 },
-      1024: { slidesPerView: desktopCols, spaceBetween: 25 },
-      1200: { slidesPerView: desktopCols, spaceBetween: 25 }
-    }
-  };
-
-  // Configuration for single product - same card width, just centered
-  const singleConfig = {
-    slidesPerView: desktopCols,
-    spaceBetween: 25,
-    loop: false,
-    speed: 400,
-    autoplay: false,
-    centeredSlides: true,
-    breakpoints: {
-      0: { slidesPerView: 2, spaceBetween: 10, centeredSlides: true },
-      640: { slidesPerView: 2.5, spaceBetween: 15, centeredSlides: true },
-      768: { slidesPerView: 3, spaceBetween: 20, centeredSlides: true },
-      1024: { slidesPerView: desktopCols, spaceBetween: 25, centeredSlides: true },
-      1200: { slidesPerView: desktopCols, spaceBetween: 25, centeredSlides: true }
-    }
-  };
-
   const initializedSliders = new Set();
 
   function initSlider(slider) {
@@ -579,20 +537,32 @@
       prevEl: slider.querySelector('.swiper-button-prev')
     };
     
-    // Use different config based on product count
-    let config;
-    let showNavigation = false;
+    // Common config for all sliders
+    const config = {
+      slidesPerView: desktopCols,
+      spaceBetween: 25,
+      loop: false,
+      speed: 400,
+      autoplay: (autoplaySpeed > 0 && productCount > 1) ? {
+        delay: autoplaySpeed * 1000,
+        disableOnInteraction: false
+      } : false,
+      breakpoints: {
+        0: { slidesPerView: 2, spaceBetween: 10 },
+        640: { slidesPerView: 2.5, spaceBetween: 15 },
+        768: { slidesPerView: 3, spaceBetween: 20 },
+        1024: { slidesPerView: desktopCols, spaceBetween: 25 },
+        1200: { slidesPerView: desktopCols, spaceBetween: 25 }
+      }
+    };
     
+    // Center slides for single product
     if (productCount === 1) {
-      config = {...singleConfig};
-      showNavigation = false;
-    } else {
-      config = {...multiConfig};
-      showNavigation = true;
+      config.centeredSlides = true;
     }
     
-    // Only add navigation if we have more than 1 product
-    if (showNavigation && nav.nextEl && nav.prevEl) {
+    // Add navigation for multiple products
+    if (productCount > 1 && nav.nextEl && nav.prevEl) {
       config.navigation = nav;
     }
     
@@ -607,10 +577,8 @@
   }
 
   function initActiveSliders() {
-    const activeTabs = document.querySelectorAll('.tab-content.active');
-    activeTabs.forEach(tab => {
-      const slider = tab.querySelector('.featured-collection-carousel-slider');
-      if (slider && !initializedSliders.has(slider)) {
+    document.querySelectorAll('.tab-content.active .featured-collection-carousel-slider').forEach(slider => {
+      if (!initializedSliders.has(slider)) {
         initSlider(slider);
       }
     });
@@ -621,23 +589,23 @@
     if (!tabs.length) return;
 
     tabs.forEach(tab => {
-      tab.addEventListener('click', (e) => {
+      tab.addEventListener('click', function(e) {
         e.preventDefault();
-        const tabId = tab.getAttribute('data-tab-id');
+        const tabId = this.getAttribute('data-tab-id');
         if (!tabId) return;
 
-        const section = tab.closest('.featured-collection-carousel-section');
+        const section = this.closest('.featured-collection-carousel-section');
         const currentActive = section.querySelector('.tab-content.active');
         const newContent = section.querySelector(`#${tabId}`);
         if (currentActive === newContent) return;
 
         // Update UI immediately
         section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+        this.classList.add('active');
         section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         newContent.classList.add('active');
 
-        // Initialize slider immediately
+        // Initialize slider in new tab (synchronous, no delay)
         const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
         if (newSlider && !initializedSliders.has(newSlider)) {
           initSlider(newSlider);
@@ -646,16 +614,9 @@
     });
   }
 
-  // Run immediately when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initActiveSliders();
-      initTabs();
-    });
-  } else {
-    initActiveSliders();
-    initTabs();
-  }
+  // Initialize everything immediately
+  initActiveSliders();
+  initTabs();
 })();
 </script>
 
