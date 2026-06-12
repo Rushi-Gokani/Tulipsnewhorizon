@@ -412,68 +412,6 @@
     /* transparent color scheme on .header should never apply its background color */
     background-color: transparent;
     z-index: var(--layer-overlay);
-
-    &[transparent='not-sticky'][data-sticky-state='active'],
-    /* Only show opaque background when hovering over menu items with children (mega menu)
-       Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
-    &:has(.mega-menu__list:hover),
-    &:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])),
-    &:has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])) {
-      --header-logo-display: unset;
-      --header-logo-inverse-display: unset;
-      --header-bg-color: unset;
-      --color-foreground: inherit;
-      --color-foreground-rgb: inherit;
-      --color-background: inherit;
-      --color-background-rgb: inherit;
-      --color-border: inherit;
-      --color-border-rgb: inherit;
-
-      .header__row {
-        /* Faster transition for "in" animation */
-        transition: color var(--animation-values-fast), border-color var(--animation-values-fast),
-          background-color var(--animation-values-fast);
-      }
-    }
-
-    .header__row {
-      /* Slower transition for "out" animation */
-      transition: color var(--animation-values-slow), border-color var(--animation-values-slow),
-        background-color var(--animation-values-slow);
-        
-    }
-  }
-
-  :is(.header[transparent]:not([data-sticky-state='active']), .header[transparent='always'][data-sticky-state='active'])
-    .header__row:not(
-      :has(
-          .mega-menu__list:hover,
-          .menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true']),
-          .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
-        )
-    ) {
-    /* while transparent, header-row ignores its color-scheme settings, pull from the header-component */
-    --color-foreground: inherit;
-    --color-foreground-rgb: inherit;
-    --color-border: inherit;
-    --color-border-rgb: inherit;
-    --color-primary-button-background: inherit;
-    --color-primary-button-text: inherit;
-  }
-
-  .header--inherit-color-scheme-on-menu-open:has(.mega-menu__list:hover) .header__row,
-  .header--inherit-color-scheme-on-menu-open:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true']))
-    .header__row,
-  .header--inherit-color-scheme-on-menu-open:has(
-      .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
-    )
-    .header__row {
-    --color-foreground: inherit;
-    --color-foreground-rgb: inherit;
-    --color-background: inherit;
-    --color-background-rgb: inherit;
-    --color-border: inherit;
-    --color-border-rgb: inherit;
   }
 
   .header-section {
@@ -706,19 +644,13 @@
 
   /* Check for hover support to avoid unnecessary expensive recalculations when tapping on mobile */
   @media (hover: hover) {
-    /* Column-specific dimming effect when any interactive element is hovered
-      Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
-    .header__column:has(header-menu:hover),
-    .header__column:has(.header-actions__action:hover),
-    .header__column:has(.dropdown-localization__button:hover),
-    .header__column:has(.header__icon--menu:hover) {
-      header-menu:not(:hover),
-      .header-actions__action:not(:hover),
-      .dropdown-localization__button:not(:hover),
-      .header__icon--menu:not(:hover) {
-        opacity: var(--opacity-subdued-text);
-        transition: opacity var(--animation-speed) var(--animation-easing);
-      }
+    /* Column-specific dimming effect when any interactive element is hovered */
+    .header__column:has(header-menu:hover) header-menu:not(:hover),
+    .header__column:has(.header-actions__action:hover) .header-actions__action:not(:hover),
+    .header__column:has(.dropdown-localization__button:hover) .dropdown-localization__button:not(:hover),
+    .header__column:has(.header__icon--menu:hover) .header__icon--menu:not(:hover) {
+      opacity: var(--opacity-subdued-text);
+      transition: opacity var(--animation-speed) var(--animation-easing);
     }
   }
 
@@ -977,59 +909,61 @@
     background-color: var(--header-bg-color);
   }
 
-  /* FIREFOX MENU FIX - Force menus to close properly on mouse leave */
+  /* FIREFOX MENU FIX - Complete override for Firefox */
   @-moz-document url-prefix() {
-    /* Ensure details elements behave properly in Firefox */
-    .header-menu details[open] {
-      position: static;
+    /* Force all details elements to close when not hovering */
+    .menu-list__item {
+      position: relative;
     }
     
-    /* Force menu to close when not hovering over parent item */
-    .header-menu .menu-list__item:not(:hover) details[open] {
+    .menu-list__item details {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 100;
+    }
+    
+    /* Hide menus by default */
+    .menu-list__item details:not([open]) {
       display: none !important;
     }
     
-    /* Force menu to open when hovering */
-    .header-menu .menu-list__item:hover details[open] {
+    /* Close menu when not hovering over the parent item */
+    .menu-list__item:not(:hover) details[open] {
+      display: none !important;
+    }
+    
+    /* Open menu when hovering */
+    .menu-list__item:hover details {
       display: block !important;
     }
     
-    /* Hardware acceleration for smoother transitions */
-    .header-menu .menu-list__item {
-      transform: translateZ(0);
+    /* Ensure submenus are properly positioned */
+    .menu-list__submenu {
+      position: relative;
+      background: var(--color-background);
     }
     
-    /* Ensure submenu visibility is properly controlled */
-    .header-menu .menu-list__submenu {
-      visibility: visible;
+    /* Fix for nested menus */
+    .menu-list__list-item details {
+      position: absolute;
+      left: 100%;
+      top: 0;
     }
     
-    .header-menu .menu-list__item:not(:hover) .menu-list__submenu {
-      visibility: hidden;
+    /* Mega menu fixes */
+    .mega-menu details {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
     }
     
-    /* Fix for mega menu */
-    .mega-menu__list {
-      transition: visibility 0.1s ease;
-    }
-    
-    .menu-list__item:not(:hover) .mega-menu__list {
-      visibility: hidden;
-    }
-    
-    /* Prevent menu from staying open */
-    details:not([open]) .menu-list__submenu {
-      display: none !important;
-    }
-  }
-
-  /* Additional Firefox fix for transparent header menu issues */
-  @-moz-document url-prefix() {
-    .header[transparent] .header-menu .menu-list__item:not(:hover) details[open] {
+    .mega-menu:not(:hover) details[open] {
       display: none !important;
     }
     
-    .header[transparent] .header-menu .menu-list__item:hover details[open] {
+    .mega-menu:hover details {
       display: block !important;
     }
   }
@@ -1045,106 +979,124 @@
 {% endunless %}
 
 <script>
-  // Firefox menu close fix - ensures menus close properly on mouse leave
   (function() {
-    if (navigator.userAgent.includes('Firefox')) {
-      document.addEventListener('DOMContentLoaded', function() {
-        // Fix for standard dropdown menus
+    // Check if Firefox
+    const isFirefox = navigator.userAgent.includes('Firefox');
+    
+    if (isFirefox) {
+      console.log('Firefox detected - applying menu fixes');
+      
+      // Function to fix menu behavior
+      function fixFirefoxMenus() {
+        // Fix standard menu items
         const menuItems = document.querySelectorAll('.menu-list__item');
         
         menuItems.forEach(item => {
-          let hoverTimeout;
+          // Remove existing handlers to avoid duplicates
+          item.removeEventListener('mouseenter', item._firefoxEnter);
+          item.removeEventListener('mouseleave', item._firefoxLeave);
           
-          item.addEventListener('mouseleave', function(e) {
-            // Clear any pending timeout
-            if (hoverTimeout) clearTimeout(hoverTimeout);
-            
-            // Small delay to prevent flickering
-            hoverTimeout = setTimeout(() => {
-              const details = this.querySelector('details');
-              if (details && details.open) {
-                details.removeAttribute('open');
-                const link = this.querySelector('.menu-list__link[aria-haspopup="true"]');
-                if (link) link.setAttribute('aria-expanded', 'false');
-              }
-            }, 50);
-          });
-          
-          item.addEventListener('mouseenter', function(e) {
-            if (hoverTimeout) clearTimeout(hoverTimeout);
-          });
-        });
-        
-        // Fix for mega menu if present
-        const megaMenuItems = document.querySelectorAll('.mega-menu');
-        megaMenuItems.forEach(item => {
-          let hoverTimeout;
-          
-          item.addEventListener('mouseleave', function(e) {
-            if (hoverTimeout) clearTimeout(hoverTimeout);
-            hoverTimeout = setTimeout(() => {
-              const details = this.querySelector('details');
-              if (details && details.open) {
-                details.removeAttribute('open');
-                const trigger = this.querySelector('[aria-expanded="true"]');
-                if (trigger) trigger.setAttribute('aria-expanded', 'false');
-              }
-            }, 50);
-          });
-          
-          item.addEventListener('mouseenter', function(e) {
-            if (hoverTimeout) clearTimeout(hoverTimeout);
-          });
-        });
-        
-        // Observe dynamically added menu items
-        const observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.addedNodes.length) {
-              mutation.addedNodes.forEach(function(node) {
-                if (node.nodeType === 1) { // Element node
-                  if (node.classList && node.classList.contains('menu-list__item')) {
-                    attachFirefoxFix(node);
-                  }
-                  const childItems = node.querySelectorAll ? node.querySelectorAll('.menu-list__item') : [];
-                  childItems.forEach(attachFirefoxFix);
-                }
-              });
+          // Store handlers for cleanup
+          item._firefoxEnter = function() {
+            const details = this.querySelector('details');
+            if (details && !details.open) {
+              details.setAttribute('open', '');
+              // Update ARIA attribute
+              const link = this.querySelector('.menu-list__link[aria-haspopup]');
+              if (link) link.setAttribute('aria-expanded', 'true');
             }
-          });
+          };
+          
+          item._firefoxLeave = function() {
+            const details = this.querySelector('details');
+            if (details && details.open) {
+              details.removeAttribute('open');
+              // Update ARIA attribute
+              const link = this.querySelector('.menu-list__link[aria-haspopup]');
+              if (link) link.setAttribute('aria-expanded', 'false');
+            }
+          };
+          
+          item.addEventListener('mouseenter', item._firefoxEnter);
+          item.addEventListener('mouseleave', item._firefoxLeave);
         });
         
-        function attachFirefoxFix(item) {
-          let hoverTimeout;
-          item.removeEventListener('mouseleave', item._firefoxLeaveHandler);
-          item.removeEventListener('mouseenter', item._firefoxEnterHandler);
+        // Fix mega menu items
+        const megaMenus = document.querySelectorAll('.mega-menu');
+        megaMenus.forEach(menu => {
+          menu.removeEventListener('mouseenter', menu._firefoxEnter);
+          menu.removeEventListener('mouseleave', menu._firefoxLeave);
           
-          item._firefoxLeaveHandler = function(e) {
-            if (hoverTimeout) clearTimeout(hoverTimeout);
-            hoverTimeout = setTimeout(() => {
-              const details = this.querySelector('details');
-              if (details && details.open) {
-                details.removeAttribute('open');
-                const link = this.querySelector('.menu-list__link[aria-haspopup="true"]');
-                if (link) link.setAttribute('aria-expanded', 'false');
-              }
-            }, 50);
+          menu._firefoxEnter = function() {
+            const details = this.querySelector('details');
+            if (details && !details.open) {
+              details.setAttribute('open', '');
+              const trigger = this.querySelector('[aria-haspopup]');
+              if (trigger) trigger.setAttribute('aria-expanded', 'true');
+            }
           };
           
-          item._firefoxEnterHandler = function(e) {
-            if (hoverTimeout) clearTimeout(hoverTimeout);
+          menu._firefoxLeave = function() {
+            const details = this.querySelector('details');
+            if (details && details.open) {
+              details.removeAttribute('open');
+              const trigger = this.querySelector('[aria-haspopup]');
+              if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
           };
           
-          item.addEventListener('mouseleave', item._firefoxLeaveHandler);
-          item.addEventListener('mouseenter', item._firefoxEnterHandler);
-        }
+          menu.addEventListener('mouseenter', menu._firefoxEnter);
+          menu.addEventListener('mouseleave', menu._firefoxLeave);
+        });
+      }
+      
+      // Apply fixes when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixFirefoxMenus);
+      } else {
+        fixFirefoxMenus();
+      }
+      
+      // Watch for dynamically added content
+      const observer = new MutationObserver(function(mutations) {
+        let shouldUpdate = false;
         
-        // Start observing
-        const headerComponent = document.getElementById('header-component');
-        if (headerComponent) {
-          observer.observe(headerComponent, { childList: true, subtree: true });
+        mutations.forEach(function(mutation) {
+          if (mutation.addedNodes.length) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.nodeType === 1) { // Element node
+                if (node.classList && (node.classList.contains('menu-list__item') || node.classList.contains('mega-menu'))) {
+                  shouldUpdate = true;
+                }
+                if (node.querySelectorAll) {
+                  if (node.querySelectorAll('.menu-list__item').length || node.querySelectorAll('.mega-menu').length) {
+                    shouldUpdate = true;
+                  }
+                }
+              }
+            });
+          }
+        });
+        
+        if (shouldUpdate) {
+          fixFirefoxMenus();
         }
       });
+      
+      // Start observing
+      const header = document.getElementById('header-component');
+      if (header) {
+        observer.observe(header, { childList: true, subtree: true });
+      }
+      
+      // Also fix when header component loads
+      if (window.customElements) {
+        const headerComponent = document.querySelector('header-component');
+        if (headerComponent && !headerComponent._firefoxFixed) {
+          headerComponent._firefoxFixed = true;
+          setTimeout(fixFirefoxMenus, 100);
+        }
+      }
     }
   })();
 </script>
