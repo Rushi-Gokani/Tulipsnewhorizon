@@ -925,6 +925,44 @@
           });
         })(menus[m]);
       }
+
+      // Add per-item handlers so leaving a specific menu item closes its details
+      var menuItems = document.querySelectorAll('.header-menu .menu-list__item, .mega-menu');
+      for (var i = 0; i < menuItems.length; i++) {
+        (function(item) {
+          // pointerleave: close details when pointer leaves the item entirely
+          item.addEventListener('pointerleave', function(e) {
+            var related = e.relatedTarget;
+            if (!related || !item.contains(related)) {
+              var details = item.querySelector('details[open]');
+              if (details) {
+                details.removeAttribute('open');
+                var trigger = item.querySelector('[aria-haspopup="true"]');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+
+          // focusout: keyboard users moving focus away should close menus
+          item.addEventListener('focusout', function(e) {
+            var related = e.relatedTarget;
+            if (!related || !item.contains(related)) {
+              var details = item.querySelector('details[open]');
+              if (details) {
+                details.removeAttribute('open');
+                var trigger = item.querySelector('[aria-haspopup="true"]');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+        })(menuItems[i]);
+      }
+
+      // Touch fallback: close menus when tapping outside
+      document.addEventListener('touchstart', function(e) {
+        var isInMenu = e.target.closest('.menu-list__item, .mega-menu, .header-menu');
+        if (!isInMenu) closeAllMenuDetails();
+      }, { passive: true });
       
       // Close on scroll
       window.addEventListener('scroll', function() {
