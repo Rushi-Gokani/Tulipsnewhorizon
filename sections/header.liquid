@@ -65,7 +65,6 @@
     assign search_class = 'search-action--hidden-on-drawer'
   endif
 
-  # Handle localization positioning
   if section.settings.localization_position == 'left'
     if section.settings.search_position == 'left'
       if shop.customer_accounts_enabled
@@ -93,16 +92,12 @@
     render 'search', style: search_style, class: search_class
   endcapture
 
-  # Skip drawer search under specific conditions:
-  # Always render if search_row is bottom
-  # Don't render when shop.customer_accounts_enabled is false and search_position is left and search_style is not none
   assign skip_drawer_search = false
   if shop.customer_accounts_enabled == false and section.settings.search_position == 'left' and search_style != 'none'
     assign skip_drawer_search = true
   endif
 
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
-    # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
       render 'search', class: 'search-action--hidden-on-menu', style: search_style
     endcapture
@@ -366,7 +361,7 @@
   body {
     --header-height: 60px;
     --header-group-height: var(--header-height);
-    --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
+    --transparent-header-offset-boolean: 0;
   }
 
   .header {
@@ -396,11 +391,7 @@
   .header[transparent] {
     --language-button-background-color: transparent;
     --language-button-border-color: transparent;
-
-    /* used to apply transparency to .header__row, will only ever be transparent or unset */
     --header-bg-color: transparent;
-
-    /* used to display the appropriate logo based on transparency state */
     --header-logo-display: none;
     --header-logo-inverse-display: block;
 
@@ -408,49 +399,38 @@
     top: 0;
     left: 0;
     right: 0;
-
-    /* transparent color scheme on .header should never apply its background color */
     background-color: transparent;
     z-index: var(--layer-overlay);
-
-    &[transparent='not-sticky'][data-sticky-state='active'],
-    /* Only show opaque background when hovering over menu items with children (mega menu)
-       Using :is() for better performance and Firefox compatibility */
-    &:is(:has(.mega-menu__list:hover), :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])), :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])), [data-menu-open='true']) {
-      --header-logo-display: unset;
-      --header-logo-inverse-display: unset;
-      --header-bg-color: unset;
-      --color-foreground: inherit;
-      --color-foreground-rgb: inherit;
-      --color-background: inherit;
-      --color-background-rgb: inherit;
-      --color-border: inherit;
-      --color-border-rgb: inherit;
-
-      .header__row {
-        /* Faster transition for "in" animation */
-        transition: color var(--animation-values-fast), border-color var(--animation-values-fast),
-          background-color var(--animation-values-fast);
-      }
-    }
-
-    .header__row {
-      /* Slower transition for "out" animation */
-      transition: color var(--animation-values-slow), border-color var(--animation-values-slow),
-        background-color var(--animation-values-slow);
-    }
   }
 
-  :is(.header[transparent]:not([data-sticky-state='active']), .header[transparent='always'][data-sticky-state='active'])
-    .header__row:not(
-      :is(
-        :has(.mega-menu__list:hover),
-        :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])),
-        :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])),
-        :has([data-menu-open='true'])
-      )
-    ) {
-    /* while transparent, header-row ignores its color-scheme settings, pull from the header-component */
+  /* FIREFOX FIX: Use data-menu-open instead of :has(:hover) */
+  .header[transparent][data-menu-open='true'],
+  .header[transparent='not-sticky'][data-sticky-state='active'] {
+    --header-logo-display: unset;
+    --header-logo-inverse-display: unset;
+    --header-bg-color: unset;
+    --color-foreground: inherit;
+    --color-foreground-rgb: inherit;
+    --color-background: inherit;
+    --color-background-rgb: inherit;
+    --color-border: inherit;
+    --color-border-rgb: inherit;
+  }
+
+  .header[transparent][data-menu-open='true'] .header__row,
+  .header[transparent='not-sticky'][data-sticky-state='active'] .header__row {
+    transition: color var(--animation-values-fast), border-color var(--animation-values-fast),
+      background-color var(--animation-values-fast);
+  }
+
+  .header[transparent]:not([data-menu-open='true']) .header__row {
+    transition: color var(--animation-values-slow), border-color var(--animation-values-slow),
+      background-color var(--animation-values-slow);
+  }
+
+  :is(.header[transparent]:not([data-sticky-state='active']):not([data-menu-open='true']), 
+     .header[transparent='always'][data-sticky-state='active']:not([data-menu-open='true']))
+    .header__row {
     --color-foreground: inherit;
     --color-foreground-rgb: inherit;
     --color-border: inherit;
@@ -459,8 +439,7 @@
     --color-primary-button-text: inherit;
   }
 
-  .header--inherit-color-scheme-on-menu-open:is(:has(.mega-menu__list:hover), :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])), :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])), :has([data-menu-open='true'])) .header__row,
-  .header--inherit-color-scheme-on-menu-open:is(:has(.mega-menu__list:hover), :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])), :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])), :has([data-menu-open='true'])) .header__row {
+  .header--inherit-color-scheme-on-menu-open[data-menu-open='true'] .header__row {
     --color-foreground: inherit;
     --color-foreground-rgb: inherit;
     --color-background: inherit;
@@ -474,7 +453,6 @@
     z-index: var(--layer-heightened);
   }
 
-  /* need default values for non-flash transitions on first overflow menu open */
   #header-component {
     --submenu-height: 0px;
     --submenu-max-height: 0px;
@@ -487,8 +465,6 @@
   .header-section:has(> #header-component[sticky='always']),
   .header-section:has(> #header-component[sticky='scroll-up'][data-sticky-state='active']) {
     position: sticky;
-
-    /* Use -1 instead of 0 so intersection observer can track sticky state */
     top: -1px;
     z-index: var(--layer-sticky);
   }
@@ -514,8 +490,6 @@
 
   .header__row {
     position: relative;
-
-    /* will default to bg from its color scheme unless --header-bg-color is transparent */
     background-color: var(--header-bg-color, var(--color-background));
     padding: 10px 0px;
   }
@@ -551,7 +525,6 @@
     display: flex;
     align-items: center;
 
-    /* on mobile, header__column nodes are ignored to create a new grid-template-area based on all visible content */
     @media screen and (max-width: 749px) {
       display: contents;
     }
@@ -583,49 +556,43 @@
   }
 
   .header__columns {
-    /* Three column layout */
     --header-left: 1fr;
     --header-center: auto;
     --header-right: 1fr;
     --header-template-columns: var(--header-left) var(--header-center) var(--header-right);
-
-    /* Mobile layout */
     --header-mobile-bookend: 44px;
 
     display: grid;
     grid-template-areas: 'left center right';
     grid-gap: var(--gap-xl);
     grid-template-columns: var(--header-template-columns);
+  }
 
-    /* If menu is in center column */
-    &:has(.header__column--center header-menu) {
-      --header-center: auto;
+  .header__columns:has(.header__column--center header-menu) {
+    --header-center: auto;
+    --header-left: minmax(max-content, 1fr);
+    --header-right: minmax(max-content, 1fr);
+  }
+
+  .header__columns:where(:not(:has(.header__column--center))) {
+    @media screen and (min-width: 750px) {
+      --header-template-columns: var(--header-left) var(--header-right);
+      grid-template-areas: 'left right';
+    }
+
+    &:has(.header__column--right header-menu) {
+      --header-right: auto;
       --header-left: minmax(max-content, 1fr);
+    }
+
+    &:has(.header__column--left header-menu) {
+      --header-left: auto;
       --header-right: minmax(max-content, 1fr);
     }
+  }
 
-    /* If there is no center column, make the column the menu is in grow eagerly */
-    &:where(:not(:has(.header__column--center))) {
-      @media screen and (min-width: 750px) {
-        --header-template-columns: var(--header-left) var(--header-right);
-
-        grid-template-areas: 'left right';
-      }
-
-      /* If the header-menu is in the right column */
-      &:has(.header__column--right header-menu) {
-        --header-right: auto;
-        --header-left: minmax(max-content, 1fr);
-      }
-
-      /* If the header-menu is in the left column */
-      &:has(.header__column--left header-menu) {
-        --header-left: auto;
-        --header-right: minmax(max-content, 1fr);
-      }
-    }
-
-    @media screen and (max-width: 749px) {
+  @media screen and (max-width: 749px) {
+    .header__columns {
       --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
         var(--header-mobile-bookend) var(--header-mobile-bookend);
 
@@ -635,31 +602,29 @@
       align-items: center;
       padding-block: 0;
       padding-inline: 0 var(--padding-3xs);
+    }
 
-      .header-logo {
-        grid-area: center;
-      }
+    .header__columns .header-logo {
+      grid-area: center;
+    }
 
-      &:not(:has(header-actions)) .search-action {
-        grid-area: leftB;
-      }
+    .header__columns:not(:has(header-actions)) .search-action {
+      grid-area: leftB;
+    }
 
-      &:not(:has(.account-actions)) .search-action {
-        grid-area: rightA;
-      }
+    .header__columns:not(:has(.account-actions)) .search-action {
+      grid-area: rightA;
+    }
 
-      .search-action {
-        grid-area: leftB;
-      }
+    .header__columns .search-action {
+      grid-area: leftB;
+    }
 
-      header-actions {
-        grid-area: rightB;
-      }
+    .header__columns header-actions {
+      grid-area: rightB;
     }
   }
 
-  /* not ideal but we need to duplicate these styles for when touch comes into play
-  We could avoid the duplication using js to set the data-menu-style attribute on small screens instead of using @media queries */
   #header-component[data-menu-style='drawer'] .header__columns {
     --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
       var(--header-mobile-bookend) var(--header-mobile-bookend);
@@ -670,39 +635,37 @@
     align-items: center;
     padding-block: 0;
     padding-inline: 0 var(--padding-3xs);
-
-    .header-logo {
-      grid-area: center;
-    }
-
-    &:not(:has(header-actions)) .search-action {
-      grid-area: leftB;
-    }
-
-    &:not(:has(.account-actions)) .search-action {
-      grid-area: rightA;
-    }
-
-    .search-action {
-      grid-area: leftB;
-    }
-
-    header-actions {
-      grid-area: rightB;
-    }
   }
 
-  /* Single column layout if there are no columns within */
+  #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+    grid-area: center;
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns:not(:has(header-actions)) .search-action {
+    grid-area: leftB;
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns:not(:has(.account-actions)) .search-action {
+    grid-area: rightA;
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns .search-action {
+    grid-area: leftB;
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns header-actions {
+    grid-area: rightB;
+  }
+
   .header__columns:not(:has(.header__column)) {
     grid-template-columns: 1fr;
   }
 
-  /* Check for hover support to avoid unnecessary expensive recalculations when tapping on mobile */
   @media (hover: hover) {
-    /* Column-specific dimming effect when any interactive element is hovered
-      Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions
-      FIREFOX FIX: Added explicit :hover state tracking with data-menu-open attribute */
-    .header__column:is(:has(header-menu:hover), :has(.header-actions__action:hover), :has(.dropdown-localization__button:hover), :has(.header__icon--menu:hover), :has([data-menu-open='true'])) {
+    .header__column:has(header-menu:hover),
+    .header__column:has(.header-actions__action:hover),
+    .header__column:has(.dropdown-localization__button:hover),
+    .header__column:has(.header__icon--menu:hover) {
       header-menu:not(:hover),
       .header-actions__action:not(:hover),
       .dropdown-localization__button:not(:hover),
@@ -713,7 +676,6 @@
     }
   }
 
-  /* Ensure smooth transitions for all interactive elements */
   header-menu,
   .header-actions__action,
   .dropdown-localization__button,
@@ -721,10 +683,8 @@
     transition: opacity var(--animation-speed) var(--animation-easing);
   }
 
-  /* Header action button styles */
   .header-actions__action {
     --button-color: var(--color-foreground);
-
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -740,7 +700,6 @@
     height: var(--icon-size-md);
   }
 
-  /* Set header paddings based on height setting */
   .header {
     --header-padding: var(--padding-sm);
     --font-paragraph--line-height: 1;
@@ -769,46 +728,36 @@
     }
   }
 
-  /* When the header is transparent, add a margin to a potential header-section below it */
   .header-section:has(.header[transparent]) + .shopify-section {
     margin-top: var(--header-height);
   }
-
-  /* When the header is transparent, and when there is no header-section below it, offset the first main-section with
-   * the height of the header
-   */
 
   main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     &.spacing-style,
     .spacing-style {
       --section-top-offset: calc(var(--header-height) * var(--transparent-header-offset-boolean));
 
-      /* Any nested sections should not be offset */
       :is(.spacing-style, .inherit-spacing) {
         --section-top-offset: 0px;
       }
     }
 
-    /* Make sticky content immediately stick to the top of the page */
     .sticky-content {
       margin-top: calc(var(--header-height) * var(--transparent-header-offset-boolean) * -1);
     }
   }
 
-  /* Optimize layout performance for hidden menus */
   .header-menu .menu-list__submenu {
     content-visibility: auto;
     contain-intrinsic-size: 0px 500px;
   }
 
-  /* Force visibility when open/animating and in overflow submenu to prevent layout issues */
   .header-menu details[open] .menu-list__submenu,
   .header-menu .menu-list__submenu[data-active],
   .header-menu .menu-list__list-item[slot='overflow'] .menu-list__submenu {
     content-visibility: visible;
   }
 
-  /* Dropdown Localization Styles */
   .dropdown-localization__button {
     display: flex;
     position: relative;
@@ -833,7 +782,7 @@
   .dropdown-localization__button .icon-flag {
     width: var(--menu-localization-font-size, var(--icon-size-sm));
     height: var(--menu-localization-font-size, var(--icon-size-sm));
-    clip-path: circle(50%); /* stylelint-disable-line */
+    clip-path: circle(50%);
     background-position: center;
     background-size: cover;
     margin-inline-end: 4px;
@@ -926,7 +875,6 @@
     right: unset;
   }
 
-  /* Additional specificity due to dropdown-localization-component getting a low score */
   dropdown-localization-component .language-selector.language-selector {
     padding: 10px 8px 10px 16px;
   }
@@ -969,6 +917,194 @@
   }
 {% endstylesheet %}
 
+<!-- FIREFOX MENU HOVER FIX - AGGRESSIVE VERSION -->
+<script type="module">
+  (function() {
+    'use strict';
+
+    let menuOpenTimeout;
+    const headerComponent = document.querySelector('#header-component');
+    
+    if (!headerComponent) {
+      console.warn('Header component not found');
+      return;
+    }
+
+    const config = {
+      menuHideDelay: 150,
+      debugMode: false
+    };
+
+    const debug = (...args) => {
+      if (config.debugMode) console.log('[MenuFix]', ...args);
+    };
+
+    function getMenuElements() {
+      return {
+        headerMenu: headerComponent.querySelector('header-menu'),
+        headerMenus: Array.from(headerComponent.querySelectorAll('header-menu')),
+        menuLinks: Array.from(headerComponent.querySelectorAll('header-menu a[aria-haspopup], header-menu [role="menuitem"]')),
+        allMenuItems: Array.from(headerComponent.querySelectorAll('header-menu li, header-menu [role="menuitemradio"], header-menu [role="menuitem"]')),
+      };
+    }
+
+    function isMenuHovered() {
+      const elements = getMenuElements();
+      const headerMenuElement = elements.headerMenu;
+      
+      if (!headerMenuElement) return false;
+      
+      const allDescendants = headerMenuElement.querySelectorAll('*');
+      for (let el of allDescendants) {
+        if (el.matches(':hover')) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function setMenuOpen(isOpen) {
+      clearTimeout(menuOpenTimeout);
+      
+      if (isOpen) {
+        headerComponent.setAttribute('data-menu-open', 'true');
+        debug('✓ Menu OPEN');
+      } else {
+        menuOpenTimeout = setTimeout(() => {
+          if (!isMenuHovered()) {
+            headerComponent.removeAttribute('data-menu-open');
+            debug('✕ Menu CLOSED');
+          }
+        }, config.menuHideDelay);
+      }
+    }
+
+    function setupMenuTracking() {
+      const elements = getMenuElements();
+      
+      if (elements.headerMenu) {
+        elements.headerMenu.addEventListener('mouseenter', () => {
+          debug('→ mouseenter header-menu');
+          setMenuOpen(true);
+        }, { capture: true });
+
+        elements.headerMenu.addEventListener('mouseleave', () => {
+          debug('← mouseleave header-menu');
+          setMenuOpen(false);
+        }, { capture: true });
+      }
+
+      elements.menuLinks.forEach((link) => {
+        link.addEventListener('mouseenter', () => setMenuOpen(true), true);
+        link.addEventListener('mouseleave', () => setMenuOpen(false), true);
+        link.addEventListener('click', () => setMenuOpen(true));
+      });
+
+      elements.allMenuItems.forEach((item) => {
+        item.addEventListener('mouseenter', () => setMenuOpen(true), true);
+        item.addEventListener('mouseleave', () => setMenuOpen(false), true);
+      });
+    }
+
+    function setupGlobalTracker() {
+      let lastMenuOpen = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        const headerRect = headerComponent.getBoundingClientRect();
+        const mouseInHeader = (
+          e.clientX >= headerRect.left - 5 &&
+          e.clientX <= headerRect.right + 5 &&
+          e.clientY >= headerRect.top - 5 &&
+          e.clientY <= headerRect.bottom + 50
+        );
+
+        const shouldBeOpen = mouseInHeader && isMenuHovered();
+
+        if (shouldBeOpen !== lastMenuOpen) {
+          setMenuOpen(shouldBeOpen);
+          lastMenuOpen = shouldBeOpen;
+        }
+      }, true);
+
+      document.addEventListener('click', (e) => {
+        if (!headerComponent.contains(e.target)) {
+          setMenuOpen(false);
+        }
+      }, true);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          setMenuOpen(false);
+        }
+      });
+    }
+
+    function setupMutationObserver() {
+      const observer = new MutationObserver((mutations) => {
+        let shouldReattach = false;
+
+        for (let mutation of mutations) {
+          if (mutation.type === 'childList') {
+            const addedNodes = Array.from(mutation.addedNodes);
+            if (addedNodes.some(node => 
+              node.nodeType === 1 && node.matches('header-menu')
+            )) {
+              shouldReattach = true;
+              break;
+            }
+          }
+        }
+
+        if (shouldReattach) {
+          debug('DOM changed - reattaching');
+          setupMenuTracking();
+        }
+      });
+
+      observer.observe(headerComponent, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    function init() {
+      debug('Init Firefox menu fix');
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          setTimeout(() => {
+            setupMenuTracking();
+            setupGlobalTracker();
+            setupMutationObserver();
+            debug('Ready');
+          }, 100);
+        });
+      } else {
+        setTimeout(() => {
+          setupMenuTracking();
+          setupGlobalTracker();
+          setupMutationObserver();
+          debug('Ready');
+        }, 100);
+      }
+    }
+
+    init();
+
+    // Expose for testing
+    window.__menuFix = {
+      config,
+      debug: () => { config.debugMode = !config.debugMode; },
+      test: () => { setMenuOpen(true); setTimeout(() => setMenuOpen(false), 2000); }
+    };
+  })();
+</script>
+
 {% unless request.design_mode %}
   <script type="module">
     import { hydrate } from '@theme/section-hydration';
@@ -977,72 +1113,6 @@
     hydrate('{{ section.id }}', url);
   </script>
 {% endunless %}
-
-<!-- FIREFOX HOVER FIX: Menu state management -->
-<script type="module">
-  document.addEventListener('DOMContentLoaded', function() {
-    const headerComponent = document.querySelector('#header-component');
-    if (!headerComponent) return;
-
-    // Get all menu elements
-    const menuItems = headerComponent.querySelectorAll('.menu-list__link[aria-haspopup="true"], .mega-menu__link');
-    const headerColumn = headerComponent.querySelectorAll('.header__column');
-
-    // Handle menu item hover states
-    menuItems.forEach(item => {
-      item.addEventListener('mouseenter', function() {
-        headerComponent.setAttribute('data-menu-open', 'true');
-      });
-
-      item.addEventListener('mouseleave', function() {
-        // Check if mouse is still over any menu item
-        const isStillHovering = Array.from(menuItems).some(m => m.matches(':hover'));
-        if (!isStillHovering) {
-          headerComponent.removeAttribute('data-menu-open');
-        }
-      });
-    });
-
-    // Also handle when leaving header entirely
-    headerComponent.addEventListener('mouseleave', function() {
-      headerComponent.removeAttribute('data-menu-open');
-    });
-
-    // Handle submenu hover
-    const submenus = headerComponent.querySelectorAll('.menu-list__submenu, .mega-menu__list');
-    submenus.forEach(submenu => {
-      submenu.addEventListener('mouseenter', function() {
-        headerComponent.setAttribute('data-menu-open', 'true');
-      });
-
-      submenu.addEventListener('mouseleave', function() {
-        const isStillHovering = Array.from(menuItems).some(m => m.matches(':hover')) ||
-                              Array.from(submenus).some(s => s.matches(':hover'));
-        if (!isStillHovering) {
-          headerComponent.removeAttribute('data-menu-open');
-        }
-      });
-    });
-
-    // Firefox-specific: Ensure mouse leave properly clears hover states
-    if (navigator.userAgent.indexOf('Firefox') > -1) {
-      document.addEventListener('mousemove', function(e) {
-        const isOverHeader = headerComponent.contains(e.target);
-        const hasMenuOpen = headerComponent.getAttribute('data-menu-open');
-
-        if (!isOverHeader && hasMenuOpen) {
-          // Use setTimeout to let Firefox catch up with hover states
-          setTimeout(() => {
-            const stillHovering = Array.from(menuItems).some(m => m.matches(':hover'));
-            if (!stillHovering) {
-              headerComponent.removeAttribute('data-menu-open');
-            }
-          }, 50);
-        }
-      });
-    }
-  });
-</script>
 
 {% schema %}
 {
