@@ -6,7 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
-  /* Prevent layout shift */
+  /* Prevent layout shift - critical */
   .featured-collection-carousel-slider {
     overflow: hidden;
     position: relative;
@@ -14,16 +14,23 @@
     min-height: 350px;
   }
   
+  .featured-collection-carousel-slider .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
   .featured-collection-carousel-slider .swiper-wrapper {
     display: flex;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .featured-collection-carousel-slider .swiper-slide {
     height: auto;
     flex-shrink: 0;
+    width: auto;
   }
   
-  /* Only for single item */
+  /* Fix for single item ONLY (1 product) */
   .featured-collection-carousel-slider.single-item .swiper-wrapper {
     justify-content: center;
   }
@@ -33,6 +40,7 @@
     margin: 0 auto;
   }
   
+  /* Hide navigation for single item only */
   .featured-collection-carousel-slider.single-item .swiper-button-prev,
   .featured-collection-carousel-slider.single-item .swiper-button-next {
     display: none !important;
@@ -301,11 +309,16 @@
         {%- if tab_index == 1 -%}
           {%- assign is_active = true -%}
         {%- endif -%}
+        <!-- Only apply single-item class for exactly 1 product, not for 2 products -->
+        {%- assign single_class = '' -%}
+        {%- if product_count == 1 -%}
+          {%- assign single_class = 'single-item' -%}
+        {%- endif -%}
         
         <div class="tab-content {% if is_active %}active{% endif %}" 
              id="{{ tab_id }}" 
              data-product-count="{{ product_count }}">
-          <div class="featured-collection-carousel-slider" 
+          <div class="featured-collection-carousel-slider {{ single_class }}" 
                data-slider="true"
                data-product-count="{{ product_count }}">
             <div class="swiper-wrapper">
@@ -385,7 +398,11 @@
     <!-- Fallback -->
     {%- if tab_list == blank and section.settings.collection != blank -%}
       {%- assign fallback_count = section.settings.collection.products_count -%}
-      <div class="featured-collection-carousel-slider" data-product-count="{{ fallback_count }}">
+      {%- assign fallback_class = '' -%}
+      {%- if fallback_count == 1 -%}
+        {%- assign fallback_class = 'single-item' -%}
+      {%- endif -%}
+      <div class="featured-collection-carousel-slider {{ fallback_class }}" data-product-count="{{ fallback_count }}">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -467,14 +484,41 @@
   const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
   const autoplaySpeed = {{ section.settings.autoplay_speed }};
   
-  // Function to get slides per view based on product count
-  function getSlidesPerView(productCount) {
-    if (productCount === 1) return 1;
-    if (productCount === 2) return 2;
-    if (productCount === 3) return 2.5;
-    return desktopCols;
-  }
-  
+  // Configuration for multiple products (2 or more)
+  const multiConfig = {
+    slidesPerView: desktopCols,
+    spaceBetween: 20,
+    loop: false,
+    speed: 400,
+    autoplay: autoplaySpeed > 0 ? {
+      delay: autoplaySpeed * 1000,
+      disableOnInteraction: false
+    } : false,
+    breakpoints: {
+      0: { slidesPerView: 2, spaceBetween: 10 },
+      640: { slidesPerView: 2.5, spaceBetween: 15 },
+      768: { slidesPerView: 3, spaceBetween: 20 },
+      1024: { slidesPerView: desktopCols, spaceBetween: 25 },
+      1200: { slidesPerView: desktopCols, spaceBetween: 30 }
+    }
+  };
+
+  // Configuration for single product (only for product_count === 1)
+  const singleConfig = {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: false,
+    speed: 400,
+    autoplay: false,
+    centeredSlides: true,
+    breakpoints: {
+      0: { slidesPerView: 1 },
+      640: { slidesPerView: 1 },
+      768: { slidesPerView: 1 },
+      1024: { slidesPerView: 1 }
+    }
+  };
+
   const initializedSliders = new Set();
 
   function initSlider(slider) {
@@ -486,48 +530,20 @@
       prevEl: slider.querySelector('.swiper-button-prev')
     };
     
-    // For single product
+    // Use single config ONLY for exactly 1 product
+    let config;
+    let showNavigation = false;
+    
     if (productCount === 1) {
-      try {
-        slider.classList.add('single-item');
-        const swiper = new Swiper(slider, {
-          slidesPerView: 1,
-          spaceBetween: 0,
-          loop: false,
-          autoplay: false,
-          centeredSlides: true
-        });
-        initializedSliders.add(slider);
-        return swiper;
-      } catch(e) {
-        console.warn('Single item init error:', e);
-        return null;
-      }
+      config = {...singleConfig};
+      showNavigation = false;
+    } else {
+      config = {...multiConfig};
+      showNavigation = true;
     }
     
-    // For multiple products (2 or more)
-    const slidesPerView = getSlidesPerView(productCount);
-    
-    const config = {
-      slidesPerView: slidesPerView,
-      spaceBetween: 20,
-      loop: productCount > slidesPerView ? true : false,
-      speed: 400,
-      autoplay: autoplaySpeed > 0 ? {
-        delay: autoplaySpeed * 1000,
-        disableOnInteraction: false
-      } : false,
-      breakpoints: {
-        0: { slidesPerView: productCount === 2 ? 2 : 2, spaceBetween: 10 },
-        640: { slidesPerView: productCount === 2 ? 2 : 2.5, spaceBetween: 15 },
-        768: { slidesPerView: productCount === 2 ? 2 : 3, spaceBetween: 20 },
-        1024: { slidesPerView: productCount === 2 ? 2 : desktopCols, spaceBetween: 25 },
-        1200: { slidesPerView: productCount === 2 ? 2 : desktopCols, spaceBetween: 30 }
-      }
-    };
-    
-    // Add navigation for 2 or more products
-    if (nav.nextEl && nav.prevEl) {
+    // Only add navigation if we have more than 1 product and arrows should show
+    if (showNavigation && nav.nextEl && nav.prevEl) {
       config.navigation = nav;
     }
     
@@ -566,25 +582,22 @@
         const newContent = section.querySelector(`#${tabId}`);
         if (currentActive === newContent) return;
 
-        // Update UI
+        // Update UI immediately
         section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         newContent.classList.add('active');
 
-        // Initialize slider immediately
+        // Initialize slider immediately (synchronous)
         const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
         if (newSlider && !initializedSliders.has(newSlider)) {
-          // Small delay to ensure DOM is ready
-          setTimeout(() => {
-            initSlider(newSlider);
-          }, 10);
+          initSlider(newSlider);
         }
       });
     });
   }
 
-  // Run when DOM is ready
+  // Run immediately when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initActiveSliders();
