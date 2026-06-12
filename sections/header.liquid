@@ -1,5 +1,3 @@
-
-
 {% liquid
   assign order = 'logo,menu,localization,search,drawer_search,actions'
 
@@ -417,10 +415,8 @@
 
     &[transparent='not-sticky'][data-sticky-state='active'],
     /* Only show opaque background when hovering over menu items with children (mega menu)
-       Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
-    &:has(.mega-menu__list:hover),
-    &:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])),
-    &:has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])) {
+       Using :is() for better performance and Firefox compatibility */
+    &:is(:has(.mega-menu__list:hover), :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])), :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])), [data-menu-open='true']) {
       --header-logo-display: unset;
       --header-logo-inverse-display: unset;
       --header-bg-color: unset;
@@ -442,17 +438,17 @@
       /* Slower transition for "out" animation */
       transition: color var(--animation-values-slow), border-color var(--animation-values-slow),
         background-color var(--animation-values-slow);
-        
     }
   }
 
   :is(.header[transparent]:not([data-sticky-state='active']), .header[transparent='always'][data-sticky-state='active'])
     .header__row:not(
-      :has(
-          .mega-menu__list:hover,
-          .menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true']),
-          .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
-        )
+      :is(
+        :has(.mega-menu__list:hover),
+        :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])),
+        :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])),
+        :has([data-menu-open='true'])
+      )
     ) {
     /* while transparent, header-row ignores its color-scheme settings, pull from the header-component */
     --color-foreground: inherit;
@@ -463,13 +459,8 @@
     --color-primary-button-text: inherit;
   }
 
-  .header--inherit-color-scheme-on-menu-open:has(.mega-menu__list:hover) .header__row,
-  .header--inherit-color-scheme-on-menu-open:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true']))
-    .header__row,
-  .header--inherit-color-scheme-on-menu-open:has(
-      .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
-    )
-    .header__row {
+  .header--inherit-color-scheme-on-menu-open:is(:has(.mega-menu__list:hover), :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])), :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])), :has([data-menu-open='true'])) .header__row,
+  .header--inherit-color-scheme-on-menu-open:is(:has(.mega-menu__list:hover), :has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])), :has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])), :has([data-menu-open='true'])) .header__row {
     --color-foreground: inherit;
     --color-foreground-rgb: inherit;
     --color-background: inherit;
@@ -526,7 +517,7 @@
 
     /* will default to bg from its color scheme unless --header-bg-color is transparent */
     background-color: var(--header-bg-color, var(--color-background));
-    padding:10px 0px;
+    padding: 10px 0px;
   }
 
   .header__row--top:not(.divider--page-width),
@@ -709,11 +700,9 @@
   /* Check for hover support to avoid unnecessary expensive recalculations when tapping on mobile */
   @media (hover: hover) {
     /* Column-specific dimming effect when any interactive element is hovered
-      Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
-    .header__column:has(header-menu:hover),
-    .header__column:has(.header-actions__action:hover),
-    .header__column:has(.dropdown-localization__button:hover),
-    .header__column:has(.header__icon--menu:hover) {
+      Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions
+      FIREFOX FIX: Added explicit :hover state tracking with data-menu-open attribute */
+    .header__column:is(:has(header-menu:hover), :has(.header-actions__action:hover), :has(.dropdown-localization__button:hover), :has(.header__icon--menu:hover), :has([data-menu-open='true'])) {
       header-menu:not(:hover),
       .header-actions__action:not(:hover),
       .dropdown-localization__button:not(:hover),
@@ -988,6 +977,72 @@
     hydrate('{{ section.id }}', url);
   </script>
 {% endunless %}
+
+<!-- FIREFOX HOVER FIX: Menu state management -->
+<script type="module">
+  document.addEventListener('DOMContentLoaded', function() {
+    const headerComponent = document.querySelector('#header-component');
+    if (!headerComponent) return;
+
+    // Get all menu elements
+    const menuItems = headerComponent.querySelectorAll('.menu-list__link[aria-haspopup="true"], .mega-menu__link');
+    const headerColumn = headerComponent.querySelectorAll('.header__column');
+
+    // Handle menu item hover states
+    menuItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        headerComponent.setAttribute('data-menu-open', 'true');
+      });
+
+      item.addEventListener('mouseleave', function() {
+        // Check if mouse is still over any menu item
+        const isStillHovering = Array.from(menuItems).some(m => m.matches(':hover'));
+        if (!isStillHovering) {
+          headerComponent.removeAttribute('data-menu-open');
+        }
+      });
+    });
+
+    // Also handle when leaving header entirely
+    headerComponent.addEventListener('mouseleave', function() {
+      headerComponent.removeAttribute('data-menu-open');
+    });
+
+    // Handle submenu hover
+    const submenus = headerComponent.querySelectorAll('.menu-list__submenu, .mega-menu__list');
+    submenus.forEach(submenu => {
+      submenu.addEventListener('mouseenter', function() {
+        headerComponent.setAttribute('data-menu-open', 'true');
+      });
+
+      submenu.addEventListener('mouseleave', function() {
+        const isStillHovering = Array.from(menuItems).some(m => m.matches(':hover')) ||
+                              Array.from(submenus).some(s => s.matches(':hover'));
+        if (!isStillHovering) {
+          headerComponent.removeAttribute('data-menu-open');
+        }
+      });
+    });
+
+    // Firefox-specific: Ensure mouse leave properly clears hover states
+    if (navigator.userAgent.indexOf('Firefox') > -1) {
+      document.addEventListener('mousemove', function(e) {
+        const isOverHeader = headerComponent.contains(e.target);
+        const hasMenuOpen = headerComponent.getAttribute('data-menu-open');
+
+        if (!isOverHeader && hasMenuOpen) {
+          // Use setTimeout to let Firefox catch up with hover states
+          setTimeout(() => {
+            const stillHovering = Array.from(menuItems).some(m => m.matches(':hover'));
+            if (!stillHovering) {
+              headerComponent.removeAttribute('data-menu-open');
+            }
+          }, 50);
+        }
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {
