@@ -366,7 +366,7 @@
   body {
     --header-height: 60px;
     --header-group-height: var(--header-height);
-    --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
+    --transparent-header-offset-boolean: 0;
   }
 
   .header {
@@ -396,26 +396,17 @@
   .header[transparent] {
     --language-button-background-color: transparent;
     --language-button-border-color: transparent;
-
-    /* used to apply transparency to .header__row, will only ever be transparent or unset */
     --header-bg-color: transparent;
-
-    /* used to display the appropriate logo based on transparency state */
     --header-logo-display: none;
     --header-logo-inverse-display: block;
-
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-
-    /* transparent color scheme on .header should never apply its background color */
     background-color: transparent;
     z-index: var(--layer-overlay);
 
     &[transparent='not-sticky'][data-sticky-state='active'],
-    /* Only show opaque background when hovering over menu items with children (mega menu)
-       Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
     &:has(.mega-menu__list:hover),
     &:has(.menu-list__link[aria-haspopup]:is(:hover, [aria-expanded='true'])),
     &:has(.menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])) {
@@ -430,17 +421,14 @@
       --color-border-rgb: inherit;
 
       .header__row {
-        /* Faster transition for "in" animation */
         transition: color var(--animation-values-fast), border-color var(--animation-values-fast),
           background-color var(--animation-values-fast);
       }
     }
 
     .header__row {
-      /* Slower transition for "out" animation */
       transition: color var(--animation-values-slow), border-color var(--animation-values-slow),
         background-color var(--animation-values-slow);
-        
     }
   }
 
@@ -452,7 +440,6 @@
           .menu-list__list-item[slot='overflow'] .menu-list__link:is(:hover, [aria-expanded='true'])
         )
     ) {
-    /* while transparent, header-row ignores its color-scheme settings, pull from the header-component */
     --color-foreground: inherit;
     --color-foreground-rgb: inherit;
     --color-border: inherit;
@@ -481,7 +468,6 @@
     z-index: var(--layer-heightened);
   }
 
-  /* need default values for non-flash transitions on first overflow menu open */
   #header-component {
     --submenu-height: 0px;
     --submenu-max-height: 0px;
@@ -494,8 +480,6 @@
   .header-section:has(> #header-component[sticky='always']),
   .header-section:has(> #header-component[sticky='scroll-up'][data-sticky-state='active']) {
     position: sticky;
-
-    /* Use -1 instead of 0 so intersection observer can track sticky state */
     top: -1px;
     z-index: var(--layer-sticky);
   }
@@ -521,10 +505,8 @@
 
   .header__row {
     position: relative;
-
-    /* will default to bg from its color scheme unless --header-bg-color is transparent */
     background-color: var(--header-bg-color, var(--color-background));
-    padding:10px 0px;
+    padding: 10px 0px;
   }
 
   .header__row--top:not(.divider--page-width),
@@ -558,7 +540,6 @@
     display: flex;
     align-items: center;
 
-    /* on mobile, header__column nodes are ignored to create a new grid-template-area based on all visible content */
     @media screen and (max-width: 749px) {
       display: contents;
     }
@@ -590,13 +571,10 @@
   }
 
   .header__columns {
-    /* Three column layout */
     --header-left: 1fr;
     --header-center: auto;
     --header-right: 1fr;
     --header-template-columns: var(--header-left) var(--header-center) var(--header-right);
-
-    /* Mobile layout */
     --header-mobile-bookend: 44px;
 
     display: grid;
@@ -604,28 +582,23 @@
     grid-gap: var(--gap-xl);
     grid-template-columns: var(--header-template-columns);
 
-    /* If menu is in center column */
     &:has(.header__column--center header-menu) {
       --header-center: auto;
       --header-left: minmax(max-content, 1fr);
       --header-right: minmax(max-content, 1fr);
     }
 
-    /* If there is no center column, make the column the menu is in grow eagerly */
     &:where(:not(:has(.header__column--center))) {
       @media screen and (min-width: 750px) {
         --header-template-columns: var(--header-left) var(--header-right);
-
         grid-template-areas: 'left right';
       }
 
-      /* If the header-menu is in the right column */
       &:has(.header__column--right header-menu) {
         --header-right: auto;
         --header-left: minmax(max-content, 1fr);
       }
 
-      /* If the header-menu is in the left column */
       &:has(.header__column--left header-menu) {
         --header-left: auto;
         --header-right: minmax(max-content, 1fr);
@@ -635,7 +608,6 @@
     @media screen and (max-width: 749px) {
       --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
         var(--header-mobile-bookend) var(--header-mobile-bookend);
-
       grid-template-areas: 'leftA leftB center rightA rightB';
       grid-column: span 3;
       column-gap: 0;
@@ -665,12 +637,9 @@
     }
   }
 
-  /* not ideal but we need to duplicate these styles for when touch comes into play
-  We could avoid the duplication using js to set the data-menu-style attribute on small screens instead of using @media queries */
   #header-component[data-menu-style='drawer'] .header__columns {
     --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
       var(--header-mobile-bookend) var(--header-mobile-bookend);
-
     grid-template-areas: 'leftA leftB center rightA rightB';
     grid-column: span 3;
     column-gap: 0;
@@ -699,15 +668,11 @@
     }
   }
 
-  /* Single column layout if there are no columns within */
   .header__columns:not(:has(.header__column)) {
     grid-template-columns: 1fr;
   }
 
-  /* Check for hover support to avoid unnecessary expensive recalculations when tapping on mobile */
   @media (hover: hover) {
-    /* Column-specific dimming effect when any interactive element is hovered
-      Multiple selectors for performance: each simple :has() check is faster than one complex selector with multiple conditions */
     .header__column:has(header-menu:hover),
     .header__column:has(.header-actions__action:hover),
     .header__column:has(.dropdown-localization__button:hover),
@@ -722,7 +687,6 @@
     }
   }
 
-  /* Ensure smooth transitions for all interactive elements */
   header-menu,
   .header-actions__action,
   .dropdown-localization__button,
@@ -730,10 +694,8 @@
     transition: opacity var(--animation-speed) var(--animation-easing);
   }
 
-  /* Header action button styles */
   .header-actions__action {
     --button-color: var(--color-foreground);
-
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -749,7 +711,6 @@
     height: var(--icon-size-md);
   }
 
-  /* Set header paddings based on height setting */
   .header {
     --header-padding: var(--padding-sm);
     --font-paragraph--line-height: 1;
@@ -778,46 +739,36 @@
     }
   }
 
-  /* When the header is transparent, add a margin to a potential header-section below it */
   .header-section:has(.header[transparent]) + .shopify-section {
     margin-top: var(--header-height);
   }
-
-  /* When the header is transparent, and when there is no header-section below it, offset the first main-section with
-   * the height of the header
-   */
 
   main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     &.spacing-style,
     .spacing-style {
       --section-top-offset: calc(var(--header-height) * var(--transparent-header-offset-boolean));
 
-      /* Any nested sections should not be offset */
       :is(.spacing-style, .inherit-spacing) {
         --section-top-offset: 0px;
       }
     }
 
-    /* Make sticky content immediately stick to the top of the page */
     .sticky-content {
       margin-top: calc(var(--header-height) * var(--transparent-header-offset-boolean) * -1);
     }
   }
 
-  /* Optimize layout performance for hidden menus */
   .header-menu .menu-list__submenu {
     content-visibility: auto;
     contain-intrinsic-size: 0px 500px;
   }
 
-  /* Force visibility when open/animating and in overflow submenu to prevent layout issues */
   .header-menu details[open] .menu-list__submenu,
   .header-menu .menu-list__submenu[data-active],
   .header-menu .menu-list__list-item[slot='overflow'] .menu-list__submenu {
     content-visibility: visible;
   }
 
-  /* Dropdown Localization Styles */
   .dropdown-localization__button {
     display: flex;
     position: relative;
@@ -842,7 +793,7 @@
   .dropdown-localization__button .icon-flag {
     width: var(--menu-localization-font-size, var(--icon-size-sm));
     height: var(--menu-localization-font-size, var(--icon-size-sm));
-    clip-path: circle(50%); /* stylelint-disable-line */
+    clip-path: circle(50%);
     background-position: center;
     background-size: cover;
     margin-inline-end: 4px;
@@ -935,7 +886,6 @@
     right: unset;
   }
 
-  /* Additional specificity due to dropdown-localization-component getting a low score */
   dropdown-localization-component .language-selector.language-selector {
     padding: 10px 8px 10px 16px;
   }
@@ -978,191 +928,60 @@
   }
 
   /* ============================================ */
-  /* MENU POSITIONING FIX - Ensures submenu appears directly below menu item */
+  /* CRITICAL MENU POSITIONING FIX */
   /* ============================================ */
   
-  /* Ensure menu container has proper positioning context */
-  .header-menu {
-    position: relative;
+  /* Force proper positioning on menu items */
+  .menu-list__item,
+  .mega-menu__item,
+  .header-menu details {
+    position: relative !important;
   }
   
-  /* Fix submenu positioning */
+  /* Force submenu to appear directly below parent */
   .menu-list__submenu,
   .mega-menu__submenu {
     position: absolute !important;
     top: 100% !important;
     left: 0 !important;
-    z-index: var(--layer-header-menu);
-    background-color: var(--color-background);
-    min-width: 200px;
-    box-shadow: var(--shadow-popover);
     margin-top: 0 !important;
+    transform: none !important;
+    z-index: 10000 !important;
+    background-color: var(--color-background) !important;
+    min-width: 220px !important;
+    box-shadow: var(--shadow-popover) !important;
   }
   
-  /* For right-aligned menus, position submenu correctly */
+  /* Right-aligned menu fix */
   .header__column--right .menu-list__submenu,
   .header__column--right .mega-menu__submenu {
     left: auto !important;
     right: 0 !important;
   }
   
-  /* Ensure submenu is visible on hover */
-  .menu-list__item {
-    position: relative;
-  }
-  
-  .menu-list__item .menu-list__submenu {
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.2s, opacity 0.2s;
-  }
-  
-  .menu-list__item:hover .menu-list__submenu {
+  /* Show submenu on hover */
+  .menu-list__item:hover > .menu-list__submenu,
+  .mega-menu__item:hover > .mega-menu__submenu {
+    display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
   
-  /* Fix for mega menu */
-  .mega-menu__item {
-    position: relative;
-  }
-  
+  /* Hide submenu by default */
+  .menu-list__submenu,
   .mega-menu__submenu {
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.2s, opacity 0.2s;
-  }
-  
-  .mega-menu__item:hover .mega-menu__submenu {
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-  
-  /* Fix for details/summary elements */
-  .header-menu details {
-    position: relative;
-  }
-  
-  .header-menu details .menu-list__submenu {
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-  }
-  
-  /* Firefox specific fixes */
-  @supports (-moz-appearance: none) {
-    .menu-list__item .menu-list__submenu,
-    .mega-menu__item .mega-menu__submenu {
-      margin-top: 0 !important;
-    }
-    
-    .menu-list__item:hover .menu-list__submenu,
-    .mega-menu__item:hover .mega-menu__submenu {
-      display: block;
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
-  /* ============================================ */
-  /* FIREFOX MENU HOVER FIX - Ensures menus hide properly */
-  /* ============================================ */
-  @supports (-moz-appearance: none) {
-    /* Firefox specific fix for menu hiding */
-    .menu-list__item .menu-list__submenu,
-    .mega-menu__item .mega-menu__submenu,
-    .header-menu details .menu-list__submenu {
-      transition: opacity 0.15s ease, visibility 0.15s ease;
-    }
-
-    .menu-list__item:not(:hover) .menu-list__submenu,
-    .mega-menu__item:not(:hover) .mega-menu__submenu,
-    .header-menu details:not(:hover) .menu-list__submenu {
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      display: none !important;
-    }
-
-    .menu-list__item:hover .menu-list__submenu,
-    .mega-menu__item:hover .mega-menu__submenu,
-    .header-menu details:hover .menu-list__submenu {
-      visibility: visible !important;
-      opacity: 1 !important;
-      pointer-events: auto !important;
-      display: block !important;
-    }
-
-    /* Fix for details/summary elements in Firefox */
-    details.menu-list__item[open]:not(:hover) {
-      transition-delay: 0.3s;
-    }
-    
-    details.menu-list__item:not(:hover) {
-      pointer-events: auto;
-    }
-    
-    /* Fix for mega menu in Firefox */
-    .mega-menu__list:hover + .mega-menu__submenu,
-    .mega-menu__item:hover .mega-menu__submenu {
-      display: block;
-    }
-    
-    .mega-menu__item:not(:hover) .mega-menu__submenu,
-    .mega-menu__list:not(:hover) + .mega-menu__submenu {
-      display: none !important;
-    }
-  }
-
-  /* General fix for all browsers - ensure proper menu hiding */
-  .menu-list__item .menu-list__submenu,
-  .mega-menu__item .mega-menu__submenu {
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-  }
-  
-  .menu-list__item:hover .menu-list__submenu,
-  .mega-menu__item:hover .mega-menu__submenu {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  .menu-list__item:not(:hover) .menu-list__submenu,
-  .mega-menu__item:not(:hover) .mega-menu__submenu {
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transition-delay: 0.1s;
-  }
-  
-  /* Ensure submenu closes when moving mouse outside the menu area */
-  .menu-list__submenu:hover,
-  .menu-list__item:hover .menu-list__submenu {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .menu-list__submenu:not(:hover),
-  .menu-list__item:not(:hover) .menu-list__submenu {
-    visibility: hidden;
-    opacity: 0;
-  }
-  
-  /* For details/summary based menus */
-  details[open] > summary ~ * {
-    animation: none;
-  }
-  
-  details:not([open]) > summary ~ * {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
+  }
+  
+  /* Firefox specific fix */
+  @supports (-moz-appearance: none) {
+    .menu-list__submenu,
+    .mega-menu__submenu {
+      top: 100% !important;
+      margin-top: 0 !important;
+    }
   }
 {% endstylesheet %}
 
@@ -1174,6 +993,66 @@
     hydrate('{{ section.id }}', url);
   </script>
 {% endunless %}
+
+<!-- MENU POSITIONING FIX - JavaScript -->
+<script>
+  (function() {
+    // Fix menu positioning - force submenu to appear directly below menu item
+    function fixMenuPositions() {
+      var menuItems = document.querySelectorAll('.menu-list__item, .mega-menu__item, .header-menu details');
+      
+      menuItems.forEach(function(item) {
+        var submenu = item.querySelector('.menu-list__submenu, .mega-menu__submenu');
+        if (submenu) {
+          // Make sure parent has relative positioning
+          item.style.position = 'relative';
+          
+          // Force submenu to position below the parent
+          submenu.style.position = 'absolute';
+          submenu.style.top = '100%';
+          submenu.style.left = '0';
+          submenu.style.zIndex = '9999';
+          submenu.style.backgroundColor = 'var(--color-background, #fff)';
+          submenu.style.marginTop = '0';
+          submenu.style.transform = 'none';
+          
+          // For right-aligned menus
+          if (item.closest('.header__column--right')) {
+            submenu.style.left = 'auto';
+            submenu.style.right = '0';
+          }
+        }
+      });
+    }
+    
+    // Run immediately
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fixMenuPositions);
+    } else {
+      fixMenuPositions();
+    }
+    
+    // Also run on hover to ensure proper positioning
+    document.body.addEventListener('mouseenter', function(e) {
+      var menuItem = e.target.closest('.menu-list__item, .mega-menu__item, details');
+      if (menuItem) {
+        setTimeout(fixMenuPositions, 10);
+      }
+    }, true);
+    
+    // Watch for dynamic content changes
+    var observer = new MutationObserver(function() {
+      fixMenuPositions();
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  })();
+</script>
 
 {% schema %}
 {
