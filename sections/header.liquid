@@ -1009,6 +1009,46 @@
         // If MutationObserver fails, silently ignore — fallback handlers still exist
         console.warn('details observer unavailable', err);
       }
+
+      // Per-`details` pointer handlers: schedule close after short delay to avoid Firefox race conditions
+      (function() {
+        var CLOSE_DELAY = 80;
+        var detailsList = document.querySelectorAll('.header-menu details, .mega-menu details');
+        for (var d = 0; d < detailsList.length; d++) {
+          (function(details) {
+            var closeTimer = null;
+            function scheduleClose() {
+              if (closeTimer) clearTimeout(closeTimer);
+              closeTimer = setTimeout(function() {
+                var parentItem = details.closest('.menu-list__item, .mega-menu');
+                var parentHovered = parentItem && parentItem.matches(':hover');
+                var detailsHovered = details.matches(':hover');
+                if (!parentHovered && !detailsHovered) {
+                  if (details.hasAttribute('open')) {
+                    details.removeAttribute('open');
+                    var trigger = parentItem ? parentItem.querySelector('[aria-haspopup="true"]') : null;
+                    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                  }
+                }
+              }, CLOSE_DELAY);
+            }
+            function cancelClose() { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } }
+
+            details.addEventListener('pointerenter', cancelClose);
+            details.addEventListener('pointerleave', scheduleClose);
+            details.addEventListener('focusin', cancelClose);
+            details.addEventListener('focusout', scheduleClose);
+
+            var parent = details.closest('.menu-list__item');
+            if (parent) {
+              parent.addEventListener('pointerenter', cancelClose);
+              parent.addEventListener('pointerleave', scheduleClose);
+              parent.addEventListener('focusin', cancelClose);
+              parent.addEventListener('focusout', scheduleClose);
+            }
+          })(detailsList[d]);
+        }
+      })();
       
       // Close on scroll
       window.addEventListener('scroll', function() {
