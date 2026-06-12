@@ -1,10 +1,8 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
-
 <!-- Optimized Swiper - Loaded only once -->
 {% comment %} <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> {% endcomment %}
-
 <style>
   /* Prevent layout shift - critical for mobile */
   .featured-collection-carousel-slider {
@@ -582,7 +580,7 @@
 
 <script>
 (function() {
-  // Wait for both DOM and Swiper to be ready
+  // Check if Swiper is available (should be loaded globally in theme.liquid)
   function init() {
     if (typeof Swiper === 'undefined') {
       setTimeout(init, 50);
@@ -592,16 +590,13 @@
     const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
     const autoplaySpeed = {{ section.settings.autoplay_speed }};
     
-    // Initialize all sliders
     function initSliders() {
       document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
-        // Skip if already initialized
         if (slider.swiper) return;
         
         var productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
         var isSingleItem = slider.classList.contains('single-item');
         
-        // For single item
         if (isSingleItem || productCount === 1) {
           slider.classList.add('single-item');
           new Swiper(slider, {
@@ -615,7 +610,6 @@
           return;
         }
         
-        // For multiple items - get navigation elements
         var prevBtn = slider.querySelector('.swiper-button-prev');
         var nextBtn = slider.querySelector('.swiper-button-next');
         
@@ -638,7 +632,6 @@
           }
         };
         
-        // Add navigation only if buttons exist
         if (prevBtn && nextBtn) {
           swiperConfig.navigation = {
             nextEl: nextBtn,
@@ -646,13 +639,11 @@
           };
         }
         
-        // Initialize swiper
         var swiper = new Swiper(slider, swiperConfig);
         slider.swiper = swiper;
       });
     }
     
-    // Handle tab clicks
     function initTabs() {
       var tabs = document.querySelectorAll('.collection-tab');
       if (!tabs.length) return;
@@ -668,7 +659,6 @@
           var newContent = section.querySelector('#' + tabId);
           if (currentActive === newContent) return;
           
-          // Update UI
           section.querySelectorAll('.collection-tab').forEach(function(t) {
             t.classList.remove('active');
           });
@@ -679,11 +669,9 @@
           });
           newContent.classList.add('active');
           
-          // Initialize slider in new tab
           var newSlider = newContent.querySelector('.featured-collection-carousel-slider');
           if (newSlider && !newSlider.swiper) {
             setTimeout(function() {
-              // Get product count
               var productCount = parseInt(newSlider.getAttribute('data-product-count') || '0', 10);
               var isSingleItem = newSlider.classList.contains('single-item');
               
@@ -736,7 +724,6 @@
     initTabs();
   }
   
-  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
