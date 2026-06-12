@@ -895,18 +895,36 @@
         }
       }, 50);
       
-      // Also close all details when mouse moves anywhere
+      // Also close all details when mouse moves anywhere (fallback)
+      function closeAllMenuDetails() {
+        var allDetails = document.querySelectorAll('.header-menu details[open], .mega-menu details[open]');
+        for (var i = 0; i < allDetails.length; i++) {
+          allDetails[i].removeAttribute('open');
+        }
+      }
+
       document.addEventListener('mousemove', function(e) {
         var target = e.target;
         var isInMenu = target.closest('.menu-list__item, .mega-menu, .header-menu');
-        
+
         if (!isInMenu) {
-          var allDetails = document.querySelectorAll('.header-menu details[open], .mega-menu details[open]');
-          for (var i = 0; i < allDetails.length; i++) {
-            allDetails[i].removeAttribute('open');
-          }
+          closeAllMenuDetails();
         }
       });
+
+      // Listen for pointer leaving the whole menu container and close menus
+      var menus = document.querySelectorAll('.header-menu, .mega-menu');
+      for (var m = 0; m < menus.length; m++) {
+        (function(menu) {
+          menu.addEventListener('pointerleave', function(e) {
+            // When pointer leaves the menu entirely, close any open details
+            var related = e.relatedTarget;
+            if (!related || !menu.contains(related)) {
+              closeAllMenuDetails();
+            }
+          });
+        })(menus[m]);
+      }
       
       // Close on scroll
       window.addEventListener('scroll', function() {
