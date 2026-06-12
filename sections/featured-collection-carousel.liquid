@@ -1,6 +1,9 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
+
+<!-- Load Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Load Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 {%- style -%}
@@ -81,7 +84,7 @@
     }
   }
 
-  /* Swiper Container - Force swiper to show properly */
+  /* Swiper Container */
   .featured-collection-carousel-slider {
     overflow: hidden;
     position: relative;
@@ -272,22 +275,9 @@
         {%- assign tab_index = tab_index | plus: 1 -%}
         {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: i -%}
         {%- assign product_count = tab_collection.products_count -%}
-        {%- assign single_item_class = '' -%}
-        {%- if product_count == 1 -%}
-          {%- assign single_item_class = 'single-item' -%}
-        {%- endif -%}
         
-        <div class="tab-content {% if tab_index == 1 %}active{% endif %}" 
-             id="{{ tab_id }}"
-             data-tab-id="{{ tab_id }}"
-             data-product-count="{{ product_count }}">
-          <div class="featured-collection-carousel-slider swiper {{ single_item_class }}" 
-               data-slider="true"
-               data-product-count="{{ product_count }}"
-               data-autoplay-delay="{{ section.settings.autoplay_speed | times: 1000 }}"
-               data-desktop-columns="{{ section.settings.desktop_columns }}"
-               data-center-products="{{ section.settings.centralize_products }}"
-               data-show-arrows="{{ section.settings.show_arrows }}">
+        <div class="tab-content {% if tab_index == 1 %}active{% endif %}" id="{{ tab_id }}">
+          <div class="featured-collection-carousel-slider swiper-container" data-id="{{ tab_id }}">
             <div class="swiper-wrapper">
               {%- assign limit = section.settings.products_to_show -%}
               {%- if section.settings.show_all_products -%}
@@ -355,30 +345,17 @@
               {%- endfor -%}
             </div>
             
-            <!-- Only show arrows if more than 1 product and arrows enabled -->
-            {%- if section.settings.show_arrows and product_count > 1 -%}
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-button-next"></div>
-            {%- endif -%}
+            <!-- Arrows -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
           </div>
         </div>
       {%- endif -%}
     {%- endfor -%}
 
-    <!-- Fallback: Single collection if no tabs -->
+    <!-- Fallback -->
     {%- if tab_list == blank and section.settings.collection != blank -%}
-      {%- assign fallback_count = section.settings.collection.products_count -%}
-      {%- assign fallback_class = '' -%}
-      {%- if fallback_count == 1 -%}
-        {%- assign fallback_class = 'single-item' -%}
-      {%- endif -%}
-      <div class="featured-collection-carousel-slider swiper {{ fallback_class }}" 
-           data-slider="true"
-           data-product-count="{{ fallback_count }}"
-           data-autoplay-delay="{{ section.settings.autoplay_speed | times: 1000 }}"
-           data-desktop-columns="{{ section.settings.desktop_columns }}"
-           data-center-products="{{ section.settings.centralize_products }}"
-           data-show-arrows="{{ section.settings.show_arrows }}">
+      <div class="featured-collection-carousel-slider swiper-container">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -443,218 +420,121 @@
             </div>
           {%- endfor -%}
         </div>
-        <!-- Only show arrows if more than 1 product -->
-        {%- if section.settings.show_arrows and fallback_count > 1 -%}
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        {%- endif -%}
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
     {%- endif -%}
   </div>
 </div>
 
 <script>
-(function() {
-  // Store swiper instances
-  const swipers = new Map();
-  const sectionId = '{{ section.id }}';
-
-  function initSwiper(container) {
-    if (!container || container.classList.contains('swiper-initialized')) return null;
-    
-    // Get settings from data attributes
-    const productCount = parseInt(container.getAttribute('data-product-count') || '0', 10);
-    const autoplayDelay = parseInt(container.getAttribute('data-autoplay-delay') || '5000', 10);
-    const desktopColumns = parseFloat(container.getAttribute('data-desktop-columns') || '4');
-    const centerProducts = container.getAttribute('data-center-products') === 'true';
-    const showArrows = container.getAttribute('data-show-arrows') === 'true';
-    
-    // If only 1 product, don't initialize swiper
-    if (productCount === 1) {
-      container.classList.add('single-item');
-      return null;
-    }
-    
-    // Determine slides per view based on product count
-    let slidesPerView = 2.1;
-    if (productCount === 2) {
-      slidesPerView = 2.1;
-    } else if (productCount === 3) {
-      slidesPerView = 2.5;
-    } else if (productCount === 4) {
-      slidesPerView = 3;
-    }
-    
-    const config = {
-      slidesPerView: slidesPerView,
-      spaceBetween: 15,
-      loop: productCount > desktopColumns ? true : false,
-      centeredSlides: centerProducts || productCount === 1,
-      observer: true,
-      observeParents: true,
-      watchOverflow: true,
-      autoplay: (autoplayDelay > 0 && productCount > 1) ? {
-        delay: autoplayDelay,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-      } : false,
-      breakpoints: {
-        640: { 
-          slidesPerView: productCount === 2 ? 2.1 : (productCount === 3 ? 2.5 : 2.5), 
-          spaceBetween: 20 
+// Simple Swiper initialization
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize all sliders on the page
+  var sliders = document.querySelectorAll('.featured-collection-carousel-slider');
+  
+  sliders.forEach(function(slider) {
+    // Only initialize if not already initialized
+    if (!slider.classList.contains('swiper-initialized')) {
+      var swiper = new Swiper(slider, {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        loop: false,
+        navigation: {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev'),
         },
-        768: { 
-          slidesPerView: productCount === 2 ? 2.1 : (productCount === 3 ? 3 : 3), 
-          spaceBetween: 20 
+        autoplay: {
+          delay: {{ section.settings.autoplay_speed | times: 1000 }},
+          disableOnInteraction: false,
         },
-        1024: { 
-          slidesPerView: productCount < desktopColumns ? productCount : desktopColumns, 
-          spaceBetween: 25 
-        },
-        1200: { 
-          slidesPerView: productCount < desktopColumns ? productCount : desktopColumns, 
-          spaceBetween: 30 
-        }
-      }
-    };
-    
-    // Only add navigation if there are more than 1 product and arrows enabled
-    if (showArrows && productCount > 1) {
-      const nextBtn = container.querySelector('.swiper-button-next');
-      const prevBtn = container.querySelector('.swiper-button-prev');
-      if (nextBtn && prevBtn) {
-        config.navigation = {
-          nextEl: nextBtn,
-          prevEl: prevBtn
-        };
-      }
-    }
-    
-    try {
-      const swiper = new Swiper(container, config);
-      return swiper;
-    } catch(e) {
-      console.warn('Swiper init error:', e);
-      return null;
-    }
-  }
-
-  function initAllSliders() {
-    // Initialize all sliders that are in active tabs
-    const activeTab = document.querySelector('.tab-content.active');
-    if (activeTab) {
-      const slider = activeTab.querySelector('.featured-collection-carousel-slider');
-      if (slider && !slider.classList.contains('swiper-initialized')) {
-        const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
-        if (productCount > 1) {
-          const swiper = initSwiper(slider);
-          if (swiper) {
-            swipers.set(activeTab.id, swiper);
-          }
-        } else {
-          slider.classList.add('single-item');
-        }
-      }
-    }
-  }
-
-  function setupTabs() {
-    const tabs = document.querySelectorAll('.collection-tab');
-    const section = document.querySelector(`.featured-collection-carousel-section[data-section-id="${sectionId}"]`);
-    if (!section || !tabs.length) return;
-    
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const tabId = this.getAttribute('data-tab-id');
-        if (!tabId) return;
-        
-        const currentActiveContent = section.querySelector('.tab-content.active');
-        const newActiveContent = section.querySelector(`#${tabId}`);
-        
-        if (!newActiveContent || currentActiveContent === newActiveContent) return;
-        
-        // Stop autoplay on current slider
-        if (currentActiveContent && swipers.has(currentActiveContent.id)) {
-          const oldSwiper = swipers.get(currentActiveContent.id);
-          if (oldSwiper && oldSwiper.autoplay) {
-            oldSwiper.autoplay.stop();
+        breakpoints: {
+          0: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          640: {
+            slidesPerView: 2.5,
+            spaceBetween: 15,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: {{ section.settings.desktop_columns }},
+            spaceBetween: 25,
+          },
+          1200: {
+            slidesPerView: {{ section.settings.desktop_columns }},
+            spaceBetween: 30,
           }
         }
-        
-        // Update tab UI
-        section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Update content visibility
-        section.querySelectorAll('.tab-content').forEach(content => {
-          content.classList.remove('active');
-        });
-        newActiveContent.classList.add('active');
-        
-        // Initialize slider in new tab
-        setTimeout(() => {
-          const newSlider = newActiveContent.querySelector('.featured-collection-carousel-slider');
-          if (newSlider) {
-            const productCount = parseInt(newSlider.getAttribute('data-product-count') || '0', 10);
-            
-            // Check if already initialized
-            if (newSlider.classList.contains('swiper-initialized')) {
-              const existingSwiper = newSlider.swiper;
-              if (existingSwiper && existingSwiper.autoplay && productCount > 1) {
-                existingSwiper.autoplay.start();
-              }
-              if (existingSwiper && existingSwiper.update) {
-                existingSwiper.update();
-              }
-            } else if (productCount > 1) {
-              // Initialize new swiper
-              const newSwiper = initSwiper(newSlider);
-              if (newSwiper) {
-                swipers.set(tabId, newSwiper);
-              }
-            } else {
-              newSlider.classList.add('single-item');
-            }
-          }
-        }, 100);
       });
-    });
-  }
-
-  // Initialize when DOM is ready
-  function init() {
-    // Small delay to ensure DOM is fully rendered
-    setTimeout(() => {
-      if (typeof Swiper !== 'undefined') {
-        initAllSliders();
-        setupTabs();
-      } else {
-        // Wait for Swiper to load
-        setTimeout(init, 100);
-      }
-    }, 50);
-  }
-
-  // Handle resize
-  let resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      swipers.forEach(swiper => {
-        if (swiper && swiper.update) swiper.update();
-      });
-    }, 150);
+      
+      // Store swiper instance on the element
+      slider.swiper = swiper;
+    }
   });
-
-  // Start when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+  
+  // Tab switching logic
+  var tabs = document.querySelectorAll('.collection-tab');
+  
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      var tabId = this.getAttribute('data-tab-id');
+      var section = this.closest('.featured-collection-carousel-section');
+      var currentActive = section.querySelector('.tab-content.active');
+      var newContent = section.querySelector('#' + tabId);
+      
+      if (currentActive === newContent) return;
+      
+      // Update tabs
+      section.querySelectorAll('.collection-tab').forEach(function(t) {
+        t.classList.remove('active');
+      });
+      this.classList.add('active');
+      
+      // Update content
+      section.querySelectorAll('.tab-content').forEach(function(content) {
+        content.classList.remove('active');
+      });
+      newContent.classList.add('active');
+      
+      // Reinitialize slider in new content
+      setTimeout(function() {
+        var newSlider = newContent.querySelector('.featured-collection-carousel-slider');
+        if (newSlider && !newSlider.classList.contains('swiper-initialized')) {
+          var swiper = new Swiper(newSlider, {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            loop: false,
+            navigation: {
+              nextEl: newSlider.querySelector('.swiper-button-next'),
+              prevEl: newSlider.querySelector('.swiper-button-prev'),
+            },
+            autoplay: {
+              delay: {{ section.settings.autoplay_speed | times: 1000 }},
+              disableOnInteraction: false,
+            },
+            breakpoints: {
+              0: { slidesPerView: 2, spaceBetween: 10 },
+              640: { slidesPerView: 2.5, spaceBetween: 15 },
+              768: { slidesPerView: 3, spaceBetween: 20 },
+              1024: { slidesPerView: {{ section.settings.desktop_columns }}, spaceBetween: 25 },
+              1200: { slidesPerView: {{ section.settings.desktop_columns }}, spaceBetween: 30 }
+            }
+          });
+          newSlider.swiper = swiper;
+        } else if (newSlider && newSlider.swiper) {
+          newSlider.swiper.update();
+        }
+      }, 100);
+    });
+  });
+});
 </script>
 
 {% schema %}
@@ -766,7 +646,7 @@
       "step": 1,
       "default": 5,
       "unit": "s",
-      "label": "Autoplay speed (0 = off)"
+      "label": "Autoplay speed"
     },
     {
       "type": "checkbox",
