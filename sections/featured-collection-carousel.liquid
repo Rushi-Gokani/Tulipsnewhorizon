@@ -21,7 +21,7 @@
     background-color: {{ section.settings.bg_color }};
   }
 
-  /* Tabs Styles */
+  /* Tabs Styles - Capsule/Pill Button */
   .collection-tabs-wrapper {
     margin-bottom: 30px;
   }
@@ -77,18 +77,28 @@
       padding: 8px 16px;
       font-size: 13px;
     }
+    .title {
+      text-align: center;
+    }
   }
 
   /* Swiper Styles */
   .featured-collection-carousel-slider {
     overflow: hidden;
     position: relative;
+    margin: 0 -10px;
+    padding: 0 10px;
+  }
+
+  .featured-collection-carousel-slider .swiper-wrapper {
+    align-items: stretch;
   }
 
   .featured-collection-carousel-slider .swiper-slide {
     height: auto;
   }
 
+  /* Navigation Arrows */
   .featured-collection-controls {
     position: absolute;
     top: 50%;
@@ -103,20 +113,27 @@
   .featured-collection-controls .swiper-button-next {
     position: absolute;
     pointer-events: auto;
-    width: 40px;
-    height: 40px;
-    background: white;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.9);
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     color: #333;
+    transition: all 0.3s ease;
+  }
+
+  .featured-collection-controls .swiper-button-prev:hover,
+  .featured-collection-controls .swiper-button-next:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   }
 
   .featured-collection-controls .swiper-button-prev {
-    left: 10px;
+    left: -10px;
   }
 
   .featured-collection-controls .swiper-button-next {
-    right: 10px;
+    right: -10px;
   }
 
   .featured-collection-controls .swiper-button-prev:after,
@@ -125,64 +142,134 @@
     font-weight: bold;
   }
 
-  /* Product Card Styles */
-  .product-card-wrapper {
-    border: 1px solid #eee;
+  @media screen and (max-width: 768px) {
+    .featured-collection-controls .swiper-button-prev {
+      left: -5px;
+    }
+    .featured-collection-controls .swiper-button-next {
+      right: -5px;
+    }
+    .featured-collection-controls .swiper-button-prev,
+    .featured-collection-controls .swiper-button-next {
+      width: 36px;
+      height: 36px;
+    }
+    .featured-collection-controls .swiper-button-prev:after,
+    .featured-collection-controls .swiper-button-next:after {
+      font-size: 14px;
+    }
+  }
+
+  /* Product Card Styles - Matching Original Design */
+  .product-card {
+    background: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
-  .card-gallery-wrapper {
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  /* Gallery Styles */
+  .card-gallery {
     position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+
+  .card-gallery__media {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
   }
 
   .card-gallery__media img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
   }
 
+  .product-card:hover .card-gallery__media img {
+    transform: scale(1.05);
+  }
+
+  /* Product Badges */
   .product-badges {
     position: absolute;
     top: 10px;
     left: 10px;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .product-badges__badge {
     background: #ff4444;
     color: white;
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
+  .product-badges__badge--custom {
+    background: #ff4444;
+  }
+
+  /* Card Info */
   .card-info {
     padding: 15px;
     flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .card-title {
-    margin: 0 0 5px;
+    margin: 0 0 8px;
     font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
   }
 
   .card-title a {
     text-decoration: none;
-    color: inherit;
+    color: #333;
+    transition: color 0.3s ease;
   }
 
+  .card-title a:hover {
+    color: {{ section.settings.tab_active_color }};
+  }
+
+  /* Price Styles */
   .price {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .price-item {
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .price-item--regular {
-    font-weight: bold;
     color: #333;
   }
 
@@ -191,25 +278,75 @@
   }
 
   .price-item--compare {
+    font-size: 14px;
+    font-weight: 400;
     text-decoration: line-through;
     color: #999;
-    margin-left: 8px;
-    font-weight: normal;
+  }
+
+  /* Button Styles */
+  .product-card-button {
+    margin-top: auto;
   }
 
   .button--add-to-cart {
     background: {{ section.settings.tab_active_color }};
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    padding: 12px 15px;
+    border-radius: 50px;
     cursor: pointer;
     width: 100%;
     font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
   }
 
   .button--add-to-cart:hover {
-    opacity: 0.9;
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+
+  .button--add-to-cart:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* Judge.me Reviews */
+  .product-judgeme-reviews {
+    margin-bottom: 10px;
+    min-height: 24px;
+  }
+
+  .jdgm-widget {
+    margin-bottom: 10px;
+  }
+
+  /* Loading Spinner */
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+  }
+
+  .loading-spinner svg {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Placeholder SVG */
+  .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
   }
 {%- endstyle -%}
 
@@ -293,33 +430,46 @@
               
               {%- for product in tab_collection.products limit: limit -%}
                 <div class="swiper-slide">
-                  <div class="product-card-wrapper">
-                    <div class="card-gallery-wrapper">
+                  <div class="product-card">
+                    <!-- Gallery Section -->
+                    <div class="card-gallery">
                       <a href="{{ product.url }}">
                         <div class="card-gallery__media">
                           {%- if product.featured_image -%}
-                            <img src="{{ product.featured_image | image_url: width: 300, height: 300 }}" 
+                            <img src="{{ product.featured_image | image_url: width: 400, height: 400 }}" 
                                  alt="{{ product.title | escape }}"
                                  loading="lazy"
-                                 width="300" 
-                                 height="300">
+                                 width="400" 
+                                 height="400">
                           {%- else -%}
                             {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                           {%- endif -%}
                         </div>
                       </a>
-                      {%- if product.compare_at_price > product.price -%}
-                        {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                        <div class="product-badges">
-                          <div class="product-badges__badge">{{ discount }}% OFF</div>
-                        </div>
-                      {%- endif -%}
+                      
+                      <!-- Badges -->
+                      <div class="product-badges">
+                        {%- if product.compare_at_price > product.price -%}
+                          {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+                          <div class="product-badges__badge product-badges__badge--custom">
+                            {{ discount }}% OFF
+                          </div>
+                        {%- endif -%}
+                        {%- if product.available == false -%}
+                          <div class="product-badges__badge product-badges__badge--custom">
+                            SOLD OUT
+                          </div>
+                        {%- endif -%}
+                      </div>
                     </div>
+                    
+                    <!-- Card Info -->
                     <div class="card-info">
                       <h3 class="card-title h5">
-                        <a href="{{ product.url }}">{{ product.title | truncate: 40 }}</a>
+                        <a href="{{ product.url }}">{{ product.title | truncate: 50 }}</a>
                       </h3>
                       
+                      <!-- Judge.me Reviews -->
                       {%- for block in section.blocks -%}
                         {%- if block.type == 'judgeme_reviews' -%}
                           <div class="product-judgeme-reviews" {{ block.shopify_attributes }}>
@@ -330,6 +480,16 @@
                         {%- endif -%}
                       {%- endfor -%}
                       
+                      <!-- Custom Liquid Blocks -->
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'custom_liquid' -%}
+                          <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                            {{ block.settings.custom_liquid }}
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                      
+                      <!-- Price -->
                       <div class="price">
                         <span class="price-item price-item--regular">{{ product.price | money }}</span>
                         {%- if product.compare_at_price > product.price -%}
@@ -337,11 +497,19 @@
                         {%- endif -%}
                       </div>
                       
-                      <button class="button--add-to-cart" 
-                              data-variant-id="{{ product.variants.first.id }}"
-                              {% unless product.available %}disabled{% endunless %}>
-                        {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
-                      </button>
+                      <!-- Add to Cart Button -->
+                      <div class="product-card-button">
+                        <button class="button--add-to-cart" 
+                                data-variant-id="{{ product.variants.first.id }}"
+                                data-product-handle="{{ product.handle }}"
+                                {% unless product.available %}disabled{% endunless %}>
+                          {%- if product.available -%}
+                            Add to Cart
+                          {%- else -%}
+                            Sold Out
+                          {%- endif -%}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -352,6 +520,7 @@
               {%- endfor -%}
             </div>
             
+            <!-- Navigation Arrows -->
             {%- if section.settings.show_arrows -%}
               <div class="featured-collection-controls">
                 <div class="swiper-button-prev"></div>
@@ -373,33 +542,39 @@
           {%- endif -%}
           {%- for product in section.settings.collection.products limit: limit -%}
             <div class="swiper-slide">
-              <div class="product-card-wrapper">
-                <div class="card-gallery-wrapper">
+              <div class="product-card">
+                <div class="card-gallery">
                   <a href="{{ product.url }}">
                     <div class="card-gallery__media">
                       {%- if product.featured_image -%}
-                        <img src="{{ product.featured_image | image_url: width: 300, height: 300 }}" 
+                        <img src="{{ product.featured_image | image_url: width: 400, height: 400 }}" 
                              alt="{{ product.title | escape }}"
                              loading="lazy"
-                             width="300" 
-                             height="300">
+                             width="400" 
+                             height="400">
                       {%- else -%}
                         {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                       {%- endif -%}
                     </div>
                   </a>
-                  {%- if product.compare_at_price > product.price -%}
-                    {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                    <div class="product-badges">
-                      <div class="product-badges__badge">{{ discount }}% OFF</div>
-                    </div>
-                  {%- endif -%}
+                  <div class="product-badges">
+                    {%- if product.compare_at_price > product.price -%}
+                      {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        {{ discount }}% OFF
+                      </div>
+                    {%- endif -%}
+                    {%- if product.available == false -%}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        SOLD OUT
+                      </div>
+                    {%- endif -%}
+                  </div>
                 </div>
                 <div class="card-info">
                   <h3 class="card-title h5">
-                    <a href="{{ product.url }}">{{ product.title | truncate: 40 }}</a>
+                    <a href="{{ product.url }}">{{ product.title | truncate: 50 }}</a>
                   </h3>
-                  
                   {%- for block in section.blocks -%}
                     {%- if block.type == 'judgeme_reviews' -%}
                       <div class="product-judgeme-reviews" {{ block.shopify_attributes }}>
@@ -409,19 +584,19 @@
                       </div>
                     {%- endif -%}
                   {%- endfor -%}
-                  
                   <div class="price">
                     <span class="price-item price-item--regular">{{ product.price | money }}</span>
                     {%- if product.compare_at_price > product.price -%}
                       <span class="price-item price-item--sale price-item--compare">{{ product.compare_at_price | money }}</span>
                     {%- endif -%}
                   </div>
-                  
-                  <button class="button--add-to-cart" 
-                          data-variant-id="{{ product.variants.first.id }}"
-                          {% unless product.available %}disabled{% endunless %}>
-                    {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
-                  </button>
+                  <div class="product-card-button">
+                    <button class="button--add-to-cart" 
+                            data-variant-id="{{ product.variants.first.id }}"
+                            {% unless product.available %}disabled{% endunless %}>
+                      {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -452,13 +627,11 @@
     sliders.forEach(slider => {
       if (slider.classList.contains('swiper-initialized')) return;
       
-      const slidesPerView = window.innerWidth >= 990 ? {{ section.settings.desktop_columns | default: 4 }} :
-                            window.innerWidth >= 750 ? 2.5 : 2.1;
-      
       const swiper = new Swiper(slider, {
-        slidesPerView: slidesPerView,
+        slidesPerView: 2.1,
         spaceBetween: 20,
         loop: false,
+        centeredSlides: false,
         navigation: {
           nextEl: slider.querySelector('.swiper-button-next'),
           prevEl: slider.querySelector('.swiper-button-prev'),
@@ -466,17 +639,26 @@
         autoplay: {{ section.settings.autoplay_speed }} > 0 ? {
           delay: {{ section.settings.autoplay_speed | times: 1000 }},
           disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         } : false,
         breakpoints: {
           0: {
             slidesPerView: 2.1,
-            spaceBetween: 10,
+            spaceBetween: 15,
           },
-          750: {
+          640: {
             slidesPerView: 2.5,
             spaceBetween: 20,
           },
-          990: {
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: {{ section.settings.desktop_columns | default: 4 }},
+            spaceBetween: 25,
+          },
+          1280: {
             slidesPerView: {{ section.settings.desktop_columns | default: 4 }},
             spaceBetween: 30,
           }
@@ -503,9 +685,11 @@
         
         if (currentActive === newContent) return;
         
-        // Stop autoplay on current slider
+        // Stop autoplay on current sliders
         swipers.forEach(swiper => {
-          if (swiper.autoplay) swiper.autoplay.stop();
+          if (swiper.autoplay && swiper.autoplay.running) {
+            swiper.autoplay.stop();
+          }
         });
         
         // Update tabs
@@ -518,16 +702,14 @@
         });
         newContent.classList.add('active');
         
-        // Reinitialize slider in new content
+        // Initialize or update slider in new content
         const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
         if (newSlider && !newSlider.classList.contains('swiper-initialized')) {
-          const slidesPerView = window.innerWidth >= 990 ? {{ section.settings.desktop_columns | default: 4 }} :
-                                window.innerWidth >= 750 ? 2.5 : 2.1;
-          
-          const newSwiper = new Swiper(newSlider, {
-            slidesPerView: slidesPerView,
+          const swiper = new Swiper(newSlider, {
+            slidesPerView: 2.1,
             spaceBetween: 20,
             loop: false,
+            centeredSlides: false,
             navigation: {
               nextEl: newSlider.querySelector('.swiper-button-next'),
               prevEl: newSlider.querySelector('.swiper-button-prev'),
@@ -535,18 +717,28 @@
             autoplay: {{ section.settings.autoplay_speed }} > 0 ? {
               delay: {{ section.settings.autoplay_speed | times: 1000 }},
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             } : false,
             breakpoints: {
-              0: { slidesPerView: 2.1, spaceBetween: 10 },
-              750: { slidesPerView: 2.5, spaceBetween: 20 },
-              990: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 30 }
+              0: { slidesPerView: 2.1, spaceBetween: 15 },
+              640: { slidesPerView: 2.5, spaceBetween: 20 },
+              768: { slidesPerView: 3, spaceBetween: 20 },
+              1024: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 25 },
+              1280: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 30 }
             }
           });
-          swipers.push(newSwiper);
+          swipers.push(swiper);
         } else if (newSlider && newSlider.classList.contains('swiper-initialized')) {
           const existingSwiper = newSlider.swiper;
           if (existingSwiper && existingSwiper.autoplay) {
-            setTimeout(() => existingSwiper.autoplay.start(), 100);
+            setTimeout(() => {
+              existingSwiper.autoplay.start();
+            }, 100);
+          }
+          if (existingSwiper && existingSwiper.update) {
+            setTimeout(() => {
+              existingSwiper.update();
+            }, 50);
           }
         }
       });
@@ -562,10 +754,26 @@
     }
   }
   
+  // Handle window resize
+  let resizeTimer;
   window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      swipers.forEach(swiper => {
+        if (swiper && swiper.update) {
+          swiper.update();
+        }
+      });
+    }, 200);
+  });
+  
+  // Handle orientation change
+  window.addEventListener('orientationchange', function() {
     setTimeout(function() {
       swipers.forEach(swiper => {
-        if (swiper && swiper.update) swiper.update();
+        if (swiper && swiper.update) {
+          swiper.update();
+        }
       });
     }, 200);
   });
@@ -750,6 +958,17 @@
         {
           "type": "paragraph",
           "content": "Shows Judge.me review stars"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
         }
       ]
     }
