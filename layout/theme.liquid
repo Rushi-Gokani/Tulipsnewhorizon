@@ -6,6 +6,16 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    <!-- Prevent duplicate loader.js - CRITICAL FIX -->
+    <script>
+      if (!window._loaderPrevented) {
+        window._loaderPrevented = true;
+        // Mark that we've already loaded
+        window.Shopify = window.Shopify || {};
+        window.Shopify.loaderRequested = true;
+      }
+    </script>
+
     <!-- Preconnect to critical domains for faster loading -->
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -94,12 +104,14 @@
       {%- render 'theme-editor' -%}
     {% endif %}
 
+    <!-- Critical: content_for_header - loader.js loads here -->
     {{ content_for_header }}
     <meta name="google-site-verification" content="-eSE3nFVgthK2DXrQMqZTrOOozFqr_QE9I4Mra6ti48" />
 
+    <!-- Swiper JS - Loaded once globally -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
@@ -187,6 +199,47 @@
           }
         }
       });
+    </script>
+
+    <!-- Monitor and prevent duplicate loader.js requests -->
+    <script>
+      (function() {
+        if (window.__loaderMonitorInstalled) return;
+        window.__loaderMonitorInstalled = true;
+        
+        // Track fetch requests for loader.js
+        const originalFetch = window.fetch;
+        let loaderCount = 0;
+        
+        window.fetch = function(...args) {
+          const url = args[0];
+          if (typeof url === 'string' && url.includes('loader.js')) {
+            loaderCount++;
+            if (loaderCount > 1) {
+              console.warn('[Performance] Prevented duplicate loader.js fetch #' + loaderCount);
+              return Promise.reject(new Error('Duplicate loader.js prevented'));
+            }
+          }
+          return originalFetch.apply(this, args);
+        };
+        
+        // Also track XHR requests
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+          if (typeof url === 'string' && url.includes('loader.js')) {
+            if (this._loaderChecked) {
+              return originalOpen.apply(this, [method, url, ...rest]);
+            }
+            this._loaderChecked = true;
+            if (window._loaderXhrCount && window._loaderXhrCount > 0) {
+              console.warn('[Performance] Prevented duplicate loader.js XHR');
+              return;
+            }
+            window._loaderXhrCount = (window._loaderXhrCount || 0) + 1;
+          }
+          return originalOpen.apply(this, [method, url, ...rest]);
+        };
+      })();
     </script>
   </body>
 </html>
