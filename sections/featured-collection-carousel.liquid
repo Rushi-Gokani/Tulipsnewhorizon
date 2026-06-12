@@ -30,7 +30,7 @@
     width: auto;
   }
   
-  /* Fix for single item */
+  /* Fix for single item ONLY (1 product) */
   .featured-collection-carousel-slider.single-item .swiper-wrapper {
     justify-content: center;
   }
@@ -40,7 +40,7 @@
     margin: 0 auto;
   }
   
-  /* Hide navigation for single item */
+  /* Hide navigation for single item only */
   .featured-collection-carousel-slider.single-item .swiper-button-prev,
   .featured-collection-carousel-slider.single-item .swiper-button-next {
     display: none !important;
@@ -309,6 +309,7 @@
         {%- if tab_index == 1 -%}
           {%- assign is_active = true -%}
         {%- endif -%}
+        <!-- Only apply single-item class for exactly 1 product, not for 2 products -->
         {%- assign single_class = '' -%}
         {%- if product_count == 1 -%}
           {%- assign single_class = 'single-item' -%}
@@ -483,7 +484,7 @@
   const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
   const autoplaySpeed = {{ section.settings.autoplay_speed }};
   
-  // Configuration for multiple products - optimized for speed
+  // Configuration for multiple products (2 or more)
   const multiConfig = {
     slidesPerView: desktopCols,
     spaceBetween: 20,
@@ -499,18 +500,10 @@
       768: { slidesPerView: 3, spaceBetween: 20 },
       1024: { slidesPerView: desktopCols, spaceBetween: 25 },
       1200: { slidesPerView: desktopCols, spaceBetween: 30 }
-    },
-    on: {
-      init: function(swiper) {
-        // Ensure slides are properly sized after init
-        setTimeout(() => {
-          swiper.update();
-        }, 0);
-      }
     }
   };
 
-  // Configuration for single product
+  // Configuration for single product (only for product_count === 1)
   const singleConfig = {
     slidesPerView: 1,
     spaceBetween: 0,
@@ -537,11 +530,20 @@
       prevEl: slider.querySelector('.swiper-button-prev')
     };
     
-    // Use different config based on product count
-    let config = productCount === 1 ? {...singleConfig} : {...multiConfig};
+    // Use single config ONLY for exactly 1 product
+    let config;
+    let showNavigation = false;
     
-    // Only add navigation if needed and exists
-    if (nav.nextEl && nav.prevEl && productCount > 1) {
+    if (productCount === 1) {
+      config = {...singleConfig};
+      showNavigation = false;
+    } else {
+      config = {...multiConfig};
+      showNavigation = true;
+    }
+    
+    // Only add navigation if we have more than 1 product and arrows should show
+    if (showNavigation && nav.nextEl && nav.prevEl) {
       config.navigation = nav;
     }
     
@@ -595,7 +597,7 @@
     });
   }
 
-  // Run immediately when DOM is ready - no delays
+  // Run immediately when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initActiveSliders();
