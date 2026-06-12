@@ -1,7 +1,7 @@
 {%- if section.blocks.size > 0 -%}
   {{- 'section-image-slider.css' | asset_url | stylesheet_tag -}}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer="defer"></script>
+  {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer="defer"></script> {% endcomment %}
   <script src="{{- 'image-slider.js' | asset_url -}}" defer="defer"></script>
 
   {%- liquid
