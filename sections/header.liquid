@@ -992,8 +992,8 @@
 <!-- Menu controller: deterministic JS + CSS to reliably control submenus across browsers -->
 <script>
   (function() {
-    const MENU_SELECTOR = '.header-menu, .mega-menu';
-    const ITEM_SELECTOR = '.menu-list__item';
+    const MENU_SELECTOR = 'header-menu, .header-menu, .mega-menu';
+    const ITEM_SELECTOR = '.menu-list__item, .menu-list__list-item';
     const SUBMENU_CLASS = 'is-open';
     const CLOSE_DELAY = 120;
 
@@ -1003,6 +1003,9 @@
       if (details) details.setAttribute('open', '');
       var trigger = item.querySelector('[aria-haspopup="true"]');
       if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      try {
+        if (window.location.search.indexOf('menuDebug=1') !== -1 || localStorage.getItem('menuDebug') === '1') console.debug('menu open', item);
+      } catch (e) {}
     }
 
     function closeItem(item) {
@@ -1011,6 +1014,9 @@
       if (details) details.removeAttribute('open');
       var trigger = item.querySelector('[aria-haspopup="true"]');
       if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      try {
+        if (window.location.search.indexOf('menuDebug=1') !== -1 || localStorage.getItem('menuDebug') === '1') console.debug('menu close', item);
+      } catch (e) {}
     }
 
     document.querySelectorAll(MENU_SELECTOR).forEach(function(menu) {
@@ -1064,12 +1070,21 @@
 
       window.addEventListener('scroll', function() { menu.querySelectorAll(ITEM_SELECTOR + '.' + SUBMENU_CLASS).forEach(closeItem); }, { passive: true });
     });
+
+    // Global pointermove fallback: if pointer isn't over any menu, close all open menus
+    document.addEventListener('pointermove', function(e) {
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+      if (!el || !el.closest(MENU_SELECTOR)) {
+        document.querySelectorAll(ITEM_SELECTOR + '.' + SUBMENU_CLASS).forEach(function(it) { closeItem(it); });
+      }
+    }, { passive: true });
   })();
 </script>
 
 <style>
   /* Show submenu when JS toggles the class */
-  .menu-list__item.is-open .menu-list__submenu {
+  .menu-list__item.is-open .menu-list__submenu,
+  .menu-list__list-item.is-open .menu-list__submenu {
     display: block !important;
     visibility: visible !important;
     content-visibility: visible !important;
