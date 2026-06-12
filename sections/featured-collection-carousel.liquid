@@ -30,14 +30,62 @@
     width: auto;
   }
   
-  /* Fix for single item ONLY (1 product) */
+  /* Ensure consistent card sizing - ALL CARDS SAME WIDTH */
+  .featured-collection-carousel-slider .swiper-slide {
+    width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 20px) !important;
+    margin-right: 20px;
+  }
+  
+  /* For single item - center it but keep same width */
   .featured-collection-carousel-slider.single-item .swiper-wrapper {
     justify-content: center;
   }
   
   .featured-collection-carousel-slider.single-item .swiper-slide {
-    max-width: 400px;
+    width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 20px) !important;
+    max-width: none;
     margin: 0 auto;
+  }
+  
+  /* Responsive breakpoints for consistent card widths */
+  @media screen and (max-width: 640px) {
+    .featured-collection-carousel-slider .swiper-slide {
+      width: calc((100% / 2) - 10px) !important;
+      margin-right: 10px;
+    }
+    .featured-collection-carousel-slider.single-item .swiper-slide {
+      width: calc((100% / 2) - 10px) !important;
+    }
+  }
+  
+  @media screen and (min-width: 641px) and (max-width: 767px) {
+    .featured-collection-carousel-slider .swiper-slide {
+      width: calc((100% / 2.5) - 15px) !important;
+      margin-right: 15px;
+    }
+    .featured-collection-carousel-slider.single-item .swiper-slide {
+      width: calc((100% / 2.5) - 15px) !important;
+    }
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .featured-collection-carousel-slider .swiper-slide {
+      width: calc((100% / 3) - 20px) !important;
+      margin-right: 20px;
+    }
+    .featured-collection-carousel-slider.single-item .swiper-slide {
+      width: calc((100% / 3) - 20px) !important;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .featured-collection-carousel-slider .swiper-slide {
+      width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 25px) !important;
+      margin-right: 25px;
+    }
+    .featured-collection-carousel-slider.single-item .swiper-slide {
+      width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 25px) !important;
+    }
   }
   
   /* Hide navigation for single item only */
@@ -309,7 +357,7 @@
         {%- if tab_index == 1 -%}
           {%- assign is_active = true -%}
         {%- endif -%}
-        <!-- Only apply single-item class for exactly 1 product, not for 2 products -->
+        <!-- Only apply single-item class for exactly 1 product -->
         {%- assign single_class = '' -%}
         {%- if product_count == 1 -%}
           {%- assign single_class = 'single-item' -%}
@@ -487,7 +535,7 @@
   // Configuration for multiple products (2 or more)
   const multiConfig = {
     slidesPerView: desktopCols,
-    spaceBetween: 20,
+    spaceBetween: 25,
     loop: false,
     speed: 400,
     autoplay: autoplaySpeed > 0 ? {
@@ -499,23 +547,24 @@
       640: { slidesPerView: 2.5, spaceBetween: 15 },
       768: { slidesPerView: 3, spaceBetween: 20 },
       1024: { slidesPerView: desktopCols, spaceBetween: 25 },
-      1200: { slidesPerView: desktopCols, spaceBetween: 30 }
+      1200: { slidesPerView: desktopCols, spaceBetween: 25 }
     }
   };
 
-  // Configuration for single product (only for product_count === 1)
+  // Configuration for single product - same card width, just centered
   const singleConfig = {
-    slidesPerView: 1,
-    spaceBetween: 0,
+    slidesPerView: desktopCols,
+    spaceBetween: 25,
     loop: false,
     speed: 400,
     autoplay: false,
     centeredSlides: true,
     breakpoints: {
-      0: { slidesPerView: 1 },
-      640: { slidesPerView: 1 },
-      768: { slidesPerView: 1 },
-      1024: { slidesPerView: 1 }
+      0: { slidesPerView: 2, spaceBetween: 10, centeredSlides: true },
+      640: { slidesPerView: 2.5, spaceBetween: 15, centeredSlides: true },
+      768: { slidesPerView: 3, spaceBetween: 20, centeredSlides: true },
+      1024: { slidesPerView: desktopCols, spaceBetween: 25, centeredSlides: true },
+      1200: { slidesPerView: desktopCols, spaceBetween: 25, centeredSlides: true }
     }
   };
 
@@ -530,7 +579,7 @@
       prevEl: slider.querySelector('.swiper-button-prev')
     };
     
-    // Use single config ONLY for exactly 1 product
+    // Use different config based on product count
     let config;
     let showNavigation = false;
     
@@ -542,7 +591,7 @@
       showNavigation = true;
     }
     
-    // Only add navigation if we have more than 1 product and arrows should show
+    // Only add navigation if we have more than 1 product
     if (showNavigation && nav.nextEl && nav.prevEl) {
       config.navigation = nav;
     }
@@ -588,7 +637,7 @@
         section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         newContent.classList.add('active');
 
-        // Initialize slider immediately (synchronous)
+        // Initialize slider immediately
         const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
         if (newSlider && !initializedSliders.has(newSlider)) {
           initSlider(newSlider);
