@@ -857,121 +857,96 @@
   </script>
 {% endunless %}
 
-<!-- FIREFOX MENU FIX - Direct mouseleave handling -->
+<!-- ULTIMATE FIREFOX MENU FIX - Force close all details elements -->
 <script>
   (function() {
-    // Check if Firefox
-    var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+    // Detect Firefox
+    var isFirefox = typeof InstallTrigger !== 'undefined';
     
     if (isFirefox) {
-      console.log('Firefox detected - installing direct mouseleave handlers');
+      console.log('Firefox detected - applying ultimate menu fix');
       
-      // Function to close all menus
-      function closeAllMenus() {
-        var allDetails = document.querySelectorAll('.header-menu details, .mega-menu details, header-menu details');
+      // Force close any open details elements
+      function forceCloseAllDetails() {
+        var allDetails = document.querySelectorAll('details');
         for (var i = 0; i < allDetails.length; i++) {
           if (allDetails[i].hasAttribute('open')) {
             allDetails[i].removeAttribute('open');
-            // Update ARIA attributes
-            var parent = allDetails[i].closest('.menu-list__item, .mega-menu');
-            if (parent) {
-              var trigger = parent.querySelector('[aria-haspopup="true"]');
-              if (trigger) trigger.setAttribute('aria-expanded', 'false');
-            }
           }
         }
       }
       
-      // Find all menu items and add direct mouseleave handlers
-      function setupMenuHandlers() {
-        // Handle standard menu items
-        var menuItems = document.querySelectorAll('.menu-list__item');
-        for (var i = 0; i < menuItems.length; i++) {
-          var item = menuItems[i];
+      // Check every 50ms and close any details that shouldn't be open
+      setInterval(function() {
+        var allDetails = document.querySelectorAll('.header-menu details, .mega-menu details');
+        for (var i = 0; i < allDetails.length; i++) {
+          var details = allDetails[i];
+          var parentItem = details.closest('.menu-list__item, .mega-menu');
           
-          // Skip if already handled
-          if (item.getAttribute('data-firefox-handled') === 'true') continue;
-          
-          var details = item.querySelector('details');
-          if (!details) continue;
-          
-          // Mouseleave handler - directly close this menu
-          item.addEventListener('mouseleave', function(e) {
-            var detailsElem = this.querySelector('details');
-            if (detailsElem && detailsElem.hasAttribute('open')) {
-              detailsElem.removeAttribute('open');
-              var triggerElem = this.querySelector('[aria-haspopup="true"]');
-              if (triggerElem) triggerElem.setAttribute('aria-expanded', 'false');
+          // If the parent is not being hovered, force close
+          if (parentItem && !parentItem.matches(':hover')) {
+            if (details.hasAttribute('open')) {
+              details.removeAttribute('open');
+              // Update ARIA
+              var trigger = parentItem.querySelector('[aria-haspopup="true"]');
+              if (trigger) trigger.setAttribute('aria-expanded', 'false');
             }
-          });
-          
-          item.setAttribute('data-firefox-handled', 'true');
+          }
         }
+      }, 50);
+      
+      // Also close all details when mouse moves anywhere
+      document.addEventListener('mousemove', function(e) {
+        var target = e.target;
+        var isInMenu = target.closest('.menu-list__item, .mega-menu, .header-menu');
         
-        // Handle mega menus
-        var megaMenus = document.querySelectorAll('.mega-menu');
-        for (var i = 0; i < megaMenus.length; i++) {
-          var menu = megaMenus[i];
-          
-          if (menu.getAttribute('data-firefox-handled') === 'true') continue;
-          
-          var details = menu.querySelector('details');
-          if (!details) continue;
-          
-          menu.addEventListener('mouseleave', function(e) {
-            var detailsElem = this.querySelector('details');
-            if (detailsElem && detailsElem.hasAttribute('open')) {
-              detailsElem.removeAttribute('open');
-              var triggerElem = this.querySelector('[aria-haspopup="true"]');
-              if (triggerElem) triggerElem.setAttribute('aria-expanded', 'false');
-            }
-          });
-          
-          menu.setAttribute('data-firefox-handled', 'true');
-        }
-      }
-      
-      // Also close any menu when mouse leaves the entire header area
-      var headerComponent = document.getElementById('header-component');
-      if (headerComponent) {
-        headerComponent.addEventListener('mouseleave', function() {
-          setTimeout(closeAllMenus, 10);
-        });
-      }
-      
-      // Close menus when clicking anywhere
-      document.addEventListener('click', function(e) {
-        var isInMenu = e.target.closest('.header-menu, .mega-menu, .menu-list__item');
         if (!isInMenu) {
-          setTimeout(closeAllMenus, 10);
+          var allDetails = document.querySelectorAll('.header-menu details[open], .mega-menu details[open]');
+          for (var i = 0; i < allDetails.length; i++) {
+            allDetails[i].removeAttribute('open');
+          }
         }
       });
       
-      // Initial setup
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupMenuHandlers);
-      } else {
-        setupMenuHandlers();
-      }
-      
-      // Watch for dynamically added content
-      var observer = new MutationObserver(function(mutations) {
-        setupMenuHandlers();
+      // Close on scroll
+      window.addEventListener('scroll', function() {
+        forceCloseAllDetails();
       });
       
-      if (headerComponent) {
-        observer.observe(headerComponent, { childList: true, subtree: true });
-      }
+      // Close on click
+      document.addEventListener('click', function(e) {
+        var isInMenu = e.target.closest('.menu-list__item, .mega-menu, .header-menu');
+        if (!isInMenu) {
+          forceCloseAllDetails();
+        }
+      });
     }
   })();
 </script>
 
+<!-- CRITICAL CSS FOR FIREFOX -->
 <style>
-  /* Firefox-specific CSS to force menu close on mouseleave */
   @-moz-document url-prefix() {
-    .menu-list__item details[open],
-    .mega-menu details[open] {
-      transition: none !important;
+    /* Force all details elements to be position absolute so they don't affect layout */
+    .header-menu details,
+    .mega-menu details {
+      position: absolute !important;
+      top: 100% !important;
+      left: 0 !important;
+      background: var(--color-background) !important;
+      z-index: 10000 !important;
+    }
+    
+    /* Ensure menu items have proper positioning */
+    .menu-list__item,
+    .mega-menu {
+      position: relative !important;
+    }
+    
+    /* Force hide any open details whose parent isn't hovered */
+    .menu-list__item:not(:hover) details[open],
+    .mega-menu:not(:hover) details[open] {
+      display: none !important;
     }
   }
 </style>
