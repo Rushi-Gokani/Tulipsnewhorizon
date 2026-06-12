@@ -129,6 +129,18 @@
       font-size: 12px;
       padding: 8px 10px;
     }
+    /* Make arrows bigger and more touch-friendly on mobile */
+    .featured-collection-carousel-slider .swiper-button-prev,
+    .featured-collection-carousel-slider .swiper-button-next {
+      width: 40px !important;
+      height: 40px !important;
+      background: #A8D02A !important;
+    }
+    .featured-collection-carousel-slider .swiper-button-prev svg,
+    .featured-collection-carousel-slider .swiper-button-next svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
   }
   
   @media screen and (min-width: 641px) and (max-width: 767px) {
@@ -170,6 +182,16 @@
   
   .tab-content.active {
     display: block;
+  }
+  
+  /* Ensure swiper container has proper z-index */
+  .featured-collection-carousel-slider {
+    z-index: 1;
+  }
+  
+  .featured-collection-carousel-slider .swiper-button-prev,
+  .featured-collection-carousel-slider .swiper-button-next {
+    z-index: 20;
   }
 </style>
 
@@ -254,7 +276,7 @@
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     cursor: pointer;
-    z-index: 10;
+    z-index: 20;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -263,11 +285,11 @@
   }
 
   .featured-collection-carousel-slider .swiper-button-prev {
-    left: 10px;
+    left: 5px;
   }
 
   .featured-collection-carousel-slider .swiper-button-next {
-    right: 10px;
+    right: 5px;
   }
 
   .featured-collection-carousel-slider .swiper-button-prev svg,
@@ -284,16 +306,24 @@
     transform: translateY(-50%) scale(1.05);
   }
 
-  @media screen and (max-width: 640px) {
+  /* Mobile specific arrow styles */
+  @media screen and (max-width: 768px) {
     .featured-collection-carousel-slider .swiper-button-prev,
     .featured-collection-carousel-slider .swiper-button-next {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
+      background: #A8D02A !important;
     }
     .featured-collection-carousel-slider .swiper-button-prev svg,
     .featured-collection-carousel-slider .swiper-button-next svg {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
+    }
+    .featured-collection-carousel-slider .swiper-button-prev {
+      left: 5px;
+    }
+    .featured-collection-carousel-slider .swiper-button-next {
+      right: 5px;
     }
   }
 
@@ -585,10 +615,12 @@
   
   const initializedSliders = new Set();
 
-  function getSlidesPerView(productCount) {
+  function getSlidesPerView(productCount, isMobile) {
     if (productCount === 1) return 1;
     if (productCount === 2) return 2;
-    if (productCount === 3) return 2.5;
+    if (productCount === 3) {
+      return isMobile ? 2.5 : 3;
+    }
     return desktopCols;
   }
 
@@ -596,6 +628,7 @@
     if (!slider || initializedSliders.has(slider)) return;
     
     const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
+    const isMobile = window.innerWidth <= 768;
     const nav = {
       nextEl: slider.querySelector('.swiper-button-next'),
       prevEl: slider.querySelector('.swiper-button-prev')
@@ -622,8 +655,8 @@
       }
     }
     
-    // For multiple products (2 or more)
-    const slidesPerView = getSlidesPerView(productCount);
+    // Calculate slides per view based on product count and screen size
+    let slidesPerView = getSlidesPerView(productCount, isMobile);
     const shouldLoop = productCount > slidesPerView;
     
     const config = {
@@ -632,9 +665,15 @@
       loop: shouldLoop,
       speed: 400,
       autoHeight: false,
+      touchRatio: 1,
+      touchAngle: 45,
+      simulateTouch: true,
+      allowTouchMove: true,
+      grabCursor: true,
       autoplay: (autoplaySpeed > 0 && productCount > 1) ? {
         delay: autoplaySpeed * 1000,
-        disableOnInteraction: false
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
       } : false,
       breakpoints: {
         0: { 
@@ -658,10 +697,18 @@
           spaceBetween: 25 
         }
       },
-      // Ensure navigation works properly
       watchOverflow: true,
       observer: true,
-      observeParents: true
+      observeParents: true,
+      // Ensure navigation works
+      on: {
+        init: function(swiper) {
+          // Force update navigation
+          if (nav.nextEl && nav.prevEl && productCount > 1) {
+            swiper.navigation.update();
+          }
+        }
+      }
     };
     
     // Add navigation for multiple products
@@ -676,6 +723,9 @@
       // Force update after initialization
       setTimeout(() => {
         swiper.update();
+        if (swiper.navigation) {
+          swiper.navigation.update();
+        }
       }, 100);
       
       return swiper;
@@ -728,12 +778,33 @@
   initTabs();
   
   // Handle window resize
+  let resizeTimer;
   window.addEventListener('resize', function() {
-    initializedSliders.forEach(slider => {
-      if (slider && slider.swiper) {
-        slider.swiper.update();
-      }
-    });
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      initializedSliders.forEach(slider => {
+        if (slider && slider.swiper) {
+          slider.swiper.update();
+          if (slider.swiper.navigation) {
+            slider.swiper.navigation.update();
+          }
+        }
+      });
+    }, 200);
+  });
+  
+  // Also handle orientation change for mobile
+  window.addEventListener('orientationchange', function() {
+    setTimeout(function() {
+      initializedSliders.forEach(slider => {
+        if (slider && slider.swiper) {
+          slider.swiper.update();
+          if (slider.swiper.navigation) {
+            slider.swiper.navigation.update();
+          }
+        }
+      });
+    }, 100);
   });
 })();
 </script>
