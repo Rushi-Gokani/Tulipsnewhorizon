@@ -908,65 +908,48 @@
   .header__column .localization-form__select {
     background-color: var(--header-bg-color);
   }
-
-  /* FIREFOX MENU FIX - Complete override for Firefox */
-  @-moz-document url-prefix() {
-    /* Force all details elements to close when not hovering */
-    .menu-list__item {
-      position: relative;
-    }
-    
-    .menu-list__item details {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      z-index: 100;
-    }
-    
-    /* Hide menus by default */
-    .menu-list__item details:not([open]) {
-      display: none !important;
-    }
-    
-    /* Close menu when not hovering over the parent item */
-    .menu-list__item:not(:hover) details[open] {
-      display: none !important;
-    }
-    
-    /* Open menu when hovering */
-    .menu-list__item:hover details {
-      display: block !important;
-    }
-    
-    /* Ensure submenus are properly positioned */
-    .menu-list__submenu {
-      position: relative;
-      background: var(--color-background);
-    }
-    
-    /* Fix for nested menus */
-    .menu-list__list-item details {
-      position: absolute;
-      left: 100%;
-      top: 0;
-    }
-    
-    /* Mega menu fixes */
-    .mega-menu details {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-    }
-    
-    .mega-menu:not(:hover) details[open] {
-      display: none !important;
-    }
-    
-    .mega-menu:hover details {
-      display: block !important;
-    }
+/* Critical Firefox menu fixes */
+@-moz-document url-prefix() {
+  .header-menu details,
+  .mega-menu details {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-background);
+    z-index: 1000;
   }
+  
+  .menu-list__item {
+    position: relative;
+  }
+  
+  .menu-list__item details {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+  }
+  
+  /* Prevent menu from staying open */
+  .menu-list__item:not(:hover) details[open],
+  .mega-menu:not(:hover) details[open] {
+    display: none !important;
+  }
+  
+  /* Override any conflicting styles */
+  .header[transparent] .menu-list__item details,
+  .header[transparent] .mega-menu details {
+    background: var(--color-background);
+  }
+  
+  /* Ensure submenu items are clickable */
+  .menu-list__submenu,
+  .mega-menu__list {
+    position: relative;
+    z-index: 1001;
+  }
+}
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -977,126 +960,288 @@
     hydrate('{{ section.id }}', url);
   </script>
 {% endunless %}
-
 <script>
   (function() {
     // Check if Firefox
-    const isFirefox = navigator.userAgent.includes('Firefox');
+    const isFirefox = typeof InstallTrigger !== 'undefined';
     
     if (isFirefox) {
-      console.log('Firefox detected - applying menu fixes');
+      console.log('Firefox detected - applying critical menu fixes');
       
-      // Function to fix menu behavior
-      function fixFirefoxMenus() {
-        // Fix standard menu items
-        const menuItems = document.querySelectorAll('.menu-list__item');
-        
-        menuItems.forEach(item => {
-          // Remove existing handlers to avoid duplicates
-          item.removeEventListener('mouseenter', item._firefoxEnter);
-          item.removeEventListener('mouseleave', item._firefoxLeave);
-          
-          // Store handlers for cleanup
-          item._firefoxEnter = function() {
-            const details = this.querySelector('details');
-            if (details && !details.open) {
-              details.setAttribute('open', '');
-              // Update ARIA attribute
-              const link = this.querySelector('.menu-list__link[aria-haspopup]');
-              if (link) link.setAttribute('aria-expanded', 'true');
-            }
-          };
-          
-          item._firefoxLeave = function() {
-            const details = this.querySelector('details');
-            if (details && details.open) {
-              details.removeAttribute('open');
-              // Update ARIA attribute
-              const link = this.querySelector('.menu-list__link[aria-haspopup]');
-              if (link) link.setAttribute('aria-expanded', 'false');
-            }
-          };
-          
-          item.addEventListener('mouseenter', item._firefoxEnter);
-          item.addEventListener('mouseleave', item._firefoxLeave);
+      // Function to force close all menus
+      function forceCloseAllMenus() {
+        const allDetails = document.querySelectorAll('.header-menu details, .mega-menu details');
+        allDetails.forEach(details => {
+          if (details.hasAttribute('open')) {
+            details.removeAttribute('open');
+          }
         });
         
-        // Fix mega menu items
-        const megaMenus = document.querySelectorAll('.mega-menu');
-        megaMenus.forEach(menu => {
-          menu.removeEventListener('mouseenter', menu._firefoxEnter);
-          menu.removeEventListener('mouseleave', menu._firefoxLeave);
-          
-          menu._firefoxEnter = function() {
-            const details = this.querySelector('details');
-            if (details && !details.open) {
-              details.setAttribute('open', '');
-              const trigger = this.querySelector('[aria-haspopup]');
-              if (trigger) trigger.setAttribute('aria-expanded', 'true');
-            }
-          };
-          
-          menu._firefoxLeave = function() {
-            const details = this.querySelector('details');
-            if (details && details.open) {
-              details.removeAttribute('open');
-              const trigger = this.querySelector('[aria-haspopup]');
-              if (trigger) trigger.setAttribute('aria-expanded', 'false');
-            }
-          };
-          
-          menu.addEventListener('mouseenter', menu._firefoxEnter);
-          menu.addEventListener('mouseleave', menu._firefoxLeave);
+        // Update ARIA attributes
+        const allButtons = document.querySelectorAll('.menu-list__link[aria-haspopup="true"]');
+        allButtons.forEach(button => {
+          button.setAttribute('aria-expanded', 'false');
         });
       }
       
-      // Apply fixes when DOM is ready
+      // Function to fix individual menu item
+      function fixMenuItem(item) {
+        // Skip if already fixed
+        if (item.getAttribute('data-firefox-fixed') === 'true') return;
+        
+        const details = item.querySelector('details');
+        if (!details) return;
+        
+        const trigger = item.querySelector('.menu-list__link[aria-haspopup="true"]') || 
+                        item.querySelector('[aria-haspopup]');
+        
+        // Store original state
+        let hoverTimeout = null;
+        
+        // Mouse enter handler
+        const handleMouseEnter = function(e) {
+          if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+            hoverTimeout = null;
+          }
+          
+          // Close all other menus first
+          const allDetails = document.querySelectorAll('.header-menu details, .mega-menu details');
+          allDetails.forEach(d => {
+            if (d !== details && d.hasAttribute('open')) {
+              d.removeAttribute('open');
+            }
+          });
+          
+          // Open this menu
+          if (!details.hasAttribute('open')) {
+            details.setAttribute('open', '');
+            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+          }
+        };
+        
+        // Mouse leave handler
+        const handleMouseLeave = function(e) {
+          // Use timeout to check if we're entering a child element
+          hoverTimeout = setTimeout(() => {
+            // Check if mouse is over any submenu item
+            const submenu = details.querySelector('.menu-list__submenu, .mega-menu__list');
+            if (submenu) {
+              const rect = submenu.getBoundingClientRect();
+              const mouseX = e.clientX;
+              const mouseY = e.clientY;
+              
+              // If mouse is not over the submenu, close it
+              if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > rect.bottom) {
+                if (details.hasAttribute('open')) {
+                  details.removeAttribute('open');
+                  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                }
+              } else {
+                // Mouse is over submenu, keep open
+                return;
+              }
+            } else {
+              // No submenu reference, close immediately
+              if (details.hasAttribute('open')) {
+                details.removeAttribute('open');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+              }
+            }
+          }, 50);
+        };
+        
+        // Add event listeners
+        item.addEventListener('mouseenter', handleMouseEnter);
+        item.addEventListener('mouseleave', handleMouseLeave);
+        
+        // Also handle the trigger button click (for accessibility)
+        if (trigger) {
+          trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (details.hasAttribute('open')) {
+              details.removeAttribute('open');
+              trigger.setAttribute('aria-expanded', 'false');
+            } else {
+              // Close all other menus
+              const allDetails = document.querySelectorAll('.header-menu details, .mega-menu details');
+              allDetails.forEach(d => {
+                if (d !== details && d.hasAttribute('open')) {
+                  d.removeAttribute('open');
+                }
+              });
+              details.setAttribute('open', '');
+              trigger.setAttribute('aria-expanded', 'true');
+            }
+          });
+        }
+        
+        // Mark as fixed
+        item.setAttribute('data-firefox-fixed', 'true');
+        
+        // Store handlers for potential cleanup
+        item._firefoxHandlers = {
+          mouseenter: handleMouseEnter,
+          mouseleave: handleMouseLeave
+        };
+      }
+      
+      // Fix mega menu
+      function fixMegaMenu(menu) {
+        if (menu.getAttribute('data-firefox-fixed') === 'true') return;
+        
+        const details = menu.querySelector('details');
+        if (!details) return;
+        
+        const trigger = menu.querySelector('[aria-haspopup="true"]');
+        let hoverTimeout = null;
+        
+        const handleMouseEnter = function(e) {
+          if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+            hoverTimeout = null;
+          }
+          
+          // Close other mega menus
+          const allMegaMenus = document.querySelectorAll('.mega-menu details');
+          allMegaMenus.forEach(d => {
+            if (d !== details && d.hasAttribute('open')) {
+              d.removeAttribute('open');
+            }
+          });
+          
+          if (!details.hasAttribute('open')) {
+            details.setAttribute('open', '');
+            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+          }
+        };
+        
+        const handleMouseLeave = function(e) {
+          hoverTimeout = setTimeout(() => {
+            const megaContent = details.querySelector('.mega-menu__list, .menu-list__submenu');
+            if (megaContent) {
+              const rect = megaContent.getBoundingClientRect();
+              const mouseX = e.clientX;
+              const mouseY = e.clientY;
+              
+              if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > rect.bottom) {
+                if (details.hasAttribute('open')) {
+                  details.removeAttribute('open');
+                  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                }
+              }
+            } else {
+              if (details.hasAttribute('open')) {
+                details.removeAttribute('open');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+              }
+            }
+          }, 50);
+        };
+        
+        menu.addEventListener('mouseenter', handleMouseEnter);
+        menu.addEventListener('mouseleave', handleMouseLeave);
+        
+        if (trigger) {
+          trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (details.hasAttribute('open')) {
+              details.removeAttribute('open');
+              trigger.setAttribute('aria-expanded', 'false');
+            } else {
+              const allMegaMenus = document.querySelectorAll('.mega-menu details');
+              allMegaMenus.forEach(d => {
+                if (d !== details && d.hasAttribute('open')) {
+                  d.removeAttribute('open');
+                }
+              });
+              details.setAttribute('open', '');
+              trigger.setAttribute('aria-expanded', 'true');
+            }
+          });
+        }
+        
+        menu.setAttribute('data-firefox-fixed', 'true');
+      }
+      
+      // Apply all fixes
+      function applyAllFixes() {
+        // Fix standard menu items
+        const menuItems = document.querySelectorAll('.menu-list__item');
+        menuItems.forEach(fixMenuItem);
+        
+        // Fix mega menus
+        const megaMenus = document.querySelectorAll('.mega-menu');
+        megaMenus.forEach(fixMegaMenu);
+        
+        // Also find any menu containers that might not have the right class
+        const headerMenus = document.querySelectorAll('header-menu');
+        headerMenus.forEach(headerMenu => {
+          const items = headerMenu.querySelectorAll('.menu-list__item');
+          items.forEach(fixMenuItem);
+        });
+      }
+      
+      // Also handle clicks outside to close menus
+      function handleClickOutside(e) {
+        const header = document.getElementById('header-component');
+        if (!header) return;
+        
+        const isClickInsideMenu = header.contains(e.target);
+        if (!isClickInsideMenu) {
+          forceCloseAllMenus();
+        }
+      }
+      
+      // Initial application
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixFirefoxMenus);
+        document.addEventListener('DOMContentLoaded', function() {
+          applyAllFixes();
+          document.addEventListener('click', handleClickOutside);
+        });
       } else {
-        fixFirefoxMenus();
+        applyAllFixes();
+        document.addEventListener('click', handleClickOutside);
       }
       
       // Watch for dynamically added content
       const observer = new MutationObserver(function(mutations) {
-        let shouldUpdate = false;
+        let needsUpdate = false;
         
         mutations.forEach(function(mutation) {
           if (mutation.addedNodes.length) {
             mutation.addedNodes.forEach(function(node) {
-              if (node.nodeType === 1) { // Element node
-                if (node.classList && (node.classList.contains('menu-list__item') || node.classList.contains('mega-menu'))) {
-                  shouldUpdate = true;
-                }
-                if (node.querySelectorAll) {
-                  if (node.querySelectorAll('.menu-list__item').length || node.querySelectorAll('.mega-menu').length) {
-                    shouldUpdate = true;
-                  }
+              if (node.nodeType === 1) {
+                if (node.classList && (node.classList.contains('menu-list__item') || 
+                    node.classList.contains('mega-menu') ||
+                    node.querySelectorAll)) {
+                  needsUpdate = true;
                 }
               }
             });
           }
         });
         
-        if (shouldUpdate) {
-          fixFirefoxMenus();
+        if (needsUpdate) {
+          setTimeout(applyAllFixes, 100);
         }
       });
       
-      // Start observing
-      const header = document.getElementById('header-component');
-      if (header) {
-        observer.observe(header, { childList: true, subtree: true });
+      const headerComponent = document.getElementById('header-component');
+      if (headerComponent) {
+        observer.observe(headerComponent, { childList: true, subtree: true });
       }
       
-      // Also fix when header component loads
-      if (window.customElements) {
-        const headerComponent = document.querySelector('header-component');
-        if (headerComponent && !headerComponent._firefoxFixed) {
-          headerComponent._firefoxFixed = true;
-          setTimeout(fixFirefoxMenus, 100);
-        }
-      }
+      // Force close on window scroll (for sticky headers)
+      window.addEventListener('scroll', function() {
+        setTimeout(forceCloseAllMenus, 10);
+      });
+      
+      // Also force close when hovering over other interactive elements
+      const allInteractive = document.querySelectorAll('.header-actions__action, .dropdown-localization__button, .header__icon--menu');
+      allInteractive.forEach(el => {
+        el.addEventListener('mouseenter', forceCloseAllMenus);
+      });
     }
   })();
 </script>
