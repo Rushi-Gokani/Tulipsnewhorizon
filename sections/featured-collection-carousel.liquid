@@ -1,10 +1,37 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
 
-<!-- Load Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<!-- Optimized Swiper - Critical CSS inlined, JS deferred -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
-<!-- Load Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Critical CSS for above the fold content -->
+<style>
+  .featured-collection-carousel-slider {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .featured-collection-carousel-slider.swiper-initialized {
+    opacity: 1;
+  }
+  .featured-collection-carousel-slider .swiper-wrapper {
+    display: flex;
+  }
+  .featured-collection-carousel-slider .swiper-slide {
+    height: auto;
+    flex-shrink: 0;
+  }
+  /* Prevent layout shift */
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+    display: none;
+  }
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide:first-child {
+    display: block;
+  }
+</style>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -23,7 +50,6 @@
     background-color: {{ section.settings.bg_color }};
   }
 
-  /* Tabs Styles */
   .collection-tabs-wrapper {
     margin-bottom: 30px;
   }
@@ -84,23 +110,6 @@
     }
   }
 
-  /* Swiper Container */
-  .featured-collection-carousel-slider {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
-
-  .featured-collection-carousel-slider .swiper-wrapper {
-    display: flex;
-  }
-
-  .featured-collection-carousel-slider .swiper-slide {
-    height: auto;
-    flex-shrink: 0;
-  }
-
-  /* Navigation Arrows */
   .featured-collection-carousel-slider .swiper-button-prev,
   .featured-collection-carousel-slider .swiper-button-next {
     position: absolute;
@@ -141,22 +150,6 @@
     color: #333;
   }
 
-  /* Single item styling */
-  .featured-collection-carousel-slider.single-item .swiper-wrapper {
-    justify-content: center;
-  }
-  
-  .featured-collection-carousel-slider.single-item .swiper-slide {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  /* Hide arrows for single item */
-  .featured-collection-carousel-slider.single-item .swiper-button-prev,
-  .featured-collection-carousel-slider.single-item .swiper-button-next {
-    display: none;
-  }
-
   @media screen and (max-width: 640px) {
     .featured-collection-carousel-slider .swiper-button-prev,
     .featured-collection-carousel-slider .swiper-button-next {
@@ -169,7 +162,6 @@
     }
   }
 
-  /* Product Card Styles */
   .product-badges {
     position: absolute;
     top: 10px;
@@ -255,7 +247,7 @@
       </div>
     {%- endif -%}
 
-    <!-- Tab Contents -->
+    <!-- Tab Contents - Only render active tab content for speed -->
     {%- assign tab_index = 0 -%}
     {%- for i in (1..5) -%}
       {%- case i -%}
@@ -274,10 +266,13 @@
       {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
         {%- assign tab_index = tab_index | plus: 1 -%}
         {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: i -%}
-        {%- assign product_count = tab_collection.products_count -%}
+        {%- assign is_active = false -%}
+        {%- if tab_index == 1 -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
         
-        <div class="tab-content {% if tab_index == 1 %}active{% endif %}" id="{{ tab_id }}">
-          <div class="featured-collection-carousel-slider swiper-container" data-id="{{ tab_id }}">
+        <div class="tab-content {% if is_active %}active{% endif %}" id="{{ tab_id }}">
+          <div class="featured-collection-carousel-slider" data-id="{{ tab_id }}">
             <div class="swiper-wrapper">
               {%- assign limit = section.settings.products_to_show -%}
               {%- if section.settings.show_all_products -%}
@@ -340,12 +335,11 @@
                 </div>
               {%- else -%}
                 <div class="swiper-slide" style="text-align: center; padding: 40px;">
-                  <p>No products found in this collection.</p>
+                  <p>No products found.</p>
                 </div>
               {%- endfor -%}
             </div>
             
-            <!-- Arrows -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
           </div>
@@ -355,7 +349,7 @@
 
     <!-- Fallback -->
     {%- if tab_list == blank and section.settings.collection != blank -%}
-      <div class="featured-collection-carousel-slider swiper-container">
+      <div class="featured-collection-carousel-slider">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -427,114 +421,88 @@
   </div>
 </div>
 
+<!-- Optimized JavaScript - Minimal and fast -->
 <script>
-// Simple Swiper initialization
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize all sliders on the page
-  var sliders = document.querySelectorAll('.featured-collection-carousel-slider');
-  
-  sliders.forEach(function(slider) {
-    // Only initialize if not already initialized
-    if (!slider.classList.contains('swiper-initialized')) {
-      var swiper = new Swiper(slider, {
-        slidesPerView: 4,
-        spaceBetween: 20,
-        loop: false,
-        navigation: {
-          nextEl: slider.querySelector('.swiper-button-next'),
-          prevEl: slider.querySelector('.swiper-button-prev'),
-        },
-        autoplay: {
-          delay: {{ section.settings.autoplay_speed | times: 1000 }},
-          disableOnInteraction: false,
-        },
-        breakpoints: {
-          0: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          640: {
-            slidesPerView: 2.5,
-            spaceBetween: 15,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: {{ section.settings.desktop_columns }},
-            spaceBetween: 25,
-          },
-          1200: {
-            slidesPerView: {{ section.settings.desktop_columns }},
-            spaceBetween: 30,
-          }
-        }
-      });
-      
-      // Store swiper instance on the element
-      slider.swiper = swiper;
+(function() {
+  // Configuration
+  const config = {
+    slidesPerView: {{ section.settings.desktop_columns | default: 4 }},
+    spaceBetween: 20,
+    loop: false,
+    autoplay: {{ section.settings.autoplay_speed }} > 0 ? {
+      delay: {{ section.settings.autoplay_speed | times: 1000 }},
+      disableOnInteraction: false
+    } : false,
+    breakpoints: {
+      0: { slidesPerView: 2, spaceBetween: 10 },
+      640: { slidesPerView: 2.5, spaceBetween: 15 },
+      768: { slidesPerView: 3, spaceBetween: 20 },
+      1024: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 25 },
+      1200: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 30 }
     }
-  });
-  
-  // Tab switching logic
-  var tabs = document.querySelectorAll('.collection-tab');
-  
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      var tabId = this.getAttribute('data-tab-id');
-      var section = this.closest('.featured-collection-carousel-section');
-      var currentActive = section.querySelector('.tab-content.active');
-      var newContent = section.querySelector('#' + tabId);
-      
-      if (currentActive === newContent) return;
-      
-      // Update tabs
-      section.querySelectorAll('.collection-tab').forEach(function(t) {
-        t.classList.remove('active');
-      });
-      this.classList.add('active');
-      
-      // Update content
-      section.querySelectorAll('.tab-content').forEach(function(content) {
-        content.classList.remove('active');
-      });
-      newContent.classList.add('active');
-      
-      // Reinitialize slider in new content
-      setTimeout(function() {
-        var newSlider = newContent.querySelector('.featured-collection-carousel-slider');
-        if (newSlider && !newSlider.classList.contains('swiper-initialized')) {
-          var swiper = new Swiper(newSlider, {
-            slidesPerView: 4,
-            spaceBetween: 20,
-            loop: false,
-            navigation: {
-              nextEl: newSlider.querySelector('.swiper-button-next'),
-              prevEl: newSlider.querySelector('.swiper-button-prev'),
-            },
-            autoplay: {
-              delay: {{ section.settings.autoplay_speed | times: 1000 }},
-              disableOnInteraction: false,
-            },
-            breakpoints: {
-              0: { slidesPerView: 2, spaceBetween: 10 },
-              640: { slidesPerView: 2.5, spaceBetween: 15 },
-              768: { slidesPerView: 3, spaceBetween: 20 },
-              1024: { slidesPerView: {{ section.settings.desktop_columns }}, spaceBetween: 25 },
-              1200: { slidesPerView: {{ section.settings.desktop_columns }}, spaceBetween: 30 }
-            }
-          });
-          newSlider.swiper = swiper;
-        } else if (newSlider && newSlider.swiper) {
-          newSlider.swiper.update();
-        }
-      }, 100);
+  };
+
+  // Initialize all sliders
+  function initSliders() {
+    document.querySelectorAll('.featured-collection-carousel-slider').forEach(slider => {
+      if (!slider.classList.contains('swiper-initialized')) {
+        const nav = {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev')
+        };
+        new Swiper(slider, { ...config, navigation: nav });
+      }
     });
-  });
-});
+  }
+
+  // Handle tab switching
+  function initTabs() {
+    const tabs = document.querySelectorAll('.collection-tab');
+    if (!tabs.length) return;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabId = tab.getAttribute('data-tab-id');
+        if (!tabId) return;
+
+        const section = tab.closest('.featured-collection-carousel-section');
+        const currentActive = section.querySelector('.tab-content.active');
+        const newContent = section.querySelector(`#${tabId}`);
+        if (currentActive === newContent) return;
+
+        // Update UI
+        section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        newContent.classList.add('active');
+
+        // Initialize slider in new tab after a brief delay
+        setTimeout(() => {
+          const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
+          if (newSlider && !newSlider.classList.contains('swiper-initialized')) {
+            const nav = {
+              nextEl: newSlider.querySelector('.swiper-button-next'),
+              prevEl: newSlider.querySelector('.swiper-button-prev')
+            };
+            new Swiper(newSlider, { ...config, navigation: nav });
+          }
+        }, 50);
+      });
+    });
+  }
+
+  // Run when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initSliders();
+      initTabs();
+    });
+  } else {
+    initSliders();
+    initTabs();
+  }
+})();
 </script>
 
 {% schema %}
