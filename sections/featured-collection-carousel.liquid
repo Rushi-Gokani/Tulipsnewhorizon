@@ -89,7 +89,13 @@
     width: 100%;
   }
 
-  /* Navigation Arrows */
+  /* Hide navigation when disabled */
+  .featured-collection-carousel-slider.no-navigation .swiper-button-prev,
+  .featured-collection-carousel-slider.no-navigation .swiper-button-next {
+    display: none;
+  }
+
+  /* Navigation Arrows - Only show when needed */
   .featured-collection-carousel-slider .swiper-button-prev,
   .featured-collection-carousel-slider .swiper-button-next {
     position: absolute;
@@ -128,6 +134,12 @@
     font-size: 18px;
     font-weight: bold;
     color: #333;
+  }
+
+  /* Disable arrows when swiper is locked (single slide) */
+  .featured-collection-carousel-slider.swiper-locked .swiper-button-prev,
+  .featured-collection-carousel-slider.swiper-locked .swiper-button-next {
+    display: none;
   }
 
   @media screen and (max-width: 640px) {
@@ -175,6 +187,16 @@
   .card-title a {
     text-decoration: none;
     color: inherit;
+  }
+
+  /* Single item - center it */
+  .featured-collection-carousel-slider.single-item .swiper-wrapper {
+    justify-content: center;
+  }
+  
+  .featured-collection-carousel-slider.single-item .swiper-slide {
+    max-width: 400px;
+    margin: 0 auto;
   }
 {%- endstyle -%}
 
@@ -247,11 +269,19 @@
       {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
         {%- assign tab_index = tab_index | plus: 1 -%}
         {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: i -%}
+        {%- assign product_count = tab_collection.products_count -%}
+        {%- assign single_item_class = '' -%}
+        {%- if product_count == 1 -%}
+          {%- assign single_item_class = 'single-item' -%}
+        {%- endif -%}
         
         <div class="tab-content {% if tab_index == 1 %}active{% endif %}" 
              id="{{ tab_id }}"
-             data-tab-id="{{ tab_id }}">
-          <div class="featured-collection-carousel-slider swiper" data-slider="true">
+             data-tab-id="{{ tab_id }}"
+             data-product-count="{{ product_count }}">
+          <div class="featured-collection-carousel-slider swiper {{ single_item_class }}" 
+               data-slider="true"
+               data-product-count="{{ product_count }}">
             <div class="swiper-wrapper">
               {%- assign limit = section.settings.products_to_show -%}
               {%- if section.settings.show_all_products -%}
@@ -319,7 +349,8 @@
               {%- endfor -%}
             </div>
             
-            {%- if section.settings.show_arrows -%}
+            <!-- Only show arrows if more than 1 product -->
+            {%- if section.settings.show_arrows and product_count > 1 -%}
               <div class="swiper-button-prev"></div>
               <div class="swiper-button-next"></div>
             {%- endif -%}
@@ -330,7 +361,14 @@
 
     <!-- Fallback: Single collection if no tabs -->
     {%- if tab_list == blank and section.settings.collection != blank -%}
-      <div class="featured-collection-carousel-slider swiper" data-slider="true">
+      {%- assign fallback_count = section.settings.collection.products_count -%}
+      {%- assign fallback_class = '' -%}
+      {%- if fallback_count == 1 -%}
+        {%- assign fallback_class = 'single-item' -%}
+      {%- endif -%}
+      <div class="featured-collection-carousel-slider swiper {{ fallback_class }}" 
+           data-slider="true"
+           data-product-count="{{ fallback_count }}">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -395,7 +433,8 @@
             </div>
           {%- endfor -%}
         </div>
-        {%- if section.settings.show_arrows -%}
+        <!-- Only show arrows if more than 1 product -->
+        {%- if section.settings.show_arrows and fallback_count > 1 -%}
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
         {%- endif -%}
@@ -417,31 +456,67 @@
   function initSwiper(container, startAutoplay = true) {
     if (!container || container.classList.contains('swiper-initialized')) return null;
     
+    // Get product count from data attribute
+    const productCount = parseInt(container.getAttribute('data-product-count') || '0', 10);
+    
+    // If only 1 product, don't initialize swiper (or initialize with no navigation/lock)
+    if (productCount === 1) {
+      container.classList.add('swiper-locked');
+      return null;
+    }
+    
+    // Determine slides per view based on product count
+    let slidesPerView = 2.1;
+    if (productCount === 2) {
+      slidesPerView = 2.1;
+    } else if (productCount === 3) {
+      slidesPerView = 2.5;
+    } else if (productCount === 4) {
+      slidesPerView = 3;
+    }
+    
     const config = {
-      slidesPerView: 2.1,
+      slidesPerView: slidesPerView,
       spaceBetween: 15,
-      loop: false,
-      centeredSlides: centralizeProducts,
+      loop: productCount > desktopColumns ? true : false,
+      centeredSlides: centralizeProducts || productCount === 1,
       observer: true,
       observeParents: true,
-      autoplay: (startAutoplay && autoplayDelay > 0) ? {
+      autoplay: (startAutoplay && autoplayDelay > 0 && productCount > 1) ? {
         delay: autoplayDelay,
         disableOnInteraction: false,
         pauseOnMouseEnter: true
       } : false,
       breakpoints: {
-        640: { slidesPerView: 2.5, spaceBetween: 20 },
-        768: { slidesPerView: 3, spaceBetween: 20 },
-        1024: { slidesPerView: desktopColumns, spaceBetween: 25 },
-        1200: { slidesPerView: desktopColumns, spaceBetween: 30 }
+        640: { 
+          slidesPerView: productCount === 2 ? 2.1 : (productCount === 3 ? 2.5 : 2.5), 
+          spaceBetween: 20 
+        },
+        768: { 
+          slidesPerView: productCount === 2 ? 2.1 : (productCount === 3 ? 3 : 3), 
+          spaceBetween: 20 
+        },
+        1024: { 
+          slidesPerView: productCount < desktopColumns ? productCount : desktopColumns, 
+          spaceBetween: 25 
+        },
+        1200: { 
+          slidesPerView: productCount < desktopColumns ? productCount : desktopColumns, 
+          spaceBetween: 30 
+        }
       }
     };
     
-    if (showArrows) {
-      config.navigation = {
-        nextEl: container.querySelector('.swiper-button-next'),
-        prevEl: container.querySelector('.swiper-button-prev')
-      };
+    // Only add navigation if there are more than 1 product and arrows enabled
+    if (showArrows && productCount > 1) {
+      const nextBtn = container.querySelector('.swiper-button-next');
+      const prevBtn = container.querySelector('.swiper-button-prev');
+      if (nextBtn && prevBtn) {
+        config.navigation = {
+          nextEl: nextBtn,
+          prevEl: prevBtn
+        };
+      }
     }
     
     try {
@@ -454,28 +529,21 @@
   }
 
   function initAllSliders() {
-    // Find all sliders in active tabs and initialize them
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) {
       const slider = activeTab.querySelector('.featured-collection-carousel-slider');
       if (slider && !slider.classList.contains('swiper-initialized')) {
-        const swiper = initSwiper(slider, true);
-        if (swiper) {
-          swipers.set(activeTab.id, swiper);
+        const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
+        if (productCount > 1) {
+          const swiper = initSwiper(slider, true);
+          if (swiper) {
+            swipers.set(activeTab.id, swiper);
+          }
+        } else {
+          slider.classList.add('single-item');
         }
       }
     }
-    
-    // Also initialize any other visible sliders
-    document.querySelectorAll('.featured-collection-carousel-slider').forEach(slider => {
-      if (slider.closest('.tab-content.active') && !slider.classList.contains('swiper-initialized')) {
-        const swiper = initSwiper(slider, true);
-        if (swiper) {
-          const parentTab = slider.closest('.tab-content');
-          if (parentTab) swipers.set(parentTab.id, swiper);
-        }
-      }
-    });
   }
 
   function setupTabs() {
@@ -517,21 +585,25 @@
         setTimeout(() => {
           const newSlider = newActiveContent.querySelector('.featured-collection-carousel-slider');
           if (newSlider) {
+            const productCount = parseInt(newSlider.getAttribute('data-product-count') || '0', 10);
+            
             // Check if already initialized
             if (newSlider.classList.contains('swiper-initialized')) {
               const existingSwiper = newSlider.swiper;
-              if (existingSwiper && existingSwiper.autoplay && autoplayDelay > 0) {
+              if (existingSwiper && existingSwiper.autoplay && autoplayDelay > 0 && productCount > 1) {
                 existingSwiper.autoplay.start();
               }
               if (existingSwiper && existingSwiper.update) {
                 existingSwiper.update();
               }
-            } else {
+            } else if (productCount > 1) {
               // Initialize new swiper
               const newSwiper = initSwiper(newSlider, true);
               if (newSwiper) {
                 swipers.set(tabId, newSwiper);
               }
+            } else {
+              newSlider.classList.add('single-item');
             }
           }
         }, 100);
