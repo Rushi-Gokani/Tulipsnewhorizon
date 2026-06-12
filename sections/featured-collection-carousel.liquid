@@ -293,7 +293,7 @@
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
-    <!-- Build tabs - Only create tabs that have products -->
+    <!-- Build tabs -->
     {%- capture tab_list -%}
       {%- for i in (1..5) -%}
         {%- case i -%}
@@ -328,7 +328,7 @@
       </div>
     {%- endif -%}
 
-    <!-- Tab Contents - All tabs rendered but only active shown -->
+    <!-- Tab Contents -->
     {%- assign tab_index = 0 -%}
     {%- for i in (1..5) -%}
       {%- case i -%}
@@ -526,18 +526,50 @@
   const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
   const autoplaySpeed = {{ section.settings.autoplay_speed }};
   
+  // Track initialized sliders
   const initializedSliders = new Set();
 
   function initSlider(slider) {
     if (!slider || initializedSliders.has(slider)) return;
     
     const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
+    
+    // For single product (Baby Swabs) - create a simple slider with centered slide
+    if (productCount === 1) {
+      try {
+        // Add single-item class for styling
+        slider.classList.add('single-item');
+        
+        // Initialize Swiper with single slide config
+        const swiper = new Swiper(slider, {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          loop: false,
+          autoplay: false,
+          centeredSlides: true,
+          allowTouchMove: false,
+          simulateTouch: false,
+          breakpoints: {
+            0: { slidesPerView: 1, centeredSlides: true },
+            640: { slidesPerView: 1, centeredSlides: true },
+            768: { slidesPerView: 1, centeredSlides: true },
+            1024: { slidesPerView: 1, centeredSlides: true }
+          }
+        });
+        initializedSliders.add(slider);
+        return swiper;
+      } catch(e) {
+        console.warn('Single item init error:', e);
+        return null;
+      }
+    }
+    
+    // For multiple products (2 or more)
     const nav = {
       nextEl: slider.querySelector('.swiper-button-next'),
       prevEl: slider.querySelector('.swiper-button-prev')
     };
     
-    // Common config for all sliders
     const config = {
       slidesPerView: desktopCols,
       spaceBetween: 25,
@@ -556,11 +588,6 @@
       }
     };
     
-    // Center slides for single product
-    if (productCount === 1) {
-      config.centeredSlides = true;
-    }
-    
     // Add navigation for multiple products
     if (productCount > 1 && nav.nextEl && nav.prevEl) {
       config.navigation = nav;
@@ -576,6 +603,7 @@
     }
   }
 
+  // Initialize all active sliders
   function initActiveSliders() {
     document.querySelectorAll('.tab-content.active .featured-collection-carousel-slider').forEach(slider => {
       if (!initializedSliders.has(slider)) {
@@ -584,6 +612,7 @@
     });
   }
 
+  // Tab click handler
   function initTabs() {
     const tabs = document.querySelectorAll('.collection-tab');
     if (!tabs.length) return;
@@ -599,22 +628,25 @@
         const newContent = section.querySelector(`#${tabId}`);
         if (currentActive === newContent) return;
 
-        // Update UI immediately
+        // Update UI
         section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
         section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         newContent.classList.add('active');
 
-        // Initialize slider in new tab (synchronous, no delay)
+        // Initialize slider in new tab (including single item)
         const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
         if (newSlider && !initializedSliders.has(newSlider)) {
-          initSlider(newSlider);
+          // Small delay to ensure DOM is ready
+          setTimeout(() => {
+            initSlider(newSlider);
+          }, 10);
         }
       });
     });
   }
 
-  // Initialize everything immediately
+  // Initialize everything
   initActiveSliders();
   initTabs();
 })();
