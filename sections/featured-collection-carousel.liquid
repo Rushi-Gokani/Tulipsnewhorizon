@@ -21,7 +21,6 @@
     background-color: {{ section.settings.bg_color }};
   }
 
-  /* Tabs Styles - Capsule/Pill Button */
   .collection-tabs-wrapper {
     margin-bottom: 30px;
   }
@@ -45,7 +44,7 @@
     font-weight: 500;
     color: {{ section.settings.tab_text_color }};
     border-radius: 50px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
   }
 
@@ -82,7 +81,6 @@
     }
   }
 
-  /* Swiper Styles - Preserved from original */
   .featured-collection-carousel-slider {
     overflow: hidden;
     position: relative;
@@ -117,7 +115,6 @@
     }
   }
 
-  /* Navigation Arrows - Original Style */
   .featured-collection-controls {
     position: absolute;
     top: 50%;
@@ -126,11 +123,15 @@
     transform: translateY(-50%);
     pointer-events: none;
     z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
   }
 
   .featured-collection-controls .swiper-button-prev,
   .featured-collection-controls .swiper-button-next {
-    position: absolute;
+    position: static;
     pointer-events: auto;
     width: 40px;
     height: 40px;
@@ -138,23 +139,29 @@
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    border: none;
+    padding: 0;
   }
 
-  .featured-collection-controls .swiper-button-prev {
-    left: 10px;
+  .featured-collection-controls .swiper-button-prev:hover,
+  .featured-collection-controls .swiper-button-next:hover {
+    background: #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: scale(1.05);
   }
 
-  .featured-collection-controls .swiper-button-next {
-    right: 10px;
+  .featured-collection-controls svg {
+    width: 24px;
+    height: 24px;
+    display: block;
   }
 
-  .featured-collection-controls .swiper-button-prev:after,
-  .featured-collection-controls .swiper-button-next:after {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  /* Original Product Card Styles - DO NOT MODIFY */
   .product-badges {
     position: absolute;
     top: 10px;
@@ -193,6 +200,14 @@
     text-decoration: none;
     color: inherit;
   }
+
+  .product-custom-liquid {
+    margin-bottom: 15px;
+  }
+
+  .product-price-section {
+    margin-bottom: 15px;
+  }
 {%- endstyle -%}
 
 <div class="featured-collection-carousel-section section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
@@ -210,7 +225,6 @@
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
-    <!-- Build tabs -->
     {%- capture tab_list -%}
       {%- for i in (1..5) -%}
         {%- case i -%}
@@ -236,7 +250,6 @@
       {%- endfor -%}
     {%- endcapture -%}
 
-    <!-- Tab Navigation -->
     {%- if tab_list != blank -%}
       <div class="collection-tabs-wrapper">
         <ul class="collection-tabs" role="tablist">
@@ -245,7 +258,6 @@
       </div>
     {%- endif -%}
 
-    <!-- Tab Contents -->
     {%- assign tab_index = 0 -%}
     {%- for i in (1..5) -%}
       {%- case i -%}
@@ -293,9 +305,9 @@
                     {% endcapture %}
 
                     {% render 'card-gallery', product: product, children: gallery_children %}
-                    <div class="card-info" style="padding: 15px;">
-                      <h3 class="card-title h5" style="margin: 0 0 5px;">
-                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                    <div class="card-info">
+                      <h3 class="card-title h5">
+                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link">
                           {{ product.title }}
                         </a>
                       </h3>
@@ -318,7 +330,7 @@
                         {%- endif -%}
                       {%- endfor -%}
 
-                      <div style="margin-bottom: 15px;">
+                      <div class="product-price-section">
                         {% render 'price', product_resource: product, show_compare_price: true %}
                       </div>
                       {% render 'product-card-button', product: product %}
@@ -331,24 +343,24 @@
                   %}
                 </div>
               {%- else -%}
-                <div class="swiper-slide" style="text-align: center; padding: 40px;">
-                  <p>No products found in this collection.</p>
+                <div class="swiper-slide">
+                  <p style="text-align: center; padding: 40px;">No products found in this collection.</p>
                 </div>
               {%- endfor -%}
             </div>
             
             {%- if section.settings.show_arrows -%}
               <div class="featured-collection-controls">
-                <div class="swiper-button-prev">
+                <button class="swiper-button-prev" aria-label="Previous slide">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                </div>
-                <div class="swiper-button-next">
+                </button>
+                <button class="swiper-button-next" aria-label="Next slide">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                </div>
+                </button>
               </div>
             {%- endif -%}
           </div>
@@ -356,7 +368,6 @@
       {%- endif -%}
     {%- endfor -%}
 
-    <!-- Fallback: Single collection if no tabs -->
     {%- if tab_list == blank and section.settings.collection != blank -%}
       <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}">
         <div class="swiper-wrapper">
@@ -384,9 +395,9 @@
                 {% endcapture %}
 
                 {% render 'card-gallery', product: product, children: gallery_children %}
-                <div class="card-info" style="padding: 15px;">
-                  <h3 class="card-title h5" style="margin: 0 0 5px;">
-                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                <div class="card-info">
+                  <h3 class="card-title h5">
+                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link">
                       {{ product.title }}
                     </a>
                   </h3>
@@ -408,7 +419,7 @@
                       </div>
                     {%- endif -%}
                   {%- endfor -%}
-                  <div style="margin-bottom: 15px;">
+                  <div class="product-price-section">
                     {% render 'price', product_resource: product, show_compare_price: true %}
                   </div>
                   {% render 'product-card-button', product: product %}
@@ -421,23 +432,23 @@
               %}
             </div>
           {%- else -%}
-            <div class="swiper-slide" style="text-align: center; padding: 40px;">
-              <p>No products found.</p>
+            <div class="swiper-slide">
+              <p style="text-align: center; padding: 40px;">No products found.</p>
             </div>
           {%- endfor -%}
         </div>
         {%- if section.settings.show_arrows -%}
           <div class="featured-collection-controls">
-            <div class="swiper-button-prev">
+            <button class="swiper-button-prev" aria-label="Previous slide">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </div>
-            <div class="swiper-button-next">
+            </button>
+            <button class="swiper-button-next" aria-label="Next slide">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </div>
+            </button>
           </div>
         {%- endif -%}
       </div>
@@ -455,10 +466,8 @@
   const centralizeProducts = {{ section.settings.centralize_products | json }};
   const showArrows = {{ section.settings.show_arrows | json }};
 
-  // Store Swiper instances
   const swiperInstances = new Map();
 
-  // Helper: Initialize Swiper on a slider element
   function initSwiper(sliderElement, startAutoplay = true) {
     if (!sliderElement || sliderElement.classList.contains('swiper-initialized')) {
       return null;
@@ -491,14 +500,14 @@
       }
     };
 
-    // Only add navigation if arrows are enabled
     if (showArrows) {
       const nextBtn = sliderElement.querySelector('.swiper-button-next');
       const prevBtn = sliderElement.querySelector('.swiper-button-prev');
       if (nextBtn && prevBtn) {
         swiperConfig.navigation = {
           nextEl: nextBtn,
-          prevEl: prevBtn
+          prevEl: prevBtn,
+          disabledClass: 'swiper-button-disabled'
         };
       }
     }
@@ -507,12 +516,11 @@
       const swiper = new Swiper(sliderElement, swiperConfig);
       return swiper;
     } catch (e) {
-      console.warn('Swiper initialization failed:', e);
+      console.warn('Swiper init failed:', e);
       return null;
     }
   }
 
-  // Initialize all active sliders on page load
   function initializeActiveSliders() {
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) {
@@ -526,7 +534,6 @@
     }
   }
 
-  // Tab click handler
   function setupTabHandlers() {
     const tabs = document.querySelectorAll('.collection-tab');
     const section = document.querySelector(`.featured-collection-carousel-section[data-section-id="${sectionId}"]`);
@@ -548,15 +555,13 @@
           return;
         }
 
-        // Stop autoplay on current slider
         if (currentActiveContent && swiperInstances.has(currentActiveContent.id)) {
           const currentSwiper = swiperInstances.get(currentActiveContent.id);
-          if (currentSwiper && currentSwiper.autoplay) {
+          if (currentSwiper?.autoplay) {
             currentSwiper.autoplay.stop();
           }
         }
 
-        // Update active classes
         section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
 
@@ -571,34 +576,27 @@
           const slider = targetContent.querySelector('.featured-collection-carousel-slider');
 
           if (slider && !slider.classList.contains('swiper-initialized')) {
-            // Initialize Swiper if not already done
             const swiper = initSwiper(slider, true);
             if (swiper) {
               swiperInstances.set(tabId, swiper);
             }
           } else if (slider && swiperInstances.has(tabId)) {
-            // Restart autoplay for existing Swiper
             const existingSwiper = swiperInstances.get(tabId);
-            if (existingSwiper && existingSwiper.autoplay && autoplayDelay > 0) {
+            if (existingSwiper?.autoplay && autoplayDelay > 0) {
               setTimeout(() => {
                 existingSwiper.autoplay.start();
               }, 100);
             }
-            // Update slider on tab change
-            setTimeout(() => {
-              if (existingSwiper && existingSwiper.update) {
-                existingSwiper.update();
-              }
-            }, 50);
+            if (existingSwiper?.update) {
+              existingSwiper.update();
+            }
           }
         }
       });
     });
   }
 
-  // Initialize everything when DOM is ready
   function init() {
-    // Wait for Swiper to be available
     if (typeof Swiper !== 'undefined') {
       initializeActiveSliders();
       setupTabHandlers();
@@ -607,15 +605,14 @@
       return;
     }
 
-    // Handle window resize and orientation change
     const handleResize = () => {
       setTimeout(() => {
         swiperInstances.forEach(swiper => {
-          if (swiper && swiper.update) {
+          if (swiper?.update) {
             swiper.update();
           }
         });
-      }, 200);
+      }, 150);
     };
 
     window.addEventListener('resize', handleResize);
