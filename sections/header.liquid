@@ -846,25 +846,6 @@
   .header__column .localization-form__select {
     background-color: var(--header-bg-color);
   }
-  
-  /* Firefox CSS Reset for menu */
-  @-moz-document url-prefix() {
-    .menu-list__item details {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--color-background);
-      z-index: 1000;
-    }
-    
-    .menu-list__item:not(:hover) details {
-      display: none !important;
-    }
-    
-    .mega-menu:not(:hover) details {
-      display: none !important;
-    }
-  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -876,79 +857,121 @@
   </script>
 {% endunless %}
 
-<!-- FIREFOX CRITICAL FIX -->
+<!-- FIREFOX MENU FIX - Direct mouseleave handling -->
 <script>
   (function() {
+    // Check if Firefox
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
     
     if (isFirefox) {
-      console.log('Firefox detected - applying critical menu close fix');
+      console.log('Firefox detected - installing direct mouseleave handlers');
       
-      // Function to force close ALL menus
-      function closeAllFirefoxMenus() {
+      // Function to close all menus
+      function closeAllMenus() {
         var allDetails = document.querySelectorAll('.header-menu details, .mega-menu details, header-menu details');
         for (var i = 0; i < allDetails.length; i++) {
           if (allDetails[i].hasAttribute('open')) {
             allDetails[i].removeAttribute('open');
+            // Update ARIA attributes
+            var parent = allDetails[i].closest('.menu-list__item, .mega-menu');
+            if (parent) {
+              var trigger = parent.querySelector('[aria-haspopup="true"]');
+              if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
           }
         }
       }
       
-      // Force close any open menus every 100ms (aggressive)
-      setInterval(function() {
-        var openDetails = document.querySelectorAll('.header-menu details[open], .mega-menu details[open]');
-        for (var i = 0; i < openDetails.length; i++) {
-          var parent = openDetails[i].closest('.menu-list__item, .mega-menu');
-          if (parent) {
-            var isHovered = parent.matches(':hover');
-            if (!isHovered) {
-              openDetails[i].removeAttribute('open');
+      // Find all menu items and add direct mouseleave handlers
+      function setupMenuHandlers() {
+        // Handle standard menu items
+        var menuItems = document.querySelectorAll('.menu-list__item');
+        for (var i = 0; i < menuItems.length; i++) {
+          var item = menuItems[i];
+          
+          // Skip if already handled
+          if (item.getAttribute('data-firefox-handled') === 'true') continue;
+          
+          var details = item.querySelector('details');
+          if (!details) continue;
+          
+          // Mouseleave handler - directly close this menu
+          item.addEventListener('mouseleave', function(e) {
+            var detailsElem = this.querySelector('details');
+            if (detailsElem && detailsElem.hasAttribute('open')) {
+              detailsElem.removeAttribute('open');
+              var triggerElem = this.querySelector('[aria-haspopup="true"]');
+              if (triggerElem) triggerElem.setAttribute('aria-expanded', 'false');
             }
-          } else {
-            openDetails[i].removeAttribute('open');
-          }
+          });
+          
+          item.setAttribute('data-firefox-handled', 'true');
         }
-      }, 100);
+        
+        // Handle mega menus
+        var megaMenus = document.querySelectorAll('.mega-menu');
+        for (var i = 0; i < megaMenus.length; i++) {
+          var menu = megaMenus[i];
+          
+          if (menu.getAttribute('data-firefox-handled') === 'true') continue;
+          
+          var details = menu.querySelector('details');
+          if (!details) continue;
+          
+          menu.addEventListener('mouseleave', function(e) {
+            var detailsElem = this.querySelector('details');
+            if (detailsElem && detailsElem.hasAttribute('open')) {
+              detailsElem.removeAttribute('open');
+              var triggerElem = this.querySelector('[aria-haspopup="true"]');
+              if (triggerElem) triggerElem.setAttribute('aria-expanded', 'false');
+            }
+          });
+          
+          menu.setAttribute('data-firefox-handled', 'true');
+        }
+      }
       
-      // Also close when clicking anywhere
+      // Also close any menu when mouse leaves the entire header area
+      var headerComponent = document.getElementById('header-component');
+      if (headerComponent) {
+        headerComponent.addEventListener('mouseleave', function() {
+          setTimeout(closeAllMenus, 10);
+        });
+      }
+      
+      // Close menus when clicking anywhere
       document.addEventListener('click', function(e) {
-        setTimeout(closeAllFirefoxMenus, 10);
-      });
-      
-      // Close on scroll
-      window.addEventListener('scroll', function() {
-        closeAllFirefoxMenus();
-      });
-      
-      // Force close when mouse moves out of menu area
-      document.addEventListener('mousemove', function(e) {
-        var target = e.target;
-        var isInMenu = target.closest('.header-menu, .mega-menu, .menu-list__item');
+        var isInMenu = e.target.closest('.header-menu, .mega-menu, .menu-list__item');
         if (!isInMenu) {
-          setTimeout(closeAllFirefoxMenus, 50);
+          setTimeout(closeAllMenus, 10);
         }
       });
+      
+      // Initial setup
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupMenuHandlers);
+      } else {
+        setupMenuHandlers();
+      }
+      
+      // Watch for dynamically added content
+      var observer = new MutationObserver(function(mutations) {
+        setupMenuHandlers();
+      });
+      
+      if (headerComponent) {
+        observer.observe(headerComponent, { childList: true, subtree: true });
+      }
     }
   })();
 </script>
 
 <style>
-  /* Most aggressive Firefox fix - force close on any mouse movement outside */
+  /* Firefox-specific CSS to force menu close on mouseleave */
   @-moz-document url-prefix() {
     .menu-list__item details[open],
     .mega-menu details[open] {
       transition: none !important;
-    }
-    
-    /* Force menu to only stay open when actively hovered */
-    .menu-list__item:hover details[open],
-    .mega-menu:hover details[open] {
-      display: block !important;
-    }
-    
-    .menu-list__item:not(:hover) details[open],
-    .mega-menu:not(:hover) details[open] {
-      display: none !important;
     }
   }
 </style>
