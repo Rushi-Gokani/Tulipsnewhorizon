@@ -989,6 +989,109 @@
   </script>
 {% endunless %}
 
+<!-- Menu controller: deterministic JS + CSS to reliably control submenus across browsers -->
+<script>
+  (function() {
+    const MENU_SELECTOR = '.header-menu, .mega-menu';
+    const ITEM_SELECTOR = '.menu-list__item';
+    const SUBMENU_CLASS = 'is-open';
+    const CLOSE_DELAY = 120;
+
+    function openItem(item) {
+      item.classList.add(SUBMENU_CLASS);
+      var details = item.querySelector('details');
+      if (details) details.setAttribute('open', '');
+      var trigger = item.querySelector('[aria-haspopup="true"]');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeItem(item) {
+      item.classList.remove(SUBMENU_CLASS);
+      var details = item.querySelector('details');
+      if (details) details.removeAttribute('open');
+      var trigger = item.querySelector('[aria-haspopup="true"]');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    document.querySelectorAll(MENU_SELECTOR).forEach(function(menu) {
+      var timers = new WeakMap();
+
+      function scheduleClose(item) {
+        var t = timers.get(item);
+        if (t) clearTimeout(t);
+        timers.set(item, setTimeout(function() { closeItem(item); }, CLOSE_DELAY));
+      }
+      function cancelClose(item) { var t = timers.get(item); if (t) { clearTimeout(t); timers.delete(item); } }
+
+      // Pointer interactions
+      menu.addEventListener('pointerenter', function(e) {
+        var item = e.target.closest(ITEM_SELECTOR);
+        if (item && menu.contains(item)) { cancelClose(item); openItem(item); }
+      }, true);
+
+      menu.addEventListener('pointermove', function(e) {
+        var item = e.target.closest(ITEM_SELECTOR);
+        if (item && menu.contains(item)) { cancelClose(item); openItem(item); }
+      }, true);
+
+      menu.addEventListener('pointerleave', function(e) {
+        var related = e.relatedTarget;
+        if (!related || !menu.contains(related)) {
+          menu.querySelectorAll(ITEM_SELECTOR + '.' + SUBMENU_CLASS).forEach(closeItem);
+        }
+        var item = e.target.closest(ITEM_SELECTOR);
+        if (item && menu.contains(item)) scheduleClose(item);
+      }, true);
+
+      // Keyboard accessibility
+      menu.addEventListener('focusin', function(e) {
+        var item = e.target.closest(ITEM_SELECTOR);
+        if (item && menu.contains(item)) { cancelClose(item); openItem(item); }
+      }, true);
+      menu.addEventListener('focusout', function(e) {
+        var item = e.target.closest(ITEM_SELECTOR);
+        if (item && menu.contains(item)) scheduleClose(item);
+      }, true);
+
+      // Close when interacting outside
+      document.addEventListener('pointerdown', function(e) {
+        if (!e.target.closest(MENU_SELECTOR)) menu.querySelectorAll(ITEM_SELECTOR + '.' + SUBMENU_CLASS).forEach(closeItem);
+      }, { passive: true });
+
+      document.addEventListener('touchstart', function(e) {
+        if (!e.target.closest(MENU_SELECTOR)) menu.querySelectorAll(ITEM_SELECTOR + '.' + SUBMENU_CLASS).forEach(closeItem);
+      }, { passive: true });
+
+      window.addEventListener('scroll', function() { menu.querySelectorAll(ITEM_SELECTOR + '.' + SUBMENU_CLASS).forEach(closeItem); }, { passive: true });
+    });
+  })();
+</script>
+
+<style>
+  /* Show submenu when JS toggles the class */
+  .menu-list__item.is-open .menu-list__submenu {
+    display: block !important;
+    visibility: visible !important;
+    content-visibility: visible !important;
+  }
+
+  /* Keep Firefox positioning so submenus don't affect layout */
+  @-moz-document url-prefix() {
+    .header-menu details,
+    .mega-menu details {
+      position: absolute !important;
+      top: 100% !important;
+      left: 0 !important;
+      background: var(--color-background) !important;
+      z-index: 10000 !important;
+    }
+    .menu-list__item,
+    .mega-menu {
+      position: relative !important;
+    }
+  }
+</style>
+
 {% schema %}
 {
   "name": "t:names.header",
