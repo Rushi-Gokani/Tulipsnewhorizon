@@ -104,6 +104,13 @@
     display: none !important;
   }
   
+  /* Make arrows always visible and clickable */
+  .featured-collection-carousel-slider .swiper-button-prev,
+  .featured-collection-carousel-slider .swiper-button-next {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
   /* Responsive breakpoints with equal heights */
   @media screen and (max-width: 640px) {
     .featured-collection-carousel-slider .swiper-slide {
@@ -243,7 +250,7 @@
     transform: translateY(-50%);
     width: 44px;
     height: 44px;
-    background: #A8D02A ;
+    background: #A8D02A;
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     cursor: pointer;
@@ -263,18 +270,18 @@
     right: 10px;
   }
 
+  .featured-collection-carousel-slider .swiper-button-prev svg,
+  .featured-collection-carousel-slider .swiper-button-next svg {
+    width: 20px;
+    height: 20px;
+    stroke: #333;
+  }
+
   .featured-collection-carousel-slider .swiper-button-prev:hover,
   .featured-collection-carousel-slider .swiper-button-next:hover {
     background: #ffffff;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     transform: translateY(-50%) scale(1.05);
-  }
-
-  .featured-collection-carousel-slider .swiper-button-prev:after,
-  .featured-collection-carousel-slider .swiper-button-next:after {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
   }
 
   @media screen and (max-width: 640px) {
@@ -283,9 +290,10 @@
       width: 32px;
       height: 32px;
     }
-    .featured-collection-carousel-slider .swiper-button-prev:after,
-    .featured-collection-carousel-slider .swiper-button-next:after {
-      font-size: 14px;
+    .featured-collection-carousel-slider .swiper-button-prev svg,
+    .featured-collection-carousel-slider .swiper-button-next svg {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -465,13 +473,13 @@
             
             <div class="swiper-button-prev">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
             <div class="swiper-button-next">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
           </div>
         </div>
@@ -550,16 +558,16 @@
             </div>
           {%- endfor -%}
         </div>
-   <div class="swiper-button-prev">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-            </div>
-            <div class="swiper-button-next">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-            </div>
+        <div class="swiper-button-prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="swiper-button-next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
     {%- endif -%}
   </div>
@@ -577,10 +585,21 @@
   
   const initializedSliders = new Set();
 
+  function getSlidesPerView(productCount) {
+    if (productCount === 1) return 1;
+    if (productCount === 2) return 2;
+    if (productCount === 3) return 2.5;
+    return desktopCols;
+  }
+
   function initSlider(slider) {
     if (!slider || initializedSliders.has(slider)) return;
     
     const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
+    const nav = {
+      nextEl: slider.querySelector('.swiper-button-next'),
+      prevEl: slider.querySelector('.swiper-button-prev')
+    };
     
     // For single product
     if (productCount === 1) {
@@ -589,10 +608,10 @@
         const swiper = new Swiper(slider, {
           slidesPerView: 1,
           spaceBetween: 0,
-          loop: true,
+          loop: false,
           autoplay: false,
-          centeredSlides: false,
-          allowTouchMove: true,
+          centeredSlides: true,
+          allowTouchMove: false,
           simulateTouch: false
         });
         initializedSliders.add(slider);
@@ -603,29 +622,46 @@
       }
     }
     
-    // For multiple products
-    const nav = {
-      nextEl: slider.querySelector('.swiper-button-next'),
-      prevEl: slider.querySelector('.swiper-button-prev')
-    };
+    // For multiple products (2 or more)
+    const slidesPerView = getSlidesPerView(productCount);
+    const shouldLoop = productCount > slidesPerView;
     
     const config = {
-      slidesPerView: desktopCols,
-      spaceBetween: 25,
-      loop: true,
+      slidesPerView: slidesPerView,
+      spaceBetween: 20,
+      loop: shouldLoop,
       speed: 400,
-      autoHeight: false, // Important: prevents height changes
+      autoHeight: false,
       autoplay: (autoplaySpeed > 0 && productCount > 1) ? {
         delay: autoplaySpeed * 1000,
         disableOnInteraction: false
       } : false,
       breakpoints: {
-        0: { slidesPerView: 2, spaceBetween: 10 },
-        640: { slidesPerView: 2.5, spaceBetween: 15 },
-        768: { slidesPerView: 3, spaceBetween: 20 },
-        1024: { slidesPerView: desktopCols, spaceBetween: 25 },
-        1200: { slidesPerView: desktopCols, spaceBetween: 25 }
-      }
+        0: { 
+          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 2.5 : 2),
+          spaceBetween: 10 
+        },
+        640: { 
+          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 2.5 : 2.5),
+          spaceBetween: 15 
+        },
+        768: { 
+          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 3 : 3),
+          spaceBetween: 20 
+        },
+        1024: { 
+          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 3 : desktopCols),
+          spaceBetween: 25 
+        },
+        1200: { 
+          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 3 : desktopCols),
+          spaceBetween: 25 
+        }
+      },
+      // Ensure navigation works properly
+      watchOverflow: true,
+      observer: true,
+      observeParents: true
     };
     
     // Add navigation for multiple products
@@ -636,6 +672,12 @@
     try {
       const swiper = new Swiper(slider, config);
       initializedSliders.add(slider);
+      
+      // Force update after initialization
+      setTimeout(() => {
+        swiper.update();
+      }, 100);
+      
       return swiper;
     } catch(e) {
       console.warn('Swiper init error:', e);
@@ -684,6 +726,15 @@
   // Initialize immediately
   initActiveSliders();
   initTabs();
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    initializedSliders.forEach(slider => {
+      if (slider && slider.swiper) {
+        slider.swiper.update();
+      }
+    });
+  });
 })();
 </script>
 
