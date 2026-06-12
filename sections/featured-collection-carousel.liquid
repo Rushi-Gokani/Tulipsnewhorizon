@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'"/>
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer="defer"></script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -21,7 +21,7 @@
     background-color: {{ section.settings.bg_color }};
   }
 
-  /* Tabs Styles */
+  /* Tabs Styles - Capsule/Pill Button */
   .collection-tabs-wrapper {
     margin-bottom: 30px;
   }
@@ -69,147 +69,78 @@
     display: block;
   }
 
+  /* Performance: Hide non-active tab contents completely */
+  .tab-content:not(.active) {
+    display: none !important;
+  }
+
   @media screen and (max-width: 749px) {
     .collection-tabs {
       gap: 8px;
     }
+
     .collection-tab {
-      padding: 8px 16px;
-      font-size: 13px;
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    .featured-collection-carousel-section .title-wrapper-with-link {
+      text-align: center;
+    }
+
+    .featured-collection-carousel-section .title {
+      text-align: center;
     }
   }
 
-  /* Swiper Styles */
+  .product-judgeme-reviews {
+    margin-bottom: 10px;
+    min-height: 20px;
+  }
+
+  .featured-collection-carousel-slider--centralized .jdgm-widget,
+  .featured-collection-carousel-slider--centralized .card-info {
+    text-align: left;
+  }
+
   .featured-collection-carousel-slider {
     overflow: hidden;
-    position: relative;
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
 
-  .featured-collection-carousel-slider .swiper-slide {
-    height: auto;
+  .featured-collection-carousel-slider.swiper-initialized {
+    opacity: 1;
   }
 
-  .featured-collection-controls {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  .featured-collection-controls .swiper-button-prev,
-  .featured-collection-controls .swiper-button-next {
-    position: absolute;
-    pointer-events: auto;
-    width: 40px;
-    height: 40px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    color: #333;
-  }
-
-  .featured-collection-controls .swiper-button-prev {
-    left: 10px;
-  }
-
-  .featured-collection-controls .swiper-button-next {
-    right: 10px;
-  }
-
-  .featured-collection-controls .swiper-button-prev:after,
-  .featured-collection-controls .swiper-button-next:after {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  /* Product Card Styles */
-  .product-card-wrapper {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    overflow: hidden;
-    background: white;
-    height: 100%;
+  /* Fallback styles before Swiper initializes */
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
   }
 
-  .card-gallery-wrapper {
-    position: relative;
+  .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+    flex: 0 0 calc((100% / 2.1) - 10px);
+    min-width: 0;
   }
 
-  .card-gallery__media img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+  @media screen and (min-width: 750px) {
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+      gap: 20px;
+    }
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% / 2.5) - 20px);
+    }
   }
 
-  .product-badges {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 2;
-  }
-
-  .product-badges__badge {
-    background: #ff4444;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .card-info {
-    padding: 15px;
-    flex: 1;
-  }
-
-  .card-title {
-    margin: 0 0 5px;
-    font-size: 16px;
-  }
-
-  .card-title a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .price {
-    margin-bottom: 15px;
-  }
-
-  .price-item--regular {
-    font-weight: bold;
-    color: #333;
-  }
-
-  .price-item--sale {
-    color: #ff4444;
-  }
-
-  .price-item--compare {
-    text-decoration: line-through;
-    color: #999;
-    margin-left: 8px;
-    font-weight: normal;
-  }
-
-  .button--add-to-cart {
-    background: {{ section.settings.tab_active_color }};
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .button--add-to-cart:hover {
-    opacity: 0.9;
+  @media screen and (min-width: 990px) {
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-wrapper {
+      gap: 30px;
+    }
+    .featured-collection-carousel-slider:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% / {{ section.settings.desktop_columns }}) - 30px);
+    }
   }
 {%- endstyle -%}
 
@@ -228,7 +159,7 @@
       {%- assign source_collection = collection -%}
     {%- endif -%}
 
-    <!-- Build tabs -->
+    <!-- Build tabs data -->
     {%- capture tab_list -%}
       {%- for i in (1..5) -%}
         {%- case i -%}
@@ -247,7 +178,9 @@
         {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
           <li class="collection-tab {% if forloop.index == 1 %}active{% endif %}"
               role="tab"
-              data-tab-id="tab-{{ section.id }}-{{ i }}">
+              data-tab-index="{{ forloop.index }}"
+              data-tab-id="tab-{{ section.id }}-{{ i }}"
+              data-collection-id="{{ tab_collection.id }}">
             {{ tab_collection.title | escape }}
           </li>
         {%- endif -%}
@@ -263,7 +196,7 @@
       </div>
     {%- endif -%}
 
-    <!-- Tab Contents -->
+    <!-- Tab Contents - Only first tab has product markup, others lazy load via JS -->
     {%- assign tab_index = 0 -%}
     {%- for i in (1..5) -%}
       {%- case i -%}
@@ -281,91 +214,146 @@
 
       {%- if tab_collection != blank and tab_collection.products_count > 0 -%}
         {%- assign tab_index = tab_index | plus: 1 -%}
+        {%- assign is_active = false -%}
+        {%- if tab_index == 1 -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
         {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: i -%}
-        
-        <div class="tab-content {% if tab_index == 1 %}active{% endif %}" id="{{ tab_id }}">
-          <div class="featured-collection-carousel-slider swiper" data-tab-slider="{{ tab_id }}">
-            <div class="swiper-wrapper">
-              {%- assign limit = section.settings.products_to_show -%}
-              {%- if section.settings.show_all_products -%}
-                {%- assign limit = 50 -%}
-              {%- endif -%}
-              
-              {%- for product in tab_collection.products limit: limit -%}
-                <div class="swiper-slide">
-                  <div class="product-card-wrapper">
-                    <div class="card-gallery-wrapper">
-                      <a href="{{ product.url }}">
-                        <div class="card-gallery__media">
-                          {%- if product.featured_image -%}
-                            <img src="{{ product.featured_image | image_url: width: 300, height: 300 }}" 
-                                 alt="{{ product.title | escape }}"
-                                 loading="lazy"
-                                 width="300" 
-                                 height="300">
-                          {%- else -%}
-                            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+
+        <div class="tab-content {% if is_active %}active{% endif %}"
+             id="{{ tab_id }}"
+             data-tab-id="{{ tab_id }}"
+             data-collection-handle="{{ tab_collection.handle }}"
+             {% unless is_active %}data-lazy="true"{% endunless %}>
+
+          {%- if is_active -%}
+            <!-- Pre-render first tab content for immediate display -->
+            <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
+                 data-slider-container="true">
+              <div class="swiper-wrapper">
+                {%- assign limit = section.settings.products_to_show -%}
+                {%- if section.settings.show_all_products -%}
+                  {%- assign limit = 50 -%}
+                {%- endif -%}
+                {%- for product in tab_collection.products limit: limit -%}
+                  <div class="swiper-slide">
+                    {% capture product_content %}
+                      {% capture gallery_children %}
+                        <div class="product-badges product-badges--top-left">
+                          {%- if product.compare_at_price > product.price -%}
+                            {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                            <div class="product-badges__badge product-badges__badge--custom">
+                              {{ discount }}% OFF
+                            </div>
+                          {%- endif -%}
+                          {%- if product.available == false -%}
+                            <div class="product-badges__badge product-badges__badge--custom">
+                              SOLD OUT
+                            </div>
                           {%- endif -%}
                         </div>
-                      </a>
-                      {%- if product.compare_at_price > product.price -%}
-                        {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                        <div class="product-badges">
-                          <div class="product-badges__badge">{{ discount }}% OFF</div>
-                        </div>
-                      {%- endif -%}
-                    </div>
-                    <div class="card-info">
-                      <h3 class="card-title h5">
-                        <a href="{{ product.url }}">{{ product.title | truncate: 40 }}</a>
-                      </h3>
-                      
-                      {%- for block in section.blocks -%}
-                        {%- if block.type == 'judgeme_reviews' -%}
-                          <div class="product-judgeme-reviews" {{ block.shopify_attributes }}>
-                            <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+                      {% endcapture %}
+
+                      {% render 'card-gallery', product: product, children: gallery_children %}
+                      <div class="card-info" style="padding: 15px;">
+                        <h3 class="card-title h5" style="margin: 0 0 5px;">
+                          <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                            {{ product.title }}
+                          </a>
+                        </h3>
+                        {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
+                        {%- if review_block -%}
+                          <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                            <div class='jdgm-widget jdgm-preview-badge' 
+                                 data-id='{{ product.id }}'
+                                 {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
                               {{ product.metafields.judgeme.badge }}
                             </div>
                           </div>
                         {%- endif -%}
-                      {%- endfor -%}
-                      
-                      <div class="price">
-                        <span class="price-item price-item--regular">{{ product.price | money }}</span>
-                        {%- if product.compare_at_price > product.price -%}
-                          <span class="price-item price-item--sale price-item--compare">{{ product.compare_at_price | money }}</span>
-                        {%- endif -%}
+
+                        {%- for block in section.blocks -%}
+                          {%- if block.type == 'custom_liquid' -%}
+                            <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                              {{ block.settings.custom_liquid }}
+                            </div>
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        <div style="margin-bottom: 15px;">
+                          {% render 'price', product_resource: product, show_compare_price: true %}
+                        </div>
+                        {% render 'product-card-button', product: product %}
                       </div>
-                      
-                      <button class="button--add-to-cart" 
-                              data-variant-id="{{ product.variants.first.id }}"
-                              {% unless product.available %}disabled{% endunless %}>
-                        {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
-                      </button>
-                    </div>
+                    {% endcapture %}
+
+                    {% render 'product-card',
+                      product: product,
+                      children: product_content
+                    %}
+                  </div>
+                {%- else -%}
+                  <div class="swiper-slide" style="text-align: center; padding: 40px;">
+                    <p>{{ 'sections.featured_collection.no_products' | t }}</p>
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              {%- if section.settings.show_arrows -%}
+                <div class="featured-collection-controls">
+                  <div class="swiper-button-prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="swiper-button-next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </div>
                 </div>
-              {%- else -%}
-                <div class="swiper-slide" style="text-align: center; padding: 40px;">
-                  <p>No products found in this collection.</p>
-                </div>
-              {%- endfor -%}
+              {%- endif -%}
             </div>
-            
-            {%- if section.settings.show_arrows -%}
-              <div class="featured-collection-controls">
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+          {%- else -%}
+            <!-- Lazy loaded tabs - empty container, will be populated on demand -->
+            <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
+                 data-slider-container="true"
+                 data-lazy-load="true">
+              <div class="swiper-wrapper">
+                <!-- Products will be loaded via AJAX when tab becomes active -->
+                <div class="swiper-slide" style="text-align: center; padding: 40px;">
+                  <div class="loading-spinner" style="display: flex; justify-content: center; align-items: center; min-height: 200px;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
-            {%- endif -%}
-          </div>
+              {%- if section.settings.show_arrows -%}
+                <div class="featured-collection-controls">
+                  <div class="swiper-button-prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="swiper-button-next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         </div>
       {%- endif -%}
     {%- endfor -%}
 
     <!-- Fallback: Single collection if no tabs -->
     {%- if tab_list == blank and section.settings.collection != blank -%}
-      <div class="featured-collection-carousel-slider swiper" data-fallback="true">
+      <div class="featured-collection-carousel-slider swiper{% if section.settings.centralize_products %} featured-collection-carousel-slider--centralized{% endif %}"
+           data-slider-container="true"
+           data-fallback="true">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -373,68 +361,78 @@
           {%- endif -%}
           {%- for product in section.settings.collection.products limit: limit -%}
             <div class="swiper-slide">
-              <div class="product-card-wrapper">
-                <div class="card-gallery-wrapper">
-                  <a href="{{ product.url }}">
-                    <div class="card-gallery__media">
-                      {%- if product.featured_image -%}
-                        <img src="{{ product.featured_image | image_url: width: 300, height: 300 }}" 
-                             alt="{{ product.title | escape }}"
-                             loading="lazy"
-                             width="300" 
-                             height="300">
-                      {%- else -%}
-                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                      {%- endif -%}
-                    </div>
-                  </a>
-                  {%- if product.compare_at_price > product.price -%}
-                    {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                    <div class="product-badges">
-                      <div class="product-badges__badge">{{ discount }}% OFF</div>
+              {% capture product_content %}
+                {% capture gallery_children %}
+                  <div class="product-badges product-badges--top-left">
+                    {%- if product.compare_at_price > product.price -%}
+                      {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        {{ discount }}% OFF
+                      </div>
+                    {%- endif -%}
+                    {%- if product.available == false -%}
+                      <div class="product-badges__badge product-badges__badge--custom">
+                        SOLD OUT
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {% endcapture %}
+
+                {% render 'card-gallery', product: product, children: gallery_children %}
+                <div class="card-info" style="padding: 15px;">
+                  <h3 class="card-title h5" style="margin: 0 0 5px;">
+                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                      {{ product.title }}
+                    </a>
+                  </h3>
+                  {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
+                  {%- if review_block -%}
+                    <div class="product-judgeme-reviews" {{ review_block.shopify_attributes }}>
+                      <div class='jdgm-widget jdgm-preview-badge' 
+                           data-id='{{ product.id }}'
+                           {% unless review_block.settings.show_text %}data-nometa='true'{% endunless %}>
+                        {{ product.metafields.judgeme.badge }}
+                      </div>
                     </div>
                   {%- endif -%}
-                </div>
-                <div class="card-info">
-                  <h3 class="card-title h5">
-                    <a href="{{ product.url }}">{{ product.title | truncate: 40 }}</a>
-                  </h3>
-                  
+
                   {%- for block in section.blocks -%}
-                    {%- if block.type == 'judgeme_reviews' -%}
-                      <div class="product-judgeme-reviews" {{ block.shopify_attributes }}>
-                        <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
-                          {{ product.metafields.judgeme.badge }}
-                        </div>
+                    {%- if block.type == 'custom_liquid' -%}
+                      <div class="product-custom-liquid" {{ block.shopify_attributes }}>
+                        {{ block.settings.custom_liquid }}
                       </div>
                     {%- endif -%}
                   {%- endfor -%}
-                  
-                  <div class="price">
-                    <span class="price-item price-item--regular">{{ product.price | money }}</span>
-                    {%- if product.compare_at_price > product.price -%}
-                      <span class="price-item price-item--sale price-item--compare">{{ product.compare_at_price | money }}</span>
-                    {%- endif -%}
+                  <div style="margin-bottom: 15px;">
+                    {% render 'price', product_resource: product, show_compare_price: true %}
                   </div>
-                  
-                  <button class="button--add-to-cart" 
-                          data-variant-id="{{ product.variants.first.id }}"
-                          {% unless product.available %}disabled{% endunless %}>
-                    {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
-                  </button>
+                  {% render 'product-card-button', product: product %}
                 </div>
-              </div>
+              {% endcapture %}
+
+              {% render 'product-card',
+                product: product,
+                children: product_content
+              %}
             </div>
           {%- else -%}
             <div class="swiper-slide" style="text-align: center; padding: 40px;">
-              <p>No products found.</p>
+              <p>{{ 'sections.featured_collection.no_products' | t }}</p>
             </div>
           {%- endfor -%}
         </div>
         {%- if section.settings.show_arrows -%}
           <div class="featured-collection-controls">
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="swiper-button-next">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         {%- endif -%}
       </div>
@@ -442,143 +440,7 @@
   </div>
 </div>
 
-<script>
-(function() {
-  const swipers = [];
-  
-  function initSliders() {
-    const sliders = document.querySelectorAll('.featured-collection-carousel-slider');
-    
-    sliders.forEach(slider => {
-      if (slider.classList.contains('swiper-initialized')) return;
-      
-      const slidesPerView = window.innerWidth >= 990 ? {{ section.settings.desktop_columns | default: 4 }} :
-                            window.innerWidth >= 750 ? 2.5 : 2.1;
-      
-      const swiper = new Swiper(slider, {
-        slidesPerView: slidesPerView,
-        spaceBetween: 20,
-        loop: false,
-        navigation: {
-          nextEl: slider.querySelector('.swiper-button-next'),
-          prevEl: slider.querySelector('.swiper-button-prev'),
-        },
-        autoplay: {{ section.settings.autoplay_speed }} > 0 ? {
-          delay: {{ section.settings.autoplay_speed | times: 1000 }},
-          disableOnInteraction: false,
-        } : false,
-        breakpoints: {
-          0: {
-            slidesPerView: 2.1,
-            spaceBetween: 10,
-          },
-          750: {
-            slidesPerView: 2.5,
-            spaceBetween: 20,
-          },
-          990: {
-            slidesPerView: {{ section.settings.desktop_columns | default: 4 }},
-            spaceBetween: 30,
-          }
-        }
-      });
-      
-      swipers.push(swiper);
-    });
-  }
-  
-  function setupTabs() {
-    const tabs = document.querySelectorAll('.collection-tab');
-    
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const tabId = this.getAttribute('data-tab-id');
-        if (!tabId) return;
-        
-        const section = this.closest('.featured-collection-carousel-section');
-        const currentActive = section.querySelector('.tab-content.active');
-        const newContent = section.querySelector(`#${tabId}`);
-        
-        if (currentActive === newContent) return;
-        
-        // Stop autoplay on current slider
-        swipers.forEach(swiper => {
-          if (swiper.autoplay) swiper.autoplay.stop();
-        });
-        
-        // Update tabs
-        section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Update content
-        section.querySelectorAll('.tab-content').forEach(content => {
-          content.classList.remove('active');
-        });
-        newContent.classList.add('active');
-        
-        // Reinitialize slider in new content
-        const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
-        if (newSlider && !newSlider.classList.contains('swiper-initialized')) {
-          const slidesPerView = window.innerWidth >= 990 ? {{ section.settings.desktop_columns | default: 4 }} :
-                                window.innerWidth >= 750 ? 2.5 : 2.1;
-          
-          const newSwiper = new Swiper(newSlider, {
-            slidesPerView: slidesPerView,
-            spaceBetween: 20,
-            loop: false,
-            navigation: {
-              nextEl: newSlider.querySelector('.swiper-button-next'),
-              prevEl: newSlider.querySelector('.swiper-button-prev'),
-            },
-            autoplay: {{ section.settings.autoplay_speed }} > 0 ? {
-              delay: {{ section.settings.autoplay_speed | times: 1000 }},
-              disableOnInteraction: false,
-            } : false,
-            breakpoints: {
-              0: { slidesPerView: 2.1, spaceBetween: 10 },
-              750: { slidesPerView: 2.5, spaceBetween: 20 },
-              990: { slidesPerView: {{ section.settings.desktop_columns | default: 4 }}, spaceBetween: 30 }
-            }
-          });
-          swipers.push(newSwiper);
-        } else if (newSlider && newSlider.classList.contains('swiper-initialized')) {
-          const existingSwiper = newSlider.swiper;
-          if (existingSwiper && existingSwiper.autoplay) {
-            setTimeout(() => existingSwiper.autoplay.start(), 100);
-          }
-        }
-      });
-    });
-  }
-  
-  function waitForSwiper() {
-    if (typeof Swiper !== 'undefined') {
-      initSliders();
-      setupTabs();
-    } else {
-      setTimeout(waitForSwiper, 100);
-    }
-  }
-  
-  window.addEventListener('resize', function() {
-    setTimeout(function() {
-      swipers.forEach(swiper => {
-        if (swiper && swiper.update) swiper.update();
-      });
-    }, 200);
-  });
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', waitForSwiper);
-  } else {
-    waitForSwiper();
-  }
-})();
-</script>
-
-{% schema %}
+{%- schema -%}
 {
   "name": "Featured Collection Slide",
   "tag": "section",
@@ -594,9 +456,18 @@
       "type": "select",
       "id": "heading_size",
       "options": [
-        { "value": "h2", "label": "Small" },
-        { "value": "h1", "label": "Medium" },
-        { "value": "h0", "label": "Large" }
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
       ],
       "default": "h1",
       "label": "Heading size"
@@ -686,12 +557,12 @@
     {
       "type": "range",
       "id": "autoplay_speed",
-      "min": 0,
+      "min": 2,
       "max": 30,
       "step": 1,
       "default": 5,
       "unit": "s",
-      "label": "Autoplay speed (0 = off)"
+      "label": "Autoplay speed (slide duration)"
     },
     {
       "type": "checkbox",
@@ -749,10 +620,306 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Shows Judge.me review stars"
+          "content": "This block will show Judge.me review stars and text for each product. Best practices: Ensure Judge.me app is installed."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_text",
+          "label": "Show review text",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
         }
       ]
     }
   ]
 }
-{% endschema %}
+{%- endschema -%}
+
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 }};
+  const desktopColumns = {{ section.settings.desktop_columns | json }};
+  const centralizeProducts = {{ section.settings.centralize_products | json }};
+  const showArrows = {{ section.settings.show_arrows | json }};
+
+  // Store Swiper instances
+  const swiperInstances = new Map();
+  // Track loaded lazy tabs
+  const loadedTabs = new Set();
+
+  // Helper: Initialize Swiper on a slider element
+  function initSwiper(sliderElement, startAutoplay = true) {
+    if (!sliderElement || sliderElement.classList.contains('swiper-initialized')) {
+      return null;
+    }
+
+    const swiperConfig = {
+      slidesPerView: 2.1,
+      spaceBetween: 10,
+      loop: false,
+      rewind: true,
+      centeredSlides: centralizeProducts,
+      observer: true,
+      observeParents: true,
+      updateOnWindowResize: true,
+      centerInsufficientSlides: centralizeProducts,
+      autoplay: startAutoplay ? {
+        delay: autoplayDelay,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      } : false,
+      breakpoints: {
+        750: {
+          slidesPerView: 2.5,
+          spaceBetween: 20,
+        },
+        990: {
+          slidesPerView: desktopColumns,
+          spaceBetween: 30,
+        }
+      }
+    };
+
+    // Only add navigation if arrows are enabled and buttons exist
+    if (showArrows) {
+      const nextBtn = sliderElement.querySelector('.swiper-button-next');
+      const prevBtn = sliderElement.querySelector('.swiper-button-prev');
+      if (nextBtn && prevBtn) {
+        swiperConfig.navigation = {
+          nextEl: nextBtn,
+          prevEl: prevBtn
+        };
+      }
+    }
+
+    try {
+      const swiper = new Swiper(sliderElement, swiperConfig);
+      sliderElement.style.opacity = '1';
+      return swiper;
+    } catch (e) {
+      console.warn('Swiper initialization failed:', e);
+      return null;
+    }
+  }
+
+  // Helper: Load products for a lazy tab via AJAX
+  async function loadTabProducts(tabContent, collectionHandle) {
+    if (!collectionHandle || loadedTabs.has(tabContent.id)) {
+      return;
+    }
+
+    const sliderContainer = tabContent.querySelector('[data-slider-container="true"]');
+    if (!sliderContainer) return;
+
+    // Show loading state
+    const wrapper = sliderContainer.querySelector('.swiper-wrapper');
+    if (wrapper) {
+      wrapper.innerHTML = `
+        <div class="swiper-slide" style="text-align: center; padding: 40px;">
+          <div class="loading-spinner" style="display: flex; justify-content: center; align-items: center; min-height: 200px;">
+            <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+      `;
+    }
+
+    try {
+      const limit = {{ section.settings.products_to_show | json }};
+      const response = await fetch(`/collections/${collectionHandle}/products.json?limit=${limit}`);
+      const data = await response.json();
+
+      if (data.products && data.products.length > 0) {
+        // Build product slides HTML
+        let slidesHtml = '';
+        for (const product of data.products) {
+          const comparePrice = product.variants[0]?.compare_at_price || product.compare_at_price;
+          const price = product.variants[0]?.price || product.price;
+          const discount = comparePrice && comparePrice > price ? Math.round(((comparePrice - price) / comparePrice) * 100) : null;
+          
+          slidesHtml += `
+            <div class="swiper-slide">
+              <div class="product-card-wrapper">
+                <div class="card-gallery-wrapper">
+                  <a href="/products/${product.handle}" class="card-gallery__link">
+                    <div class="card-gallery__media">
+                      <img src="${product.images[0]?.src || ''}" alt="${product.title.replace(/"/g, '&quot;')}" loading="lazy" width="300" height="300">
+                    </div>
+                  </a>
+                  ${discount ? `<div class="product-badges product-badges--top-left"><div class="product-badges__badge">${discount}% OFF</div></div>` : ''}
+                </div>
+                <div class="card-info" style="padding: 15px;">
+                  <h3 class="card-title h5" style="margin: 0 0 5px;">
+                    <a href="/products/${product.handle}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
+                      ${product.title}
+                    </a>
+                  </h3>
+                  <div style="margin-bottom: 15px;">
+                    <div class="price">
+                      <span class="price-item price-item--regular">${formatMoney(price)}</span>
+                      ${comparePrice && comparePrice > price ? `<span class="price-item price-item--sale price-item--compare">${formatMoney(comparePrice)}</span>` : ''}
+                    </div>
+                  </div>
+                  <button class="button button--primary button--add-to-cart" data-product-id="${product.variants[0]?.id}" data-product-handle="${product.handle}">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        if (wrapper) {
+          wrapper.innerHTML = slidesHtml;
+        }
+        loadedTabs.add(tabContent.id);
+      } else {
+        if (wrapper) {
+          wrapper.innerHTML = '<div class="swiper-slide" style="text-align: center; padding: 40px;"><p>No products found.</p></div>';
+        }
+      }
+
+      // Initialize Swiper after content load
+      setTimeout(() => {
+        const swiper = initSwiper(sliderContainer, true);
+        if (swiper) {
+          swiperInstances.set(tabContent.id, swiper);
+        }
+      }, 50);
+
+    } catch (error) {
+      console.warn('Failed to load tab products:', error);
+      if (wrapper) {
+        wrapper.innerHTML = '<div class="swiper-slide" style="text-align: center; padding: 40px;"><p>Error loading products. Please try again.</p></div>';
+      }
+    }
+  }
+
+  // Helper: Format money
+  function formatMoney(cents) {
+    if (typeof cents !== 'number') return '$0.00';
+    return '$' + (cents / 100).toFixed(2);
+  }
+
+  // Initialize all active sliders on page load
+  function initializeActiveSliders() {
+    const activeTab = document.querySelector('.tab-content.active');
+    if (activeTab) {
+      const activeSlider = activeTab.querySelector('[data-slider-container="true"]');
+      if (activeSlider && !activeSlider.classList.contains('swiper-initialized')) {
+        const swiper = initSwiper(activeSlider, true);
+        if (swiper) {
+          swiperInstances.set(activeTab.id, swiper);
+        }
+      }
+    }
+  }
+
+  // Tab click handler with lazy loading
+  function setupTabHandlers() {
+    const tabs = document.querySelectorAll('.collection-tab');
+    const section = document.querySelector(`.featured-collection-carousel-section[data-section-id="${sectionId}"]`);
+
+    if (!section) return;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        const tabId = this.getAttribute('data-tab-id');
+        if (!tabId) return;
+
+        const currentActiveTab = section.querySelector('.collection-tab.active');
+        const currentActiveContent = section.querySelector('.tab-content.active');
+        const newActiveContent = section.querySelector(`#${tabId}`);
+
+        if (currentActiveTab === this && newActiveContent === currentActiveContent) {
+          return;
+        }
+
+        // Stop autoplay on current slider
+        if (currentActiveContent && swiperInstances.has(currentActiveContent.id)) {
+          const currentSwiper = swiperInstances.get(currentActiveContent.id);
+          if (currentSwiper && currentSwiper.autoplay) {
+            currentSwiper.autoplay.stop();
+          }
+        }
+
+        // Update active classes
+        section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        section.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+
+        const targetContent = section.querySelector(`#${tabId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+
+          const slider = targetContent.querySelector('[data-slider-container="true"]');
+
+          // Check if this is a lazy-loaded tab
+          if (targetContent.dataset.lazy === 'true' && !loadedTabs.has(tabId)) {
+            const collectionHandle = targetContent.dataset.collectionHandle;
+            if (collectionHandle) {
+              await loadTabProducts(targetContent, collectionHandle);
+            }
+          } else if (slider && !slider.classList.contains('swiper-initialized')) {
+            // Initialize Swiper if not already done
+            const swiper = initSwiper(slider, true);
+            if (swiper) {
+              swiperInstances.set(tabId, swiper);
+            }
+          } else if (slider && swiperInstances.has(tabId)) {
+            // Restart autoplay for existing Swiper
+            const existingSwiper = swiperInstances.get(tabId);
+            if (existingSwiper && existingSwiper.autoplay) {
+              setTimeout(() => {
+                existingSwiper.autoplay.start();
+              }, 100);
+            }
+          }
+        }
+      });
+    });
+  }
+
+  // Initialize everything when DOM is ready
+  function init() {
+    initializeActiveSliders();
+    setupTabHandlers();
+
+    // Handle window resize and orientation change
+    const handleResize = () => {
+      setTimeout(() => {
+        swiperInstances.forEach(swiper => {
+          if (swiper && swiper.update) {
+            swiper.update();
+          }
+        });
+      }, 200);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
