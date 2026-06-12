@@ -963,6 +963,52 @@
         var isInMenu = e.target.closest('.menu-list__item, .mega-menu, .header-menu');
         if (!isInMenu) closeAllMenuDetails();
       }, { passive: true });
+
+      // Track last pointer position to help determine whether newly opened details are actually under the pointer
+      var lastPointerPos = { x: -1, y: -1 };
+      document.addEventListener('pointermove', function(e) {
+        lastPointerPos.x = e.clientX;
+        lastPointerPos.y = e.clientY;
+      }, { passive: true });
+
+      // MutationObserver: when a details element opens, ensure pointer is inside its parent; otherwise close it
+      try {
+        var detailsObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(m) {
+            var target = m.target;
+            if (target && target.tagName === 'DETAILS' && target.hasAttribute('open')) {
+              // delay slightly to allow layout/content-visibility to settle
+              setTimeout(function() {
+                var px = lastPointerPos.x;
+                var py = lastPointerPos.y;
+                var underPointer = null;
+                if (px >= 0 && py >= 0) {
+                  underPointer = document.elementFromPoint(px, py);
+                }
+
+                var parentItem = target.closest('.menu-list__item, .mega-menu');
+                var pointerInside = false;
+                if (underPointer && parentItem) pointerInside = parentItem.contains(underPointer);
+
+                if (!pointerInside) {
+                  // close it if pointer isn't inside
+                  if (target.hasAttribute('open')) {
+                    target.removeAttribute('open');
+                    var trigger = parentItem ? parentItem.querySelector('[aria-haspopup="true"]') : null;
+                    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                  }
+                }
+              }, 20);
+            }
+          });
+        });
+
+        // Observe attribute changes on the whole document subtree (filter inside callback)
+        detailsObserver.observe(document, { subtree: true, attributes: true, attributeFilter: ['open'] });
+      } catch (err) {
+        // If MutationObserver fails, silently ignore — fallback handlers still exist
+        console.warn('details observer unavailable', err);
+      }
       
       // Close on scroll
       window.addEventListener('scroll', function() {
