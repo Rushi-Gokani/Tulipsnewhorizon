@@ -978,6 +978,99 @@
   }
 
   /* ============================================ */
+  /* MENU POSITIONING FIX - Ensures submenu appears directly below menu item */
+  /* ============================================ */
+  
+  /* Ensure menu container has proper positioning context */
+  .header-menu {
+    position: relative;
+  }
+  
+  /* Fix submenu positioning */
+  .menu-list__submenu,
+  .mega-menu__submenu {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    z-index: var(--layer-header-menu);
+    background-color: var(--color-background);
+    min-width: 200px;
+    box-shadow: var(--shadow-popover);
+    margin-top: 0 !important;
+  }
+  
+  /* For right-aligned menus, position submenu correctly */
+  .header__column--right .menu-list__submenu,
+  .header__column--right .mega-menu__submenu {
+    left: auto !important;
+    right: 0 !important;
+  }
+  
+  /* Ensure submenu is visible on hover */
+  .menu-list__item {
+    position: relative;
+  }
+  
+  .menu-list__item .menu-list__submenu {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+  
+  .menu-list__item:hover .menu-list__submenu {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Fix for mega menu */
+  .mega-menu__item {
+    position: relative;
+  }
+  
+  .mega-menu__submenu {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+  
+  .mega-menu__item:hover .mega-menu__submenu {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Fix for details/summary elements */
+  .header-menu details {
+    position: relative;
+  }
+  
+  .header-menu details .menu-list__submenu {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+  }
+  
+  /* Firefox specific fixes */
+  @supports (-moz-appearance: none) {
+    .menu-list__item .menu-list__submenu,
+    .mega-menu__item .mega-menu__submenu {
+      margin-top: 0 !important;
+    }
+    
+    .menu-list__item:hover .menu-list__submenu,
+    .mega-menu__item:hover .mega-menu__submenu {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  /* ============================================ */
   /* FIREFOX MENU HOVER FIX - Ensures menus hide properly */
   /* ============================================ */
   @supports (-moz-appearance: none) {
