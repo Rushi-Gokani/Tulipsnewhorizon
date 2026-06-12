@@ -1,5 +1,3 @@
-
-
 {% liquid
   assign order = 'logo,menu,localization,search,drawer_search,actions'
 
@@ -977,6 +975,101 @@
 
   .header__column .localization-form__select {
     background-color: var(--header-bg-color);
+  }
+
+  /* ============================================ */
+  /* FIREFOX MENU HOVER FIX - Ensures menus hide properly */
+  /* ============================================ */
+  @supports (-moz-appearance: none) {
+    /* Firefox specific fix for menu hiding */
+    .menu-list__item .menu-list__submenu,
+    .mega-menu__item .mega-menu__submenu,
+    .header-menu details .menu-list__submenu {
+      transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+
+    .menu-list__item:not(:hover) .menu-list__submenu,
+    .mega-menu__item:not(:hover) .mega-menu__submenu,
+    .header-menu details:not(:hover) .menu-list__submenu {
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      display: none !important;
+    }
+
+    .menu-list__item:hover .menu-list__submenu,
+    .mega-menu__item:hover .mega-menu__submenu,
+    .header-menu details:hover .menu-list__submenu {
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      display: block !important;
+    }
+
+    /* Fix for details/summary elements in Firefox */
+    details.menu-list__item[open]:not(:hover) {
+      transition-delay: 0.3s;
+    }
+    
+    details.menu-list__item:not(:hover) {
+      pointer-events: auto;
+    }
+    
+    /* Fix for mega menu in Firefox */
+    .mega-menu__list:hover + .mega-menu__submenu,
+    .mega-menu__item:hover .mega-menu__submenu {
+      display: block;
+    }
+    
+    .mega-menu__item:not(:hover) .mega-menu__submenu,
+    .mega-menu__list:not(:hover) + .mega-menu__submenu {
+      display: none !important;
+    }
+  }
+
+  /* General fix for all browsers - ensure proper menu hiding */
+  .menu-list__item .menu-list__submenu,
+  .mega-menu__item .mega-menu__submenu {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  
+  .menu-list__item:hover .menu-list__submenu,
+  .mega-menu__item:hover .mega-menu__submenu {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .menu-list__item:not(:hover) .menu-list__submenu,
+  .mega-menu__item:not(:hover) .mega-menu__submenu {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 0.1s;
+  }
+  
+  /* Ensure submenu closes when moving mouse outside the menu area */
+  .menu-list__submenu:hover,
+  .menu-list__item:hover .menu-list__submenu {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .menu-list__submenu:not(:hover),
+  .menu-list__item:not(:hover) .menu-list__submenu {
+    visibility: hidden;
+    opacity: 0;
+  }
+  
+  /* For details/summary based menus */
+  details[open] > summary ~ * {
+    animation: none;
+  }
+  
+  details:not([open]) > summary ~ * {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
   }
 {% endstylesheet %}
 
