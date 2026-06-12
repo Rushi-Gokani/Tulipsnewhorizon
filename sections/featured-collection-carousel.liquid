@@ -104,13 +104,6 @@
     display: none !important;
   }
   
-  /* Make arrows always visible and clickable */
-  .featured-collection-carousel-slider .swiper-button-prev,
-  .featured-collection-carousel-slider .swiper-button-next {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
   /* Responsive breakpoints with equal heights */
   @media screen and (max-width: 640px) {
     .featured-collection-carousel-slider .swiper-slide {
@@ -128,18 +121,6 @@
     .button--add-to-cart {
       font-size: 12px;
       padding: 8px 10px;
-    }
-    /* Make arrows bigger and more touch-friendly on mobile */
-    .featured-collection-carousel-slider .swiper-button-prev,
-    .featured-collection-carousel-slider .swiper-button-next {
-      width: 40px !important;
-      height: 40px !important;
-      background: #A8D02A !important;
-    }
-    .featured-collection-carousel-slider .swiper-button-prev svg,
-    .featured-collection-carousel-slider .swiper-button-next svg {
-      width: 20px !important;
-      height: 20px !important;
     }
   }
   
@@ -189,9 +170,88 @@
     z-index: 1;
   }
   
+  /* Arrow styling - ensure they are clickable */
   .featured-collection-carousel-slider .swiper-button-prev,
   .featured-collection-carousel-slider .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: #A8D02A;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
     z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+  }
+  
+  .featured-collection-carousel-slider .swiper-button-prev {
+    left: 5px;
+  }
+  
+  .featured-collection-carousel-slider .swiper-button-next {
+    right: 5px;
+  }
+  
+  .featured-collection-carousel-slider .swiper-button-prev svg,
+  .featured-collection-carousel-slider .swiper-button-next svg {
+    width: 20px;
+    height: 20px;
+    stroke: #333;
+  }
+  
+  .featured-collection-carousel-slider .swiper-button-prev:hover,
+  .featured-collection-carousel-slider .swiper-button-next:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transform: translateY(-50%) scale(1.05);
+  }
+  
+  /* Mobile specific arrow styles */
+  @media screen and (max-width: 768px) {
+    .featured-collection-carousel-slider .swiper-button-prev,
+    .featured-collection-carousel-slider .swiper-button-next {
+      width: 40px !important;
+      height: 40px !important;
+      background: #A8D02A !important;
+    }
+    .featured-collection-carousel-slider .swiper-button-prev svg,
+    .featured-collection-carousel-slider .swiper-button-next svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+    .featured-collection-carousel-slider .swiper-button-prev {
+      left: 5px;
+    }
+    .featured-collection-carousel-slider .swiper-button-next {
+      right: 5px;
+    }
+  }
+
+  .product-badges {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+  }
+
+  .product-badges__badge--custom {
+    background: #ff4444;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .product-judgeme-reviews {
+    margin-bottom: 10px;
+    min-height: 24px;
   }
 </style>
 
@@ -263,89 +323,6 @@
     .title {
       text-align: center;
     }
-  }
-
-  .featured-collection-carousel-slider .swiper-button-prev,
-  .featured-collection-carousel-slider .swiper-button-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    background: #A8D02A;
-    border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    cursor: pointer;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    pointer-events: auto;
-  }
-
-  .featured-collection-carousel-slider .swiper-button-prev {
-    left: 5px;
-  }
-
-  .featured-collection-carousel-slider .swiper-button-next {
-    right: 5px;
-  }
-
-  .featured-collection-carousel-slider .swiper-button-prev svg,
-  .featured-collection-carousel-slider .swiper-button-next svg {
-    width: 20px;
-    height: 20px;
-    stroke: #333;
-  }
-
-  .featured-collection-carousel-slider .swiper-button-prev:hover,
-  .featured-collection-carousel-slider .swiper-button-next:hover {
-    background: #ffffff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    transform: translateY(-50%) scale(1.05);
-  }
-
-  /* Mobile specific arrow styles */
-  @media screen and (max-width: 768px) {
-    .featured-collection-carousel-slider .swiper-button-prev,
-    .featured-collection-carousel-slider .swiper-button-next {
-      width: 36px;
-      height: 36px;
-      background: #A8D02A !important;
-    }
-    .featured-collection-carousel-slider .swiper-button-prev svg,
-    .featured-collection-carousel-slider .swiper-button-next svg {
-      width: 18px;
-      height: 18px;
-    }
-    .featured-collection-carousel-slider .swiper-button-prev {
-      left: 5px;
-    }
-    .featured-collection-carousel-slider .swiper-button-next {
-      right: 5px;
-    }
-  }
-
-  .product-badges {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 2;
-  }
-
-  .product-badges__badge--custom {
-    background: #ff4444;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .product-judgeme-reviews {
-    margin-bottom: 10px;
-    min-height: 24px;
   }
 {%- endstyle -%}
 
@@ -431,7 +408,7 @@
         <div class="tab-content {% if is_active %}active{% endif %}" 
              id="{{ tab_id }}" 
              data-product-count="{{ product_count }}">
-          <div class="featured-collection-carousel-slider {{ single_class }}" 
+          <div class="featured-collection-carousel-slider swiper {{ single_class }}" 
                data-slider="true"
                data-product-count="{{ product_count }}">
             <div class="swiper-wrapper">
@@ -523,7 +500,7 @@
       {%- if fallback_count == 1 -%}
         {%- assign fallback_class = 'single-item' -%}
       {%- endif -%}
-      <div class="featured-collection-carousel-slider {{ fallback_class }}" data-product-count="{{ fallback_count }}">
+      <div class="featured-collection-carousel-slider swiper {{ fallback_class }}" data-product-count="{{ fallback_count }}">
         <div class="swiper-wrapper">
           {%- assign limit = section.settings.products_to_show -%}
           {%- if section.settings.show_all_products -%}
@@ -605,207 +582,166 @@
 
 <script>
 (function() {
-  if (typeof Swiper === 'undefined') {
-    console.warn('Swiper not loaded');
-    return;
-  }
-
-  const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
-  const autoplaySpeed = {{ section.settings.autoplay_speed }};
-  
-  const initializedSliders = new Set();
-
-  function getSlidesPerView(productCount, isMobile) {
-    if (productCount === 1) return 1;
-    if (productCount === 2) return 2;
-    if (productCount === 3) {
-      return isMobile ? 2.5 : 3;
+  // Wait for both DOM and Swiper to be ready
+  function init() {
+    if (typeof Swiper === 'undefined') {
+      setTimeout(init, 50);
+      return;
     }
-    return desktopCols;
-  }
-
-  function initSlider(slider) {
-    if (!slider || initializedSliders.has(slider)) return;
     
-    const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
-    const isMobile = window.innerWidth <= 768;
-    const nav = {
-      nextEl: slider.querySelector('.swiper-button-next'),
-      prevEl: slider.querySelector('.swiper-button-prev')
-    };
+    const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
+    const autoplaySpeed = {{ section.settings.autoplay_speed }};
     
-    // For single product
-    if (productCount === 1) {
-      try {
-        slider.classList.add('single-item');
-        const swiper = new Swiper(slider, {
-          slidesPerView: 1,
-          spaceBetween: 0,
+    // Initialize all sliders
+    function initSliders() {
+      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+        // Skip if already initialized
+        if (slider.swiper) return;
+        
+        var productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
+        var isSingleItem = slider.classList.contains('single-item');
+        
+        // For single item
+        if (isSingleItem || productCount === 1) {
+          slider.classList.add('single-item');
+          new Swiper(slider, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: false,
+            autoplay: false,
+            centeredSlides: true,
+            allowTouchMove: false
+          });
+          return;
+        }
+        
+        // For multiple items - get navigation elements
+        var prevBtn = slider.querySelector('.swiper-button-prev');
+        var nextBtn = slider.querySelector('.swiper-button-next');
+        
+        var swiperConfig = {
+          slidesPerView: 2,
+          spaceBetween: 15,
           loop: false,
-          autoplay: false,
-          centeredSlides: true,
-          allowTouchMove: false,
-          simulateTouch: false
+          speed: 300,
+          grabCursor: true,
+          touchRatio: 1,
+          autoplay: autoplaySpeed > 0 ? {
+            delay: autoplaySpeed * 1000,
+            disableOnInteraction: false
+          } : false,
+          breakpoints: {
+            0: { slidesPerView: 2, spaceBetween: 10 },
+            640: { slidesPerView: 2.5, spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
+            1024: { slidesPerView: desktopCols, spaceBetween: 25 }
+          }
+        };
+        
+        // Add navigation only if buttons exist
+        if (prevBtn && nextBtn) {
+          swiperConfig.navigation = {
+            nextEl: nextBtn,
+            prevEl: prevBtn
+          };
+        }
+        
+        // Initialize swiper
+        var swiper = new Swiper(slider, swiperConfig);
+        slider.swiper = swiper;
+      });
+    }
+    
+    // Handle tab clicks
+    function initTabs() {
+      var tabs = document.querySelectorAll('.collection-tab');
+      if (!tabs.length) return;
+      
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function(e) {
+          e.preventDefault();
+          var tabId = this.getAttribute('data-tab-id');
+          if (!tabId) return;
+          
+          var section = this.closest('.featured-collection-carousel-section');
+          var currentActive = section.querySelector('.tab-content.active');
+          var newContent = section.querySelector('#' + tabId);
+          if (currentActive === newContent) return;
+          
+          // Update UI
+          section.querySelectorAll('.collection-tab').forEach(function(t) {
+            t.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          section.querySelectorAll('.tab-content').forEach(function(c) {
+            c.classList.remove('active');
+          });
+          newContent.classList.add('active');
+          
+          // Initialize slider in new tab
+          var newSlider = newContent.querySelector('.featured-collection-carousel-slider');
+          if (newSlider && !newSlider.swiper) {
+            setTimeout(function() {
+              // Get product count
+              var productCount = parseInt(newSlider.getAttribute('data-product-count') || '0', 10);
+              var isSingleItem = newSlider.classList.contains('single-item');
+              
+              if (isSingleItem || productCount === 1) {
+                newSlider.classList.add('single-item');
+                new Swiper(newSlider, {
+                  slidesPerView: 1,
+                  spaceBetween: 0,
+                  loop: false,
+                  autoplay: false,
+                  centeredSlides: true,
+                  allowTouchMove: false
+                });
+              } else {
+                var prevBtn = newSlider.querySelector('.swiper-button-prev');
+                var nextBtn = newSlider.querySelector('.swiper-button-next');
+                var swiperConfig = {
+                  slidesPerView: 2,
+                  spaceBetween: 15,
+                  loop: false,
+                  speed: 300,
+                  grabCursor: true,
+                  touchRatio: 1,
+                  autoplay: autoplaySpeed > 0 ? {
+                    delay: autoplaySpeed * 1000,
+                    disableOnInteraction: false
+                  } : false,
+                  breakpoints: {
+                    0: { slidesPerView: 2, spaceBetween: 10 },
+                    640: { slidesPerView: 2.5, spaceBetween: 15 },
+                    768: { slidesPerView: 3, spaceBetween: 20 },
+                    1024: { slidesPerView: desktopCols, spaceBetween: 25 }
+                  }
+                };
+                if (prevBtn && nextBtn) {
+                  swiperConfig.navigation = {
+                    nextEl: nextBtn,
+                    prevEl: prevBtn
+                  };
+                }
+                new Swiper(newSlider, swiperConfig);
+              }
+            }, 50);
+          }
         });
-        initializedSliders.add(slider);
-        return swiper;
-      } catch(e) {
-        console.warn('Single item init error:', e);
-        return null;
-      }
-    }
-    
-    // Calculate slides per view based on product count and screen size
-    let slidesPerView = getSlidesPerView(productCount, isMobile);
-    const shouldLoop = productCount > slidesPerView;
-    
-    const config = {
-      slidesPerView: slidesPerView,
-      spaceBetween: 20,
-      loop: shouldLoop,
-      speed: 400,
-      autoHeight: false,
-      touchRatio: 1,
-      touchAngle: 45,
-      simulateTouch: true,
-      allowTouchMove: true,
-      grabCursor: true,
-      autoplay: (autoplaySpeed > 0 && productCount > 1) ? {
-        delay: autoplaySpeed * 1000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-      } : false,
-      breakpoints: {
-        0: { 
-          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 2.5 : 2),
-          spaceBetween: 10 
-        },
-        640: { 
-          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 2.5 : 2.5),
-          spaceBetween: 15 
-        },
-        768: { 
-          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 3 : 3),
-          spaceBetween: 20 
-        },
-        1024: { 
-          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 3 : desktopCols),
-          spaceBetween: 25 
-        },
-        1200: { 
-          slidesPerView: productCount === 2 ? 2 : (productCount === 3 ? 3 : desktopCols),
-          spaceBetween: 25 
-        }
-      },
-      watchOverflow: true,
-      observer: true,
-      observeParents: true,
-      // Ensure navigation works
-      on: {
-        init: function(swiper) {
-          // Force update navigation
-          if (nav.nextEl && nav.prevEl && productCount > 1) {
-            swiper.navigation.update();
-          }
-        }
-      }
-    };
-    
-    // Add navigation for multiple products
-    if (productCount > 1 && nav.nextEl && nav.prevEl) {
-      config.navigation = nav;
-    }
-    
-    try {
-      const swiper = new Swiper(slider, config);
-      initializedSliders.add(slider);
-      
-      // Force update after initialization
-      setTimeout(() => {
-        swiper.update();
-        if (swiper.navigation) {
-          swiper.navigation.update();
-        }
-      }, 100);
-      
-      return swiper;
-    } catch(e) {
-      console.warn('Swiper init error:', e);
-      return null;
-    }
-  }
-
-  function initActiveSliders() {
-    document.querySelectorAll('.tab-content.active .featured-collection-carousel-slider').forEach(slider => {
-      if (!initializedSliders.has(slider)) {
-        initSlider(slider);
-      }
-    });
-  }
-
-  function initTabs() {
-    const tabs = document.querySelectorAll('.collection-tab');
-    if (!tabs.length) return;
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function(e) {
-        e.preventDefault();
-        const tabId = this.getAttribute('data-tab-id');
-        if (!tabId) return;
-
-        const section = this.closest('.featured-collection-carousel-section');
-        const currentActive = section.querySelector('.tab-content.active');
-        const newContent = section.querySelector(`#${tabId}`);
-        if (currentActive === newContent) return;
-
-        section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        newContent.classList.add('active');
-
-        const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
-        if (newSlider && !initializedSliders.has(newSlider)) {
-          setTimeout(() => {
-            initSlider(newSlider);
-          }, 10);
-        }
       });
-    });
+    }
+    
+    initSliders();
+    initTabs();
   }
-
-  // Initialize immediately
-  initActiveSliders();
-  initTabs();
   
-  // Handle window resize
-  let resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      initializedSliders.forEach(slider => {
-        if (slider && slider.swiper) {
-          slider.swiper.update();
-          if (slider.swiper.navigation) {
-            slider.swiper.navigation.update();
-          }
-        }
-      });
-    }, 200);
-  });
-  
-  // Also handle orientation change for mobile
-  window.addEventListener('orientationchange', function() {
-    setTimeout(function() {
-      initializedSliders.forEach(slider => {
-        if (slider && slider.swiper) {
-          slider.swiper.update();
-          if (slider.swiper.navigation) {
-            slider.swiper.navigation.update();
-          }
-        }
-      });
-    }, 100);
-  });
+  // Start when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 
