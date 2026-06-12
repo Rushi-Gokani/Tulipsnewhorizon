@@ -6,23 +6,87 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
-  /* Prevent layout shift */
+  /* Prevent layout shift - critical for mobile */
   .featured-collection-carousel-slider {
     overflow: hidden;
     position: relative;
     width: 100%;
-    min-height: 350px;
   }
   
   .featured-collection-carousel-slider .swiper-wrapper {
     display: flex;
   }
   
+  /* FIX: Equal height for all slides from the start */
   .featured-collection-carousel-slider .swiper-slide {
-    height: auto;
+    height: auto !important;
     flex-shrink: 0;
     width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 20px) !important;
     margin-right: 20px;
+  }
+  
+  /* Ensure all product cards have equal height */
+  .featured-collection-carousel-slider .product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Fix image container to be consistent */
+  .card-gallery {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+  
+  .card-gallery__media {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .card-gallery__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Fix card info section - consistent height */
+  .card-info {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Fix title to prevent height changes */
+  .card-title {
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.3;
+    min-height: 36px;
+  }
+  
+  /* Fix price section */
+  .price {
+    margin-bottom: 12px;
+    min-height: 40px;
+  }
+  
+  /* Fix button section */
+  .product-card-button {
+    margin-top: auto;
+  }
+  
+  .button--add-to-cart {
+    width: 100%;
+    padding: 10px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   /* For single item - center it but keep same width */
@@ -40,11 +104,23 @@
     display: none !important;
   }
   
-  /* Responsive breakpoints */
+  /* Responsive breakpoints with equal heights */
   @media screen and (max-width: 640px) {
     .featured-collection-carousel-slider .swiper-slide {
       width: calc((100% / 2) - 10px) !important;
       margin-right: 10px;
+    }
+    .card-title {
+      font-size: 13px;
+      min-height: 32px;
+    }
+    .price {
+      font-size: 14px;
+      min-height: 38px;
+    }
+    .button--add-to-cart {
+      font-size: 12px;
+      padding: 8px 10px;
     }
   }
   
@@ -69,40 +145,7 @@
     }
   }
   
-  /* Ensure consistent card sizing */
-  .product-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .card-gallery {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-  }
-  
-  .card-gallery__media {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .card-gallery__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Make sure buttons are clickable during loading */
-  .tab-content {
-    display: none;
-  }
-  
-  .tab-content.active {
-    display: block;
-  }
-  
-  /* Ensure all interactive elements are clickable */
+  /* Make sure all interactive elements are clickable */
   .collection-tab,
   .swiper-button-prev,
   .swiper-button-next,
@@ -111,6 +154,15 @@
   .card-gallery__media a {
     cursor: pointer;
     pointer-events: auto;
+  }
+  
+  /* Tab content visibility */
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
   }
 </style>
 
@@ -255,26 +307,7 @@
 
   .product-judgeme-reviews {
     margin-bottom: 10px;
-    min-height: 20px;
-  }
-
-  .card-info {
-    padding: 15px;
-  }
-
-  .card-title {
-    margin: 0 0 5px;
-  }
-
-  .card-title a {
-    text-decoration: none;
-    color: inherit;
-    pointer-events: auto;
-  }
-  
-  .button--add-to-cart {
-    pointer-events: auto;
-    cursor: pointer;
+    min-height: 24px;
   }
 {%- endstyle -%}
 
@@ -526,7 +559,6 @@
   const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
   const autoplaySpeed = {{ section.settings.autoplay_speed }};
   
-  // Track initialized sliders
   const initializedSliders = new Set();
 
   function initSlider(slider) {
@@ -534,13 +566,10 @@
     
     const productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
     
-    // For single product (Baby Swabs) - create a simple slider with centered slide
+    // For single product
     if (productCount === 1) {
       try {
-        // Add single-item class for styling
         slider.classList.add('single-item');
-        
-        // Initialize Swiper with single slide config
         const swiper = new Swiper(slider, {
           slidesPerView: 1,
           spaceBetween: 0,
@@ -548,13 +577,7 @@
           autoplay: false,
           centeredSlides: true,
           allowTouchMove: false,
-          simulateTouch: false,
-          breakpoints: {
-            0: { slidesPerView: 1, centeredSlides: true },
-            640: { slidesPerView: 1, centeredSlides: true },
-            768: { slidesPerView: 1, centeredSlides: true },
-            1024: { slidesPerView: 1, centeredSlides: true }
-          }
+          simulateTouch: false
         });
         initializedSliders.add(slider);
         return swiper;
@@ -564,7 +587,7 @@
       }
     }
     
-    // For multiple products (2 or more)
+    // For multiple products
     const nav = {
       nextEl: slider.querySelector('.swiper-button-next'),
       prevEl: slider.querySelector('.swiper-button-prev')
@@ -575,6 +598,7 @@
       spaceBetween: 25,
       loop: false,
       speed: 400,
+      autoHeight: false, // Important: prevents height changes
       autoplay: (autoplaySpeed > 0 && productCount > 1) ? {
         delay: autoplaySpeed * 1000,
         disableOnInteraction: false
@@ -603,7 +627,6 @@
     }
   }
 
-  // Initialize all active sliders
   function initActiveSliders() {
     document.querySelectorAll('.tab-content.active .featured-collection-carousel-slider').forEach(slider => {
       if (!initializedSliders.has(slider)) {
@@ -612,7 +635,6 @@
     });
   }
 
-  // Tab click handler
   function initTabs() {
     const tabs = document.querySelectorAll('.collection-tab');
     if (!tabs.length) return;
@@ -628,16 +650,13 @@
         const newContent = section.querySelector(`#${tabId}`);
         if (currentActive === newContent) return;
 
-        // Update UI
         section.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
         section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         newContent.classList.add('active');
 
-        // Initialize slider in new tab (including single item)
         const newSlider = newContent.querySelector('.featured-collection-carousel-slider');
         if (newSlider && !initializedSliders.has(newSlider)) {
-          // Small delay to ensure DOM is ready
           setTimeout(() => {
             initSlider(newSlider);
           }, 10);
@@ -646,7 +665,7 @@
     });
   }
 
-  // Initialize everything
+  // Initialize immediately
   initActiveSliders();
   initTabs();
 })();
