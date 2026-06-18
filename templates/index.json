@@ -58,6 +58,7 @@
         },
         "slide_ELtNhH": {
           "type": "slide",
+          "name": "Slide 3",
           "settings": {
             "color_scheme": "scheme-1",
             "heading": "",
@@ -74,7 +75,7 @@
             "link": "shopify://collections/handmade-soaps",
             "content_position_mobile": "center",
             "content_alignment_mobile": "center",
-            "image_mobile": "shopify://shop_images/Soaps_Banner_Mobile_c2a82641-ce42-4766-9436-75cf7ee1c5ce.webp"
+            "image_mobile": "shopify://shop_images/slide2_1.webp"
           }
         },
         "slide_yJ8HnB": {
