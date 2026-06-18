@@ -101,6 +101,11 @@
         "type": "shopify://apps/pareto-order-limit/blocks/app-embed-block/6fbe20db-eadd-42b3-bc67-0e44a53ed12f",
         "disabled": false,
         "settings": {}
+      },
+      "16003214450979446144": {
+        "type": "shopify://apps/dynoweb/blocks/dynoweb-tracker-embed/019d85ae-f0aa-7c34-92fa-bfb40ba278e0",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
