@@ -152,6 +152,7 @@
       "block_order": [
         "judgeme_reviews_xrrBEP"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Cotton Collection",
@@ -188,6 +189,7 @@
       "block_order": [
         "judgeme_reviews_jYCz3c"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Wet Wipes & Dry Tissues",
@@ -224,6 +226,7 @@
       "block_order": [
         "judgeme_reviews_eQ3Phf"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Baby Range",
@@ -260,6 +263,7 @@
       "block_order": [
         "judgeme_reviews_YNPDVc"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Bathing Range",
@@ -296,6 +300,7 @@
       "block_order": [
         "judgeme_reviews_L6WJQY"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Kitchen & Dining",
@@ -332,6 +337,7 @@
       "block_order": [
         "judgeme_reviews_6Rp7Tt"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Adult Diaper",
@@ -368,6 +374,7 @@
       "block_order": [
         "judgeme_reviews_8AenPq"
       ],
+      "disabled": true,
       "custom_css": [
         ".collection-tabs {display: none;}"
       ],
@@ -407,6 +414,7 @@
       "block_order": [
         "judgeme_reviews_KRgrPa"
       ],
+      "disabled": true,
       "name": "Featured Collection Slide",
       "settings": {
         "title": "Bathroom Essential",
