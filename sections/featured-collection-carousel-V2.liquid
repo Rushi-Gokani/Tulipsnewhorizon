@@ -350,6 +350,15 @@
   [data-tab-panel] {
     min-height: 60px;
   }
+
+  /* Fix: without this, [hidden] loses to the .carousel-skeleton / .carousel-error
+     display rules above because both have equal (0,1,0) specificity and our
+     stylesheet is parsed after the UA stylesheet — so JS setting el.hidden = true
+     was silently not hiding these elements. */
+  .carousel-skeleton[hidden],
+  .carousel-error[hidden] {
+    display: none !important;
+  }
 </style>
 
 {%- style -%}
@@ -789,14 +798,26 @@
         var url = new URL(window.location.href);
         url.searchParams.set('section_id', sectionId);
 
-        fetchPromise = fetch(url.toString(), { credentials: 'same-origin' })
+        fetchPromise = fetch(url.toString(), { credentials: 'same-origin', cache: 'no-store' })
           .then(function(res) {
-            if (!res.ok) throw new Error('Network response was not ok (' + res.status + ')');
+            if (!res.ok) throw new Error('Section Rendering API responded with ' + res.status);
             return res.text();
           })
           .then(function(html) {
             var doc = new DOMParser().parseFromString(html, 'text/html');
-            doc.querySelectorAll('[data-tab-panel]').forEach(function(panel) {
+            var panelsFound = doc.querySelectorAll('[data-tab-panel]');
+
+            if (!panelsFound.length) {
+              // The response didn't contain this section at all — usually means
+              // section_id didn't match anything renderable at this URL (wrong
+              // page context, password page, or a proxy/cache rewriting the HTML).
+              console.error(
+                '[featured-collection-carousel-V2] Section Rendering API returned no [data-tab-panel] elements for section_id="' + sectionId + '" at ' + url.toString() + '. ' +
+                'Check the Network tab response for this request to see what HTML actually came back.'
+              );
+            }
+
+            panelsFound.forEach(function(panel) {
               var freshSlider = panel.querySelector('.featured-collection-carousel-slider');
               if (freshSlider) {
                 cache[panel.id] = freshSlider.outerHTML;
@@ -805,6 +826,7 @@
             return cache;
           })
           .catch(function(err) {
+            console.error('[featured-collection-carousel-V2] Failed to fetch section:', err);
             // Allow a future click to retry the fetch.
             fetchPromise = null;
             throw err;
