@@ -315,6 +315,7 @@
             "text_fLtheh": {
               "type": "text",
               "name": "t:names.text",
+              "disabled": true,
               "settings": {
                 "text": "<p>Secure online payment</p>",
                 "enable_read_more": false,
