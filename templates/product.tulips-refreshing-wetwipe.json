@@ -325,6 +325,7 @@
             "custom_liquid_dETHGj": {
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
+              "disabled": true,
               "settings": {
                 "custom_liquid": "<h4 style=\"color:red\">Limited Time Offer</h4>"
               },
