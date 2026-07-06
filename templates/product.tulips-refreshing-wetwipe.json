@@ -280,6 +280,7 @@
             "text_nfPAwE": {
               "type": "text",
               "name": "t:names.text",
+              "disabled": true,
               "settings": {
                 "text": "<p>✔ Free Shipping On Orders Above 399<br/>✔ Secure online payment</p>",
                 "enable_read_more": false,
