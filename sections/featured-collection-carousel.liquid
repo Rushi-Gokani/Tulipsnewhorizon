@@ -1,7 +1,44 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
 
 <style>
-  /* Basic styles - theme friendly */
+  /* Prevent flash of 1 slide - CRITICAL FIX */
+  .featured-collection-carousel-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0; /* Hidden until Swiper initializes */
+    transition: opacity 0.3s ease;
+  }
+  
+  .featured-collection-carousel-slider.swiper-initialized {
+    opacity: 1; /* Show when Swiper is ready */
+  }
+  
+  /* Fix: Set initial slide dimensions to prevent layout shift */
+  .featured-collection-carousel-slider .swiper-slide {
+    height: auto;
+    flex-shrink: 0;
+    width: 200px; /* Fallback width */
+    min-width: 150px;
+  }
+  
+  /* Once Swiper loads, it will override these */
+  .featured-collection-carousel-slider.swiper-initialized .swiper-slide {
+    width: auto;
+    min-width: 0;
+  }
+  
+  /* Fix: Prevent FOUC (Flash of Unstyled Content) */
+  .featured-collection-carousel-slider .swiper-wrapper {
+    display: flex;
+    visibility: hidden; /* Hidden until Swiper initializes */
+  }
+  
+  .featured-collection-carousel-slider.swiper-initialized .swiper-wrapper {
+    visibility: visible; /* Show when Swiper is ready */
+  }
+  
+  /* Rest of your styles... */
   .featured-collection-carousel-section {
     background-color: {{ section.settings.bg_color }};
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -61,21 +98,6 @@
 
   .tab-content.active {
     display: block;
-  }
-
-  .featured-collection-carousel-slider {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .featured-collection-carousel-slider .swiper-wrapper {
-    display: flex;
-  }
-
-  .featured-collection-carousel-slider .swiper-slide {
-    height: auto;
-    flex-shrink: 0;
   }
 
   .featured-collection-carousel-slider .product-card {
@@ -183,6 +205,13 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .featured-collection-carousel-slider.swiper-initialized .swiper-button-prev,
+  .featured-collection-carousel-slider.swiper-initialized .swiper-button-next {
+    opacity: 1;
   }
 
   .featured-collection-carousel-slider .swiper-button-prev {
@@ -214,7 +243,7 @@
   }
 
   .featured-collection-carousel-slider .swiper-button-disabled {
-    opacity: 0.3;
+    opacity: 0.3 !important;
     cursor: not-allowed;
   }
 
@@ -593,6 +622,7 @@
     
     function initSliders() {
       document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+        // Skip if already initialized
         if (slider.swiper) return;
         
         var productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
@@ -600,7 +630,7 @@
         
         if (isSingleItem || productCount === 1) {
           slider.classList.add('single-item');
-          new Swiper(slider, {
+          var swiper = new Swiper(slider, {
             slidesPerView: 1,
             spaceBetween: 0,
             loop: false,
@@ -608,6 +638,9 @@
             centeredSlides: true,
             allowTouchMove: false
           });
+          slider.swiper = swiper;
+          // Add initialized class to show slider
+          slider.classList.add('swiper-initialized');
           return;
         }
         
@@ -631,6 +664,20 @@
             640: { slidesPerView: 2.5, spaceBetween: 15 },
             768: { slidesPerView: 3, spaceBetween: 20 },
             1024: { slidesPerView: desktopCols, spaceBetween: 25 }
+          },
+          // FIX: Add this to prevent the "1 slide then corrects" issue
+          on: {
+            init: function() {
+              // Add class to show slider only after initialization
+              slider.classList.add('swiper-initialized');
+              // Force update after images load
+              setTimeout(function() {
+                this.update();
+              }.bind(this), 100);
+            },
+            resize: function() {
+              this.update();
+            }
           }
         };
         
@@ -643,6 +690,16 @@
         
         var swiper = new Swiper(slider, swiperConfig);
         slider.swiper = swiper;
+        
+        // Fallback: Ensure slider shows even if on.init doesn't fire
+        setTimeout(function() {
+          if (!slider.classList.contains('swiper-initialized')) {
+            slider.classList.add('swiper-initialized');
+            if (swiper) {
+              swiper.update();
+            }
+          }
+        }, 500);
       });
     }
     
@@ -679,7 +736,7 @@
               
               if (isSingleItem || productCount === 1) {
                 newSlider.classList.add('single-item');
-                new Swiper(newSlider, {
+                var swiper = new Swiper(newSlider, {
                   slidesPerView: 1,
                   spaceBetween: 0,
                   loop: false,
@@ -687,6 +744,8 @@
                   centeredSlides: true,
                   allowTouchMove: false
                 });
+                newSlider.swiper = swiper;
+                newSlider.classList.add('swiper-initialized');
               } else {
                 var prevBtn = newSlider.querySelector('.swiper-button-prev');
                 var nextBtn = newSlider.querySelector('.swiper-button-next');
@@ -707,21 +766,40 @@
                     640: { slidesPerView: 2.5, spaceBetween: 15 },
                     768: { slidesPerView: 3, spaceBetween: 20 },
                     1024: { slidesPerView: desktopCols, spaceBetween: 25 }
+                  },
+                  on: {
+                    init: function() {
+                      newSlider.classList.add('swiper-initialized');
+                    }
                   }
                 };
                 if (prevBtn && nextBtn) {
                   swiperConfig.navigation = {
-                    nextEl: nextBtn,
-                    prevEl: prevBtn
+                    nextEl: prevBtn,
+                    prevEl: nextBtn
                   };
                 }
-                new Swiper(newSlider, swiperConfig);
+                var swiper = new Swiper(newSlider, swiperConfig);
+                newSlider.swiper = swiper;
               }
-            }, 50);
+            }, 100);
           }
         });
       });
     }
+    
+    // Handle window resize
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
+          if (slider.swiper) {
+            slider.swiper.update();
+          }
+        });
+      }, 250);
+    });
     
     initSliders();
     initTabs();
