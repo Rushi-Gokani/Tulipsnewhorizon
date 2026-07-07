@@ -373,7 +373,7 @@
                     "content": {
                       "type": "custom-liquid",
                       "settings": {
-                        "custom_liquid": "<p>{{ closest.product.description }}</p>"
+                        "custom_liquid": "<p style=\"font-size: 14px;\">{{ closest.product.description }}</p>"
                       },
                       "blocks": {}
                     }
