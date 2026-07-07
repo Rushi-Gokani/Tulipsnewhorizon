@@ -1,41 +1,42 @@
 {{ 'section-featured-collection-carousel.css' | asset_url | stylesheet_tag }}
 
 <style>
-  /* Prevent flash of 1 slide - CRITICAL FIX */
+  /* Fix for single item - show it properly */
   .featured-collection-carousel-slider {
     position: relative;
     width: 100%;
     overflow: hidden;
-    opacity: 0; /* Hidden until Swiper initializes */
+    opacity: 0;
     transition: opacity 0.3s ease;
   }
   
   .featured-collection-carousel-slider.swiper-initialized {
-    opacity: 1; /* Show when Swiper is ready */
+    opacity: 1;
   }
   
-  /* Fix: Set initial slide dimensions to prevent layout shift */
-  .featured-collection-carousel-slider .swiper-slide {
-    height: auto;
-    flex-shrink: 0;
-    width: 200px; /* Fallback width */
-    min-width: 150px;
-  }
-  
-  /* Once Swiper loads, it will override these */
-  .featured-collection-carousel-slider.swiper-initialized .swiper-slide {
-    width: auto;
-    min-width: 0;
-  }
-  
-  /* Fix: Prevent FOUC (Flash of Unstyled Content) */
   .featured-collection-carousel-slider .swiper-wrapper {
     display: flex;
-    visibility: hidden; /* Hidden until Swiper initializes */
+    visibility: hidden;
   }
   
   .featured-collection-carousel-slider.swiper-initialized .swiper-wrapper {
-    visibility: visible; /* Show when Swiper is ready */
+    visibility: visible;
+  }
+  
+  /* ← FIX: Single item should show full width */
+  .featured-collection-carousel-slider.single-item .swiper-slide {
+    width: 100% !important;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .featured-collection-carousel-slider.single-item .swiper-wrapper {
+    justify-content: center;
+  }
+  
+  .featured-collection-carousel-slider.single-item .swiper-button-prev,
+  .featured-collection-carousel-slider.single-item .swiper-button-next {
+    display: none !important;
   }
   
   /* Rest of your styles... */
@@ -109,9 +110,7 @@
     overflow: hidden;
     border: 1px solid #eee;
   }
- .featured-collection-carousel-slider .product-card:hover{
-      box-shadow: 0 0 10px #ddd;
-}
+
   .card-gallery {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -181,15 +180,6 @@
     cursor: not-allowed;
   }
 
-  .featured-collection-carousel-slider.single-item .swiper-wrapper {
-    justify-content: center;
-  }
-
-  .featured-collection-carousel-slider.single-item .swiper-button-prev,
-  .featured-collection-carousel-slider.single-item .swiper-button-next {
-    display: none !important;
-  }
-
   /* Swiper Navigation Buttons */
   .featured-collection-carousel-slider .swiper-button-prev,
   .featured-collection-carousel-slider .swiper-button-next {
@@ -208,7 +198,6 @@
     justify-content: center;
     transition: all 0.3s ease;
     opacity: 0;
-    transition: opacity 0.3s ease;
   }
 
   .featured-collection-carousel-slider.swiper-initialized .swiper-button-prev,
@@ -285,6 +274,10 @@
     }
     .featured-collection-carousel-slider .swiper-button-next {
       right: 5px;
+    }
+    /* ← FIX: Single item on mobile */
+    .featured-collection-carousel-slider.single-item .swiper-slide {
+      max-width: 300px;
     }
   }
 </style>
@@ -630,6 +623,7 @@
         var productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
         var isSingleItem = slider.classList.contains('single-item');
         
+        // ← FIX: Always handle single item properly
         if (isSingleItem || productCount === 1) {
           slider.classList.add('single-item');
           var swiper = new Swiper(slider, {
@@ -638,11 +632,16 @@
             loop: false,
             autoplay: false,
             centeredSlides: true,
-            allowTouchMove: false
+            allowTouchMove: false,
+            on: {
+              init: function() {
+                slider.classList.add('swiper-initialized');
+                // ← FIX: Ensure single slide is visible
+                slider.style.opacity = '1';
+              }
+            }
           });
           slider.swiper = swiper;
-          // Add initialized class to show slider
-          slider.classList.add('swiper-initialized');
           return;
         }
         
@@ -667,12 +666,10 @@
             768: { slidesPerView: 3, spaceBetween: 20 },
             1024: { slidesPerView: desktopCols, spaceBetween: 25 }
           },
-          // FIX: Add this to prevent the "1 slide then corrects" issue
           on: {
             init: function() {
-              // Add class to show slider only after initialization
               slider.classList.add('swiper-initialized');
-              // Force update after images load
+              slider.style.opacity = '1';
               setTimeout(function() {
                 this.update();
               }.bind(this), 100);
@@ -693,10 +690,11 @@
         var swiper = new Swiper(slider, swiperConfig);
         slider.swiper = swiper;
         
-        // Fallback: Ensure slider shows even if on.init doesn't fire
+        // Fallback timeout
         setTimeout(function() {
           if (!slider.classList.contains('swiper-initialized')) {
             slider.classList.add('swiper-initialized');
+            slider.style.opacity = '1';
             if (swiper) {
               swiper.update();
             }
@@ -731,11 +729,20 @@
           newContent.classList.add('active');
           
           var newSlider = newContent.querySelector('.featured-collection-carousel-slider');
-          if (newSlider && !newSlider.swiper) {
+          if (newSlider) {
+            // ← FIX: Always destroy and recreate for single items
+            if (newSlider.swiper) {
+              newSlider.swiper.destroy(true, true);
+              newSlider.swiper = null;
+              newSlider.classList.remove('swiper-initialized');
+              newSlider.style.opacity = '0';
+            }
+            
             setTimeout(function() {
               var productCount = parseInt(newSlider.getAttribute('data-product-count') || '0', 10);
               var isSingleItem = newSlider.classList.contains('single-item');
               
+              // ← FIX: Single item handling
               if (isSingleItem || productCount === 1) {
                 newSlider.classList.add('single-item');
                 var swiper = new Swiper(newSlider, {
@@ -744,10 +751,15 @@
                   loop: false,
                   autoplay: false,
                   centeredSlides: true,
-                  allowTouchMove: false
+                  allowTouchMove: false,
+                  on: {
+                    init: function() {
+                      newSlider.classList.add('swiper-initialized');
+                      newSlider.style.opacity = '1';
+                    }
+                  }
                 });
                 newSlider.swiper = swiper;
-                newSlider.classList.add('swiper-initialized');
               } else {
                 var prevBtn = newSlider.querySelector('.swiper-button-prev');
                 var nextBtn = newSlider.querySelector('.swiper-button-next');
@@ -772,19 +784,20 @@
                   on: {
                     init: function() {
                       newSlider.classList.add('swiper-initialized');
+                      newSlider.style.opacity = '1';
                     }
                   }
                 };
                 if (prevBtn && nextBtn) {
                   swiperConfig.navigation = {
-                    nextEl: prevBtn,
-                    prevEl: nextBtn
+                    nextEl: nextBtn,
+                    prevEl: prevBtn
                   };
                 }
                 var swiper = new Swiper(newSlider, swiperConfig);
                 newSlider.swiper = swiper;
               }
-            }, 100);
+            }, 150);
           }
         });
       });
