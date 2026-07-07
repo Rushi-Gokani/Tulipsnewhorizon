@@ -41,7 +41,7 @@
     "type_size_h5": "14",
     "type_line_height_h5": "display-loose",
     "type_font_h6": "subheading",
-    "type_size_h6": "12",
+    "type_size_h6": "16",
     "type_line_height_h6": "display-loose",
     "page_width": "narrow",
     "page_transition_enabled": false,
@@ -381,7 +381,7 @@
         "settings": {
           "background": "#ffffff",
           "foreground_heading": "#000000",
-          "foreground": "#F00000CF",
+          "foreground": "#f00000cf",
           "primary": "#000000cf",
           "primary_hover": "#000000",
           "border": "#0000000f",
