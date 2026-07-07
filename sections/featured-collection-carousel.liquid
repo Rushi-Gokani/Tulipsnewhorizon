@@ -4,26 +4,15 @@
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/></noscript>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> {% endcomment %}
 <style>
-  /* Reset and base styles */
-  .featured-collection-carousel-section {
-    overflow: visible !important;
-  }
-  
-  .page-width {
-    overflow: visible !important;
-  }
-  
   /* Prevent layout shift - critical for mobile */
   .featured-collection-carousel-slider {
-    overflow: visible !important;
+    overflow: hidden;
     position: relative;
     width: 100%;
-    padding: 10px 0;
   }
   
   .featured-collection-carousel-slider .swiper-wrapper {
     display: flex;
-    align-items: stretch;
   }
   
   /* FIX: Equal height for all slides from the start */
@@ -32,7 +21,6 @@
     flex-shrink: 0;
     width: calc((100% / {{ section.settings.desktop_columns | default: 4 }}) - 20px) !important;
     margin-right: 20px;
-    overflow: visible !important;
   }
   
   /* Ensure all product cards have equal height */
@@ -43,14 +31,6 @@
     background: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #eee;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-  
-  .featured-collection-carousel-slider .product-card:hover {
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    transform: translateY(-5px);
   }
   
   /* Fix image container to be consistent */
@@ -59,26 +39,17 @@
     aspect-ratio: 1 / 1;
     overflow: hidden;
     background: #f5f5f5;
-    position: relative;
   }
   
   .card-gallery__media {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .card-gallery__media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .card-gallery__media img:hover {
-    transform: scale(1.05);
   }
   
   /* Fix card info section - consistent height */
@@ -87,54 +58,20 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
   }
   
   /* Fix title to prevent height changes */
   .card-title {
-    margin: 0;
+    margin: 0 0 5px;
     font-size: 14px;
     line-height: 1.3;
     min-height: 36px;
-    font-weight: 500;
-  }
-  
-  .card-title a {
-    text-decoration: none;
-    color: inherit;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.3;
   }
   
   /* Fix price section */
   .price {
     margin-bottom: 12px;
     min-height: 40px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  
-  .price .price__regular {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .price .price__compare {
-    font-size: 14px;
-    color: #999;
-    text-decoration: line-through;
-  }
-  
-  .price .price__sale {
-    font-size: 18px;
-    font-weight: 600;
-    color: #ff4444;
   }
   
   /* Fix button section */
@@ -144,36 +81,10 @@
   
   .button--add-to-cart {
     width: 100%;
-    padding: 12px 15px;
+    padding: 10px 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background: #A8D02A;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-  }
-  
-  .button--add-to-cart:hover {
-    background: #8fb822;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(168, 208, 42, 0.3);
-  }
-  
-  .button--add-to-cart.sold-out {
-    background: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .button--add-to-cart.sold-out:hover {
-    background: #ccc;
-    transform: none;
-    box-shadow: none;
   }
   
   /* For single item - center it but keep same width */
@@ -183,7 +94,6 @@
   
   .featured-collection-carousel-slider.single-item .swiper-slide {
     margin: 0 auto;
-    max-width: 400px;
   }
   
   /* Hide navigation for single item only */
@@ -193,29 +103,7 @@
   }
   
   /* Responsive breakpoints with equal heights */
-  @media screen and (max-width: 480px) {
-    .featured-collection-carousel-slider .swiper-slide {
-      width: calc((100% / 1.5) - 10px) !important;
-      margin-right: 10px;
-    }
-    .card-title {
-      font-size: 13px;
-      min-height: 32px;
-    }
-    .price {
-      font-size: 14px;
-      min-height: 38px;
-    }
-    .button--add-to-cart {
-      font-size: 12px;
-      padding: 8px 10px;
-    }
-    .card-info {
-      padding: 12px;
-    }
-  }
-  
-  @media screen and (min-width: 481px) and (max-width: 640px) {
+  @media screen and (max-width: 640px) {
     .featured-collection-carousel-slider .swiper-slide {
       width: calc((100% / 2) - 10px) !important;
       margin-right: 10px;
@@ -269,8 +157,6 @@
   /* Tab content visibility */
   .tab-content {
     display: none;
-    overflow: visible !important;
-    padding: 15px 0;
   }
   
   .tab-content.active {
@@ -300,7 +186,6 @@
     justify-content: center;
     transition: all 0.3s ease;
     pointer-events: auto;
-    color: #333;
   }
   
   .featured-collection-carousel-slider .swiper-button-prev {
@@ -311,17 +196,11 @@
     right: 5px;
   }
   
-  .featured-collection-carousel-slider .swiper-button-prev::after,
-  .featured-collection-carousel-slider .swiper-button-next::after {
-    display: none;
-  }
-  
   .featured-collection-carousel-slider .swiper-button-prev svg,
   .featured-collection-carousel-slider .swiper-button-next svg {
     width: 20px;
     height: 20px;
     stroke: #333;
-    fill: none;
   }
   
   .featured-collection-carousel-slider .swiper-button-prev:hover,
@@ -331,24 +210,18 @@
     transform: translateY(-50%) scale(1.05);
   }
   
-  .featured-collection-carousel-slider .swiper-button-disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  
   /* Mobile specific arrow styles */
   @media screen and (max-width: 768px) {
     .featured-collection-carousel-slider .swiper-button-prev,
     .featured-collection-carousel-slider .swiper-button-next {
       width: 40px !important;
       height: 40px !important;
-      background: rgba(168, 208, 42, 0.9) !important;
+      background: #A8D02A !important;
     }
     .featured-collection-carousel-slider .swiper-button-prev svg,
     .featured-collection-carousel-slider .swiper-button-next svg {
-      width: 18px !important;
-      height: 18px !important;
+      width: 20px !important;
+      height: 20px !important;
     }
     .featured-collection-carousel-slider .swiper-button-prev {
       left: 5px;
@@ -363,9 +236,6 @@
     top: 10px;
     left: 10px;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
   }
 
   .product-badges__badge--custom {
@@ -375,32 +245,11 @@
     border-radius: 4px;
     font-size: 12px;
     font-weight: bold;
-    display: inline-block;
   }
 
   .product-judgeme-reviews {
     margin-bottom: 10px;
     min-height: 24px;
-  }
-  
-  /* Skeleton loading state */
-  .swiper-slide-loading {
-    background: #f5f5f5;
-    border-radius: 8px;
-    height: 100%;
-  }
-  
-  /* Container fixes */
-  .page-width {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  @media screen and (max-width: 749px) {
-    .page-width {
-      padding: 0 10px;
-    }
   }
 </style>
 
@@ -419,7 +268,6 @@
 
   .featured-collection-carousel-section {
     background-color: {{ section.settings.bg_color }};
-    overflow: visible !important;
   }
 
   .collection-tabs-wrapper {
@@ -454,14 +302,12 @@
     border-color: {{ section.settings.tab_active_color }};
     color: {{ section.settings.tab_active_color }};
     background: #f8f8f8;
-    transform: translateY(-2px);
   }
 
   .collection-tab.active {
     background: {{ section.settings.tab_active_color }};
     color: #ffffff;
     border-color: {{ section.settings.tab_active_color }};
-    box-shadow: 0 4px 15px rgba({{ section.settings.tab_active_color | color_to_rgb | replace: 'rgb(', '' | replace: ')', '' }}, 0.3);
   }
 
   @media screen and (max-width: 749px) {
@@ -559,8 +405,7 @@
         
         <div class="tab-content {% if is_active %}active{% endif %}" 
              id="{{ tab_id }}" 
-             data-product-count="{{ product_count }}"
-             style="overflow: visible !important;">
+             data-product-count="{{ product_count }}">
           <div class="featured-collection-carousel-slider swiper {{ single_class }}" 
                data-slider="true"
                data-product-count="{{ product_count }}">
@@ -582,7 +427,7 @@
                           </div>
                         {%- endif -%}
                         {%- if product.available == false -%}
-                          <div class="product-badges__badge product-badges__badge--custom" style="background: #999;">
+                          <div class="product-badges__badge product-badges__badge--custom">
                             SOLD OUT
                           </div>
                         {%- endif -%}
@@ -590,9 +435,9 @@
                     {% endcapture %}
 
                     {% render 'card-gallery', product: product, children: gallery_children %}
-                    <div class="card-info">
-                      <h3 class="card-title h5">
-                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link">
+                    <div class="card-info" style="padding: 15px;">
+                      <h3 class="card-title h5" style="margin: 0 0 5px;">
+                        <a href="{{ product.url | within: tab_collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
                           {{ product.title }}
                         </a>
                       </h3>
@@ -615,12 +460,10 @@
                         {%- endif -%}
                       {%- endfor -%}
 
-                      <div class="price">
+                      <div style="margin-bottom: 15px;">
                         {% render 'price', product_resource: product, show_compare_price: true %}
                       </div>
-                      <div class="product-card-button">
-                        {% render 'product-card-button', product: product %}
-                      </div>
+                      {% render 'product-card-button', product: product %}
                     </div>
                   {% endcapture %}
 
@@ -673,7 +516,7 @@
                       </div>
                     {%- endif -%}
                     {%- if product.available == false -%}
-                      <div class="product-badges__badge product-badges__badge--custom" style="background: #999;">
+                      <div class="product-badges__badge product-badges__badge--custom">
                         SOLD OUT
                       </div>
                     {%- endif -%}
@@ -681,9 +524,9 @@
                 {% endcapture %}
 
                 {% render 'card-gallery', product: product, children: gallery_children %}
-                <div class="card-info">
-                  <h3 class="card-title h5">
-                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link">
+                <div class="card-info" style="padding: 15px;">
+                  <h3 class="card-title h5" style="margin: 0 0 5px;">
+                    <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link" style="text-decoration: none; color: inherit;">
                       {{ product.title }}
                     </a>
                   </h3>
@@ -705,12 +548,10 @@
                       </div>
                     {%- endif -%}
                   {%- endfor -%}
-                  <div class="price">
+                  <div style="margin-bottom: 15px;">
                     {% render 'price', product_resource: product, show_compare_price: true %}
                   </div>
-                  <div class="product-card-button">
-                    {% render 'product-card-button', product: product %}
-                  </div>
+                  {% render 'product-card-button', product: product %}
                 </div>
               {% endcapture %}
 
@@ -749,117 +590,57 @@
     const desktopCols = {{ section.settings.desktop_columns | default: 4 }};
     const autoplaySpeed = {{ section.settings.autoplay_speed }};
     
-    function destroySlider(slider) {
-      if (slider.swiper) {
-        slider.swiper.destroy(true, true);
-        slider.swiper = null;
-      }
-    }
-    
-    function createSlider(slider) {
-      // Destroy existing swiper instance before creating new one
-      destroySlider(slider);
-      
-      var productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
-      var isSingleItem = slider.classList.contains('single-item');
-      
-      // Make sure slider has proper dimensions
-      slider.style.overflow = 'visible';
-      slider.style.width = '100%';
-      
-      if (isSingleItem || productCount === 1) {
-        slider.classList.add('single-item');
-        var swiper = new Swiper(slider, {
-          slidesPerView: 1,
-          spaceBetween: 0,
-          loop: false,
-          autoplay: false,
-          centeredSlides: true,
-          allowTouchMove: false,
-          watchOverflow: true,
-          observer: true,
-          observeParents: true,
-          watchSlidesProgress: true
-        });
-        slider.swiper = swiper;
-        return;
-      }
-      
-      var prevBtn = slider.querySelector('.swiper-button-prev');
-      var nextBtn = slider.querySelector('.swiper-button-next');
-      
-      var swiperConfig = {
-        slidesPerView: 2,
-        spaceBetween: 15,
-        loop: false,
-        speed: 300,
-        grabCursor: true,
-        touchRatio: 1,
-        watchOverflow: true,
-        observer: true,
-        observeParents: true,
-        watchSlidesProgress: true,
-        autoplay: autoplaySpeed > 0 ? {
-          delay: autoplaySpeed * 1000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        } : false,
-        breakpoints: {
-          0: { 
-            slidesPerView: 1.5, 
-            spaceBetween: 10 
-          },
-          480: { 
-            slidesPerView: 2, 
-            spaceBetween: 10 
-          },
-          640: { 
-            slidesPerView: 2.5, 
-            spaceBetween: 15 
-          },
-          768: { 
-            slidesPerView: 3, 
-            spaceBetween: 20 
-          },
-          1024: { 
-            slidesPerView: desktopCols, 
-            spaceBetween: 25 
-          }
-        },
-        on: {
-          init: function() {
-            // Force update after initialization
-            setTimeout(function() {
-              this.update();
-            }.bind(this), 100);
-          },
-          resize: function() {
-            this.update();
-          }
-        }
-      };
-      
-      if (prevBtn && nextBtn) {
-        swiperConfig.navigation = {
-          nextEl: nextBtn,
-          prevEl: prevBtn
-        };
-      }
-      
-      var swiper = new Swiper(slider, swiperConfig);
-      slider.swiper = swiper;
-      
-      // Force update after initialization
-      setTimeout(function() {
-        if (swiper) {
-          swiper.update();
-        }
-      }, 200);
-    }
-    
     function initSliders() {
       document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
-        createSlider(slider);
+        if (slider.swiper) return;
+        
+        var productCount = parseInt(slider.getAttribute('data-product-count') || '0', 10);
+        var isSingleItem = slider.classList.contains('single-item');
+        
+        if (isSingleItem || productCount === 1) {
+          slider.classList.add('single-item');
+          new Swiper(slider, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: false,
+            autoplay: false,
+            centeredSlides: true,
+            allowTouchMove: false
+          });
+          return;
+        }
+        
+        var prevBtn = slider.querySelector('.swiper-button-prev');
+        var nextBtn = slider.querySelector('.swiper-button-next');
+        
+        var swiperConfig = {
+          slidesPerView: 2,
+          spaceBetween: 15,
+          loop: false,
+          speed: 300,
+          grabCursor: true,
+          touchRatio: 1,
+          autoplay: autoplaySpeed > 0 ? {
+            delay: autoplaySpeed * 1000,
+            disableOnInteraction: false
+          } : false,
+          breakpoints: {
+            0: { slidesPerView: 2, spaceBetween: 10 },
+            640: { slidesPerView: 2.5, spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
+            1024: { slidesPerView: desktopCols, spaceBetween: 25 }
+          }
+        };
+        
+        if (prevBtn && nextBtn) {
+          swiperConfig.navigation = {
+            nextEl: nextBtn,
+            prevEl: prevBtn
+          };
+        }
+        
+        var swiper = new Swiper(slider, swiperConfig);
+        slider.swiper = swiper;
       });
     }
     
@@ -889,53 +670,58 @@
           newContent.classList.add('active');
           
           var newSlider = newContent.querySelector('.featured-collection-carousel-slider');
-          if (newSlider) {
-            // Destroy existing swiper if any
-            destroySlider(newSlider);
-            
+          if (newSlider && !newSlider.swiper) {
             setTimeout(function() {
-              createSlider(newSlider);
-            }, 100);
+              var productCount = parseInt(newSlider.getAttribute('data-product-count') || '0', 10);
+              var isSingleItem = newSlider.classList.contains('single-item');
+              
+              if (isSingleItem || productCount === 1) {
+                newSlider.classList.add('single-item');
+                new Swiper(newSlider, {
+                  slidesPerView: 1,
+                  spaceBetween: 0,
+                  loop: false,
+                  autoplay: false,
+                  centeredSlides: true,
+                  allowTouchMove: false
+                });
+              } else {
+                var prevBtn = newSlider.querySelector('.swiper-button-prev');
+                var nextBtn = newSlider.querySelector('.swiper-button-next');
+                var swiperConfig = {
+                  slidesPerView: 2,
+                  spaceBetween: 15,
+                  loop: false,
+                  speed: 300,
+                  grabCursor: true,
+                  touchRatio: 1,
+                  autoplay: autoplaySpeed > 0 ? {
+                    delay: autoplaySpeed * 1000,
+                    disableOnInteraction: false
+                  } : false,
+                  breakpoints: {
+                    0: { slidesPerView: 2, spaceBetween: 10 },
+                    640: { slidesPerView: 2.5, spaceBetween: 15 },
+                    768: { slidesPerView: 3, spaceBetween: 20 },
+                    1024: { slidesPerView: desktopCols, spaceBetween: 25 }
+                  }
+                };
+                if (prevBtn && nextBtn) {
+                  swiperConfig.navigation = {
+                    nextEl: nextBtn,
+                    prevEl: prevBtn
+                  };
+                }
+                new Swiper(newSlider, swiperConfig);
+              }
+            }, 50);
           }
         });
       });
     }
     
-    // Handle window resize
-    function handleResize() {
-      document.querySelectorAll('.featured-collection-carousel-slider').forEach(function(slider) {
-        if (slider.swiper) {
-          slider.swiper.update();
-        }
-      });
-    }
-    
-    // Debounced resize handler
-    var resizeTimer;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(handleResize, 250);
-    });
-    
-    // Also handle orientation change
-    window.addEventListener('orientationchange', function() {
-      setTimeout(handleResize, 300);
-    });
-    
     initSliders();
     initTabs();
-    
-    // Re-initialize on DOM changes (for AJAX load)
-    if (window.Shopify && Shopify.on) {
-      Shopify.on('section:load', function(event) {
-        if (event.detail.sectionId === '{{ section.id }}') {
-          setTimeout(function() {
-            initSliders();
-            initTabs();
-          }, 100);
-        }
-      });
-    }
   }
   
   if (document.readyState === 'loading') {
