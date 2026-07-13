@@ -15,6 +15,7 @@
         "slide_F4Wmbc": {
           "type": "slide",
           "name": "Slide 1",
+          "disabled": true,
           "settings": {
             "color_scheme": "scheme-1",
             "heading": "",
