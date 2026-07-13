@@ -105,7 +105,7 @@
     {% endif %}
 
     <!-- Critical: content_for_header - loader.js loads here -->
-    {{ content_for_header }}
+    {% comment %} {{ content_for_header }} {% endcomment %}
     <meta name="google-site-verification" content="-eSE3nFVgthK2DXrQMqZTrOOozFqr_QE9I4Mra6ti48" />
 
     <!-- Swiper JS - Loaded once globally -->
