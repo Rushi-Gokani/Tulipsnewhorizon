@@ -560,6 +560,9 @@
                     <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link">
                       {{ product.title }}
                     </a>
+                    <span class="text-block__content " data-text-content="">
+        <p>MRP Inclusive of All Taxes</p>
+      </span>
                   </h3>
                   {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                   {%- if review_block -%}
