@@ -560,9 +560,7 @@
                     <a href="{{ product.url | within: section.settings.collection }}" class="full-unstyled-link">
                       {{ product.title }}
                     </a>
-                    <span class="text-block__content " data-text-content="">
-        <p>MRP Inclusive of All Taxes</p>
-      </span>
+                 
                   </h3>
                   {%- assign review_block = section.blocks | where: 'type', 'judgeme_reviews' | first -%}
                   {%- if review_block -%}
@@ -577,6 +575,7 @@
                   <div class="price">
                     {% render 'price', product_resource: product, show_compare_price: true %}
                   </div>
+                   <p>MRP Inclusive of All Taxes</p>
                   <div class="product-card-button">
                     {% render 'product-card-button', product: product %}
                   </div>
