@@ -854,12 +854,21 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "custom_liquid_B9bQzV": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_DNizbJ",
             "product_title_M7MJkb",
-            "price_gLWgA6"
+            "price_gLWgA6",
+            "custom_liquid_B9bQzV"
           ]
         }
       },
@@ -1050,12 +1059,21 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "custom_liquid_M68JAG": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_zLajaq",
             "product_title_tyxGgP",
-            "price_bzntK4"
+            "price_bzntK4",
+            "custom_liquid_M68JAG"
           ]
         }
       },
