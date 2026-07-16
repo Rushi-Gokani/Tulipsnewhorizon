@@ -175,9 +175,8 @@
                 "text_kpeTxP": {
                   "type": "text",
                   "name": "t:names.text",
-                  "disabled": true,
                   "settings": {
-                    "text": "<p>MRP Incl. of all Taxes</p>",
+                    "text": "<p>MRP Inclusive of All Taxes</p>",
                     "enable_read_more": false,
                     "width": "100%",
                     "max_width": "normal",
