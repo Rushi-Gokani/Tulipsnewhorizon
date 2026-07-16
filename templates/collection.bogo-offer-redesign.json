@@ -288,6 +288,14 @@
               },
               "blocks": {}
             },
+            "custom_liquid_xfaxBF": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+              },
+              "blocks": {}
+            },
             "judge_me_reviews_preview_badge_LTBAnU": {
               "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
               "settings": {}
@@ -297,6 +305,7 @@
             "card-gallery",
             "product_title_4nY4eT",
             "price_EzJzMm",
+            "custom_liquid_xfaxBF",
             "judge_me_reviews_preview_badge_LTBAnU"
           ]
         }
@@ -485,6 +494,13 @@
     "featured_collection_carousel_gjDH7t": {
       "type": "featured-collection-carousel",
       "blocks": {
+        "custom_liquid_Q7Y7w3": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+          }
+        },
         "judgeme_reviews_dDQ9pF": {
           "type": "judgeme_reviews",
           "settings": {
@@ -493,6 +509,7 @@
         }
       },
       "block_order": [
+        "custom_liquid_Q7Y7w3",
         "judgeme_reviews_dDQ9pF"
       ],
       "name": "Featured Collection Slide",
