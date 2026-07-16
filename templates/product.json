@@ -849,12 +849,21 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "custom_liquid_t39UXb": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_DNizbJ",
             "product_title_M7MJkb",
-            "price_gLWgA6"
+            "price_gLWgA6",
+            "custom_liquid_t39UXb"
           ]
         }
       },
