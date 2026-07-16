@@ -172,6 +172,33 @@
                   },
                   "blocks": {}
                 },
+                "text_4YCBq4": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>MRP Inclusive of All Taxes</p>",
+                    "enable_read_more": false,
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
                 "discount_badge_nY7QxP": {
                   "type": "custom-liquid",
                   "name": "Discount badge",
@@ -204,6 +231,7 @@
               "block_order": [
                 "text_xrnftG",
                 "price_tVjtKg",
+                "text_4YCBq4",
                 "discount_badge_nY7QxP",
                 "sku_KKde8d"
               ]
