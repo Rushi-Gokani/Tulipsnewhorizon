@@ -199,6 +199,19 @@
                   },
                   "blocks": {}
                 },
+                "review_tqRWDV": {
+                  "type": "review",
+                  "name": "t:names.product_review_stars",
+                  "settings": {
+                    "stars_style": "shaded",
+                    "show_number": true,
+                    "rating_color": "primary",
+                    "type_preset": "paragraph",
+                    "width": "100%",
+                    "alignment": "left"
+                  },
+                  "blocks": {}
+                },
                 "discount_badge_nY7QxP": {
                   "type": "custom-liquid",
                   "name": "Discount badge",
@@ -232,6 +245,7 @@
                 "text_xrnftG",
                 "price_tVjtKg",
                 "text_Lx9jAW",
+                "review_tqRWDV",
                 "discount_badge_nY7QxP",
                 "sku_KKde8d"
               ]
