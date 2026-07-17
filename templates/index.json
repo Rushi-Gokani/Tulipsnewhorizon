@@ -556,7 +556,7 @@
       "settings": {
         "blog": "news",
         "heading": "BLOGS",
-        "show_navigation": true,
+        "show_navigation": false,
         "show_view_all": true,
         "view_all_text": "VISIT BLOG",
         "posts_limit": 3,
