@@ -226,6 +226,10 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "judge_me_reviews_preview_badge_pFDfkg": {
+                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                  "settings": {}
                 }
               },
               "block_order": [
@@ -233,7 +237,8 @@
                 "price_tVjtKg",
                 "text_4YCBq4",
                 "discount_badge_nY7QxP",
-                "sku_KKde8d"
+                "sku_KKde8d",
+                "judge_me_reviews_preview_badge_pFDfkg"
               ]
             },
             "divider_VJhene": {
