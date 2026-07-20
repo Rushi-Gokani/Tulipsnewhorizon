@@ -255,3 +255,28 @@
     </script>
   </body>
 </html>
+<style>
+
+/* Hide ALL slider arrows on this collection page */
+body.collection-template-adult-diaper-by-tangence .swiper-button-prev,
+body.collection-template-adult-diaper-by-tangence .swiper-button-next,
+body.collection-template-adult-diaper-by-tangence .swiper-button-prev::before,
+body.collection-template-adult-diaper-by-tangence .swiper-button-next::before,
+body.collection-template-adult-diaper-by-tangence .swiper-button-prev::after,
+body.collection-template-adult-diaper-by-tangence .swiper-button-next::after{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Only on this collection page */
+.collection-template-adult-diaper-by-tangence .swiper-slide {
+    width: 320px !important; /* Change to 280px, 300px, 320px as needed */
+}
+
+.collection-template-adult-diaper-by-tangence .swiper-wrapper {
+    justify-content: center;
+    gap: 20px;
+}
+</style>
