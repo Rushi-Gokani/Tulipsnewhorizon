@@ -293,8 +293,16 @@
 
 <style>
 
+/* Hide ALL slider arrows on this collection page */
 body.collection-template-adult-diaper-by-tangence .swiper-button-prev,
-body.collection-template-adult-diaper-by-tangence .swiper-button-next{
-    display:none !important;
+body.collection-template-adult-diaper-by-tangence .swiper-button-next,
+body.collection-template-adult-diaper-by-tangence .swiper-button-prev::before,
+body.collection-template-adult-diaper-by-tangence .swiper-button-next::before,
+body.collection-template-adult-diaper-by-tangence .swiper-button-prev::after,
+body.collection-template-adult-diaper-by-tangence .swiper-button-next::after{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 </style>
