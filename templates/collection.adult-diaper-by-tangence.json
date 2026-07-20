@@ -310,6 +310,8 @@
           ]
         }
       },
+      "disabled": true,
+      "name": "Collection Default",
       "settings": {
         "layout_type": "grid",
         "product_card_size": "medium",
@@ -512,7 +514,51 @@
         "custom_liquid_Q7Y7w3",
         "judgeme_reviews_dDQ9pF"
       ],
-      "name": "Featured Collection Slide",
+      "name": "Adult Diaper",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "first": "",
+        "second": "",
+        "third": "",
+        "fourth": "",
+        "fifth": "",
+        "tab_text_color": "#000000",
+        "tab_active_color": "#a3ca6d",
+        "collection": "adult-diapers",
+        "products_to_show": 3,
+        "show_all_products": false,
+        "desktop_columns": 3,
+        "autoplay_speed": 3,
+        "show_arrows": false,
+        "centralize_products": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#ffffff"
+      }
+    },
+    "featured_collection_carousel_wgxnCD": {
+      "type": "featured-collection-carousel",
+      "blocks": {
+        "custom_liquid_MLqXXm": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+          }
+        },
+        "judgeme_reviews_JwAnFy": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_MLqXXm",
+        "judgeme_reviews_JwAnFy"
+      ],
+      "name": "Tapped Diaper",
       "settings": {
         "title": "",
         "heading_size": "h2",
@@ -524,9 +570,9 @@
         "tab_text_color": "#000000",
         "tab_active_color": "#a3ca6d",
         "collection": "adult-diaper-tape-style",
-        "products_to_show": 8,
+        "products_to_show": 3,
         "show_all_products": false,
-        "desktop_columns": 4,
+        "desktop_columns": 3,
         "autoplay_speed": 3,
         "show_arrows": false,
         "centralize_products": true,
@@ -2699,10 +2745,11 @@
     "section_xCG4ew",
     "overlap_badge_card_new",
     "main",
+    "featured_collection_carousel_gjDH7t",
     "section_gPXKTr",
     "featured_collection_carousel_pethJU",
     "overlap_badge_card_YHjx4H",
-    "featured_collection_carousel_gjDH7t",
+    "featured_collection_carousel_wgxnCD",
     "section_R74iyB",
     "section_bgqA6D",
     "section_cjKz3g",
