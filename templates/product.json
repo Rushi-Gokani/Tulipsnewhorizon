@@ -372,6 +372,7 @@
             "accordion_product_details": {
               "type": "accordion",
               "name": "Product details accordion",
+              "disabled": true,
               "settings": {
                 "icon": "plus",
                 "dividers": true,
@@ -581,6 +582,17 @@
         "gap": 48,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "custom_liquid_FeYa9g": {
+      "type": "custom-liquid",
+      "name": "Tabbing Data Call",
+      "settings": {
+        "custom_liquid": "<div class=\"tg-product-tabs\">\n\n  <ul class=\"tg-product-tabs__nav\">\n    <li class=\"active\" data-tab=\"tg-desc\">Description</li>\n\n    {% if closest.product.metafields.custom.ingredients != blank %}\n      <li data-tab=\"tg-ingredients\">Ingredients</li>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.how_to_use != blank %}\n      <li data-tab=\"tg-howto\">How To Use</li>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.specifications != blank %}\n      <li data-tab=\"tg-specifications\">Specifications</li>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.additional_details != blank %}\n      <li data-tab=\"tg-additional\">Additional Details</li>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.manufacturer_details != blank %}\n      <li data-tab=\"tg-manufacturer\">Manufacturer Details</li>\n    {% endif %}\n  </ul>\n\n  <div class=\"tg-product-tabs__content\">\n\n    <div class=\"tg-tab-panel active\" id=\"tg-desc\">\n      {{ closest.product.description }}\n    </div>\n\n    {% if closest.product.metafields.custom.ingredients != blank %}\n      <div class=\"tg-tab-panel\" id=\"tg-ingredients\">\n        {{ closest.product.metafields.custom.ingredients | metafield_tag }}\n      </div>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.how_to_use != blank %}\n      <div class=\"tg-tab-panel\" id=\"tg-howto\">\n        {{ closest.product.metafields.custom.how_to_use | metafield_tag }}\n      </div>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.specifications != blank %}\n      <div class=\"tg-tab-panel\" id=\"tg-specifications\">\n        {{ closest.product.metafields.custom.specifications | metafield_tag }}\n      </div>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.additional_details != blank %}\n      <div class=\"tg-tab-panel\" id=\"tg-additional\">\n        {{ closest.product.metafields.custom.additional_details | metafield_tag }}\n      </div>\n    {% endif %}\n\n    {% if closest.product.metafields.custom.manufacturer_details != blank %}\n      <div class=\"tg-tab-panel\" id=\"tg-manufacturer\">\n        {{ closest.product.metafields.custom.manufacturer_details | metafield_tag }}\n      </div>\n    {% endif %}\n\n  </div>\n</div>\n\n<style>\n.tg-product-tabs{\n    margin:40px 0;\n    font-family:inherit;\n}\n\n/* Tabs */\n.tg-product-tabs__nav{\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    flex-wrap:wrap;\n    gap:12px;\n    list-style:none;\n    padding:0;\n    margin:0 0 24px;\n    border:none;\n}\n\n.tg-product-tabs__nav li{\n    display:flex;\n    align-items:center;\n    justify-content:center;\n    padding:14px 26px;\n    background:#f8f8f8;\n    border:1px solid #e8e8e8;\n    border-radius:50px;\n    color:#444;\n    font-size:15px;\n    font-weight:600;\n    line-height:1;\n    cursor:pointer;\n    transition:all .3s ease;\n    white-space:nowrap;\n}\n\n.tg-product-tabs__nav li:hover{\n    background:#f1f1f1;\n    border-color:#ccc;\n    transform:translateY(-2px);\n}\n\n.tg-product-tabs__nav li.active{\n    background: #a3ca6d;\n    color: #fff;\n    border-color: #a3ca6d;\n    box-shadow: 0 10px 25px rgba(0, 0, 0, .12);\n}\n\n/* Content */\n.tg-product-tabs__content{\n    background:#fff;\n    border:1px solid #ececec;\n    border-radius:18px;\n    padding:35px;\n    box-shadow:0 10px 35px rgba(0,0,0,.05);\n}\n\n.tg-tab-panel{\n    display:none;\n    animation:tgFade .35s ease;\n    color:#555;\n    font-size:16px;\n    line-height:1.9;\n}\n\n.tg-tab-panel.active{\n    display:block;\n}\n\n@keyframes tgFade{\n    from{\n        opacity:0;\n        transform:translateY(8px);\n    }\n    to{\n        opacity:1;\n        transform:translateY(0);\n    }\n}\n\n.tg-tab-panel h1,\n.tg-tab-panel h2,\n.tg-tab-panel h3,\n.tg-tab-panel h4{\n    margin:0 0 18px;\n    color:#222;\n    font-weight:700;\n}\n\n.tg-tab-panel p{\n    margin:0 0 16px;\n}\n\n.tg-tab-panel ul,\n.tg-tab-panel ol{\n    padding-left:22px;\n    margin:16px 0;\n}\n\n.tg-tab-panel li{\n    margin-bottom:10px;\n}\n\n.tg-tab-panel table{\n    width:100%;\n    border-collapse:collapse;\n    margin-top:20px;\n}\n\n.tg-tab-panel table td,\n.tg-tab-panel table th{\n    border:1px solid #ececec;\n    padding:12px;\n}\n\n.tg-tab-panel img{\n    max-width:100%;\n    height:auto;\n    border-radius:12px;\n}\n\n/* Mobile */\n@media (max-width:767px){\n\n.tg-product-tabs__nav{\n    overflow-x:auto;\n    flex-wrap:nowrap;\n    padding-bottom:8px;\n    scrollbar-width:none;\n}\n\n.tg-product-tabs__nav::-webkit-scrollbar{\n    display:none;\n}\n\n.tg-product-tabs__nav li{\n    flex:0 0 auto;\n    padding:12px 18px;\n    font-size:14px;\n}\n\n.tg-product-tabs__content{\n    padding:22px;\n    border-radius:14px;\n}\n\n}\n</style>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', function(){\n\n    document.querySelectorAll('.tg-product-tabs').forEach(function(wrapper){\n\n        const tabs = wrapper.querySelectorAll('.tg-product-tabs__nav li');\n        const panels = wrapper.querySelectorAll('.tg-tab-panel');\n\n        tabs.forEach(function(tab){\n\n            tab.addEventListener('click', function(){\n\n                tabs.forEach(function(item){\n                    item.classList.remove('active');\n                });\n\n                panels.forEach(function(panel){\n                    panel.classList.remove('active');\n                });\n\n                tab.classList.add('active');\n\n                wrapper.querySelector('#' + tab.dataset.tab).classList.add('active');\n\n            });\n\n        });\n\n    });\n\n});\n</script>",
+        "color_scheme": "",
+        "section_width": "page-width",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
@@ -1257,6 +1269,7 @@
   "order": [
     "product-breadcrumb",
     "main",
+    "custom_liquid_FeYa9g",
     "17732936741d9f109d",
     "1771338014893c6190",
     "brand_section_KUUPUg",
