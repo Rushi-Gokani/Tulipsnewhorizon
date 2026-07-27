@@ -13,7 +13,7 @@
       "type": "collection-grid-slider",
       "name": "Collection Grid Slider",
       "settings": {
-        "title": "Featured collection",
+        "title": "",
         "heading_size": "h1",
         "collection": "adult-diaper-pants",
         "products_to_show": 8,
