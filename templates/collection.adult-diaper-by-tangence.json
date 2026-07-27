@@ -9,6 +9,31 @@
  */
 {
   "sections": {
+    "section_featured_collection_carousel_NmE7Lw": {
+      "type": "section-featured-collection-carousel",
+      "name": "Collection V2 Tangence",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "first": "",
+        "second": "",
+        "third": "",
+        "fourth": "",
+        "fifth": "",
+        "tab_text_color": "#000000",
+        "tab_active_color": "#a3ca6d",
+        "collection": "adult-diapers",
+        "products_to_show": 8,
+        "show_all_products": false,
+        "desktop_columns": 4,
+        "autoplay_speed": 5,
+        "show_arrows": true,
+        "centralize_products": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#FFFFFF"
+      }
+    },
     "product_breadcrumb_EE9abR": {
       "type": "product-breadcrumb",
       "disabled": true,
@@ -330,6 +355,50 @@
         "padding-block-end": 32
       }
     },
+    "featured_collection_carousel_gjDH7t": {
+      "type": "featured-collection-carousel",
+      "blocks": {
+        "custom_liquid_Q7Y7w3": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
+          }
+        },
+        "judgeme_reviews_dDQ9pF": {
+          "type": "judgeme_reviews",
+          "settings": {
+            "show_text": true
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_Q7Y7w3",
+        "judgeme_reviews_dDQ9pF"
+      ],
+      "name": "Adult Diaper",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "first": "",
+        "second": "",
+        "third": "",
+        "fourth": "",
+        "fifth": "",
+        "tab_text_color": "#000000",
+        "tab_active_color": "#a3ca6d",
+        "collection": "adult-diapers",
+        "products_to_show": 3,
+        "show_all_products": false,
+        "desktop_columns": 3,
+        "autoplay_speed": 3,
+        "show_arrows": false,
+        "centralize_products": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#ffffff"
+      }
+    },
     "section_gPXKTr": {
       "type": "section",
       "blocks": {
@@ -491,50 +560,6 @@
         "read_more_limit": 25,
         "padding_top": 40,
         "padding_bottom": 40
-      }
-    },
-    "featured_collection_carousel_gjDH7t": {
-      "type": "featured-collection-carousel",
-      "blocks": {
-        "custom_liquid_Q7Y7w3": {
-          "type": "custom_liquid",
-          "disabled": true,
-          "settings": {
-            "custom_liquid": "<p class=\"tg-price-tax-note\">\nMRP Inclusive of All Taxes\n</p>"
-          }
-        },
-        "judgeme_reviews_dDQ9pF": {
-          "type": "judgeme_reviews",
-          "settings": {
-            "show_text": true
-          }
-        }
-      },
-      "block_order": [
-        "custom_liquid_Q7Y7w3",
-        "judgeme_reviews_dDQ9pF"
-      ],
-      "name": "Adult Diaper",
-      "settings": {
-        "title": "",
-        "heading_size": "h2",
-        "first": "",
-        "second": "",
-        "third": "",
-        "fourth": "",
-        "fifth": "",
-        "tab_text_color": "#000000",
-        "tab_active_color": "#a3ca6d",
-        "collection": "adult-diapers",
-        "products_to_show": 3,
-        "show_all_products": false,
-        "desktop_columns": 3,
-        "autoplay_speed": 3,
-        "show_arrows": false,
-        "centralize_products": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "bg_color": "#ffffff"
       }
     },
     "featured_collection_carousel_wgxnCD": {
@@ -2740,6 +2765,7 @@
     }
   },
   "order": [
+    "section_featured_collection_carousel_NmE7Lw",
     "product_breadcrumb_EE9abR",
     "image_slider_gehmzT",
     "section_xCG4ew",
