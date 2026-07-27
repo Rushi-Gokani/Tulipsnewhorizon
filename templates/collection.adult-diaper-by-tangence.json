@@ -9,6 +9,21 @@
  */
 {
   "sections": {
+    "collection_grid_slider_H7QQYW": {
+      "type": "collection-grid-slider",
+      "name": "Collection Grid Slider",
+      "settings": {
+        "title": "Featured collection",
+        "heading_size": "h1",
+        "collection": "adult-diaper-pants",
+        "products_to_show": 8,
+        "show_all_products": false,
+        "desktop_columns": 3,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "bg_color": "#FFFFFF"
+      }
+    },
     "section_featured_collection_carousel_NmE7Lw": {
       "type": "section-featured-collection-carousel",
       "name": "Collection V2 Tangence",
@@ -2765,6 +2780,7 @@
     }
   },
   "order": [
+    "collection_grid_slider_H7QQYW",
     "section_featured_collection_carousel_NmE7Lw",
     "product_breadcrumb_EE9abR",
     "image_slider_gehmzT",
