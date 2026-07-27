@@ -1,0 +1,284 @@
+{{ 'section-collection-grid-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .cgs-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .cgs-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .cgs-{{ section.id }} .cgs-track {
+    display: flex;
+    gap: 15px;
+    /* Mobile: native horizontal scroll-snap slider. No JS library needed. */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-left: 16px;
+    padding-bottom: 8px;
+    /* Hide scrollbar visually, keep it functional */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .cgs-{{ section.id }} .cgs-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cgs-{{ section.id }} .cgs-card {
+    flex: 0 0 auto;
+    width: 72%;
+    max-width: 280px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  @media screen and (max-width: 480px) {
+    .cgs-{{ section.id }} .cgs-card {
+      width: 80%;
+    }
+  }
+
+  /* Desktop: switch to a real grid, slider behaviour turns off completely */
+  @media screen and (min-width: 750px) {
+    .cgs-{{ section.id }} .cgs-track {
+      display: grid;
+      grid-template-columns: repeat({{ section.settings.desktop_columns }}, 1fr);
+      overflow-x: visible;
+      scroll-snap-type: none;
+      padding-bottom: 0;
+    }
+    .cgs-{{ section.id }} .cgs-card {
+      width: auto;
+      max-width: none;
+    }
+  }
+
+  .cgs-{{ section.id }} .cgs-product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+  }
+
+  .cgs-{{ section.id }} .cgs-gallery {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f5f5f5;
+    position: relative;
+  }
+
+  .cgs-{{ section.id }} .cgs-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cgs-{{ section.id }} .cgs-badges {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+  }
+
+  .cgs-{{ section.id }} .cgs-badge {
+    background: #ff4444;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+
+  .cgs-{{ section.id }} .cgs-info {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cgs-{{ section.id }} .cgs-title {
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.3;
+    min-height: 36px;
+  }
+
+  .cgs-{{ section.id }} .cgs-title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .cgs-{{ section.id }} .cgs-price {
+    margin-bottom: 4px;
+  }
+
+  .cgs-{{ section.id }} .cgs-tax-note {
+    margin: 0 0 12px;
+    font-size: 11px;
+    color: #777;
+  }
+
+  .cgs-{{ section.id }} .cgs-button-wrap {
+    margin-top: auto;
+  }
+{%- endstyle -%}
+
+<div class="cgs-section-{{ section.id }} cgs-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin centered">
+        <h2 class="title {{ section.settings.heading_size }} center">
+          {{ section.settings.title | escape }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    {%- assign source_collection = collections[section.settings.collection] -%}
+
+    {%- if source_collection != blank -%}
+      <div class="cgs-track">
+        {%- assign limit = section.settings.products_to_show -%}
+        {%- if section.settings.show_all_products -%}
+          {%- assign limit = 50 -%}
+        {%- endif -%}
+
+        {%- for product in source_collection.products limit: limit -%}
+          <div class="cgs-card">
+            <div class="cgs-product-card">
+              <div class="cgs-gallery">
+                <div class="cgs-badges">
+                  {%- if product.compare_at_price > product.price -%}
+                    {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+                    <span class="cgs-badge">{{ discount }}% OFF</span>
+                  {%- endif -%}
+                  {%- if product.available == false -%}
+                    <span class="cgs-badge" style="background:#999;">SOLD OUT</span>
+                  {%- endif -%}
+                </div>
+                {%- if product.featured_media -%}
+                  <img src="{{ product.featured_media | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy" width="600" height="600">
+                {%- endif -%}
+              </div>
+              <div class="cgs-info">
+                <h3 class="cgs-title h5">
+                  <a href="{{ product.url | within: source_collection }}" class="full-unstyled-link">
+                    {{ product.title }}
+                  </a>
+                </h3>
+                <div class="cgs-price">
+                  {% render 'price', product_resource: product, show_compare_price: true %}
+                </div>
+                <p class="cgs-tax-note">MRP Inclusive of All Taxes</p>
+                <div class="cgs-button-wrap">
+                  {% render 'product-card-button', product: product %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p>Please select a collection in the section settings.</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Grid Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Featured collection",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_products",
+      "label": "Show all products",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Grid Slider"
+    }
+  ]
+}
+{% endschema %}
