@@ -1,0 +1,129 @@
+{{ 'free-shipping-bar.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.enable -%}
+  {%- assign threshold_major = section.settings.free_shipping_threshold | default: 399 -%}
+  {%- assign threshold_cents = threshold_major | times: 100 | round -%}
+  {%- assign subtotal_cents = cart.items_subtotal_price -%}
+
+  {%- assign achieved = false -%}
+  {%- if threshold_cents <= 0 or subtotal_cents >= threshold_cents -%}
+    {%- assign achieved = true -%}
+  {%- endif -%}
+
+  {%- assign remaining_cents = threshold_cents | minus: subtotal_cents -%}
+  {%- if remaining_cents < 0 -%}
+    {%- assign remaining_cents = 0 -%}
+  {%- endif -%}
+
+  {%- assign progress_percent = 100 -%}
+  {%- unless achieved -%}
+    {%- assign progress_percent = subtotal_cents | times: 100.0 | divided_by: threshold_cents -%}
+  {%- endunless -%}
+
+  {%- assign formatted_remaining = remaining_cents | money -%}
+  {%- assign progress_message = section.settings.progress_message | replace: '{{ amount }}', formatted_remaining -%}
+  {%- assign success_message = section.settings.success_message -%}
+  {%- assign initial_message = progress_message -%}
+  {%- if achieved -%}
+    {%- assign initial_message = success_message -%}
+  {%- endif -%}
+
+  <free-shipping-bar-component
+    class="free-shipping-bar"
+    {% if achieved %}achieved{% endif %}
+    data-section-id="{{ section.id }}"
+    data-threshold-cents="{{ threshold_cents }}"
+    data-money-format="{{ shop.money_format | strip_html }}"
+    data-currency="{{ cart.currency.iso_code }}"
+    style="
+      --free-shipping-bar-bg: {{ section.settings.background_color }};
+      --free-shipping-bar-text: {{ section.settings.text_color }};
+      --free-shipping-bar-track: {{ section.settings.track_color }};
+      --free-shipping-bar-fill: {{ section.settings.fill_color }};
+    "
+  >
+    <div class="free-shipping-bar__inner page-width">
+      <p class="free-shipping-bar__message" ref="message">{{ initial_message }}</p>
+
+      <div class="free-shipping-bar__track" ref="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress_percent | round }}" aria-label="Free shipping progress">
+        <div class="free-shipping-bar__fill" ref="fill" style="width: {{ progress_percent }}%;">
+          {%- if section.settings.show_icon -%}
+            <span class="free-shipping-bar__icon" ref="icon">
+              {{- 'icon-truck.svg' | inline_asset_content -}}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <template ref="progressTemplate">{{ section.settings.progress_message }}</template>
+    <template ref="successTemplate">{{ success_message }}</template>
+  </free-shipping-bar-component>
+
+  <script src="{{ 'free-shipping-bar.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Free shipping bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "Enable free shipping bar",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Free shipping threshold",
+      "info": "Cart subtotal needed to unlock free shipping, in your store's currency (e.g. 399).",
+      "default": 399
+    },
+    {
+      "type": "text",
+      "id": "progress_message",
+      "label": "Progress message",
+      "info": "Use {{ amount }} to insert the remaining amount. Supports HTML tags like <strong>.",
+      "default": "<strong>Free shipping</strong> is only <strong>{{ amount }}</strong> away!"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "info": "Supports HTML tags like <strong>.",
+      "default": "🎉 <strong>Congratulations!</strong> You have unlocked FREE Shipping."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show truck icon",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "track_color",
+      "label": "Progress track color",
+      "default": "#E5E5E5"
+    },
+    {
+      "type": "color",
+      "id": "fill_color",
+      "label": "Progress fill color",
+      "default": "#F2871F"
+    }
+  ]
+}
+{% endschema %}
