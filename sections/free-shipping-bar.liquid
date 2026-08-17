@@ -31,6 +31,7 @@
   <free-shipping-bar-component
     class="free-shipping-bar"
     {% if achieved %}achieved{% endif %}
+    {% if cart.item_count == 0 %}cart-empty{% endif %}
     data-section-id="{{ section.id }}"
     data-threshold-cents="{{ threshold_cents }}"
     data-money-format="{{ shop.money_format | strip_html }}"
