@@ -515,7 +515,7 @@
 
 .card-product-small-title,
 .card-product-small-price {
-  font-family: var(--font-body-family);
+  font-family: var(--font-body--family);
   line-height: calc(1 + 0.6 / var(--font-body-scale));
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);

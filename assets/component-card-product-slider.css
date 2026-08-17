@@ -191,7 +191,7 @@ html.no-js .card-product-slider__slide + .card-product-slider__slide {
 }
 
 .products-feed__tab button.button--text {
-  font-family: var(--font-heading-family);
+  font-family: var(--font-subheading--family);
   font-size: calc(var(--font-heading-scale) * var(--h3-multiplier));
   padding: unset;
   outline: none;

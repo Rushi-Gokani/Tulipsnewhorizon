@@ -251,7 +251,7 @@ html.no-js .hero__swiper-slide {
   color: rgb(var(--color-white-rgb));
   font-size: var(--font-size-static-sm);
   font-weight: var(--font-body-weight);
-  font-family: var(--font-body-family);
+  font-family: var(--font-body--family);
   position: absolute;
   inset-block-start: 50%;
   inset-inline-start: 50%;

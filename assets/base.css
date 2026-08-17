@@ -2,9 +2,6 @@
    CUSTOM FONTS - @font-face declarations
    ======================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-
 /* TT Neoris Regular (Bold) */
 @font-face {
   font-family: 'TT Neoris';
@@ -908,7 +905,7 @@ body,
 .paragraph:not(.button),
 .paragraph > *,
 .text-block.paragraph :is(h1, h2, h3, h4, h5, h6) {
-  font-family: TT Neoris Light;
+  font-family: var(--font-paragraph--family);
   font-style: var(--font-paragraph--style);
   font-weight: var(--font-paragraph--weight);
   font-size: var(--font-paragraph--size);
@@ -5063,50 +5060,6 @@ product-recommendations:has([data-has-recommendations='false']) {
     opacity: var(--atc-opacity, 1);
     translate: 0px var(--atc-destination, 0px);
   }
-}
-
-/* ========================================
-   GLOBAL FONT APPLICATION (moved to end for priority)
-   ======================================== */
-
-body {
-  font-family: 'TT Neoris light' !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  font-family: 'TT Neoris light' !important;
-}
-
-/* Italic heading styling */
-h1 em,
-h2 em,
-h3 em,
-h4 em,
-h5 em,
-h6 em,
-.h1 em,
-.h2 em,
-.h3 em,
-.h4 em,
-.h5 em,
-.h6 em {
-  font-family: 'TT Neoris light' !important;
-}
-
-/* h2 specific override */
-h2 {
-  font-family: 'TT Neoris light' !important;
 }
 
 /* CUSTOM CSS BY TANGENCE TEAM */

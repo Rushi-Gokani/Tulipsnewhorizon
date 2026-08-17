@@ -52,7 +52,7 @@
   justify-content: space-around;
   gap: 1rem; /* Reduced further to 1rem */
   min-width: 100%;
-  font-family: var(--font-heading-family);
+  font-family: var(--font-accent--family);
   font-weight: 600;
   font-size: 13px;
   text-transform: uppercase;

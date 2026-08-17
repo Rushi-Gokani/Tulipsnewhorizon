@@ -122,8 +122,8 @@
     {%- if settings.enable_breadcrumbs_on_other_pages and section.settings.enable_breadcrumbs -%}
       {%- render 'breadcrumbs', alignment: 'start' -%}
     {%- endif -%}
-    <div class="section-page-banner__content content" style="font-family:'TT Neoris';" >
-      <h1 style="font-family: 'TT Neoris';" class="page-banner__title section__heading {{ section.settings.heading_size }}">
+    <div class="section-page-banner__content content" style="font-family: var(--font-paragraph--family);" >
+      <h1 style="font-family: var(--font-h1--family);" class="page-banner__title section__heading {{ section.settings.heading_size }}">
         {{- section.settings.heading | default: page.title | default: page_title -}}
       </h1>
 

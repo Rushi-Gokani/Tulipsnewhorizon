@@ -17,7 +17,7 @@
     "type_subheading_font": "inter_n5",
     "type_heading_font": "inter_n7",
     "type_accent_font": "inter_n7",
-    "type_size_paragraph": "16",
+    "type_size_paragraph": "18",
     "type_line_height_paragraph": "body-loose",
     "type_font_h1": "heading",
     "type_size_h1": "56",
@@ -99,11 +99,6 @@
       },
       "1854489755362259810": {
         "type": "shopify://apps/pareto-order-limit/blocks/app-embed-block/6fbe20db-eadd-42b3-bc67-0e44a53ed12f",
-        "disabled": false,
-        "settings": {}
-      },
-      "14826766009936288847": {
-        "type": "shopify://apps/discounty/blocks/sdk/d65eb522-0d94-499f-9831-d4b3301f5340",
         "disabled": false,
         "settings": {}
       }

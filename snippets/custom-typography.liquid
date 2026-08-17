@@ -1,0 +1,84 @@
+{%- doc -%}
+  Client typography overhaul: Manrope (body/subheading/accent) + Recoleta (heading).
+
+  Renders AFTER 'theme-styles-variables' in layout/theme.liquid so these :root
+  declarations win the cascade over the font-picker-driven tokens defined there.
+
+  Font weights supplied by client: Manrope Regular (400), Medium (500), Semi-Bold (600),
+  Recoleta Regular (400). No bold cut exists for either family yet, so heading/accent
+  weights below are intentionally capped to the heaviest weight actually declared as a
+  real @font-face — this avoids the browser silently faux-bolding a font that has no
+  true bold face. See PENDING notes below for what's still needed from the client.
+{%- enddoc -%}
+
+{% style %}
+  @font-face {
+    font-family: 'Manrope';
+    src: url('{{ 'Manrope-Variable.woff2' | asset_url }}') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Manrope';
+    src: url('{{ 'Manrope-Variable.woff2' | asset_url }}') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Manrope';
+    src: url('{{ 'Manrope-Variable.woff2' | asset_url }}') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /*
+    PENDING: Recoleta is a commercial font (Latinotype) — it cannot be sourced from a
+    public CDN. Once the client supplies a licensed Recoleta-Regular.woff2 file:
+      1. Add it to /assets
+      2. Add this block back (with a real Liquid asset_url tag, removed from here on
+         purpose so theme-check doesn't flag a MissingAsset error while the file
+         doesn't exist yet):
+           @font-face {
+             font-family: 'Recoleta';
+             src: url(<asset_url of Recoleta-Regular.woff2>) format('woff2');
+             font-weight: 400;
+             font-style: normal;
+             font-display: swap;
+           }
+    Until then, headings fall back to Georgia below.
+  */
+
+  :root {
+    --font-body--family: 'Manrope', Arial, sans-serif;
+    --font-subheading--family: 'Manrope', Arial, sans-serif;
+    --font-accent--family: 'Manrope', Arial, sans-serif;
+    --font-heading--family: 'Recoleta', Georgia, serif;
+
+    /* Accent role (badges, buttons using the accent role) was Inter Bold (700);
+       Manrope's heaviest supplied weight is Semi-Bold (600) — capped to avoid faux-bold. */
+    --font-accent--weight: 600;
+
+    /* Heading role (h1-h4) was Inter Bold (700); only Recoleta Regular (400) was
+       supplied — capped to avoid faux-bold. True bold headings need a Recoleta
+       Bold/SemiBold file from the client; see typography report. */
+    --font-heading--weight: 400;
+  }
+
+  /*
+    Client screenshot annotation on the PDP description bullet list: "increase this
+    text size by 2px & color - #4e4e4e". Size already inherits the new +2px base
+    paragraph size (16px -> 18px) via var(--font-paragraph--size); this adds the
+    color specifically. Scoped to all rich-text bullet/numbered lists (.rte is the
+    shared class for any text block using the 'rte'/'paragraph' preset, not just
+    product descriptions) — flagged in the typography report in case the client
+    wants this narrowed to product descriptions only.
+  */
+  .rte :is(ul, ol) li {
+    color: #4e4e4e;
+  }
+{% endstyle %}
