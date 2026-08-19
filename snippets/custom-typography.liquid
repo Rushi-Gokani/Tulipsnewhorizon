@@ -81,4 +81,16 @@
   .rte :is(ul, ol) li {
     color: #4e4e4e;
   }
+
+  /*
+    Client screenshot annotation on the "Adult Care Kit" combo product's description:
+    "WHAT'S INSIDE" / "FAQ" headings reduced by 6px. Confirmed via live HTML inspection
+    that these are literal <h2> tags typed into the product's own description field
+    (product data — not edited here, per client rules). Scoped to .rte h2 only, so this
+    affects h2s typed into ANY product/blog rich-text content sitewide (consistent
+    typography), without touching h2 used as real section headings elsewhere in the theme.
+  */
+  .rte h2 {
+    font-size: calc(var(--font-h2--size) - 6px);
+  }
 {% endstyle %}
