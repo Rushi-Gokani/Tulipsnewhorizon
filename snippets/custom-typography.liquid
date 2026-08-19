@@ -93,4 +93,18 @@
   .rte h2 {
     font-size: calc(var(--font-h2--size) - 6px);
   }
+
+  /*
+    Cart PAGE change (not the cart drawer — cart-items-component carries a
+    data-drawer attribute only in the drawer, so :not([data-drawer]) scopes this
+    to the /cart page specifically): product name capitalized, product price bold.
+    Weight capped at Manrope's Semi-Bold (600), not 700 — no true bold face supplied.
+  */
+  cart-items-component:not([data-drawer]) .cart-items__title {
+    text-transform: capitalize;
+  }
+
+  cart-items-component:not([data-drawer]) .cart-items__price {
+    font-weight: 600;
+  }
 {% endstyle %}
