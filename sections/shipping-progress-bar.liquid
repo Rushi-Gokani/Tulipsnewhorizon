@@ -1,0 +1,196 @@
+{{ 'shipping-progress-bar.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.enable -%}
+  {%- assign threshold_major = section.settings.free_shipping_threshold | default: 399 -%}
+  {%- assign threshold_cents = threshold_major | times: 100 | round -%}
+  {%- assign subtotal_cents = cart.items_subtotal_price -%}
+
+  {%- assign achieved = false -%}
+  {%- if threshold_cents <= 0 or subtotal_cents >= threshold_cents -%}
+    {%- assign achieved = true -%}
+  {%- endif -%}
+
+  {%- assign remaining_cents = threshold_cents | minus: subtotal_cents -%}
+  {%- if remaining_cents < 0 -%}
+    {%- assign remaining_cents = 0 -%}
+  {%- endif -%}
+
+  {%- assign progress_percent = 100 -%}
+  {%- unless achieved -%}
+    {%- assign progress_percent = subtotal_cents | times: 100.0 | divided_by: threshold_cents -%}
+  {%- endunless -%}
+
+  {%- assign formatted_subtotal = subtotal_cents | money -%}
+  {%- assign formatted_remaining = remaining_cents | money -%}
+  {%- assign remaining_message = section.settings.remaining_label | replace: '{{ amount }}', formatted_remaining -%}
+
+  {%- assign upsell_product = section.settings.upsell_product -%}
+  {%- assign upsell_variant = upsell_product.selected_or_first_available_variant -%}
+
+  <shipping-progress-bar-component
+    class="shipping-progress-bar"
+    {% if achieved %}achieved{% endif %}
+    data-section-id="{{ section.id }}"
+    data-threshold-cents="{{ threshold_cents }}"
+    data-money-format="{{ shop.money_format | strip_html }}"
+    data-currency="{{ cart.currency.iso_code }}"
+    data-remaining-template="{{ section.settings.remaining_label | escape }}"
+    data-show-confetti="{{ section.settings.show_confetti }}"
+    data-show-toast="{{ section.settings.show_toast }}"
+    {% if upsell_variant %}
+      data-upsell-variant-id="{{ upsell_variant.id }}"
+    {% endif %}
+    style="
+      --shipping-progress-bar-bg: {{ section.settings.background_color }};
+      --shipping-progress-bar-text: {{ section.settings.text_color }};
+      --shipping-progress-bar-track: {{ section.settings.track_color }};
+      --shipping-progress-bar-stripe: {{ section.settings.stripe_color }};
+      --shipping-progress-bar-achieved: {{ section.settings.achieved_color }};
+    "
+  >
+    <div class="shipping-progress-bar__inner page-width">
+      <div class="shipping-progress-bar__basket">
+        <span class="shipping-progress-bar__basket-total">
+          {{- section.settings.basket_label -}}
+          <strong ref="basketTotal">{{ formatted_subtotal }}</strong>
+        </span>
+        <span class="shipping-progress-bar__unlocked-sub" ref="unlockedSub" {% unless achieved %}hidden{% endunless %}>
+          {{- section.settings.unlocked_sub_label -}}
+        </span>
+      </div>
+
+      <div
+        class="shipping-progress-bar__track"
+        ref="track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="{{ progress_percent | round }}"
+        aria-label="Free shipping progress"
+      >
+        <div class="shipping-progress-bar__fill" ref="fill" style="width: {{ progress_percent }}%;"></div>
+      </div>
+
+      <div class="shipping-progress-bar__end">
+        <span class="shipping-progress-bar__remaining" ref="remainingText" {% if achieved %}hidden{% endif %}>
+          {{- remaining_message -}}
+        </span>
+        <span class="shipping-progress-bar__unlocked-pill" ref="unlockedPill" {% unless achieved %}hidden{% endunless %}>
+          {{- section.settings.unlocked_pill_text -}}
+        </span>
+
+        {%- if upsell_variant and upsell_variant.available -%}
+          <button
+            type="button"
+            class="shipping-progress-bar__upsell"
+            ref="upsellButton"
+            {% if achieved %}hidden{% endif %}
+            on:click="/handleUpsellClick"
+          >
+            <span ref="upsellButtonText">
+              {{- 'actions.add' | t }} {{ upsell_product.title }} {{ upsell_variant.price | money }} →
+            </span>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="shipping-progress-bar__toast" ref="toast" role="status" aria-live="polite" hidden></div>
+  </shipping-progress-bar-component>
+
+  <script src="{{ 'shipping-progress-bar.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Top shipping bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "Enable shipping progress bar",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Free shipping threshold",
+      "info": "Cart subtotal needed to unlock free shipping, in your store's currency (e.g. 399).",
+      "default": 399
+    },
+    {
+      "type": "product",
+      "id": "upsell_product",
+      "label": "Upsell product",
+      "info": "Shown as a one-click \"Add [product] →\" button while the customer is short of the threshold. Leave blank to hide the button."
+    },
+    {
+      "type": "text",
+      "id": "basket_label",
+      "label": "Basket label",
+      "default": "Basket "
+    },
+    {
+      "type": "text",
+      "id": "remaining_label",
+      "label": "Remaining amount label",
+      "info": "Use {{ amount }} to insert the remaining amount.",
+      "default": "+{{ amount }} to go"
+    },
+    {
+      "type": "text",
+      "id": "unlocked_sub_label",
+      "label": "Unlocked sub-label (under basket total)",
+      "default": "Delivery on us"
+    },
+    {
+      "type": "text",
+      "id": "unlocked_pill_text",
+      "label": "Unlocked pill text",
+      "default": "FREE DELIVERY UNLOCKED"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_confetti",
+      "label": "Show confetti animation on unlock",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_toast",
+      "label": "Show toast notifications",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "track_color",
+      "label": "Progress track color",
+      "default": "#F5E6DA"
+    },
+    {
+      "type": "color",
+      "id": "stripe_color",
+      "label": "Progress stripe color",
+      "default": "#F2871F"
+    },
+    {
+      "type": "color",
+      "id": "achieved_color",
+      "label": "Unlocked (achieved) color",
+      "default": "#388E3C"
+    }
+  ]
+}
+{% endschema %}
