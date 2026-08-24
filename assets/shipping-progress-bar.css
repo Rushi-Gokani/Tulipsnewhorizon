@@ -1,6 +1,6 @@
 .shipping-progress-bar {
   position: sticky;
-  top: var(--header-group-height, 0px);
+  top: var(--header-height, 0px);
   z-index: var(--layer-sticky, 8);
   background-color: var(--shipping-progress-bar-bg, #fff);
   color: var(--shipping-progress-bar-text, #1a1a1a);

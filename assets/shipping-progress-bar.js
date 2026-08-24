@@ -5,7 +5,6 @@ import { formatMoney } from '@theme/money-formatting';
 
 const AMOUNT_TOKEN = '{{ amount }}';
 const CONFETTI_COLORS = ['#F2871F', '#388E3C', '#1A73E8', '#E91E63', '#FBC02D'];
-const DISMISSED_STORAGE_KEY = 'shipping-progress-bar-dismissed';
 
 export class ShippingProgressBarComponent extends Component {
   requiredRefs = ['fill', 'track', 'basketTotal', 'remainingText', 'unlockedPill', 'unlockedSub', 'toast'];
@@ -26,8 +25,6 @@ export class ShippingProgressBarComponent extends Component {
   #remainingTemplate = '{{ amount }} to go';
   /** @type {boolean} */
   #wasAchieved = false;
-  /** @type {boolean} */
-  #dismissed = false;
   /** @type {number | undefined} */
   #toastTimeout;
 
@@ -39,14 +36,6 @@ export class ShippingProgressBarComponent extends Component {
     this.#currency = this.dataset.currency || this.#currency;
     this.#remainingTemplate = this.dataset.remainingTemplate || this.#remainingTemplate;
     this.#wasAchieved = this.hasAttribute('achieved');
-
-    try {
-      this.#dismissed = sessionStorage.getItem(DISMISSED_STORAGE_KEY) === '1';
-    } catch {
-      this.#dismissed = false;
-    }
-
-    if (this.#dismissed) this.hidden = true;
 
     document.addEventListener(ThemeEvents.cartUpdate, this.#handleCartUpdate, {
       signal: this.#abortController.signal,
@@ -106,7 +95,9 @@ export class ShippingProgressBarComponent extends Component {
    * @param {number} itemCount
    */
   #render(subtotalCents, itemCount) {
-    this.hidden = this.#dismissed || itemCount === 0;
+    // Any real cart change (add/remove, from anywhere on the site) re-evaluates visibility
+    // from scratch, so a previous dismiss click doesn't suppress it once something new happens.
+    this.hidden = itemCount === 0;
 
     const thresholdCents = this.#thresholdCents;
     const achieved = thresholdCents <= 0 || subtotalCents >= thresholdCents;
@@ -186,14 +177,7 @@ export class ShippingProgressBarComponent extends Component {
   }
 
   handleDismissClick = () => {
-    this.#dismissed = true;
     this.hidden = true;
-
-    try {
-      sessionStorage.setItem(DISMISSED_STORAGE_KEY, '1');
-    } catch {
-      // sessionStorage unavailable (e.g. privacy mode) — dismissal just won't persist across page loads.
-    }
   };
 
   /** @param {Event} event */
