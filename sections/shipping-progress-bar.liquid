@@ -24,12 +24,16 @@
   {%- assign formatted_remaining = remaining_cents | money -%}
   {%- assign remaining_message = section.settings.remaining_label | replace: '{{ amount }}', formatted_remaining -%}
 
+  {%- assign formatted_threshold = threshold_cents | money -%}
+  {%- assign threshold_marker_message = section.settings.threshold_marker_text | replace: '{{ amount }}', formatted_threshold -%}
+
   {%- assign upsell_product = section.settings.upsell_product -%}
   {%- assign upsell_variant = upsell_product.selected_or_first_available_variant -%}
 
   <shipping-progress-bar-component
     class="shipping-progress-bar"
     {% if achieved %}achieved{% endif %}
+    {% if cart.item_count == 0 %}hidden{% endif %}
     data-section-id="{{ section.id }}"
     data-threshold-cents="{{ threshold_cents }}"
     data-money-format="{{ shop.money_format | strip_html }}"
@@ -68,7 +72,10 @@
         aria-valuenow="{{ progress_percent | round }}"
         aria-label="Free shipping progress"
       >
-        <div class="shipping-progress-bar__fill" ref="fill" style="width: {{ progress_percent }}%;"></div>
+        <span class="shipping-progress-bar__marker">{{- threshold_marker_message -}}</span>
+        <div class="shipping-progress-bar__fill" ref="fill" style="width: {{ progress_percent }}%;">
+          <span class="shipping-progress-bar__handle" aria-hidden="true"></span>
+        </div>
       </div>
 
       <div class="shipping-progress-bar__end">
@@ -90,6 +97,17 @@
             <span ref="upsellButtonText">
               {{- 'actions.add' | t }} {{ upsell_product.title }} {{ upsell_variant.price | money }} →
             </span>
+          </button>
+        {%- endif -%}
+
+        {%- if section.settings.show_dismiss_button -%}
+          <button
+            type="button"
+            class="shipping-progress-bar__dismiss"
+            aria-label="{{ 'accessibility.close_dialog' | t }}"
+            on:click="/handleDismissClick"
+          >
+            {{- 'icon-close.svg' | inline_asset_content -}}
           </button>
         {%- endif -%}
       </div>
@@ -136,6 +154,19 @@
       "label": "Remaining amount label",
       "info": "Use {{ amount }} to insert the remaining amount.",
       "default": "+{{ amount }} to go"
+    },
+    {
+      "type": "text",
+      "id": "threshold_marker_text",
+      "label": "Threshold marker (shown inside the track)",
+      "info": "Use {{ amount }} to insert the free shipping threshold amount.",
+      "default": "{{ amount }} FREE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dismiss_button",
+      "label": "Show dismiss (×) button",
+      "default": true
     },
     {
       "type": "text",
