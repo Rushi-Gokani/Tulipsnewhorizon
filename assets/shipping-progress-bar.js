@@ -51,6 +51,11 @@ export class ShippingProgressBarComponent extends Component {
     document.addEventListener(ThemeEvents.cartUpdate, this.#handleCartUpdate, {
       signal: this.#abortController.signal,
     });
+
+    // The server-rendered hidden/achieved state can go stale if this markup is restored
+    // from browser back/forward cache after cart activity elsewhere. Reconcile with the
+    // real cart on every connect rather than trusting the snapshot at render time.
+    this.#fetchCartAndRender();
   }
 
   disconnectedCallback() {
