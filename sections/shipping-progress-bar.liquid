@@ -31,7 +31,7 @@
   {%- assign upsell_variant = upsell_product.selected_or_first_available_variant -%}
 
   <shipping-progress-bar-component
-    class="shipping-progress-bar"
+    class="shipping-progress-bar section"
     {% if achieved %}achieved{% endif %}
     {% if cart.item_count == 0 %}hidden{% endif %}
     data-section-id="{{ section.id }}"
@@ -52,7 +52,7 @@
       --shipping-progress-bar-achieved: {{ section.settings.achieved_color }};
     "
   >
-    <div class="shipping-progress-bar__inner page-width">
+    <div class="shipping-progress-bar__inner">
       <div class="shipping-progress-bar__basket">
         <span class="shipping-progress-bar__basket-total">
           {{- section.settings.basket_label -}}
