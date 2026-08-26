@@ -597,6 +597,29 @@
         "padding-block-end": 0
       }
     },
+    "product_slider_PRBWdR": {
+      "type": "product-slider",
+      "name": "Product slider",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "color_scheme": "",
+        "background_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "slides_per_view_desktop": 3,
+        "slides_per_view_tablet": "2",
+        "slides_per_view_mobile": "1",
+        "enable_autoplay": false,
+        "autoplay_speed": 5,
+        "show_arrows": true,
+        "show_dots": true,
+        "enable_infinite_loop": true,
+        "image_position": "top",
+        "image_aspect_ratio": "square",
+        "button_style": "solid"
+      }
+    },
     "17732936741d9f109d": {
       "type": "_blocks",
       "blocks": {
@@ -1270,6 +1293,7 @@
     "product-breadcrumb",
     "main",
     "custom_liquid_FeYa9g",
+    "product_slider_PRBWdR",
     "17732936741d9f109d",
     "1771338014893c6190",
     "brand_section_KUUPUg",
