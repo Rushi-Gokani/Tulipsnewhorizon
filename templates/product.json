@@ -601,8 +601,8 @@
       "type": "product-slider",
       "name": "Product slider",
       "settings": {
-        "heading": "",
-        "subheading": "",
+        "heading": "Banner  Heading",
+        "subheading": "Banner  Subheading",
         "color_scheme": "",
         "background_color": "",
         "padding_top": 36,
