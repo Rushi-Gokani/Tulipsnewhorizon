@@ -15,6 +15,11 @@
     else
       assign strikethrough_color_mix = '#fff'
     endif
+
+    # selected_variant (unlike selected_or_first_available_variant) is nil unless a
+    # variant is unambiguously identified via ?variant= or an option_values request —
+    # so nothing renders pre-checked unless the customer (or the URL) actually chose it.
+    assign selected_variant = product_resource.selected_variant
   %}
   <variant-picker
     class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}"
@@ -37,6 +42,12 @@
         {%- liquid
           assign swatch_count = product_option.values | map: 'swatch' | compact | size
           assign variant_style = block_settings.variant_style
+
+          assign option_index = product_option.position | minus: 1
+          assign selected_value_for_option = blank
+          if selected_variant
+            assign selected_value_for_option = selected_variant.options[option_index]
+          endif
 
           if swatch_count > 0 and block_settings.show_swatches
             if block_settings.variant_style == 'dropdown'
@@ -64,7 +75,7 @@
             <legend>
               {{ product_option.name | escape -}}
               {%- if variant_style == 'swatch' -%}
-                <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
+                <span class="variant-option__swatch-value">{{ selected_value_for_option }}</span>
               {%- endif %}
             </legend>
             {%- for product_option_value in product_option.values -%}
@@ -92,7 +103,7 @@
                   {% if product_option_value.variant.id %}
                     data-variant-id="{{ product_option_value.variant.id }}"
                   {% endif %}
-                  {% if product_option_value.selected %}
+                  {% if selected_value_for_option == product_option_value %}
                     data-current-checked="true"
                     checked
                   {% else %}
@@ -170,6 +181,15 @@
                 name="options[{{ product_option.name | escape }}]"
                 class="variant-option__select"
               >
+                {%- if selected_value_for_option == blank -%}
+                  <option
+                    value=""
+                    disabled
+                    selected
+                  >
+                    {{- 'product.choose_options' | t -}}
+                  </option>
+                {%- endif -%}
                 {%- for product_option_value in product_option.values -%}
                   <option
                     value="{{ product_option_value | escape }}"
@@ -177,7 +197,7 @@
                     data-option-value-id="{{ product_option_value.id }}"
                     data-variant-id="{{ product_option_value.variant.id }}"
                     data-connected-product-url="{{ product_option_value.product_url }}"
-                    {% if product_option_value.selected %}
+                    {% if selected_value_for_option == product_option_value %}
                       selected="selected"
                     {% endif %}
                   >

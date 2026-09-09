@@ -368,13 +368,6 @@ class ProductFormComponent extends Component {
         variantId: this.refs.variantId?.value,
         productId: this.dataset.productId
       });
-
-      // TEMPORARY: Force-enable button for testing on mobile
-      // This helps us determine if the issue is just variant selection or something else
-      if (addToCartButton?.disabled && this.refs.variantId?.value) {
-        console.warn('[ProductForm] Button is disabled but variant ID exists, force-enabling for testing');
-        this.refs.addToCartButtonContainer?.enable();
-      }
     }, 100);
   }
 
