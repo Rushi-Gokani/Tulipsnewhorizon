@@ -27,6 +27,8 @@ export class ShippingProgressBarComponent extends Component {
   #wasAchieved = false;
   /** @type {number | undefined} */
   #toastTimeout;
+  /** @type {ResizeObserver | null} */
+  #headerResizeObserver = null;
 
   connectedCallback() {
     super.connectedCallback();
@@ -46,15 +48,21 @@ export class ShippingProgressBarComponent extends Component {
     // real cart on every connect rather than trusting the snapshot at render time.
     this.#fetchCartAndRender();
 
-    // theme.liquid's own --header-height is measured once, synchronously, before web
-    // fonts (Manrope/Petrona) finish loading — font swap can change the header's real
-    // rendered height afterward, leaving that value stale and this bar's sticky offset
-    // (position: sticky; top: var(--header-height)) wrong. Re-measure ourselves into a
-    // separate variable this CSS prefers, recomputed after fonts settle and on resize,
-    // rather than depending on/editing that shared, theme-wide script.
-    this.#syncHeaderOffset();
-    document.fonts?.ready?.then(this.#syncHeaderOffset);
-    window.addEventListener('resize', this.#syncHeaderOffset, { signal: this.#abortController.signal });
+    // theme.liquid's own --header-height is measured once, synchronously, from
+    // header-component's own offsetHeight — a one-shot value that goes stale for any
+    // reason the header's rendered height changes afterward (web font swap, the
+    // responsive overflow-list nav JS collapsing items, etc.), leaving a persistent gap
+    // between the sticky header and this bar. Also, .header-section (the element the
+    // theme actually applies position: sticky to — see sections/header.liquid) can carry
+    // its own padding/border beyond header-component's inner height, which that one-shot
+    // number never accounted for. A ResizeObserver on .header-section itself — the real
+    // stuck box — stays correct continuously, regardless of what causes it to change,
+    // without depending on/editing that shared, theme-wide script.
+    const headerSection = document.querySelector('.header-section');
+    if (headerSection) {
+      this.#headerResizeObserver = new ResizeObserver(this.#syncHeaderOffset);
+      this.#headerResizeObserver.observe(headerSection);
+    }
   }
 
   disconnectedCallback() {
@@ -65,12 +73,14 @@ export class ShippingProgressBarComponent extends Component {
     this.#upsellAbortController?.abort();
     this.#debouncedFetchCart.cancel();
     clearTimeout(this.#toastTimeout);
+    this.#headerResizeObserver?.disconnect();
   }
 
-  #syncHeaderOffset = () => {
-    const header = document.querySelector('header-component');
-    if (!header) return;
-    document.body.style.setProperty('--shipping-progress-bar-header-offset', `${header.offsetHeight}px`);
+  /** @param {ResizeObserverEntry[]} entries */
+  #syncHeaderOffset = (entries) => {
+    const height = entries?.[0]?.borderBoxSize?.[0]?.blockSize ?? entries?.[0]?.target?.getBoundingClientRect().height;
+    if (!height) return;
+    document.body.style.setProperty('--shipping-progress-bar-header-offset', `${height}px`);
   };
 
   /** @param {CustomEvent} event */
