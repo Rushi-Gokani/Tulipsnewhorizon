@@ -1,7 +1,18 @@
-.shipping-progress-bar {
+/* Shopify wraps this section in its own auto-generated
+   #shopify-section-shipping-progress-bar div, which (with nothing else inside it)
+   is always exactly the same height as .shipping-progress-bar itself. A sticky
+   element can't detach from a parent that's already its own size, so sticky on
+   the inner div alone was a silent no-op — the bar just scrolled away normally.
+   Sticky has to go on the outer section wrapper instead, same pattern already
+   used for the header itself (.header-section:has(> #header-component[...]) in
+   sections/header.liquid). */
+.shopify-section:has(> .shipping-progress-bar) {
   position: sticky;
   top: var(--header-height, 0px);
   z-index: var(--layer-sticky, 8);
+}
+
+.shipping-progress-bar {
   background-color: var(--shipping-progress-bar-bg, #fff);
   color: var(--shipping-progress-bar-text, #1a1a1a);
   border-bottom: 1px solid rgb(0 0 0 / 0.08);
