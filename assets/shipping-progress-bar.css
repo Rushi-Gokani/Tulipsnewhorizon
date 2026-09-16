@@ -5,10 +5,19 @@
    the inner div alone was a silent no-op — the bar just scrolled away normally.
    Sticky has to go on the outer section wrapper instead, same pattern already
    used for the header itself (.header-section:has(> #header-component[...]) in
-   sections/header.liquid). */
-.shopify-section:has(> .shipping-progress-bar) {
+   sections/header.liquid).
+
+   base.css has a same-shaped native rule for this exact wrapper —
+   `.shopify-section:not(.header-section):has(.section) { position: relative; }`
+   (base.css ~line 540) — which matches here too, since .shipping-progress-bar
+   also carries the generic .section class. That rule is (0,3,0) specificity;
+   plain `.shopify-section:has(> .shipping-progress-bar)` is only (0,2,0), so it
+   can lose that conflict depending on cascade/bundling order. Replicating both
+   of the native rule's qualifiers plus our own pushes this to (0,4,0), an
+   unambiguous win regardless of source order. */
+.shopify-section:not(.header-section):has(.section):has(> .shipping-progress-bar) {
   position: sticky;
-  top: var(--header-height, 0px);
+  top: var(--shipping-progress-bar-header-offset, var(--header-height, 0px));
   z-index: var(--layer-sticky, 8);
 }
 

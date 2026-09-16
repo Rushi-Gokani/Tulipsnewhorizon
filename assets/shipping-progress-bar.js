@@ -45,6 +45,16 @@ export class ShippingProgressBarComponent extends Component {
     // from browser back/forward cache after cart activity elsewhere. Reconcile with the
     // real cart on every connect rather than trusting the snapshot at render time.
     this.#fetchCartAndRender();
+
+    // theme.liquid's own --header-height is measured once, synchronously, before web
+    // fonts (Manrope/Petrona) finish loading — font swap can change the header's real
+    // rendered height afterward, leaving that value stale and this bar's sticky offset
+    // (position: sticky; top: var(--header-height)) wrong. Re-measure ourselves into a
+    // separate variable this CSS prefers, recomputed after fonts settle and on resize,
+    // rather than depending on/editing that shared, theme-wide script.
+    this.#syncHeaderOffset();
+    document.fonts?.ready?.then(this.#syncHeaderOffset);
+    window.addEventListener('resize', this.#syncHeaderOffset, { signal: this.#abortController.signal });
   }
 
   disconnectedCallback() {
@@ -56,6 +66,12 @@ export class ShippingProgressBarComponent extends Component {
     this.#debouncedFetchCart.cancel();
     clearTimeout(this.#toastTimeout);
   }
+
+  #syncHeaderOffset = () => {
+    const header = document.querySelector('header-component');
+    if (!header) return;
+    document.body.style.setProperty('--shipping-progress-bar-header-offset', `${header.offsetHeight}px`);
+  };
 
   /** @param {CustomEvent} event */
   #handleCartUpdate = (event) => {
