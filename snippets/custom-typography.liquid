@@ -1,14 +1,20 @@
 {%- doc -%}
-  Client typography overhaul: Manrope (body/subheading/accent) + Recoleta (heading).
+  Client typography overhaul: Manrope (body/subheading/accent) + Petrona (heading).
 
   Renders AFTER 'theme-styles-variables' in layout/theme.liquid so these :root
   declarations win the cascade over the font-picker-driven tokens defined there.
 
-  Font weights supplied by client: Manrope Regular (400), Medium (500), Semi-Bold (600),
-  Recoleta Regular (400). No bold cut exists for either family yet, so heading/accent
-  weights below are intentionally capped to the heaviest weight actually declared as a
-  real @font-face — this avoids the browser silently faux-bolding a font that has no
-  true bold face. See PENDING notes below for what's still needed from the client.
+  Heading font was originally spec'd as Recoleta, but that's a commercial font
+  (Latinotype) the client never supplied a licensed webfont file for (files sent
+  earlier turned out to be pirated/demo copies). Client redirected to Petrona
+  (Google Fonts, SIL Open Font License — free for commercial/web use) as the
+  replacement heading font instead. Self-hosted here (not loaded from Google's CDN)
+  for consistency with how Manrope is served and to avoid an extra external request.
+
+  Font weights: Manrope Regular (400)/Medium (500)/Semi-Bold (600) supplied by
+  client for body/subheading/accent. Petrona Regular (400) and Bold (700) both
+  downloaded directly from Google Fonts for heading — a REAL bold face, so
+  headings are not faux-bolded.
 {%- enddoc -%}
 
 {% style %}
@@ -36,37 +42,36 @@
     font-display: swap;
   }
 
-  /*
-    PENDING: Recoleta is a commercial font (Latinotype) — it cannot be sourced from a
-    public CDN. Once the client supplies a licensed Recoleta-Regular.woff2 file:
-      1. Add it to /assets
-      2. Add this block back (with a real Liquid asset_url tag, removed from here on
-         purpose so theme-check doesn't flag a MissingAsset error while the file
-         doesn't exist yet):
-           @font-face {
-             font-family: 'Recoleta';
-             src: url(<asset_url of Recoleta-Regular.woff2>) format('woff2');
-             font-weight: 400;
-             font-style: normal;
-             font-display: swap;
-           }
-    Until then, headings fall back to Georgia below.
-  */
+  @font-face {
+    font-family: 'Petrona';
+    src: url('{{ 'Petrona-Regular.woff2' | asset_url }}') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Petrona';
+    src: url('{{ 'Petrona-Bold.woff2' | asset_url }}') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
 
   :root {
     --font-body--family: 'Manrope', Arial, sans-serif;
     --font-subheading--family: 'Manrope', Arial, sans-serif;
     --font-accent--family: 'Manrope', Arial, sans-serif;
-    --font-heading--family: 'Recoleta', Georgia, serif;
+    --font-heading--family: 'Petrona', Georgia, serif;
 
     /* Accent role (badges, buttons using the accent role) was Inter Bold (700);
        Manrope's heaviest supplied weight is Semi-Bold (600) — capped to avoid faux-bold. */
     --font-accent--weight: 600;
 
-    /* Heading role (h1-h4) was Inter Bold (700); only Recoleta Regular (400) was
-       supplied — capped to avoid faux-bold. True bold headings need a Recoleta
-       Bold/SemiBold file from the client; see typography report. */
-    --font-heading--weight: 400;
+    /* Heading role (h1-h4) was Inter Bold (700). Petrona has a real Bold (700) face
+       (unlike Recoleta, for which the client only ever supplied Regular), so headings
+       use true bold here rather than being capped/faux-bolded. */
+    --font-heading--weight: 700;
   }
 
   /*
