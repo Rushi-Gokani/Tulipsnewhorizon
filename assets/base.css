@@ -5117,5 +5117,5 @@ button.swiper-button.image-slider__swiper-button{
 
 /* Collection page title weight */
 body.collection-page h1 {
-  font-weight: 500;
+  font-weight: 500 !important;
 }
