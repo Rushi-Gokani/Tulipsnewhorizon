@@ -14,7 +14,17 @@
   # variant. That's exactly the "has the customer actually chosen?" signal we need to
   # gate purchasability on. Single-variant products have nothing to choose, so they
   # keep the old fallback-based behavior untouched.
-  if closest.product.has_only_default_variant
+  # Use the real variant count rather than has_only_default_variant, which is
+  # false whenever the single variant's option value isn't the literal string
+  # "Default Title" (e.g. it was renamed to a pack/product description) even
+  # though the product still has just one purchasable variant — that false
+  # reading left the hidden variant id unset, disabling Add to Cart entirely.
+  assign has_only_default_variant = false
+  if closest.product.variants.size == 1
+    assign has_only_default_variant = true
+  endif
+
+  if has_only_default_variant
     assign purchase_variant = variant
   else
     assign purchase_variant = closest.product.selected_variant
@@ -329,7 +339,7 @@
           <div class="pickup-availability__dialog-row pickup-availability__header-container">
             <div class="pickup-availability__column">
               <h4 class="pickup-location__h4">{{ closest.product.title }}</h4>
-              {% unless closest.product.has_only_default_variant %}
+              {% unless closest.product.variants.size == 1 %}
                 <p class="pickup-location__text-sm">
                   {{ closest.product.selected_or_first_available_variant.title }}
                 </p>
